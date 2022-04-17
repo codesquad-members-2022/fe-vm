@@ -1,10 +1,12 @@
 ---
 name: Feature Request
 about: Suggest new Feature Request for this project
-title: "[{TYPE}] {ISSUE_TITLE}"
+title: '[TYPE] {ISSUE_TITLE}'
 ---
 
 ## 🤷‍♂️ Description
+
+<!-- 제목의 TYPE은 feat, docs, fix등의 타입을 적습니다. 추후 팀원과 수정할 수 있습니다. -->
 
 <!-- 구현하고자 하는 기능에 대해 작성해 주세요. -->
 
