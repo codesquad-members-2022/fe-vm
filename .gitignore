@@ -2,6 +2,8 @@ node_modules
 
 dist
 
+.env
+
 # Created by https://www.toptal.com/developers/gitignore/api/macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos
 
