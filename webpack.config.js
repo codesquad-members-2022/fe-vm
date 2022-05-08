@@ -42,8 +42,8 @@ module.exports = {
     publicPath: './',
   },
   devServer: {
-    devMiddleware: { publicPath: '/' },
-    static: { directory: path.resolve(__dirname, 'public') },
+    devMiddleware: { publicPath: '/' }, // devMiddleware의 publicPath는  빌드된 파일 넣는곳
+    static: { directory: path.resolve(__dirname, 'public') }, // static은 빌드되기 전 파일이 있는 곳
     hot: true,
   },
 };
