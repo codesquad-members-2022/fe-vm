@@ -1,52 +1,49 @@
-const path = require("path");
-
-const RefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  name: "Dott-react-boilerplate",
-
-  mode: "development",
-
-  devtool: "eval",
-
+  name: 'Dott-react-boilerplate',
+  mode: 'development',
+  devtool: 'eval',
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: ['.js', '.jsx'],
   },
-
   entry: {
-    app: ["./src/index"],
+    app: ['./src/index'],
   },
-
   module: {
     rules: [
       {
         test: /\.jsx?/,
-        loader: "babel-loader",
+        loader: 'babel-loader',
         options: {
           presets: [
             [
-              "@babel/preset-env",
-              { targets: { browsers: ["> 1% in KR"] }, debug: true },
+              '@babel/preset-env',
+              { targets: { browsers: ['> 1% in KR'] }, debug: true },
             ],
-            "@babel/preset-react",
+            '@babel/preset-react',
           ],
-          plugins: ["react-refresh/babel"],
+          plugins: ['react-refresh/babel'],
         },
       },
     ],
   },
-
-  plugins: [new RefreshWebpackPlugin(), new HtmlWebpackPlugin()],
-
+  plugins: [
+    new RefreshWebpackPlugin(),
+    // new HtmlWebpackPlugin({
+    //   template: path.join(__dirname + "/src", "index.html"),
+    // }),
+  ],
   output: {
-    path: path.join(__dirname, "public"),
-    filename: "app.js",
-    publicPath: "/public",
+    path: path.join(__dirname, 'public'),
+    filename: 'app.js',
+    publicPath: './',
   },
   devServer: {
-    devMiddleware: { publicPath: "/public" },
-    static: { directory: path.resolve(__dirname) },
+    devMiddleware: { publicPath: '/' },
+    static: { directory: path.resolve(__dirname, 'public') },
     hot: true,
   },
 };
