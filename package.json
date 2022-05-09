@@ -41,6 +41,10 @@
             [
               "common",
               "./src/common/"
+            ],
+            [
+              "constants",
+              "./src/constants/"
             ]
           ],
           "extensions": [
