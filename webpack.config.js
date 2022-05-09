@@ -1,6 +1,6 @@
 const path = require('path');
 const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   name: 'Dott-react-boilerplate',
@@ -33,6 +33,7 @@ module.exports = {
   },
   plugins: [
     new RefreshWebpackPlugin(),
+
     // new HtmlWebpackPlugin({
     //   template: path.join(__dirname + "/src", "index.html"),
     // }),

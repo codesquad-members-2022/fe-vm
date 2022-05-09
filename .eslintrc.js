@@ -14,10 +14,11 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
+    'plugin:react/jsx-runtime',
     // 'prettier/react',
   ],
   rules: {
-    'react/jsx-filename-extension': [1, { extensions: ['js', 'jsx'] }],
+    'react/jsx-filename-extension': [1, {extensions: ['js', 'jsx']}],
     // 확장자로 js와 jsx 둘다 허용하도록 수정
     'arrow-parens': ['warn', 'as-needed'],
     // 화살표 함수의 파라미터가 하나일때 괄호 생략
@@ -35,6 +36,7 @@ module.exports = {
     // props의 타입체크를 처리하려면 prop-types보단 차라리 typescript를 사용하는게 낫다.
     'no-underscore-dangle': ['off'],
     // camelCase를 따르는게 좋긴 하지만 `_`를 어쩔수 없이 써야하는 상황을 위해(가령 백엔드가 mongoDB)
+    'react/react-in-jsx-scope': ['off'],
   },
 };
 // {
