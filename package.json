@@ -17,15 +17,17 @@
     "@babel/preset-react": "^7.16.7",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
     "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
     "eslint": "^8.15.0",
-    "eslint-plugin-react": "^7.29.4",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.6.2",
+    "eslint-plugin-react": "^7.29.4",
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^5.5.0",
     "msw": "^0.39.2",
+    "prettier": "^2.6.2",
+    "style-loader": "^3.3.1",
     "webpack": "^5.72.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0"
@@ -37,6 +39,7 @@
     "@babel/runtime": "^7.17.9",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-refresh": "^0.13.0"
+    "react-refresh": "^0.13.0",
+    "styled-components": "^5.3.5"
   }
 }

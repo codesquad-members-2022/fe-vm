@@ -21,13 +21,14 @@ module.exports = {
           presets: [
             [
               '@babel/preset-env',
-              { targets: { browsers: ['> 1% in KR'] }, debug: true },
+              {targets: {browsers: ['> 1% in KR']}, debug: true},
             ],
             '@babel/preset-react',
           ],
           plugins: ['react-refresh/babel'],
         },
       },
+      {test: /\.css$/, use: ['style-loader', 'css-loader']},
     ],
   },
   plugins: [
@@ -42,8 +43,8 @@ module.exports = {
     publicPath: './',
   },
   devServer: {
-    devMiddleware: { publicPath: '/' }, // devMiddleware의 publicPath는  빌드된 파일 넣는곳
-    static: { directory: path.resolve(__dirname, 'public') }, // static은 빌드되기 전 파일이 있는 곳
+    devMiddleware: {publicPath: '/'}, // devMiddleware의 publicPath는  빌드된 파일 넣는곳
+    static: {directory: path.resolve(__dirname, 'public')}, // static은 빌드되기 전 파일이 있는 곳
     hot: true,
   },
 };
