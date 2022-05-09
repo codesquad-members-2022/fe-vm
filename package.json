@@ -26,10 +26,20 @@
     ],
     "settings": {
       "import/resolver": {
-        "node": {
-          "moduleDirectory": [
-            "node_modules",
-            "src/"
+        "alias": {
+          "map": [
+            [
+              "pages",
+              "./src/pages/"
+            ],
+            [
+              "components",
+              "./src/components/"
+            ]
+          ],
+          "extensions": [
+            ".js",
+            ".jsx"
           ]
         }
       }
@@ -51,8 +61,7 @@
           "newlines-between": "always"
         }
       ],
-      "comma-dangle": "off",
-      "import/no-unresolved": "off"
+      "comma-dangle": "off"
     }
   },
   "browserslist": {
@@ -69,6 +78,7 @@
   },
   "devDependencies": {
     "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.26.0"
   }
 }
