@@ -69,6 +69,11 @@ const Button = styled.button`
     background-color: ${COLORS.BLUE};
   }
 `;
-const Content = styled.div``;
+
+const Content = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+`;
 
 export default Layout;
