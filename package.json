@@ -28,7 +28,10 @@
     "rules": {
       "quotes": 0,
       "comma-dangle": 0,
+      "linebreak-style": 0,
       "arrow-body-style": 0,
+      "react/react-in-jsx-scope": 0,
+      "react/jsx-boolean-value": 0,
       "react/function-component-definition": [
         1,
         {
