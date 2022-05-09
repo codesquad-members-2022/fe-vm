@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import {VendingMachine} from './Component/Vending_machine';
 import {Wallet} from './Component/Wallet';
+import {UiChangeBtn} from './Component/Toggle';
 
 const AppWrapper = styled.div`
   display: flex;
-  justify-contents: center;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
 `;
@@ -13,6 +14,7 @@ const AppWrapper = styled.div`
 const App = () => {
   return (
     <AppWrapper>
+      <UiChangeBtn />
       <VendingMachine />
       {/* <Wallet /> */}
     </AppWrapper>
