@@ -27,10 +27,20 @@ const color = {
   orange: '#FF8E14',
 };
 
+const margin = {
+  medium: '1.6rem',
+};
+
+const padding = {
+  medium: '1.6rem',
+};
+
 const theme = {
   fontSize,
   fontWeight,
   color,
+  margin,
+  padding,
 };
 
 export default theme;

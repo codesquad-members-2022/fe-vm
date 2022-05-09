@@ -10,6 +10,15 @@ const GlobalStyles = createGlobalStyle`
     font-family: Noto Sans KR;
     color: #1B1B1B;
   }
+
+  li {
+    list-style-type: none;
+  }
+
+  a {
+    color: #1B1B1B;
+    text-decoration: none;
+  }
 `;
 
 export default GlobalStyles;
