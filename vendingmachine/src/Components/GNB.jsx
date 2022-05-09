@@ -33,7 +33,8 @@ const GNBList = styled.ul`
   font-size: ${({ theme }) => theme.fontSize.large};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   .active {
-    border-bottom: 0.3rem solid ${({ theme }) => theme.color.black};
+    border-bottom: ${({ theme }) => theme.borderSize.medium} solid
+      ${({ theme }) => theme.color.black};
   }
 `;
 

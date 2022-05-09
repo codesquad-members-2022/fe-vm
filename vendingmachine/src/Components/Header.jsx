@@ -5,13 +5,13 @@ import GNB from './GNB';
 
 const Header = () => {
   return (
-    <HeaderContainer as="header">
+    <Container as="header">
       <GNB />
-    </HeaderContainer>
+    </Container>
   );
 };
 
-const HeaderContainer = styled(flexCenter)`
+const Container = styled(flexCenter)`
   margin-top: ${({ theme }) => theme.margin.medium};
 `;
 

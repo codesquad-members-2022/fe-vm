@@ -1,11 +1,8 @@
 const fontSize = {
-  display: '4rem',
-  xLarge: '2.4rem',
+  display: '2.6rem',
   large: '2rem',
-  xMedium: '1.8rem',
   medium: '1.6rem',
   small: '1.4rem',
-  xSmall: '1.2rem',
 };
 
 const fontWeight = {
@@ -27,11 +24,24 @@ const color = {
   orange: '#FF8E14',
 };
 
+const borderSize = {
+  medium: '0.2rem',
+};
+
+const lineHeight = {
+  large: '6rem',
+  medium: '2.6rem',
+  small: '1.6rem',
+};
+
 const margin = {
+  xLarge: '6rem',
+  large: '2.4rem',
   medium: '1.6rem',
 };
 
 const padding = {
+  large: '2.4rem',
   medium: '1.6rem',
 };
 
@@ -39,6 +49,8 @@ const theme = {
   fontSize,
   fontWeight,
   color,
+  borderSize,
+  lineHeight,
   margin,
   padding,
 };
