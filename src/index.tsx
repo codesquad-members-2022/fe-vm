@@ -1,16 +1,16 @@
-import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Home from "./Home";
-import MyPage from "./MyPage";
+import Home from './Home';
+import MyPage from './MyPage';
 
-if (process.env.NODE_ENV === "development") {
-  const { worker } = require("./mocks/worker");
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/worker');
   worker.start();
 }
 
-const rootElement = document.getElementById("root");
-const root = ReactDOM.createRoot(rootElement!);
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement!);
 
 root.render(
   <BrowserRouter>
@@ -18,5 +18,5 @@ root.render(
       <Route path="/" element={<Home />} />
       <Route path="mypage" element={<MyPage />} />
     </Routes>
-  </BrowserRouter>
+  </BrowserRouter>,
 );

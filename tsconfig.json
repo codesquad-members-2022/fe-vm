@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["react/next", "react-dom/next"],
+    "types": ["jest", "node"], // jest를 사용하기 위해서 넣어줘야하는 속성들
     "outDir": "./dist",
     "target": "es5",
     "module": "esnext",

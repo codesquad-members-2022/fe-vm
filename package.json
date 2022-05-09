@@ -1,5 +1,5 @@
 {
-  "name": "react-typescript-boilerplate",
+  "name": "fe-vm",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -9,6 +9,9 @@
     "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@types/jest": "^27.5.0",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
     "@types/webpack": "^5.28.0",
@@ -23,9 +26,12 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "mini-css-extract-plugin": "^2.6.0",
     "msw": "^0.39.2",
     "prettier": "^2.6.2",
+    "ts-jest": "^28.0.2",
     "ts-loader": "^9.3.0",
     "typescript": "^4.6.4",
     "webpack": "^5.72.0",
@@ -35,7 +41,8 @@
   },
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --progress",
-    "build": "NODE_ENV=production webpack --progress"
+    "build": "NODE_ENV=production webpack --progress",
+    "test": "jest --watchAll"
   },
   "msw": {
     "workerDirectory": "public"

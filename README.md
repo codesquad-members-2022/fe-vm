@@ -2,9 +2,9 @@
 
 - [ ] 간단한 디자인 시안
 
-- [ ] 프로젝트 셋팅
+- [x] 프로젝트 셋팅
 
-- [ ] home / mypage Router 분리
+- [x] home / mypage Router 분리
 
 - [ ] 상태 설계
 
