@@ -1,8 +1,8 @@
-import { AlertMessage, SetAlertMessage } from 'App';
-import { INIT_ALERT_MESSAGE } from 'Helper/constant';
-import { getWonTemplate } from 'Helper/utils';
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { Message, Screen, ScreenContainer } from './MessageScreen.styled';
+import { AlertMessage, SetAlertMessage } from "App";
+import { INIT_ALERT_MESSAGE } from "Helper/constant";
+import { getWonTemplate } from "Helper/utils";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { Message, Screen, ScreenContainer } from "./MessageScreen.styled";
 
 export default function MessageScreen() {
   const alertMessage = useContext(AlertMessage);
@@ -14,11 +14,11 @@ export default function MessageScreen() {
       const newMessageList = [...messageList, message];
       return newMessageList;
     },
-    [messageList],
+    [messageList]
   );
 
   useEffect(() => {
-    const message = Object.entries(alertMessage).reduce(getAlertMessage, '');
+    const message = Object.entries(alertMessage).reduce(getAlertMessage, "");
     if (!message) {
       return;
     }
@@ -26,13 +26,15 @@ export default function MessageScreen() {
     const newMessageList = createNewMessageList(message);
     setMessageList(newMessageList);
     setAlertMessage(INIT_ALERT_MESSAGE);
-  }, [alertMessage, setAlertMessage, createNewMessageList]);
+  }, [alertMessage, createNewMessageList]);
 
   return (
     <ScreenContainer>
       <Screen>
         {messageList &&
-          messageList.map((message, idx) => <Message key={createArrayKeyForNoHasID(message, idx)}>{message}</Message>)}
+          messageList.map((message, idx) => (
+            <Message key={createArrayKeyForNoHasID(message, idx)}>{message}</Message>
+          ))}
       </Screen>
     </ScreenContainer>
   );
