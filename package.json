@@ -1,0 +1,63 @@
+{
+  "name": "fe-vm",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "airbnb",
+      "prettier"
+    ],
+    "rules": {
+      "quotes": 0,
+      "react/function-component-definition": [
+        1,
+        {
+          "namedComponents": "arrow-function"
+        }
+      ],
+      "arrow-body-style": 0,
+      "react/react-in-jsx-scope": 0,
+      "comma-dangle": 0,
+      "linebreak-style": 0,
+      "operator-linebreak": 0,
+      "implicit-arrow-linebreak": 0,
+      "import/no-unresolved": "off",
+      "object-curly-newline": 0,
+      "react/jsx-boolean-value": 0
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "^2.6.2"
+  }
+}
