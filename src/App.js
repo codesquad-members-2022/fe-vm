@@ -4,6 +4,7 @@ import GlobalStyle from 'theme/GlobalStyles';
 import theme from 'theme/theme';
 import VendingMachine from 'Pages/VendingMachine';
 import Wallet from 'Pages/Wallet';
+import NotFound from 'Pages/NotFound';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<VendingMachine />} />
           <Route path="wallet" element={<Wallet />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
