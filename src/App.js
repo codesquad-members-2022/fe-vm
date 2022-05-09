@@ -1,4 +1,5 @@
 import React from 'react';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import styled from 'styled-components';
 import {VendingMachine} from './Component/Vending_machine';
 import {Wallet} from './Component/Wallet';
@@ -13,11 +14,15 @@ const AppWrapper = styled.div`
 
 const App = () => {
   return (
-    <AppWrapper>
-      <UiChangeBtn />
-      <VendingMachine />
-      {/* <Wallet /> */}
-    </AppWrapper>
+    <BrowserRouter>
+      <AppWrapper>
+        <UiChangeBtn />
+        <Routes>
+          <Route path="/" element={<VendingMachine />} />
+          <Route path="/wallet" element={<Wallet />} />
+        </Routes>
+      </AppWrapper>
+    </BrowserRouter>
   );
 };
 
