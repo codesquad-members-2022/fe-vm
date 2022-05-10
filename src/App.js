@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import VendingMachine from "./components/Machine";
+import Wallet from "./components/Wallet";
+import { HeaderBtns, HeaderWrap } from "./components/Header";
+import GlobalStyles from "./globalStyles";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <GlobalStyles />
+      <nav>
+        <HeaderWrap>
+          <Link to="/vm" style={{ textDecoration: "none" }}>
+            <HeaderBtns info={"자판기"} />
+          </Link>
+
+          <Link to="/wallet" style={{ textDecoration: "none" }}>
+            <HeaderBtns info={"지갑"} />
+          </Link>
+        </HeaderWrap>
+      </nav>
+
+      <Routes>
+        <Route path="/vm" element={<VendingMachine />} />
+        <Route path="/wallet" element={<Wallet />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
