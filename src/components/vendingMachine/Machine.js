@@ -9,7 +9,6 @@ const MachineWrap = styled.div`
   height: 80vh;
   margin: auto;
   border-radius: 10px;
-  border: 1px solid black;
   background-color: #d3d3d3;
   margin-top: 5%;
 `;
