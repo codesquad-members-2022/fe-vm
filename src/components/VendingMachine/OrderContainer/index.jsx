@@ -1,13 +1,20 @@
 import styled from 'styled-components';
 import UserOrder from './Order';
+import { useNavigate } from 'react-router-dom';
 
 export default function OrderContainer() {
+  let navigate = useNavigate();
+
+  const moveWalletPage = () => {
+    navigate('/wallet');
+  };
+
   return (
     <OrderWrapper>
       <UserOrder />
       <div>
         <InputCost type="text" placeholder="0 원" disabled />
-        <InputCostBtn>투입</InputCostBtn>
+        <InputCostBtn onClick={moveWalletPage}>투입</InputCostBtn>
       </div>
       <ReturnCost>반환</ReturnCost>
     </OrderWrapper>
