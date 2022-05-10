@@ -51,6 +51,17 @@ const Reset = createGlobalStyle`
 
   /* custom-reset */
 
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
   button{
     border: 0;
     padding: 0;

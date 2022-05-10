@@ -16,7 +16,8 @@ const DispenseArea = () => {
           size: { width: "100%", height: "3rem" },
           fontSize: "1.3rem",
           margin: "1rem 0",
-          bgColor: "#ccc",
+          color: "#fff",
+          bgColor: "#006ba8",
         }}
       />
       <ProgressArea />

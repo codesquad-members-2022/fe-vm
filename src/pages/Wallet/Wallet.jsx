@@ -1,7 +1,6 @@
+import MoneyItem from "components/Wallet/MoneyItem/MoneyItem";
 import cash from "mockData/money";
 import styled from "styled-components";
-
-import MoneyItem from "./MoneyItem/MoneyItem";
 
 const Wallet = () => {
   const currentMoney = Object.entries(cash);

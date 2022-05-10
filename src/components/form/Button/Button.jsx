@@ -20,6 +20,8 @@ const StyledButton = styled.button`
       background-color: ${bgColor || "#fff"};
     `;
   }}
+  letter-spacing: -0.7px;
+  word-break: keep-all;
   border-color: #000;
 `;
 

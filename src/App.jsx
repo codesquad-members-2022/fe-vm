@@ -3,10 +3,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Normalize from "styles/Normalize";
 import Reset from "styles/Reset";
 
-import Layout from "./Layout/Layout";
-import NotFound from "./views/NotFound/NotFound";
-import VendingMachine from "./views/VendingMachine/VendingMachine";
-import Wallet from "./views/Wallet/Wallet";
+import Layout from "./pages/Layout/Layout";
+import NotFound from "./pages/NotFound/NotFound";
+import VendingMachine from "./pages/VendingMachine/VendingMachine";
+import Wallet from "./pages/Wallet/Wallet";
 
 const App = () => {
   return (

@@ -12,7 +12,7 @@ const products = {
     { id: 9, name: "초코 우유", price: 1000 },
     { id: 10, name: "초코에몽", price: 2000 },
     { id: 11, name: "요구르트", price: 500 },
-    { id: 12, name: "딸기바나나 주스", price: 1000 },
+    { id: 12, name: "딸기바나나", price: 1000 },
     { id: 13, name: "바나나 우유", price: 500 },
     { id: 14, name: "커피 우유", price: 1000 },
     { id: 15, name: "알로에", price: 1200 },
