@@ -1,23 +1,29 @@
+import { useState, useEffect } from 'react';
+import setLocalString from 'utils/setLocalString';
 import styled from 'styled-components';
 import UserOrder from './Order';
-import { useNavigate } from 'react-router-dom';
 
 export default function OrderContainer() {
-  let navigate = useNavigate();
+  const [value, setValue] = useState('');
 
-  const moveWalletPage = () => {
-    navigate('/wallet');
+  const handleChange = e => {
+    if (e.target.value.length > 6) return;
+    setValue(setLocalString(e.target.value.replace(/[^0-9]/g, '')));
   };
+
+  useEffect(() => {
+    setValue(setLocalString(value.replace(/[^0-9]/g, '')));
+  }, [value]);
 
   return (
     <Container>
       <UserOrder />
       <CostWrapper>
         <InputWrapper>
-          <InputCost type="text" placeholder="0" />
+          <InputCost type="text" placeholder="0" value={value} onChange={handleChange} />
           <span>원</span>
         </InputWrapper>
-        <InputCostBtn onClick={moveWalletPage}>투입</InputCostBtn>
+        <InputCostBtn>투입</InputCostBtn>
       </CostWrapper>
       <ReturnCost>반환</ReturnCost>
       <PickupBox>PUSH</PickupBox>

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import setLocalString from 'utils/setLocalString';
 
 export default function Product({ info }) {
   return (
@@ -6,7 +7,7 @@ export default function Product({ info }) {
       <ProductButton stock={info.stock}>{info.name}</ProductButton>
       <PriceWrapper>
         <PriceState stock={info.stock} />
-        <Price stock={info.stock}>{info.stock ? info.price + '원' : '품절'}</Price>
+        <Price stock={info.stock}>{info.stock ? setLocalString(info.price) + '원' : '품절'}</Price>
       </PriceWrapper>
     </ProductWrapper>
   );
@@ -39,7 +40,7 @@ const ProductButton = styled.button`
 `;
 
 const PriceWrapper = styled.div`
-  width: 65%;
+  width: 70%;
   padding: 4px 8px;
   border: 1px solid ${({ theme }) => theme.colors.gray4};
   border-radius: 999px;
@@ -50,7 +51,7 @@ const PriceWrapper = styled.div`
 const PriceState = styled.span`
   display: inline-block;
   padding: 4px;
-  margin-right: 4px;
+  margin-right: 6px;
   border-radius: 50%;
 
   ${props =>
