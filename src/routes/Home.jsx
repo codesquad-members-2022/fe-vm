@@ -5,9 +5,16 @@ import wallet from "../data/wallet";
 function Home() {
     const { pathname } = useLocation();
     const [record, setRecord] = useState([]);
+    const [moneyInVendingMachine, setMoneyInVendingMachine] = useState({});
 
     const addRecord = (newRecord) => {
         setRecord([...record, newRecord]);
+    };
+    const putMoneyIntoVendingMachine = (money) => {
+        moneyInVendingMachine[money] = moneyInVendingMachine[money]
+            ? moneyInVendingMachine[money] + 1
+            : 1;
+        setMoneyInVendingMachine(moneyInVendingMachine);
     };
 
     return (
@@ -17,7 +24,14 @@ function Home() {
                 <Link to="/wallet">지갑</Link>
             </nav>
             {pathname === "/" && <h1>버튼을 클릭하세요</h1>}
-            <Outlet context={{ wallet, record, addRecord }} />
+            <Outlet
+                context={{
+                    wallet,
+                    record,
+                    addRecord,
+                    putMoneyIntoVendingMachine,
+                }}
+            />
         </>
     );
 }

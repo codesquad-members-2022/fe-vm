@@ -3,12 +3,17 @@ import MoneySlot from "../components/MoneySlot";
 import RecordBoard from "../components/RecordBoard";
 
 function VendingMachine() {
-    const { wallet, record, addRecord } = useOutletContext();
+    const { wallet, record, addRecord, putMoneyIntoVendingMachine } =
+        useOutletContext();
 
     return (
         <>
             <h1>자판기</h1>
-            <MoneySlot addRecord={addRecord} wallet={wallet} />
+            <MoneySlot
+                addRecord={addRecord}
+                wallet={wallet}
+                putMoneyIntoVendingMachine={putMoneyIntoVendingMachine}
+            />
             <RecordBoard record={record} />
         </>
     );

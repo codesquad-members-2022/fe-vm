@@ -13,7 +13,7 @@ const getMoneyFromWallet = (input, wallet) => {
     return minDifference.length ? minDifference[0].unit : null;
 };
 
-function MoneySlot({ addRecord, wallet }) {
+function MoneySlot({ addRecord, wallet, putMoneyIntoVendingMachine }) {
     const putMoney = (event) => {
         if (event.key !== "Enter") {
             return;
@@ -29,6 +29,7 @@ function MoneySlot({ addRecord, wallet }) {
         }
         wallet[moneyFromWallet] -= 1;
         addRecord(`${moneyFromWallet}원이 투입됨`);
+        putMoneyIntoVendingMachine(moneyFromWallet);
     };
 
     return (
