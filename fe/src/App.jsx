@@ -1,5 +1,7 @@
+import VendingMachine from 'Pages/VendingMachine';
+
 function App() {
-  return <div className="App">React-App</div>;
+  return <VendingMachine />;
 }
 
 export default App;
