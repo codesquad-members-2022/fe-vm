@@ -1,12 +1,16 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 import Message from './Message';
 import { CalculatorText } from '../styled-components/util';
+import { myContext } from './App';
 
 const Calculator = () => {
+  const { inputMoney } = useContext(myContext);
+
   return (
     <Container>
       <PriceInfo>
-        <Price as="strong">500원</Price>
+        <Price as="strong">{inputMoney.toLocaleString()}원</Price>
       </PriceInfo>
       <Change as="button">반환</Change>
       <MessageList>

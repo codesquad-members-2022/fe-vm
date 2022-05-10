@@ -2,23 +2,16 @@ import styled from 'styled-components';
 import { Container } from '../styled-components/util';
 import Money from './Money';
 
-const MONEY_INFO = [
-  { unit: 10, number: 0 },
-  { unit: 50, number: 1 },
-  { unit: 100, number: 5 },
-  { unit: 500, number: 5 },
-  { unit: 1000, number: 2 },
-  { unit: 5000, number: 2 },
-  { unit: 10000, number: 1 },
-];
-
-const Wallet = () => {
+const Wallet = ({ moneyInfo, totalMoney }) => {
   return (
     <WalletList as="ul">
-      {MONEY_INFO.map((money, index) => (
-        <Money money={money} key={index}></Money>
-      ))}
-      <TotalMoney>25,455원</TotalMoney>
+      {moneyInfo.map(
+        (money, index) =>
+          money.unit && (
+            <Money money={money} key={money.unit} index={index}></Money>
+          ),
+      )}
+      <TotalMoney>{totalMoney}원</TotalMoney>
     </WalletList>
   );
 };

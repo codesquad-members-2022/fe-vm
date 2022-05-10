@@ -1,12 +1,15 @@
-import styled from 'styled-components';
+import { useContext } from 'react';
+import styled, { css } from 'styled-components';
 import React from 'react';
 import { FlexCenter, ProductText } from '../styled-components/util';
+import { myContext } from './App';
 
 const Product = ({ info }) => {
-  // const [active, setActive] = useState(false);
+  const { inputMoney } = useContext(myContext);
+
   return (
     <ProductItem>
-      <Btn as="button">
+      <Btn as="button" active={inputMoney >= info.price}>
         <ProductImg
           src={`${process.env.PUBLIC_URL}${info.src}`}
           alt={info.name}
@@ -34,6 +37,11 @@ const Btn = styled(FlexCenter)`
   padding: ${({ theme }) => theme.padding.medium};
   cursor: pointer;
   border-radius: 1rem;
+  ${({ active }) =>
+    active &&
+    css`
+      border: 0.2rem solid ${({ theme }) => theme.color.red};
+    `}
 
   &:hover {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));

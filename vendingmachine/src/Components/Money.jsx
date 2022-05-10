@@ -1,10 +1,16 @@
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { FlexCenter } from '../styled-components/util';
+import { myContext } from './App';
 
-const Money = ({ money }) => {
+const Money = ({ money, index }) => {
+  const { handleClickMoney } = useContext(myContext);
+
   return (
     <MoneyItem>
-      <Unit>{money.unit}원</Unit>
+      <Unit onClick={() => handleClickMoney(money.unit, index)}>
+        {money.unit}원
+      </Unit>
       <Number>{money.number}개</Number>
     </MoneyItem>
   );
@@ -41,4 +47,4 @@ const Number = styled(FlexCenter)`
   font-size: ${({ theme }) => theme.fontSize.medium};
 `;
 
-export default Money;
+export default React.memo(Money);
