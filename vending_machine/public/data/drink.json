@@ -1,0 +1,130 @@
+{
+  "drink": [
+    {
+      "id": 1,
+      "name": "콜라",
+      "quantity": 10,
+      "price": 1000
+    },
+    {
+      "id": 2,
+      "name": "사이다",
+      "quantity": 13,
+      "price": 1000
+    },
+    {
+      "id": 3,
+      "name": "환타 오렌지",
+      "quantity": 14,
+      "price": 400
+    },
+    {
+      "id": 4,
+      "name": "환타 포도",
+      "quantity": 13,
+      "price": 400
+    },
+    {
+      "id": 5,
+      "name": "레몬에이드",
+      "quantity": 17,
+      "price": 900
+    },
+    {
+      "id": 6,
+      "name": "봉봉",
+      "quantity": 19,
+      "price": 1200
+    },
+    {
+      "id": 7,
+      "name": "코코아",
+      "quantity": 20,
+      "price": 1000
+    },
+    {
+      "id": 8,
+      "name": "제로콜라",
+      "quantity": 3,
+      "price": 1200
+    },
+    {
+      "id": 9,
+      "name": "파워에이드",
+      "quantity": 11,
+      "price": 2000
+    },
+    {
+      "id": 10,
+      "name": "허쉬 초코우유",
+      "quantity": 23,
+      "price": 1000
+    },
+    {
+      "id": 11,
+      "name": "초코애몽",
+      "quantity": 21,
+      "price": 1500
+    },
+    {
+      "id": 12,
+      "name": "가나 초코우유",
+      "quantity": 19,
+      "price": 1200
+    },
+    {
+      "id": 13,
+      "name": "딸기바나나 주스",
+      "quantity": 7,
+      "price": 1000
+    },
+    {
+      "id": 14,
+      "name": "바나나우유",
+      "quantity": 14,
+      "price": 500
+    },
+    {
+      "id": 15,
+      "name": "커피우유",
+      "quantity": 13,
+      "price": 1000
+    },
+    {
+      "id": 16,
+      "name": "알로에",
+      "quantity": 17,
+      "price": 1200
+    },
+    {
+      "id": 17,
+      "name": "초록매실",
+      "quantity": 23,
+      "price": 500
+    },
+    {
+      "id": 18,
+      "name": "토레타",
+      "quantity": 15,
+      "price": 1500
+    },
+    {
+      "id": 19,
+      "name": "2%",
+      "quantity": 13,
+      "price": 2000
+    },
+    {
+      "id": 20,
+      "name": "웰치스 포도",
+      "quantity": 23,
+      "price": 1200
+    },
+    {
+      "id": 21,
+      "name": "웰치스 청포도",
+      "quantity": 13,
+      "price": 1200
+    }
+  ]
+}
