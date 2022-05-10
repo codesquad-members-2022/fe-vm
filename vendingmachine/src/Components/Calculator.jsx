@@ -1,7 +1,11 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 import Message from './Message';
-import { CalculatorText } from '../styled-components/util';
+import {
+  FlexCenter,
+  CalculatorText,
+  boxShadowBorderRadi,
+} from '../styled-components/util';
 import { myContext } from './App';
 
 const Calculator = ({ messageInfo, handleClickChange }) => {
@@ -25,11 +29,8 @@ const Calculator = ({ messageInfo, handleClickChange }) => {
   );
 };
 
-const Container = styled.div`
-  display: flex;
+const Container = styled(FlexCenter)`
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 60%;
   padding: ${({ theme }) => theme.padding.large};
 `;
@@ -37,9 +38,8 @@ const Container = styled.div`
 const PriceInfo = styled.div`
   width: 90%;
   height: 6rem;
-  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   text-align: right;
-  border-radius: 1rem;
+  ${boxShadowBorderRadi}
 `;
 
 const Price = styled(CalculatorText)`
@@ -55,9 +55,8 @@ const Change = styled(CalculatorText)`
   margin-top: ${({ theme }) => theme.margin.xLarge};
   background-color: transparent;
   padding: 0;
-  border-radius: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   border: none;
+  ${boxShadowBorderRadi}
 
   &:hover {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
@@ -67,10 +66,9 @@ const Change = styled(CalculatorText)`
 const MessageList = styled.ul`
   width: 90%;
   height: 45rem;
-  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   margin-top: ${({ theme }) => theme.margin.xLarge};
-  border-radius: 1rem;
   overflow-y: auto;
+  ${boxShadowBorderRadi}
 `;
 
 export default Calculator;

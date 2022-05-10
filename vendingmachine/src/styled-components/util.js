@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const FlexCenter = styled.div`
   display: flex;
@@ -26,6 +26,24 @@ export const CalculatorText = styled.div`
 export const CalculatorBorder = styled.div`
   border: solid ${({ theme }) => [theme.borderSize.medium, theme.color.black]};
   border-radius: 1rem;
+`;
+
+export const boxShadowBorderRadi = css`
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  border-radius: 1rem;
+`;
+
+export const MoneyUnitNumber = css`
+  ${boxShadowBorderRadi}
+  width: 50%;
+  padding: ${({ theme }) => theme.padding.medium};
+  font-size: ${({ theme }) => theme.fontSize.medium};
+`;
+
+export const ButtonCommon = css`
+  background: transparent;
+  border: none;
+  cursor: pointer;
 `;
 
 export const debounce = function () {

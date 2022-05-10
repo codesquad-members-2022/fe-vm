@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Container } from '../styled-components/util';
+import { Container, boxShadowBorderRadi } from '../styled-components/util';
 import Money from './Money';
 
 const Wallet = ({ walletInfo, totalMoney, handleClickMoney }) => {
@@ -35,9 +35,8 @@ const TotalMoney = styled.li`
   margin-top: ${({ theme }) => theme.margin.large};
   padding: ${({ theme }) => theme.padding.medium};
   font-size: ${({ theme }) => theme.fontSize.large};
-  border-radius: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   cursor: default;
+  ${boxShadowBorderRadi}
 `;
 
 export default Wallet;

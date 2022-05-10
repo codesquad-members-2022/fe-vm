@@ -1,7 +1,12 @@
 import { useContext } from 'react';
 import styled, { css } from 'styled-components';
 import React from 'react';
-import { FlexCenter, ProductText } from '../styled-components/util';
+import {
+  FlexCenter,
+  ProductText,
+  ButtonCommon,
+  boxShadowBorderRadi,
+} from '../styled-components/util';
 import { myContext } from './App';
 
 const Product = ({ info, index }) => {
@@ -30,20 +35,16 @@ const Product = ({ info, index }) => {
 
 const ProductItem = styled.li`
   width: 20%;
-  border-radius: 1rem;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 `;
 
 const Btn = styled(FlexCenter)`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background: transparent;
-  border: none;
   padding: ${({ theme }) => theme.padding.medium};
-  cursor: pointer;
-  border-radius: 1rem;
+  ${boxShadowBorderRadi}
+  ${ButtonCommon}
 
   ${({ active }) =>
     active &&
@@ -60,7 +61,7 @@ const Btn = styled(FlexCenter)`
   &:hover {
     background: ${({ disable }) =>
       !disable &&
-      `linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1))`};
+      'linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1))'};
   }
 `;
 
