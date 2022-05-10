@@ -1,20 +1,30 @@
 import React from 'react';
-import './Header.css';
+import styled from 'styled-components';
 
-const Haeder = (props) => {
+const Header = (props) => {
   return (
-    <>
-      <header className="header">
-        <h1 className="title">VENDING MACHINE</h1>
-        <span className="timer">1</span>
-      </header>
-      <div className="Btn-container">
-        <button>stock</button>
-        <button>vending</button>
-        <button>balance</button>
-      </div>
-    </>
+    <StyledHeader>
+      <Title>VENDING MACHINE</Title>
+      <Timer>1</Timer>
+    </StyledHeader>
   );
 };
 
-export default Haeder;
+export default Header;
+
+const StyledHeader = styled.header`
+  ${({ theme }) =>
+    theme.mixin.flexMixin(undefined, undefined, 'space-between')};
+  padding: 20px 40px 20px 20px;
+`;
+
+const Title = styled.h1`
+  font-size: ${({ theme }) => theme.fontSize.xLarge};
+  font-weight: ${({ theme }) => theme.fontWeight.xBold};
+  font-style: italic;
+`;
+
+const Timer = styled.span`
+  font-size: ${({ theme }) => theme.fontSize.large};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+`;
