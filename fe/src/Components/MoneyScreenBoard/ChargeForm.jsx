@@ -47,7 +47,7 @@ export default function ChargeScreen() {
         onChange={handleInputChange}
         autoFocus
         value={cash || ""}
-      ></CashInput>
+      />
       <Button type="submit" flex justify="center" align="center">
         클릭
       </Button>

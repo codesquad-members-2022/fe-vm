@@ -9,10 +9,10 @@ export default function Beverage({ title, price }) {
   const setAlertMessage = useContext(SetAlertMessage);
 
   const investmentPrice = (investment && investment.amount) || 0;
-  const buyPossible = price <= investmentPrice;
+  const isBuyPossible = price <= investmentPrice;
 
   const handleOrder = () => {
-    if (!buyPossible) {
+    if (!isBuyPossible) {
       alertWrongProduct(setAlertMessage);
       return;
     }
@@ -24,7 +24,7 @@ export default function Beverage({ title, price }) {
   };
 
   return (
-    <BeverageContainer buyPossible={buyPossible} onClick={handleOrder}>
+    <BeverageContainer isBuyPossible={isBuyPossible} onClick={handleOrder}>
       <Title flex justify="center" align="center">
         {title}
       </Title>
