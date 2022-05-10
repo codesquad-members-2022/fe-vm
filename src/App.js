@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes, NavLink } from "react-router-dom";
-import VendorMachine from "./routes/VendorMachine";
+import VendorMachine from "./routes/VendingMachine";
 import Wallet from "./routes/Wallet";
 import "./App.css";
 
