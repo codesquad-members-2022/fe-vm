@@ -1,8 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-import Home from './Home';
-import MyPage from './MyPage';
+import App from './App';
 
 if (process.env.NODE_ENV === 'development') {
   const { worker } = require('./mocks/worker');
@@ -12,11 +9,4 @@ if (process.env.NODE_ENV === 'development') {
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement!);
 
-root.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="mypage" element={<MyPage />} />
-    </Routes>
-  </BrowserRouter>,
-);
+root.render(<App />);
