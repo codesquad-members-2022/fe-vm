@@ -29,6 +29,7 @@ function Home() {
                     wallet,
                     record,
                     addRecord,
+                    moneyInVendingMachine,
                     putMoneyIntoVendingMachine,
                 }}
             />
