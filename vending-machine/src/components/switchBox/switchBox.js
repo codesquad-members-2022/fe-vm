@@ -1,4 +1,4 @@
-import { StyledBox, StyledBtn } from './swtichBox.styled';
+import { StyledContainer, StyledBtn } from './swtichBox.styled';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -10,7 +10,7 @@ export function SwitchBox() {
   }
 
   return (
-    <StyledBox>
+    <StyledContainer>
       <Link to="/">
         <StyledBtn onClick={toggleClickedComponent} clickedComponent={clickedComponent} thisComponent="자판기">
           자판기
@@ -21,6 +21,6 @@ export function SwitchBox() {
           지갑
         </StyledBtn>
       </Link>
-    </StyledBox>
+    </StyledContainer>
   );
 }
