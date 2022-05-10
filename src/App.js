@@ -3,9 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GlobalStyle from 'theme/GlobalStyles';
 import theme from 'theme/theme';
 import Navigation from 'components/Navigation';
-import VendingMachine from 'Pages/VendingMachine';
-import Wallet from 'Pages/Wallet';
-import NotFound from 'Pages/NotFound';
+import VendingMachine from 'pages/VendingMachine';
+import Wallet from 'pages/Wallet';
+import NotFound from 'pages/NotFound';
 
 function App() {
   return (
