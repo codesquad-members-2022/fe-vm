@@ -1,9 +1,9 @@
-import BalanceDisplay from "./BalanceDisplay";
+import InputSumDisplay from "./InputSumDisplay";
 
 const MoneyUtil = () => {
   return (
     <>
-      <BalanceDisplay></BalanceDisplay>
+      <InputSumDisplay />
       {/* <MoneyInlet></MoneyInlet>
       <ReturnButton></ReturnButton> */}
     </>

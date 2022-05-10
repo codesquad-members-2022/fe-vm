@@ -1,17 +1,33 @@
 import { createContext, useState } from "react";
 
-export const InputBalanceContext = createContext();
+export const InputSum = createContext();
 
-export const InputBalanceContextProvider = ({ children }) => {
-  const [inputBalance, setInputBalance] = useState(1500);
+export const InputSumProvider = ({ children }) => {
+  const [inputSum, setInputSum] = useState(1500);
   return (
-    <InputBalanceContext.Provider
+    <InputSum.Provider
       value={{
-        inputBalance,
-        setInputBalance
+        inputSum,
+        setInputSum
       }}
     >
       {children}
-    </InputBalanceContext.Provider>
+    </InputSum.Provider>
+  );
+};
+
+export const RecordsProvider = createContext();
+
+export const RecordsContextProvider = ({ children }) => {
+  const [records, setRecords] = useState([]);
+  return (
+    <RecordsProvider.Provider
+      value={{
+        records,
+        setRecords
+      }}
+    >
+      {children}
+    </RecordsProvider.Provider>
   );
 };

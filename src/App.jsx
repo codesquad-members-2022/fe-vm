@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Header from "./components/Header/Header";
 import VendingMachine from "./components/VendingMachine/VendingMachine";
-import { InputBalanceContextProvider } from "./ContextProvider";
+import { InputSumProvider, RecordsProvider } from "./ContextProvider";
 
 const AppWrapper = styled.div`
   display: flex;
@@ -13,9 +13,9 @@ const App = () => {
   return (
     <AppWrapper>
       <Header />
-      <InputBalanceContextProvider>
+      <InputSumProvider>
         <VendingMachine />
-      </InputBalanceContextProvider>
+      </InputSumProvider>
     </AppWrapper>
   );
 };

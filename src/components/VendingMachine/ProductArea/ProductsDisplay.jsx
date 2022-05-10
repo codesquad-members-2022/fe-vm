@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Product from "./Product";
-import Glass from "../common/Glass";
 
 const DisplayLayout = styled.div`
   position: relative;
@@ -8,17 +7,16 @@ const DisplayLayout = styled.div`
   margin: 50px;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-end;
   flex-wrap: wrap;
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors.grey4};
-  box-shadow: inset 0px 10px 20px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 30px 50px 5px rgba(0, 0, 0, 0.25);
 `;
 
 const ProductsDisplay = ({ productsInfo, stockData, changeStock }) => {
   return (
     <DisplayLayout>
-      <Glass />
       {productsInfo.map((productInfo) => (
         <Product
           key={productInfo.id}
