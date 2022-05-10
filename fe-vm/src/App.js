@@ -1,5 +1,11 @@
+import Header from "./components/Header/Header";
+
 const App = () => {
-  return <>hello world!</>;
+  return (
+    <>
+      <Header />
+    </>
+  );
 };
 
 export default App;
