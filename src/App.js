@@ -1,5 +1,9 @@
-function App() {
-  return <div className="App">앱</div>;
-}
+import VendingMachine from "./routes/VendingMachine";
 
-export default App;
+export default function App() {
+  return (
+    <div className="App">
+      <VendingMachine />
+    </div>
+  );
+}
