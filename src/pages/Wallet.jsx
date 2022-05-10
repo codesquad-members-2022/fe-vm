@@ -1,7 +1,8 @@
+import MoneyCharge from 'components/MoneyCharge';
 import React from 'react';
 
 function Wallet() {
-  return <div>This is a Wallet.</div>;
+  return <MoneyCharge />;
 }
 
 export default Wallet;
