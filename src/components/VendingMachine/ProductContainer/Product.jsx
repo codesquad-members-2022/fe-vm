@@ -1,12 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export default function Product({ info }) {
   return (
     <ProductWrapper>
-      <ProductButton>{info.name}</ProductButton>
+      <ProductButton stock={info.stock}>{info.name}</ProductButton>
       <PriceWrapper>
-        <PriceState />
-        <Price>{info.stock ? info.price + '원' : '품절'}</Price>
+        <PriceState stock={info.stock} />
+        <Price stock={info.stock}>{info.stock ? info.price + '원' : '품절'}</Price>
       </PriceWrapper>
     </ProductWrapper>
   );
@@ -25,6 +25,17 @@ const ProductButton = styled.button`
   border: 1px solid transparent;
   ${({ theme }) => theme.fontStyles.smallBold};
   background: ${({ theme }) => theme.colors.white};
+
+  ${props =>
+    props.stock
+      ? css`
+          background: ${({ theme }) => theme.colors.white};
+        `
+      : css`
+          background: ${({ theme }) => theme.colors.gray3};
+          color: ${({ theme }) => theme.colors.gray2};
+          cursor: default;
+        `};
 `;
 
 const PriceWrapper = styled.div`
@@ -32,8 +43,8 @@ const PriceWrapper = styled.div`
   padding: 4px 8px;
   border: 1px solid ${({ theme }) => theme.colors.gray4};
   border-radius: 999px;
-  background: ${({ theme }) => theme.colors.gray2};
-  color: ${({ theme }) => theme.colors.gray2};
+  background: ${({ theme }) => theme.colors.gray3};
+  cursor: default;
 `;
 
 const PriceState = styled.span`
@@ -41,9 +52,26 @@ const PriceState = styled.span`
   padding: 4px;
   margin-right: 4px;
   border-radius: 50%;
-  background: green;
+
+  ${props =>
+    props.stock
+      ? css`
+          background: ${({ theme }) => theme.colors.green};
+        `
+      : css`
+          background: ${({ theme }) => theme.colors.red};
+        `};
 `;
 
 const Price = styled.span`
   ${({ theme }) => theme.fontStyles.xSmallBold};
+
+  ${props =>
+    props.stock
+      ? css`
+          color: ${({ theme }) => theme.colors.gray3};
+        `
+      : css`
+          color: ${({ theme }) => theme.colors.red};
+        `};
 `;
