@@ -1,0 +1,18 @@
+.product-wrapper {
+  width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  text-align: center;
+}
+.ab {
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
+.product {
+  width: 70px;
+  height: 50px;
+  border: 1px solid #000;
+}
