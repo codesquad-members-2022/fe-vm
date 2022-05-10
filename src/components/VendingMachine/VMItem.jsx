@@ -2,16 +2,18 @@ import { useContext } from 'react';
 import styled from 'styled-components';
 
 import COLORS from 'constants/colors';
+import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
 
-const VMItem = ({ item: { name, price }, insertVMLog }) => {
+const VMItem = ({ item: { name, price } }) => {
   const { inputMoney, setInputMoney } = useContext(MoneyContext);
+  const [, insertLog] = useContext(LogContext);
   const isActive = inputMoney >= price;
 
   const handleClickActiveItem = () => {
     if (!isActive) return;
     setInputMoney(inputMoney - price);
-    insertVMLog({
+    insertLog({
       type: 'select',
       data: name,
     });

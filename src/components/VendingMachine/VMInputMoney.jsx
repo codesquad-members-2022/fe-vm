@@ -3,10 +3,12 @@ import styled from 'styled-components';
 
 import VMInputBox from 'components/VendingMachine/VMInputBox';
 import COLORS from 'constants/colors';
+import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
 
-const VMInputMoney = ({ insertVMLog }) => {
+const VMInputMoney = () => {
   const { inputMoney, setInputMoney } = useContext(MoneyContext);
+  const [, insertLog] = useContext(LogContext);
   const [isInputSelected, setIsInputSelected] = useState(false);
 
   const handleClickTextBox = () => {
@@ -17,7 +19,7 @@ const VMInputMoney = ({ insertVMLog }) => {
     // TODO: 현재 InputMoney 보다 작게 넣는다면 false
     setInputMoney(newMoney);
     setIsInputSelected(false);
-    insertVMLog({
+    insertLog({
       type: 'insert',
       data: newMoney - inputMoney,
     });

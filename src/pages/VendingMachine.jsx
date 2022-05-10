@@ -7,17 +7,12 @@ import COLORS from 'constants/colors';
 import { LogContext } from 'context/LogProvider';
 
 const VendingMachine = () => {
-  const [logs, setLogs] = useContext(LogContext);
-  const insertVMLog = (log) => {
-    const lastLogId = logs[logs.length - 1].id;
-    const newLog = { id: lastLogId + 1, ...log };
-    setLogs([...logs, newLog]);
-  };
+  const [logs] = useContext(LogContext);
 
   return (
     <VMLayout>
-      <VMItems insertVMLog={insertVMLog} />
-      <VMController insertVMLog={insertVMLog} logs={logs} />
+      <VMItems />
+      <VMController logs={logs} />
     </VMLayout>
   );
 };

@@ -2,15 +2,13 @@ import { useContext } from 'react';
 import styled from 'styled-components';
 
 import COLORS from 'constants/colors';
+import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
 
-const Wrapper = styled.li`
-  display: flex;
-  justify-content: space-between;
-`;
-
 const MoneyBox = ({ money: { amount, count } }) => {
-  const { walletMoney, setWalletMoney } = useContext(MoneyContext);
+  const [, setLogs] = useContext(LogContext);
+  const { walletMoney, setWalletMoney, inputMoney, setInputMoney } =
+    useContext(MoneyContext);
 
   const isActive = count !== 0;
 
@@ -22,7 +20,12 @@ const MoneyBox = ({ money: { amount, count } }) => {
       }
       return oMoney;
     });
+    setInputMoney(inputMoney + amount);
     setWalletMoney(newMoney);
+    setLogs({
+      type: 'insert',
+      data: amount,
+    });
   };
 
   return (
@@ -34,6 +37,11 @@ const MoneyBox = ({ money: { amount, count } }) => {
     </Wrapper>
   );
 };
+
+const Wrapper = styled.li`
+  display: flex;
+  justify-content: space-between;
+`;
 
 const BorderBox = styled.div`
   display: flex;

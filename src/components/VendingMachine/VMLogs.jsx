@@ -1,6 +1,8 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 
 import COLORS from 'constants/colors';
+import { LogContext } from 'context/LogProvider';
 
 const parseVmLog = ({ type, data }) => {
   switch (type) {
@@ -15,13 +17,16 @@ const parseVmLog = ({ type, data }) => {
   }
 };
 
-const VMLogs = ({ logs }) => (
-  <VMLogsWrapper>
-    {logs.map((log) => (
-      <VMLog key={log.id}>{parseVmLog(log)}</VMLog>
-    ))}
-  </VMLogsWrapper>
-);
+const VMLogs = () => {
+  const [logs] = useContext(LogContext);
+  return (
+    <VMLogsWrapper>
+      {logs.map((log) => (
+        <VMLog key={log.id}>{parseVmLog(log)}</VMLog>
+      ))}
+    </VMLogsWrapper>
+  );
+};
 
 const VMLogsWrapper = styled.ul`
   display: flex;

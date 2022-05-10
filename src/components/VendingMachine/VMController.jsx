@@ -4,14 +4,16 @@ import styled from 'styled-components';
 import VMInputMoney from 'components/VendingMachine/VMInputMoney';
 import VMLogs from 'components/VendingMachine/VMLogs';
 import COLORS from 'constants/colors';
+import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
 
-const VMController = ({ insertVMLog, logs }) => {
+const VMController = () => {
   const { inputMoney, setInputMoney } = useContext(MoneyContext);
+  const [, insertLog] = useContext(LogContext);
 
   const handleClickReturnButton = () => {
     setInputMoney(0);
-    insertVMLog({
+    insertLog({
       type: 'return',
       data: inputMoney,
     });
@@ -19,14 +21,11 @@ const VMController = ({ insertVMLog, logs }) => {
 
   return (
     <VMControllerWrapper>
-      <VMInputMoney insertVMLog={insertVMLog} />
-      <ReturnMoneyButton
-        onClick={handleClickReturnButton}
-        insertVMLog={insertVMLog}
-      >
+      <VMInputMoney />
+      <ReturnMoneyButton onClick={handleClickReturnButton}>
         반환
       </ReturnMoneyButton>
-      <VMLogs logs={logs} />
+      <VMLogs />
     </VMControllerWrapper>
   );
 };
@@ -39,11 +38,16 @@ const VMControllerWrapper = styled.ul`
   border: 3px solid ${COLORS.DARK_GREY};
 `;
 
-const ReturnMoneyButton = styled.div`
+const ReturnMoneyButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
   border: 3px solid ${COLORS.GREY};
+  cursor: pointer;
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: ${COLORS.MAIN_BG};
+  }
 `;
 
 export default VMController;

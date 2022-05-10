@@ -6,12 +6,12 @@ import vmItems from 'mocks/vmItems';
 
 const initItems = vmItems;
 
-const VMItems = ({ insertVMLog }) => {
+const VMItems = () => {
   const [items] = useState(initItems);
   return (
     <VMItemsWrapper>
       {items.map((item) => (
-        <VMItem key={item.id} item={item} insertVMLog={insertVMLog} />
+        <VMItem key={item.id} item={item} />
       ))}
     </VMItemsWrapper>
   );

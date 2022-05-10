@@ -81,7 +81,9 @@
       ],
       "comma-dangle": "off",
       "implicit-arrow-linebreak": "off",
-      "no-confusing-arrow": "off"
+      "no-confusing-arrow": "off",
+      "operator-linebreak": "off",
+      "object-curly-newline": "off"
     }
   },
   "browserslist": {
