@@ -1,10 +1,9 @@
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
 
+import VMInputBox from 'components/VendingMachine/VMInputBox';
 import COLORS from 'constants/colors';
 import { MoneyContext } from 'context/MoneyProvider';
-
-import VMInputBox from './VMInputBox';
 
 const VMInputMoney = ({ insertVMLog }) => {
   const { inputMoney, setInputMoney } = useContext(MoneyContext);

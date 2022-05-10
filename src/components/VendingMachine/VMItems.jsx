@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import VMItem from 'components/VMItem';
+import VMItem from 'components/VendingMachine/VMItem';
 import vmItems from 'mocks/vmItems';
 
 const initItems = vmItems;

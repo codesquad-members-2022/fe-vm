@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 
-import VMInputMoney from 'components/VMInputMoney';
-import VMLogs from 'components/VMLogs';
+import VMInputMoney from 'components/VendingMachine/VMInputMoney';
+import VMLogs from 'components/VendingMachine/VMLogs';
 import COLORS from 'constants/colors';
 import { MoneyContext } from 'context/MoneyProvider';
 

@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 
-import VMController from 'components/VMController';
-import VMItems from 'components/VMItems';
+import VMController from 'components/VendingMachine/VMController';
+import VMItems from 'components/VendingMachine/VMItems';
 import COLORS from 'constants/colors';
 import { LogContext } from 'context/LogProvider';
 
