@@ -36,6 +36,7 @@
     ]
   },
   "devDependencies": {
+    "json-server": "^0.17.0",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.3.4"
   }

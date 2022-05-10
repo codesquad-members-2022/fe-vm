@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import { makePriceFormat } from "../../util/makePriceFormat";
 
-const Item = () => {
+const Item = ({ menu, price }) => {
   return (
     <ItemContainer>
-      <ItemName>콜라</ItemName>
-      <ItemPrice>500</ItemPrice>
+      <ItemName>{menu}</ItemName>
+      <ItemPrice>{makePriceFormat(price)}</ItemPrice>
     </ItemContainer>
   );
 };
@@ -21,9 +22,10 @@ const ItemContainer = styled.div`
 `;
 
 const ItemName = styled.div`
-  padding: 2rem;
+  padding: 2rem 0.5rem;
   border: 0.3rem solid black;
   font-size: 2rem;
+  min-height: 100px;
 `;
 
 const ItemPrice = styled.div`

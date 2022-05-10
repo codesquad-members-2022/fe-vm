@@ -1,18 +1,28 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import fetchData from "../../util/fetchData";
+import { makePriceFormat } from "../../util/makePriceFormat";
 import MoneyUnit from "./MoneyUnit";
 
 const MoneyUnits = () => {
+  const [moneyState, setMoneyState] = useState([]);
+  const [moneySum, setMoneySum] = useState(0);
+  const setData = async () => {
+    const data = await fetchData("http://localhost:4000/data");
+    setMoneyState(data.money);
+    setMoneySum(data.money.reduce((acc, { type, num }) => acc + type * num, 0));
+  };
+
+  useEffect(() => {
+    setData();
+  }, []);
+
   return (
     <MoneyUnitsContainer>
-      <MoneyUnit />
-      <MoneyUnit />
-      <MoneyUnit />
-      <MoneyUnit />
-      <MoneyUnit />
-      <MoneyUnit />
-      <MoneyUnit />
-      <MoneyUnit />
-      <MoneySum>23,550원</MoneySum>
+      {moneyState.map(({ type, num }) => {
+        return <MoneyUnit type={type} num={num} />;
+      })}
+      <MoneySum>{makePriceFormat(moneySum)}</MoneySum>
     </MoneyUnitsContainer>
   );
 };
