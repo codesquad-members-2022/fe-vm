@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Header from "./components/Header/Header";
-import Mode from "./components/Header/Mode";
-import Main from "./components/Main/Main";
-import VendingMachine from "./components/Main/VendingMachine";
-import Wallet from "./components/Main/Wallet";
+import Header from "./components/header/Header";
+import Mode from "./components/header/Mode";
+import Main from "./components/main/Main";
+import VendingMachine from "./components/main/VendingMachine";
+import Wallet from "./components/main/Wallet";
 
 const App = () => {
   const [vendingMode, setVendingMode] = useState(true);
