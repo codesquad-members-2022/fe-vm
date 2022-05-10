@@ -38,7 +38,7 @@ const Nav = styled.nav`
   display: flex;
   justify-content: center;
   text-align: center;
-  margin: 40px;
+  margin: 20px;
 `;
 
 const StyeldLink = styled(Link)`
