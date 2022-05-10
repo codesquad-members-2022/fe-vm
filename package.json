@@ -75,7 +75,8 @@
           "newlines-between": "always"
         }
       ],
-      "comma-dangle": "off"
+      "comma-dangle": "off",
+      "implicit-arrow-linebreak": "off"
     }
   },
   "browserslist": {
