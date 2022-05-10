@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
@@ -10,6 +10,10 @@ const Navigation = () => {
     if (!e.target.id) return;
     setFocusLink(e.target.id);
   };
+
+  useEffect(() => {
+    setFocusLink(location.pathname);
+  }, [location.pathname]);
 
   const MACHINE_ID = '/';
   const WALLET_ID = '/wallet';
