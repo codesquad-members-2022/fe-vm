@@ -1,23 +1,13 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import './App.css';
+import React from 'react';
 
-const Button = styled.button`
-  background-color: #fe3;
-`;
+import GlobalStyle from '@/GlobalStyle';
+import Router from '@/Router';
 
 const App = () => {
-  const [count, setCount] = useState(20000);
   return (
     <>
-      <div>{count}</div>
-      <Button
-        onClick={() => {
-          setCount((preS) => preS + 1);
-        }}
-      >
-        버튼
-      </Button>
+      <GlobalStyle />
+      <Router />
     </>
   );
 };
