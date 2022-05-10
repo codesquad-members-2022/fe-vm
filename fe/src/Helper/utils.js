@@ -1,3 +1,12 @@
+export const fetchData = async (url) => {
+  try {
+    const data = await fetch(url);
+    return data.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export function applyFlex({ flex, justify, align, direction, wrap }) {
   return (
     flex &&
