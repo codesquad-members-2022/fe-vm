@@ -24,6 +24,7 @@ const VendingMachineBtn = styled.button`
   background: ${({ theme }) => theme.colors.gray};
   font-weight: bold;
   font-size: 20px;
+  transition: 0.5s;
   &:hover {
     background: ${({ theme }) => theme.colors.lightGray};
   }
