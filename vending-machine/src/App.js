@@ -1,14 +1,18 @@
+import { ThemeProvider } from "styled-components";
 import Nav from "./components/Nav";
 import VendingMachine from "./components/VendingMachine";
 import Wallet from "./components/Wallet";
+import GlobalStyles from "./style/Globalstyles";
+import theme from "./style/theme";
 
 function App() {
   return (
-    <div className="App">
+    <ThemeProvider theme={theme}>
+      <GlobalStyles></GlobalStyles>
       <Nav></Nav>
       <VendingMachine></VendingMachine>
       <Wallet></Wallet>
-    </div>
+    </ThemeProvider>
   );
 }
 

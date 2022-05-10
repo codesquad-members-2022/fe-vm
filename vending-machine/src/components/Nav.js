@@ -18,6 +18,9 @@ const VendingMachineBtn = styled.button`
   width: 100px;
   height: 50px;
   border: none;
+  background: none;
+  font-weight: bold;
+  font-size: 20px;
 `;
 const WalletBtn = styled(VendingMachineBtn)``;
 export default Nav;
