@@ -1,8 +1,10 @@
-function MoneySlot({ addRecord }) {
+function MoneySlot({ addRecord, wallet }) {
     const putMoney = (event) => {
         if (event.key === "Enter") {
             event.preventDefault();
-            addRecord(`${event.target.value}원이 투입됨`);
+            const money = event.target.value;
+            wallet[money] -= 1;
+            addRecord(`${money}원이 투입됨`);
             event.target.value = "";
         }
     };

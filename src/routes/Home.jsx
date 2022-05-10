@@ -1,4 +1,5 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
+import wallet from "../data/wallet";
 
 function Home() {
     const { pathname } = useLocation();
@@ -10,7 +11,7 @@ function Home() {
                 <Link to="/wallet">지갑</Link>
             </nav>
             {pathname === "/" && <h1>버튼을 클릭하세요</h1>}
-            <Outlet />
+            <Outlet context={wallet} />
         </>
     );
 }
