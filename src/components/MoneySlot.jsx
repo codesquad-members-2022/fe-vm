@@ -1,14 +1,16 @@
 const getMoneyFromWallet = (input, wallet) => {
     const unitOfMoney = Object.keys(wallet);
-    const difference = unitOfMoney.map((unit) => [
-        Math.abs(input - unit),
-        unit,
-    ]);
-    const minDifference = difference
-        .sort((a, b) => a[0] - b[0])
-        .filter(([_, unit]) => wallet[unit] > 0);
+    const differenceBetweenInputAndWalletMoney = unitOfMoney.map((unit) => {
+        return {
+            difference: Math.abs(input - unit),
+            unit,
+        };
+    });
+    const minDifference = differenceBetweenInputAndWalletMoney
+        .sort((a, b) => a.difference - b.difference)
+        .filter(({ unit }) => wallet[unit] > 0);
 
-    return minDifference.length ? minDifference[0][1] : null;
+    return minDifference.length ? minDifference[0].unit : null;
 };
 
 function MoneySlot({ addRecord, wallet }) {
