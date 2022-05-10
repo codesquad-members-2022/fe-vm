@@ -6,19 +6,53 @@ import Display from '@/components/Display';
 import InputController from '@/components/InputController';
 import { VMContext } from '@/Provider/VMProvider';
 
-const HomeLayer = styled.div`
+const DISPLAY = 'vm-display';
+const INPUT_CONTROLLER = 'vm-input-controller';
+const ACTION_LOGS = 'vm-action-logs';
+const DISPLAY_WIDTH = 720;
+
+const HomeLayout = styled.main`
   width: 1080px;
+  border: 1px solid black;
+`;
+
+const HomeLayer = styled.div`
+  display: grid;
+  grid-template-columns: ${DISPLAY_WIDTH}px 360px;
+  grid-template-rows: 120px ${DISPLAY_WIDTH - 120}px;
+  word-break: break-word;
+
+  .${DISPLAY} {
+    padding: 20px;
+    grid-row: 1/3;
+    grid-column: 1/2;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 20px;
+    overflow-y: auto;
+
+    > div {
+      border: 1px solid black;
+    }
+  }
+
+  .${ACTION_LOGS} {
+    overflow-y: auto;
+  }
 `;
 
 const Home = () => {
   const value = useContext(VMContext);
   console.log(value);
   return (
-    <HomeLayer>
-      <Display />
-      <InputController />
-      <ActionLogs />
-    </HomeLayer>
+    <HomeLayout>
+      <HomeLayer>
+        <Display className={DISPLAY} />
+        <InputController className={INPUT_CONTROLLER} />
+        <ActionLogs className={ACTION_LOGS} />
+      </HomeLayer>
+    </HomeLayout>
   );
 };
 
