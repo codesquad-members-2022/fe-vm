@@ -2,7 +2,7 @@ import { useOutletContext } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 
 function Wallet() {
-    const wallet = useOutletContext();
+    const { wallet } = useOutletContext();
     const walletState = [];
 
     for (let key of Object.keys(wallet)) {

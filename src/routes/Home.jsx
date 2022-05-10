@@ -1,8 +1,14 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
+import { useState } from "react";
 import wallet from "../data/wallet";
 
 function Home() {
     const { pathname } = useLocation();
+    const [record, setRecord] = useState([]);
+
+    const addRecord = (newRecord) => {
+        setRecord([...record, newRecord]);
+    };
 
     return (
         <>
@@ -11,7 +17,7 @@ function Home() {
                 <Link to="/wallet">지갑</Link>
             </nav>
             {pathname === "/" && <h1>버튼을 클릭하세요</h1>}
-            <Outlet context={wallet} />
+            <Outlet context={{ wallet, record, addRecord }} />
         </>
     );
 }
