@@ -7,7 +7,7 @@ const parseVmLog = ({ type, data }) => {
     case 'insert':
       return `${data}원 이 투입됐음.`;
     case 'select':
-      return `${data}가 선택됨`;
+      return `${data} 이(가) 선택됨`;
     case 'return':
       return `잔돈 ${data}원 반환`;
     default:

@@ -1,21 +1,13 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 
 import VMInputMoney from 'components/VMInputMoney';
 import VMLogs from 'components/VMLogs';
 import COLORS from 'constants/colors';
 import { MoneyContext } from 'context/MoneyProvider';
-import vmLogs from 'mocks/vmLogs';
 
-const initLogs = vmLogs;
-
-const VMController = () => {
+const VMController = ({ insertVMLog, logs }) => {
   const { inputMoney, setInputMoney } = useContext(MoneyContext);
-  const [logs, setLogs] = useState(initLogs);
-
-  const insertVMLog = (log) => {
-    setLogs([...logs, log]);
-  };
 
   const handleClickReturnButton = () => {
     setInputMoney(0);
