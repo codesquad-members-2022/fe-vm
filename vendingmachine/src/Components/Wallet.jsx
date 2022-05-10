@@ -2,16 +2,22 @@ import styled from 'styled-components';
 import { Container } from '../styled-components/util';
 import Money from './Money';
 
-const Wallet = ({ moneyInfo, totalMoney }) => {
+const Wallet = ({ walletInfo, totalMoney, handleClickMoney }) => {
   return (
     <WalletList as="ul">
-      {moneyInfo.map(
-        (money, index) =>
-          money.unit && (
-            <Money money={money} key={money.unit} index={index}></Money>
-          ),
-      )}
-      <TotalMoney>{totalMoney}원</TotalMoney>
+      {walletInfo &&
+        walletInfo.map(
+          (money, index) =>
+            money.unit && (
+              <Money
+                money={money}
+                key={money.unit}
+                index={index}
+                handleClickMoney={handleClickMoney}
+              ></Money>
+            ),
+        )}
+      <TotalMoney>{totalMoney.toLocaleString()}원</TotalMoney>
     </WalletList>
   );
 };

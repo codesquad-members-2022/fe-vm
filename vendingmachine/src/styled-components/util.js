@@ -27,3 +27,14 @@ export const CalculatorBorder = styled.div`
   border: solid ${({ theme }) => [theme.borderSize.medium, theme.color.black]};
   border-radius: 1rem;
 `;
+
+export const debounce = function () {
+  let timer;
+
+  return function (func, time) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func();
+    }, time);
+  };
+};

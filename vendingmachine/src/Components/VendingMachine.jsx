@@ -3,11 +3,14 @@ import Menu from './Menu';
 import Calculator from './Calculator';
 import { Container } from '../styled-components/util';
 
-const VendingMachine = () => {
+const VendingMachine = ({ menuInfo, messageInfo, handleClickChange }) => {
   return (
     <VendingMachineContainer>
-      <Menu />
-      <Calculator />
+      <Menu menuInfo={menuInfo} />
+      <Calculator
+        messageInfo={messageInfo}
+        handleClickChange={handleClickChange}
+      />
     </VendingMachineContainer>
   );
 };

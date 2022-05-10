@@ -1,15 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { FlexCenter } from '../styled-components/util';
-import { myContext } from './App';
 
-const Money = ({ money, index }) => {
-  const { handleClickMoney } = useContext(myContext);
-
+const Money = ({ money, index, handleClickMoney }) => {
   return (
     <MoneyItem>
       <Unit onClick={() => handleClickMoney(money.unit, index)}>
-        {money.unit}원
+        {money.unit.toLocaleString()}원
       </Unit>
       <Number>{money.number}개</Number>
     </MoneyItem>

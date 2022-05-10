@@ -4,7 +4,7 @@ import Message from './Message';
 import { CalculatorText } from '../styled-components/util';
 import { myContext } from './App';
 
-const Calculator = () => {
+const Calculator = ({ messageInfo, handleClickChange }) => {
   const { inputMoney } = useContext(myContext);
 
   return (
@@ -12,20 +12,14 @@ const Calculator = () => {
       <PriceInfo>
         <Price as="strong">{inputMoney.toLocaleString()}원</Price>
       </PriceInfo>
-      <Change as="button">반환</Change>
+      <Change as="button" onClick={handleClickChange}>
+        반환
+      </Change>
       <MessageList>
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
+        {messageInfo &&
+          messageInfo.message.map((message, index) => (
+            <Message text={message} key={index} />
+          ))}
       </MessageList>
     </Container>
   );

@@ -4,18 +4,25 @@ import React from 'react';
 import { FlexCenter, ProductText } from '../styled-components/util';
 import { myContext } from './App';
 
-const Product = ({ info }) => {
-  const { inputMoney } = useContext(myContext);
+const Product = ({ info, index }) => {
+  const { inputMoney, handleClickProduct } = useContext(myContext);
 
   return (
     <ProductItem>
-      <Btn as="button" active={inputMoney >= info.price}>
+      <Btn
+        as="button"
+        active={inputMoney >= info.price && info.number > 0}
+        disable={info.number === 0}
+        onClick={() => {
+          handleClickProduct(info.name, index);
+        }}
+      >
         <ProductImg
           src={`${process.env.PUBLIC_URL}${info.src}`}
           alt={info.name}
         />
         <Title as="h3">{info.name}</Title>
-        <Price as="strong">{info.price}</Price>
+        <Price as="strong">{info.price.toLocaleString()}</Price>
       </Btn>
     </ProductItem>
   );
@@ -37,14 +44,23 @@ const Btn = styled(FlexCenter)`
   padding: ${({ theme }) => theme.padding.medium};
   cursor: pointer;
   border-radius: 1rem;
+
   ${({ active }) =>
     active &&
     css`
       border: 0.2rem solid ${({ theme }) => theme.color.red};
     `}
 
+  ${({ disable }) =>
+    disable &&
+    css`
+      background: ${({ theme }) => theme.color.grey3};
+    `}
+
   &:hover {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+    background: ${({ disable }) =>
+      !disable &&
+      `linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1))`};
   }
 `;
 
