@@ -1,0 +1,21 @@
+
+@tailwind base;
+
+
+@tailwind components;
+
+
+@tailwind utilities;
+
+
+
+@layer base {
+	@font-face {
+		font-family: "Noto Sans KR", sans-serif;
+		src: url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+	}
+	
+	body{
+		@apply font-main;
+	 }
+}
