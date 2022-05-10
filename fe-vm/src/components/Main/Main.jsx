@@ -1,14 +1,7 @@
 import styled from "styled-components";
-import VendingMachine from "./VendingMachine";
-import Wallet from "./Wallet";
 
-const Main = () => {
-  return (
-    <MainContainer>
-      <VendingMachine />
-      <Wallet />
-    </MainContainer>
-  );
+const Main = ({ children }) => {
+  return <MainContainer>{children}</MainContainer>;
 };
 
 const MainContainer = styled.div`

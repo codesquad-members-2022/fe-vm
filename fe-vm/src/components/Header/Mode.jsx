@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
-const Mode = ({ mode, isClicked, setClicked, turnOffAll }) => {
+const Mode = ({ mode, isClicked, setClicked }) => {
   const toggleClicked = () => {
-    turnOffAll();
     setClicked(true);
   };
 

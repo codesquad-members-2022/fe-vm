@@ -26,6 +26,7 @@ const ReturnButton = styled.div`
   padding: 2rem;
   font-size: 2rem;
   text-align: center;
+  cursor: pointer;
 `;
 
 export default Info;
