@@ -6,7 +6,6 @@ const MachineContainer = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
-  margin-top: 40px;
 `;
 
 export default function VendingMachine() {

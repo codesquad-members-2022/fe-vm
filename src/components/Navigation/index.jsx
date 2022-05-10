@@ -38,28 +38,29 @@ const Nav = styled.nav`
   display: flex;
   justify-content: center;
   text-align: center;
-  margin-top: 20px;
+  margin: 40px;
 `;
 
 const StyeldLink = styled(Link)`
-  padding: 32px;
+  width: 136px;
+  padding: 12px 0;
   ${({ theme }) => theme.fontStyles.xLargeBold};
   ${props =>
     props.focus === props.id &&
     css`
-      background: ${({ theme }) => theme.colors.green};
+      background: ${({ theme }) => theme.colors.blue};
       color: ${({ theme }) => theme.colors.white};
     `};
 
   &:first-child {
-    border: 1px solid ${({ theme }) => theme.colors.green};
+    border: 1px solid ${({ theme }) => theme.colors.blue};
     border-right: none;
-    border-radius: 999px 0 0 999px;
+    border-radius: 8px 0 0 8px;
   }
 
   &:last-child {
-    border: 1px solid ${({ theme }) => theme.colors.green};
-    border-radius: 0 999px 999px 0;
+    border: 1px solid ${({ theme }) => theme.colors.blue};
+    border-radius: 0 8px 8px 0;
   }
 `;
 
