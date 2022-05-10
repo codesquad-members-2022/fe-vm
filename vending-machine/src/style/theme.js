@@ -8,6 +8,7 @@ const theme = {
     darkBlue: `${darken(0.1, "#228be6")}`,
     lightGray: `${lighten(0.1, "#495057")}`,
     darkGray: `${darken(0.1, "#495057")}`,
+    white: "#ffffff",
   },
 };
 
