@@ -14,3 +14,7 @@
 - style : 코드 포맷팅, 세미콜론 누락, 코드 변경이 없는 경우
 - docs : 문서 수정
 - chore : 빌드 업무 수정, 패키지 매니저 수정
+
+## 📕 STORY
+
+https://jinjeonimum.notion.site/STORY-f911b395158e43ae98a2a7c5204ed06b
