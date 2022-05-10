@@ -19,7 +19,7 @@ const PriceTag = styled.div`
   text-align: center;
   font-size: 1.25rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.black};
   opacity: ${({ inputBalance, price }) => (inputBalance >= price ? "100%" : "20%")};
 `;
 
