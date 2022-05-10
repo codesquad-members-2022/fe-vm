@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 
 import COLORS from 'constants/colors';
+import { MoneyContext } from 'context/MoneyProvider';
 
 import VMInputBox from './VMInputBox';
 
-const VMInputMoney = () => {
-  const [inputMoney, setInputMoney] = useState(500);
+const VMInputMoney = ({ insertVMLog }) => {
+  const { inputMoney, setInputMoney } = useContext(MoneyContext);
   const [isInputSelected, setIsInputSelected] = useState(false);
 
   const handleClickTextBox = () => {
@@ -14,8 +15,13 @@ const VMInputMoney = () => {
   };
 
   const updateInputMoney = (newMoney) => {
+    // TODO: 현재 InputMoney 보다 작게 넣는다면 false
     setInputMoney(newMoney);
     setIsInputSelected(false);
+    insertVMLog({
+      type: 'insert',
+      data: newMoney - inputMoney,
+    });
   };
 
   return (

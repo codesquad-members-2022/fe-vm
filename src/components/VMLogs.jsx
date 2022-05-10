@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
 import COLORS from 'constants/colors';
-import vmLogs from 'mocks/vmLogs';
 
 const parseVmLog = ({ type, data }) => {
   switch (type) {
@@ -17,18 +15,13 @@ const parseVmLog = ({ type, data }) => {
   }
 };
 
-const initLogs = vmLogs;
-
-const VMLogs = () => {
-  const [logs] = useState(initLogs);
-  return (
-    <VMLogsWrapper>
-      {logs.map((log) => (
-        <VMLog key={log.id}>{parseVmLog(log)}</VMLog>
-      ))}
-    </VMLogsWrapper>
-  );
-};
+const VMLogs = ({ logs }) => (
+  <VMLogsWrapper>
+    {logs.map((log) => (
+      <VMLog key={log.id}>{parseVmLog(log)}</VMLog>
+    ))}
+  </VMLogsWrapper>
+);
 
 const VMLogsWrapper = styled.ul`
   display: flex;

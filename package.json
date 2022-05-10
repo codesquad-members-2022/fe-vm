@@ -49,6 +49,10 @@
             [
               "mocks",
               "./src/mocks/"
+            ],
+            [
+              "context",
+              "./src/context/"
             ]
           ],
           "extensions": [
