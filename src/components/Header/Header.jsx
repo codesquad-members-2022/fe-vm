@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Nav from "./Nav";
+import { whaleImgSrc } from "../../styles/icons";
 
 const HeaderWrapper = styled.div`
   width: 100%;
@@ -16,16 +17,19 @@ const HeaderContent = styled.div`
 `;
 
 const Logo = styled.span`
-  font-size: 2rem;
-  font-weight: 700;
-  color: #fff;
+  margin: 0 60px;
+  background: url(${whaleImgSrc}) no-repeat center;
+  background-size: cover;
+  filter: invert(100%);
+  width: 80px;
+  height: 80px;
 `;
 
 const Header = () => {
   return (
     <HeaderWrapper>
       <HeaderContent>
-        <Logo>Icon place</Logo>
+        <Logo />
         <Nav />
       </HeaderContent>
     </HeaderWrapper>
