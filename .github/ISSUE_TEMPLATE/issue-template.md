@@ -7,8 +7,8 @@ assignees: sangbeomheo
 
 ---
 
-## Issue
-[Label] Issue TItle
+## Description
+
 
 ## Task
 - [ ] task
