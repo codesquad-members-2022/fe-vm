@@ -16,8 +16,8 @@ export default function ProductScreenBoard() {
 
   return (
     <ScreenBoard flex wrap="wrap">
-      {beverages.map(({ drinkId, drinkTitle, drinkPrice }) => {
-        return <Beverage key={drinkId} title={drinkTitle} price={drinkPrice} />;
+      {beverages.map(({ id, drinkTitle, drinkPrice }) => {
+        return <Beverage key={id} title={drinkTitle} price={drinkPrice} />;
       })}
     </ScreenBoard>
   );
