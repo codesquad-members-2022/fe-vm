@@ -1,21 +1,21 @@
 import styled from 'styled-components';
 import Menu from './Menu';
 import Calculator from './Calculator';
+import { Container } from '../styled-components/util';
 
 const VendingMachine = () => {
   return (
-    <Container>
+    <VendingMachineContainer>
       <Menu />
       <Calculator />
-    </Container>
+    </VendingMachineContainer>
   );
 };
 
-const Container = styled.main`
+const VendingMachineContainer = styled(Container)`
   width: 1440px;
   display: flex;
   margin-top: ${({ theme }) => theme.margin.large};
-  border: 0.3rem solid ${({ theme }) => theme.color.black};
 `;
 
 export default VendingMachine;

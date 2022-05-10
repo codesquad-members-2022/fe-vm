@@ -1,19 +1,24 @@
 import Header from './Header';
 import styled from 'styled-components';
-import { flexCenter } from '../styled-components/util';
+import { FlexCenter } from '../styled-components/util';
 import VendingMachine from './VendingMachine';
+import Wallet from './Wallet';
+import { Routes, Route } from 'react-router-dom';
 
 const App = () => {
   return (
     <>
       <Header />
       <Container>
-        <VendingMachine />
+        <Routes>
+          <Route path="/" element={<VendingMachine />} />
+          <Route path="/wallet" element={<Wallet />} />
+        </Routes>
       </Container>
     </>
   );
 };
 
-const Container = styled(flexCenter)``;
+const Container = styled(FlexCenter)``;
 
 export default App;

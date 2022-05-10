@@ -1,106 +1,126 @@
 import styled from 'styled-components';
 import Product from './Product';
-import { flexCenter } from '../styled-components/util';
+import { FlexCenter } from '../styled-components/util';
 
-const MENU = [
+const MENU_INFO = [
   {
-    name: '콜라',
+    name: '맥주',
+    src: '/images/beer.png',
+    price: 500,
+  },
+  {
+    name: '뼈다귀',
+    src: '/images/bone.png',
+    price: 1000,
+  },
+  {
+    name: '빵',
+    src: '/images/bread.png',
+    price: 400,
+  },
+  {
+    name: '케이크',
+    src: '/images/cupcake.png',
+    price: 300,
+  },
+  {
+    name: '치즈',
+    src: '/images/cheese.png',
+    price: 900,
+  },
+  {
+    name: '칵테일',
+    src: '/images/cocktail.png',
+    price: 1200,
+  },
+  {
+    name: '커피',
+    src: '/images/coffee.png',
+    price: 1000,
+  },
+  {
+    name: '에너지 드링크',
+    src: '/images/energy-drink.png',
+    price: 1000,
+  },
+  {
+    name: '감자튀김',
+    src: '/images/french-fries.png',
+    price: 2000,
+  },
+  {
+    name: '과일',
+    src: '/images/fruit.png',
+    price: 1000,
+  },
+  {
+    name: '햄버거',
+    src: '/images/hamburger.png',
+    price: 7000,
+  },
+  {
+    name: '삼각김밥',
+    src: '/images/onigiri.png',
+    price: 600,
+  },
+  {
+    name: '피자',
+    src: '/images/pizza.png',
+    price: 1000,
+  },
+  {
+    name: '밥',
+    src: '/images/rice-bowl.png',
     price: 500,
   },
   {
     name: '사이다',
+    src: '/images/soda-can.png',
     price: 1000,
   },
   {
-    name: '파인애플맛 환타',
-    price: 400,
+    name: '스파게티',
+    src: '/images/spaguetti.png',
+    price: 1000,
   },
   {
-    name: '포도맛 환타',
-    price: 300,
-  },
-  {
-    name: '레몬에이드',
-    price: 900,
-  },
-  {
-    name: '봉봉',
+    name: '탄산수',
+    src: '/images/sparkling-water.png',
     price: 1200,
   },
   {
-    name: '코코아 주스',
+    name: '타코',
+    src: '/images/taco.png',
     price: 1000,
   },
   {
-    name: '콜라 제로',
+    name: '붕어빵',
+    src: '/images/taiyaki.png',
     price: 1000,
   },
   {
-    name: '파워에이드',
+    name: '물',
+    src: '/images/water.png',
     price: 2000,
-  },
-  {
-    name: '초코 우유',
-    price: 1000,
-  },
-  {
-    name: '초코 우유2',
-    price: 7000,
-  },
-  {
-    name: '초코 우유3',
-    price: 600,
-  },
-  {
-    name: '딸바 주스',
-    price: 1000,
-  },
-  {
-    name: '바나나 우유',
-    price: 500,
-  },
-  {
-    name: '커피 우유',
-    price: 1000,
-  },
-  {
-    name: '알로에',
-    price: 1200,
-  },
-  {
-    name: '콘칩',
-    price: 1000,
-  },
-  {
-    name: '새우깡',
-    price: 1000,
-  },
-  {
-    name: '감자칩',
-    price: 2000,
-  },
-  {
-    name: '칸쵸',
-    price: 1000,
   },
 ];
 
 const Menu = () => {
   return (
     <MenuList as="ul">
-      {MENU.map((info, index) => (
+      {MENU_INFO.map((info, index) => (
         <Product info={info} key={index} />
       ))}
     </MenuList>
   );
 };
 
-const MenuList = styled(flexCenter)`
-  width: 50%;
+const MenuList = styled(FlexCenter)`
   gap: 3rem;
   flex-wrap: wrap;
   padding: ${({ theme }) => theme.padding.large};
-  border-right: 0.3rem solid ${({ theme }) => theme.color.black};
 `;
+
+// const style
 
 export default Menu;

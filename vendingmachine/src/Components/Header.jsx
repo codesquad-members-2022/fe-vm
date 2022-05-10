@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { flexCenter } from '../styled-components/util';
+import { FlexCenter } from '../styled-components/util';
 import GNB from './GNB';
 
 const Header = () => {
@@ -11,7 +11,7 @@ const Header = () => {
   );
 };
 
-const Container = styled(flexCenter)`
+const Container = styled(FlexCenter)`
   margin-top: ${({ theme }) => theme.margin.medium};
 `;
 

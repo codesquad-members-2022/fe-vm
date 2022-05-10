@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 import Message from './Message';
+import { CalculatorText } from '../styled-components/util';
 
 const Calculator = () => {
   return (
     <Container>
       <PriceInfo>
-        <Price>500원</Price>
+        <Price as="strong">500원</Price>
       </PriceInfo>
-      <Change>반환</Change>
+      <Change as="button">반환</Change>
       <MessageList>
         <Message />
         <Message />
@@ -31,45 +32,44 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 60%;
   padding: ${({ theme }) => theme.padding.large};
 `;
 
 const PriceInfo = styled.div`
   width: 90%;
   height: 6rem;
-  border: 0.3rem solid ${({ theme }) => theme.color.black};
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   text-align: right;
   border-radius: 1rem;
 `;
 
-const Price = styled.strong`
-  line-height: ${({ theme }) => theme.lineHeight.large};
-  font-size: ${({ theme }) => theme.fontSize.display};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
+const Price = styled(CalculatorText)`
   margin-right: ${({ theme }) => theme.margin.large};
+  cursor: default;
 `;
 
-const Change = styled.button`
+const Change = styled(CalculatorText)`
   display: block;
   width: 90%;
   height: 6rem;
-  background-color: none;
   cursor: pointer;
-  border: 0.3rem solid ${({ theme }) => theme.color.black};
   margin-top: ${({ theme }) => theme.margin.xLarge};
-  font-size: ${({ theme }) => theme.fontSize.display};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
   background-color: transparent;
-  line-height: ${({ theme }) => theme.lineHeight.large};
   padding: 0;
   border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  border: none;
+
+  &:hover {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+  }
 `;
 
 const MessageList = styled.ul`
   width: 90%;
-  height: 50rem;
-  border: 0.3rem solid ${({ theme }) => theme.color.black};
+  height: 45rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   margin-top: ${({ theme }) => theme.margin.xLarge};
   border-radius: 1rem;
   overflow-y: auto;

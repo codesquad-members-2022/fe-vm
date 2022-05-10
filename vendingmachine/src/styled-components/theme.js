@@ -25,7 +25,8 @@ const color = {
 };
 
 const borderSize = {
-  medium: '0.2rem',
+  medium: '0.3rem',
+  small: '0.19rem',
 };
 
 const lineHeight = {
