@@ -7,7 +7,7 @@ const ProductAreaWrapper = styled.div`
   width: 750px;
   height: 100%;
   box-sizing: border-box;
-  border: 5px solid ${({ theme }) => theme.colors.navy};
+  border-radius: 20px 0 0 20px;
   background-color: ${({ theme }) => theme.colors.lightNavy};
 `;
 

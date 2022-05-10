@@ -5,7 +5,7 @@ import { whaleImgSrc } from "../../styles/icons";
 const HeaderWrapper = styled.div`
   width: 100%;
   height: 100px;
-  background-color: #022044;
+  background-color: ${({ theme }) => theme.colors.navy};
 `;
 
 const HeaderContent = styled.div`

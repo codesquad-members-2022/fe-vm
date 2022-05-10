@@ -16,18 +16,22 @@ export const InputSumProvider = ({ children }) => {
   );
 };
 
-export const RecordsProvider = createContext();
+export const Records = createContext();
 
-export const RecordsContextProvider = ({ children }) => {
-  const [records, setRecords] = useState([]);
+export const RecordsProvider = ({ children }) => {
+  const [records, setRecords] = useState([
+    "aaaa",
+    "콜라를 구매했습니다. 우하우하우하우항후ㅏ",
+    "돈을 엄청 많이 벌었습니다! 야호야호야호야ㅗ햐오햫오ㅑ"
+  ]);
   return (
-    <RecordsProvider.Provider
+    <Records.Provider
       value={{
         records,
         setRecords
       }}
     >
       {children}
-    </RecordsProvider.Provider>
+    </Records.Provider>
   );
 };
