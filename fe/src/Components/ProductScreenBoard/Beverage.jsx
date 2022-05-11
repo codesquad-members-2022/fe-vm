@@ -1,5 +1,5 @@
+import { InvestmentContext, SetAlertMessage, SetInvestmentContext } from 'App';
 import { INIT_ALERT_MESSAGE } from 'Helper/constant';
-import { InvestmentContext, SetAlertMessage, SetInvestmentContext } from 'Pages/VendingMachine/VendingMachine';
 import { useContext } from 'react';
 import { BeverageContainer, Price, Title } from './Beverage.styled';
 

@@ -1,6 +1,11 @@
-import { SetWalletMoneyContext, WalletMoneyContext } from 'App';
+import {
+  SetWalletMoneyContext,
+  WalletMoneyContext,
+  InvestmentContext,
+  SetInvestmentContext,
+  SetAlertMessage,
+} from 'App';
 import { COIN_LIST, INIT_ALERT_MESSAGE } from 'Helper/constant';
-import { InvestmentContext, SetInvestmentContext, SetAlertMessage } from 'Pages/VendingMachine/VendingMachine';
 import { useContext } from 'react';
 import { ReturnButton } from './CashReturnButton.styled';
 

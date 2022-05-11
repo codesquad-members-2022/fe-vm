@@ -1,6 +1,11 @@
-import { SetWalletMoneyContext, WalletMoneyContext } from 'App';
+import {
+  SetWalletMoneyContext,
+  WalletMoneyContext,
+  InvestmentContext,
+  SetInvestmentContext,
+  SetAlertMessage,
+} from 'App';
 import { INIT_ALERT_MESSAGE } from 'Helper/constant';
-import { InvestmentContext, SetAlertMessage, SetInvestmentContext } from 'Pages/VendingMachine/VendingMachine';
 import { useContext, useState } from 'react';
 import { CashInput, Button, ChargeForm } from './ChargeForm.styled';
 
