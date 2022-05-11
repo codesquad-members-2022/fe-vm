@@ -34,17 +34,6 @@ export const InsertMoneyFormBox = styled.form`
   }
 `;
 
-export const ChangesUnitsContainer = styled.ul`
-  width: 20%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  > li {
-    display: flex;
-    gap: 12px;
-  }
-`;
-
 export const ProductCard = styled.div`
   width: 100%;
   height: 100%;

@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import ChangesUnits from './ChangesUnits';
 import InsertMoneyForm from './InsertMoneyForm';
 import ProductsContainer from './ProductsContainer';
 import * as S from './style';
@@ -21,21 +20,6 @@ const CHANGES_UMITS = [
 
 const TOTAL_BALANCE = 23500;
 
-const getRestUnit = (units, totalBalance) => {
-  const { resultArr: newChangesUnits } = [...units]
-    .sort((prev, cur) => cur.unit - prev.unit)
-    .reduce(
-      ({ rest, resultArr }, cur) => {
-        const taretCount = Math.floor(rest / cur.unit);
-        const newRest = rest % cur.unit;
-        return { rest: newRest, resultArr: [{ ...cur, count: taretCount }, ...resultArr] };
-      },
-      { rest: totalBalance, resultArr: [] },
-    );
-  return newChangesUnits;
-};
-
-//
 const findClosestUnit = (existUnits, submitOnlyNumber) => {
   return existUnits.reduce((acc, { unit }) => {
     const substractAbs = Math.abs(submitOnlyNumber - acc);
@@ -87,18 +71,6 @@ function VendingMachine(props) {
     setInsertMoney(onlyNumber);
   }, []);
 
-  const divideBalance = useCallback(() => {
-    setChangesUnits(prev => getRestUnit(prev, totalBalance));
-  }, [totalBalance]);
-
-  const substactBalance = useCallback(money => {
-    setTotalBalance(prev => prev - money);
-  }, []);
-
-  useEffect(() => {
-    divideBalance();
-  }, [divideBalance]);
-
   return (
     <S.VMContainer>
       <ProductsContainer insertMoney={insertMoney} />
@@ -107,11 +79,6 @@ function VendingMachine(props) {
         insertMoney={insertMoney}
         onChangeInsertMoney={onChangeInsertMoney}
         handleSubmitInsertMoney={handleSubmitInsertMoney}
-      />
-      <ChangesUnits
-        totalBalance={totalBalance}
-        changesUnits={changesUnits}
-        substactBalance={substactBalance}
       />
     </S.VMContainer>
   );

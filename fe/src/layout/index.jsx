@@ -1,5 +1,6 @@
+import GlobalNavigation from 'components/GlobalNavigation';
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import * as S from './style';
 
 // TODO: navigation 컴포넌트로 분리하기
@@ -7,9 +8,7 @@ import * as S from './style';
 function Layout() {
   return (
     <S.AppContainer>
-      <S.Header>
-        <Link to="/">홈</Link>
-      </S.Header>
+      <GlobalNavigation />
       <S.Main>
         <Outlet />
       </S.Main>
