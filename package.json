@@ -29,7 +29,9 @@
     ],
     "rules": {
       "import/no-unresolved": "off",
-      "react/prop-types": "off"
+      "react/prop-types": "off",
+      "react/no-array-index-key": "off",
+      "no-use-before-define": "off"
     },
     "env": {
       "browser": true

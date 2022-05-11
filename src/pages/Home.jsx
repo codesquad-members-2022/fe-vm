@@ -7,11 +7,7 @@ import styled from 'styled-components';
 function Home() {
   return (
     <Wrap>
-      <Products>
-        {PRODUCTS.map(({ name, price }) => (
-          <Product name={name} price={price} />
-        ))}
-      </Products>
+      <Products />
       <ControlPanel />
     </Wrap>
   );
@@ -19,11 +15,21 @@ function Home() {
 
 export default Home;
 
+function Products() {
+  return (
+    <ProductWrap>
+      {PRODUCTS.map(({ name, price }) => (
+        <Product name={name} price={price} />
+      ))}
+    </ProductWrap>
+  );
+}
+
 const Wrap = styled.div({
   display: 'flex',
 });
 
-const Products = styled.div({
+const ProductWrap = styled.div({
   display: 'grid',
   gridTemplateColumns: 'repeat(4, 100px)',
   gap: '20px',

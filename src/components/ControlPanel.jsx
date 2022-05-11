@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { MoneyContext } from 'components/App';
 
 function ControlPanel() {
+  const { curMoney } = useContext(MoneyContext);
   return (
     <Wrap>
       <Row>
-        <Money />
-        <Unit>원</Unit>
+        <Money value={curMoney} />
+        <span>원</span>
       </Row>
-      <ReturnBtn>반환하기</ReturnBtn>
+      <button type="button">반환하기</button>
       <EventLog />
     </Wrap>
   );
@@ -32,10 +34,6 @@ const Money = styled.input({
   width: '100%',
   textAlign: 'right',
 });
-
-const Unit = styled.span({});
-
-const ReturnBtn = styled.button({});
 
 const EventLog = styled.div({
   border: '1px solid black',

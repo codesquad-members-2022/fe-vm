@@ -1,62 +1,34 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { MoneyContext } from 'components/App';
+import Coin from 'components/Coin';
+import COINS from 'mock/coins';
 
 function MoneyCharge() {
+  const { curMoney } = useContext(MoneyContext);
   return (
     <Wrap>
-      <Coins>
-        <Coin>10원</Coin>
-        <Coin>50원</Coin>
-        <Coin>1000원</Coin>
-        <Coin>500원</Coin>
-        <Coin>1000원</Coin>
-        <Coin>5000원</Coin>
-        <Coin>10000원</Coin>
-      </Coins>
-      <Counts>
-        <Count>0개</Count>
-        <Count>0개</Count>
-        <Count>0개</Count>
-        <Count>0개</Count>
-        <Count>0개</Count>
-        <Count>0개</Count>
-        <Count>0개</Count>
-      </Counts>
+      <Coins />
       <Total>
-        <Money>10000</Money>
+        <Money>{curMoney}</Money>
         <Unit>원</Unit>
       </Total>
     </Wrap>
   );
 }
 
+function Coins() {
+  return COINS.map(({ AMOUNT, CNT }) => (
+    <Coin key={`${AMOUNT}`} amount={AMOUNT} cnt={CNT} />
+  ));
+}
+
 const Wrap = styled.div({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(2, 100px)',
+  display: 'flex',
+  flexDirection: 'column',
+  width: '200px',
   gap: '20px',
   marginTop: '20px',
-});
-const Coins = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '20px',
-});
-const Coin = styled.div({
-  textAlign: 'center',
-  border: '1px solid black',
-  height: '50px',
-  lineHeight: '50px',
-});
-const Counts = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '20px',
-});
-const Count = styled.div({
-  textAlign: 'center',
-  border: '1px solid black',
-  height: '50px',
-  lineHeight: '50px',
 });
 const Total = styled.div({
   width: '100%',
