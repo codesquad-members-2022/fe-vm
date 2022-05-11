@@ -2,10 +2,10 @@ import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import styled from 'styled-components';
 
-import {UserAccountContext} from './Store';
-import {VendingMachine} from './Component/Vending_machine';
-import {Wallet} from './Component/Wallet';
-import {UiChangeBtn} from './Component/Toggle';
+import {UserAccountContext} from '../Store';
+import {VendingMachine} from './Vending_machine';
+import {Wallet} from './Wallet';
+import {UiChangeBtn} from './Toggle';
 
 const AppWrapper = styled.div`
   display: flex;
