@@ -16,8 +16,14 @@ const VMInputMoney = () => {
   };
 
   const updateInputMoney = (newMoney) => {
-    // TODO: 현재 InputMoney 보다 작게 넣는다면 false
-    setInputMoney(newMoney);
+    if (newMoney <= inputMoney) {
+      // TODO: 현재 InputMoney 보다 작게 넣는다면 false
+      // 다시 시도하게 코드 조정
+      setIsInputSelected(false);
+      return;
+    }
+    // newMoney 알고리즘
+    setInputMoney(+newMoney);
     setIsInputSelected(false);
     insertLog({
       type: 'insert',
