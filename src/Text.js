@@ -8,7 +8,7 @@ const Text = styled.span`
   font-size: ${({ font }) => (font ? fonts[font].fontSize : "16px")};
   line-height: ${({ font }) => (font ? fonts[font].lineHeight : "26px")};
   letter-spacing: ${({ font }) => (font ? fonts[font].letterSpacing : "-0.004em;")};
-  color: ${({ textColor }) => textColor || colors.black};
+  // color: ${({ textColor }) => textColor || colors.black};
 `;
 
 export default Text;

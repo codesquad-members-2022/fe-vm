@@ -1,4 +1,7 @@
+import { useState } from "react";
 import styled from "styled-components";
+
+import colors from "../../constants/colors";
 
 export const HeaderWrap = styled.div`
   display: flex;
@@ -16,10 +19,19 @@ const HeaderBtn = styled.div`
   border-radius: 10px;
   border: 1px solid black;
   background-color: #d3d3d3;
+  background-color: ${(props) => colors[props.display]};
   margin: 0 1vw 0 1vw;
   color: black;
 `;
 
 export const HeaderBtns = ({ info }) => {
-  return <HeaderBtn>{info}</HeaderBtn>;
+  const [btnDisplay, setBtnDisplay] = useState("lightWhite");
+  const onHeaderBtnClick = () => {
+    setBtnDisplay("black");
+  };
+  return (
+    <HeaderBtn onClick={onHeaderBtnClick} display={btnDisplay}>
+      {info}
+    </HeaderBtn>
+  );
 };
