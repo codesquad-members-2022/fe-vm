@@ -7,13 +7,13 @@ import { Wrapper, insertButtonStyle } from "./InsertMoneyArea.styled";
 const { CURRENCY } = constants;
 const { INSERT } = constants.BUTTON_NAME;
 
-const InsertMoneyArea = () => {
+const InsertMoneyArea = ({ value }) => {
   return (
     <Wrapper>
       <div className="input-wrap">
         <Input
           type="number"
-          value={0}
+          value={value}
           style={{ size: { width: "80%", height: "2rem" }, fontSize: "2rem" }}
         />{" "}
         {CURRENCY}
