@@ -1,0 +1,8 @@
+.message-view {
+  width: 260px;
+  height: 300px;
+  border: 1px solid #000;
+  margin-top: 30px;
+  text-indent: 15px;
+  overflow-y: scroll;
+}

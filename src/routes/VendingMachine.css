@@ -1,0 +1,32 @@
+.vendingmachine-wrapper {
+  width: 1000px;
+  margin: 30px auto 0;
+  display: flex;
+  border: 1px solid #000;
+}
+
+.product-wrapper {
+  width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  text-align: center;
+}
+
+.product-info {
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
+
+.product {
+  width: 70px;
+  height: 50px;
+  border: 1px solid #000;
+}
+.vendingmachine-input-wrapper {
+  width: 300px;
+  height: 600px;
+  margin-top: 20px;
+}
