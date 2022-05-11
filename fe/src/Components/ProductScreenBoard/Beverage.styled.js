@@ -1,8 +1,14 @@
 import { applyFlex } from 'Helper/utils';
 import styled from 'styled-components';
 
+const createBorder = (flag) => {
+  return flag ? `border: 2px solid #ec407a` : `border: 2px solid #000`;
+};
 export const BeverageContainer = styled.div`
-  border: 1px solid #000;
+  box-sizing: border-box;
+  ${({ buyPossible }) => {
+    return createBorder(buyPossible) + '; cursor:pointer';
+  }};
   margin: 20px;
   width: 100px;
   height: 100px;
