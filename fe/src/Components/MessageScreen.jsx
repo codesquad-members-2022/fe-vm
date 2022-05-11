@@ -1,4 +1,4 @@
-import { initAlertMessage } from 'Helper/constant';
+import { INIT_ALERT_MESSAGE } from 'Helper/constant';
 import { getWonTemplate } from 'Helper/utils';
 import { AlertMessage, SetAlertMessage } from 'Pages/VendingMachine';
 import { useCallback, useContext, useEffect, useState } from 'react';
@@ -25,7 +25,7 @@ export default function MessageScreen() {
 
     const newMessageList = createNewMessageList(message);
     setMessageList(newMessageList);
-    setAlertMessage(initAlertMessage);
+    setAlertMessage(INIT_ALERT_MESSAGE);
   }, [alertMessage, setAlertMessage, createNewMessageList]);
 
   return (

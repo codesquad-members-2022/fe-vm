@@ -1,5 +1,5 @@
 import { SetWalletMoneyContext, WalletMoneyContext } from 'App';
-import { initAlertMessage } from 'Helper/constant';
+import { INIT_ALERT_MESSAGE } from 'Helper/constant';
 import { InvestmentContext, SetAlertMessage, SetInvestmentContext } from 'Pages/VendingMachine';
 import { useContext, useState } from 'react';
 import { CashInput, Button, ChargeForm } from './ChargeForm.styled';
@@ -111,7 +111,7 @@ const chargeCash = ({ investment, setInvestment, walletMoney, setWalletMoney, se
 };
 
 const alertChargeMessage = ({ setAlertMessage, adjustedCash }) => {
-  const newAlertMessage = { ...initAlertMessage };
+  const newAlertMessage = { ...INIT_ALERT_MESSAGE };
   newAlertMessage.chargeCash = Number(adjustedCash);
   setAlertMessage(newAlertMessage);
 };

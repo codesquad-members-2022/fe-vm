@@ -1,5 +1,5 @@
 import { SetWalletMoneyContext, WalletMoneyContext } from 'App';
-import { COIN_LIST, initAlertMessage } from 'Helper/constant';
+import { COIN_LIST, INIT_ALERT_MESSAGE } from 'Helper/constant';
 import { InvestmentContext, SetInvestmentContext, SetAlertMessage } from 'Pages/VendingMachine';
 import { useContext } from 'react';
 import { ReturnButton } from './CashReturnButton.styled';
@@ -22,7 +22,7 @@ export default function CashReturnButton() {
     const newInvestment = { ...investment };
     const newWalletMoney = { ...walletMoney };
 
-    const alertMessage = { ...initAlertMessage };
+    const alertMessage = { ...INIT_ALERT_MESSAGE };
     alertMessage.changeAmount = investmentPrice;
     setAlertMessage(alertMessage);
     setInvestmnt(newInvestment);

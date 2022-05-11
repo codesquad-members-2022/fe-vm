@@ -1,4 +1,4 @@
-import { initAlertMessage } from 'Helper/constant';
+import { INIT_ALERT_MESSAGE } from 'Helper/constant';
 import { InvestmentContext, SetAlertMessage, SetInvestmentContext } from 'Pages/VendingMachine';
 import { useContext } from 'react';
 import { BeverageContainer, Price, Title } from './Beverage.styled';
@@ -36,13 +36,13 @@ export default function Beverage({ title, price }) {
 }
 
 const alertOrderMessage = ({ title, setAlertMessage }) => {
-  const alertMessage = { ...initAlertMessage };
+  const alertMessage = { ...INIT_ALERT_MESSAGE };
   alertMessage.orderTitle = title;
   setAlertMessage(alertMessage);
 };
 
 const alertWrongProduct = (setAlertMessage) => {
-  const alertMessage = { ...initAlertMessage };
+  const alertMessage = { ...INIT_ALERT_MESSAGE };
   alertMessage.wrong = true;
   setAlertMessage(alertMessage);
 };
