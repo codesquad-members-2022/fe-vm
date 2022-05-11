@@ -2,6 +2,7 @@ import { WALLET_API } from 'Helper/constant';
 import useFetch from 'Hooks/useFetch';
 import Layout from 'Pages/Layout/Layout';
 import VendingMachine from 'Pages/VendingMachine/VendingMachine';
+import Wallet from 'Pages/Wallet/Wallet';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -18,7 +19,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route path="/" element={<VendingMachine />} />
-              <Route path="/wallet" element={<VendingMachine />} />
+              <Route path="/wallet" element={<Wallet />} />
             </Route>
           </Routes>
         </BrowserRouter>
