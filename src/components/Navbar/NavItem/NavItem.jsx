@@ -1,17 +1,19 @@
 import Button from "components/common/form/Button/Button";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-import { navButtonStyle, Wrapper } from "./NavItem.styled";
+import { Wrapper, navButtonStyle } from "./NavItem.styled";
 
 const NavItem = ({ menuItem }) => {
-  const { pathname } = useLocation();
   const { menuName, path } = menuItem;
 
   return (
-    <Wrapper isCurrentLocation={pathname === path}>
-      <Link to={path}>
+    <Wrapper>
+      <NavLink
+        to={path}
+        className={({ isActive }) => (isActive ? "current-path" : "nav-link")}
+      >
         <Button styles={navButtonStyle} data={{ name: menuName }} />
-      </Link>
+      </NavLink>
     </Wrapper>
   );
 };
