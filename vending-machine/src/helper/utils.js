@@ -18,5 +18,5 @@ export function getWonTemplate(number) {
 }
 
 export function delay(time) {
-  return new Promise(res => setTimeout(() => res, time));
+  return new Promise(res => setTimeout(() => res(), time));
 }
