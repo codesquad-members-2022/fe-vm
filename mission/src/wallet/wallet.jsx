@@ -1,0 +1,3 @@
+function Wallet() {}
+
+export { Wallet };
