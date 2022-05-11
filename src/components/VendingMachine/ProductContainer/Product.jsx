@@ -29,8 +29,8 @@ const ProductName = styled.div`
   ${({ theme }) => theme.fontStyles.smallBold};
   background: ${({ theme }) => theme.colors.white};
 
-  ${props =>
-    props.stock
+  ${({ stock }) =>
+    stock
       ? css`
           background: ${({ theme }) => theme.colors.white};
         `
@@ -59,8 +59,8 @@ const PriceWrapper = styled.div`
     ${({ theme }) => theme.fontStyles.xSmallBold};
   }
 
-  ${props =>
-    props.stock
+  ${({ stock }) =>
+    stock
       ? css`
           border: 2px solid ${({ theme }) => theme.colors.gray4};
 

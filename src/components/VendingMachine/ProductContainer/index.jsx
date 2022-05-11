@@ -3,11 +3,13 @@ import productsList from 'mock/Products';
 import Product from './Product';
 
 export default function ProductContainer() {
-  const list = productsList.map(product => <Product key={product.id} info={product}></Product>);
+  const productComponents = productsList.map(product => (
+    <Product key={product.id} info={product}></Product>
+  ));
 
   return (
     <Container>
-      <GridWrapper>{list}</GridWrapper>
+      <GridWrapper>{productComponents}</GridWrapper>
     </Container>
   );
 }
