@@ -17,7 +17,7 @@ const App = () => {
       <Normalize />
 
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
           <Routes>
             <Route path="/" element={<Layout menusData={menus} />}>
               <Route path="/" element={<VendingMachine />} />
