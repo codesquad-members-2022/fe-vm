@@ -6,8 +6,16 @@
   },
   "extends": ["airbnb", "react-app", "plugin:prettier/recommended"],
   "plugins": ["prettier"],
+  "ignorePatterns": ["node_modules/"],
   "rules": {
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "no-console": "warn"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
   }
 }
