@@ -1,22 +1,30 @@
 import { SetWalletMoneyContext, WalletMoneyContext } from 'App';
-import { COIN_LIST } from 'Helper/constant';
-import { InvestmentContext, SetInvestmentContext } from 'Pages/VendingMachine';
+import { COIN_LIST, initAlertMessage } from 'Helper/constant';
+import { InvestmentContext, SetInvestmentContext, SetAlertMessage } from 'Pages/VendingMachine';
 import { useContext } from 'react';
 import { ReturnButton } from './CashReturnButton.styled';
 
 export default function CashReturnButton() {
   const setInvestmnt = useContext(SetInvestmentContext);
   const setWalletMoney = useContext(SetWalletMoneyContext);
+  const setAlertMessage = useContext(SetAlertMessage);
   const investment = useContext(InvestmentContext);
   const walletMoney = useContext(WalletMoneyContext);
 
   const handleReset = () => {
     const investmentPrice = investment.amount;
     investment.amount = 0;
+    if (investmentPrice === 0) {
+      return;
+    }
     const coins = getChange(investmentPrice);
     reflectChange(walletMoney, coins);
     const newInvestment = { ...investment };
     const newWalletMoney = { ...walletMoney };
+
+    const alertMessage = { ...initAlertMessage };
+    alertMessage.changeAmount = investmentPrice;
+    setAlertMessage(alertMessage);
     setInvestmnt(newInvestment);
     setWalletMoney(newWalletMoney);
   };
