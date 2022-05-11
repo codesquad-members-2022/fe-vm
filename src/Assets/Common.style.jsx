@@ -27,6 +27,10 @@ const Radius10 = css`
   border-radius: 10px;
 `
 
+const Radius20 = css`
+  border-radius: 20px;
+`
+
 const FontSize = {
   DISPLAY: '2rem', // 32px
   X_LARGE: '1.875rem', // 30px
@@ -53,6 +57,7 @@ export {
   F_basicCenter,
   F_Center,
   Radius10,
+  Radius20,
   FontSize,
   Color,
 }
