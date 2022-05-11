@@ -12,7 +12,7 @@ const MoneyItem = ({ cash, count }) => {
       <Button
         className="money"
         data={{ name: cash }}
-        style={moneyButtonStyle}
+        styles={moneyButtonStyle}
       />
       <Count data={count} />
     </MoneyLi>

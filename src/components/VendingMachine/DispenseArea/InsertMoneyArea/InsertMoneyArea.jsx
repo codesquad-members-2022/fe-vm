@@ -18,7 +18,7 @@ const InsertMoneyArea = ({ value }) => {
         />{" "}
         {CURRENCY}
       </div>
-      <Button data={{ name: INSERT }} style={insertButtonStyle} />
+      <Button data={{ name: INSERT }} styles={insertButtonStyle} />
     </Wrapper>
   );
 };

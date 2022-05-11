@@ -7,7 +7,7 @@ const ProductItem = ({ productsData }) => {
     <ProductLi key={product.id}>
       <Button
         data={product}
-        style={productButtonStyle}
+        styles={productButtonStyle}
         className="product-button"
       />
       <p className="product-price">{product.price}</p>

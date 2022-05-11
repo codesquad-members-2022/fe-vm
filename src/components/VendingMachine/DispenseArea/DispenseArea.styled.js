@@ -1,12 +1,14 @@
-import styled from "styled-components";
-import theme from "styles/theme";
+import styled, { css } from "styled-components";
 
-const returnButtonStyle = {
-  size: { width: "100%", height: "3rem" },
-  fontStyle: theme.fontStyles.buttons.large,
-  margin: `${theme.whitespace.default} 0`,
-  bgColor: theme.colors.darkblue,
-};
+const returnButtonStyle = css`
+  width: 100%;
+  ${({ theme: { fontStyles } }) => fontStyles.buttons.large};
+
+  ${({ theme: { colors, whitespace } }) => `
+    background-color: ${colors.darkblue};
+    margin: ${whitespace.default} 0;
+  `}
+`;
 
 const DispenseAreaWrap = styled.div`
   height: 100%;

@@ -1,15 +1,14 @@
-import styled from "styled-components";
-import theme from "styles/theme";
+import styled, { css } from "styled-components";
 
-const insertButtonStyle = {
-  size: { width: "25%", height: "3rem" },
-  fontStyle: theme.fontStyles.buttons.large,
-  bgColor: theme.colors.green,
-  margin: "0",
-};
+const insertButtonStyle = css`
+  width: 25%;
+  margin: 0;
+  ${({ theme: { fontStyles } }) => fontStyles.buttons.large};
+  background-color: ${({ theme: { colors } }) => colors.green};
+`;
 
 const Wrapper = styled.div`
-  font-size: ${({ theme: { fontStyles } }) => fontStyles.normal};
+  font-size: ${({ theme: { fontSizes } }) => fontSizes.normal};
   display: flex;
   justify-content: space-between;
   align-items: center;

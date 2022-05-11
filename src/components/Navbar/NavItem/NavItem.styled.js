@@ -1,16 +1,15 @@
-import theme from "styles/theme";
+import { css } from "styled-components";
 
-const navButtonStyle = {
-  size: {
-    width: "10rem",
-    height: "3rem",
-  },
-  fontStyle: theme.fontStyles.nav,
-  hover: {
-    backgroundColor: theme.colors.black,
-    borderRadius: theme.whitespace.default,
-    color: theme.colors.white,
-  },
-};
+const navButtonStyle = css`
+  width: 10rem;
+  ${({ theme: { fontStyles } }) => fontStyles.nav}
 
+  &:hover {
+    ${({ theme: { colors, whitespace } }) => `
+      background-color: ${colors.black};
+      border-radius: ${whitespace.default};
+      color: ${colors.white};
+    `}
+  }
+`;
 export default navButtonStyle;

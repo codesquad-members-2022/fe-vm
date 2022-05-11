@@ -16,7 +16,7 @@ const DispenseArea = () => {
         data={{
           name: RETURN,
         }}
-        style={returnButtonStyle}
+        styles={returnButtonStyle}
       />
       <ProgressArea />
     </DispenseAreaWrap>

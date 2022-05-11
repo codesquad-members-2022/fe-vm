@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 
 const Wrapper = styled.div`
-  ${({ theme: { fontStyles, colors, whitespace } }) => css`
-    font-size: ${fontStyles.normal};
+  ${({ theme: { fontSizes, colors, whitespace } }) => css`
+    font-size: ${fontSizes.normal};
     background-color: ${colors.black};
     color: ${colors.white};
     padding: ${whitespace.default};

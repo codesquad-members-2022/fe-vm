@@ -1,17 +1,18 @@
-import styled from "styled-components";
-import theme from "styles/theme";
+import styled, { css } from "styled-components";
 
-const productButtonStyle = {
-  size: { width: "95%", height: "3rem" },
-  fontStyle: theme.fontStyles.buttons.small,
-  border: `1px solid ${theme.colors.black}`,
-  margin: "0 auto",
-  hover: {
-    backgroundColor: theme.colors.darkblue,
-    color: theme.colors.white,
-    fontWeight: "600",
-  },
-};
+const productButtonStyle = css`
+  width: 95%;
+  ${({ theme: { fontStyles } }) => fontStyles.buttons.small};
+  border: ${({ theme: { borders } }) => borders.normal};
+
+  &:hover {
+    ${({ theme: { colors, fontWeights } }) => `
+    background-color: ${colors.darkblue};
+    color: ${colors.white};
+    font-weight: ${fontWeights.mediumBold};
+  `}
+  }
+`;
 
 const ProductLi = styled.li`
   height: 4.5rem;
@@ -22,7 +23,7 @@ const ProductLi = styled.li`
 
   .product-price {
     text-align: center;
-    font-weight: 600;
+    font-weight: ${({ theme: { fontWeights } }) => fontWeights.mediumBold};
   }
 `;
 

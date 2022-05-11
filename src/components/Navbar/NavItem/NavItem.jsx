@@ -7,7 +7,7 @@ const NavItem = ({ menuItem }) => {
   const { menuName, path } = menuItem;
   return (
     <Link to={path}>
-      <Button style={navButtonStyle} data={{ name: menuName }} />
+      <Button styles={navButtonStyle} data={{ name: menuName }} />
     </Link>
   );
 };

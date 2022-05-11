@@ -1,12 +1,14 @@
-import styled from "styled-components";
-import theme from "styles/theme";
+import styled, { css } from "styled-components";
 
-const moneyButtonStyle = {
-  size: { width: "4rem", height: "3rem" },
-  margin: `0 ${theme.whitespace.default} 0 0`,
-  bgColor: theme.colors.green,
-  fontStyle: theme.fontStyles.buttons.large,
-};
+const moneyButtonStyle = css`
+  width: 4rem;
+  ${({ theme: { fontStyles } }) => fontStyles.buttons.large};
+
+  ${({ theme: { colors, whitespace } }) => `
+    margin: 0 ${whitespace.default} 0 0;
+    background-color: ${colors.green};
+  `}
+`;
 
 const MoneyLi = styled.li`
   width: 100%;
@@ -22,8 +24,8 @@ const MoneyLi = styled.li`
 
   .count {
     width: 4rem;
-    font-size: ${({ theme: { fontStyles } }) => fontStyles.large};
-    line-height: 3rem;
+    font-size: ${({ theme: { fontSizes } }) => fontSizes.large};
+    line-height: ${({ theme: { sizes } }) => sizes.button.height};
     text-align: center;
     border-bottom: ${({ theme: { borders } }) => borders.bold};
   }

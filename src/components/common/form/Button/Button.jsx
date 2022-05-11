@@ -1,8 +1,8 @@
 import StyledButton from "./Button.styled";
 
-const Button = ({ data, style, className }) => {
+const Button = ({ data, styles, className }) => {
   return (
-    <StyledButton style={style} className={className}>
+    <StyledButton styles={styles} className={className}>
       {data.name}
     </StyledButton>
   );
