@@ -4,7 +4,7 @@ import { Absolute, Color, Relative } from 'Assets/Common.style'
 export default function ToggleIconBox() {
   return (
     <ToggleBox>
-      <ToggleCircle />
+      <ToggleCircle className="toggle-circle" />
     </ToggleBox>
   )
 }
@@ -20,11 +20,12 @@ const ToggleBox = styled.div`
 
 const ToggleCircle = styled.div`
   ${Absolute}
-  left: 5px;
+  /* left: 5px; */
   top: 5px;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background: ${Color.ORANGE[200]};
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
+  transition: 0.3s;
 `
