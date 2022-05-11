@@ -6,8 +6,12 @@ import {
   StyledInputBox,
   StyledRepaymentBtn,
 } from './userWindow.styled';
+import { useContext } from 'react';
+import { InputMoneyContext } from '../vendingMachine';
 
-export function UserWindow({ inputMoney, setInputMoney }) {
+export function UserWindow() {
+  const { inputMoney, setInputMoney } = useContext(InputMoneyContext);
+
   function handleKeyPress(e) {
     if (e.key !== 'Enter') return;
     printInputMoney(e);
