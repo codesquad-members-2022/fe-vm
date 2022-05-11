@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import ActionLogs from '@/components/ActionLogs';
 import Display from '@/components/Display';
 import InputController from '@/components/InputController';
-import { VMContext } from '@/Provider/VMProvider';
 
 const DISPLAY = 'vm-display';
 const INPUT_CONTROLLER = 'vm-input-controller';
@@ -34,6 +33,7 @@ const HomeLayer = styled.div`
 
     > div {
       border: 1px solid black;
+      height: 100px;
     }
   }
 
@@ -43,8 +43,6 @@ const HomeLayer = styled.div`
 `;
 
 const Home = () => {
-  const value = useContext(VMContext);
-  console.log(value);
   return (
     <HomeLayout>
       <HomeLayer>

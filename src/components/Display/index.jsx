@@ -1,33 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import Product from '@/components/Product';
+import { VMContext } from '@/Provider/VMProvider';
 
 const Display = ({ className }) => {
+  const { state, dispatch } = useContext(VMContext);
+  const { products } = state;
   return (
     <div className={className}>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
-      <div>제품1</div>
+      {products.map(({ id, name, price, stock }) => {
+        return <Product key={id} name={name} price={price} stock={stock} purchasable={true} />;
+      })}
     </div>
   );
 };
