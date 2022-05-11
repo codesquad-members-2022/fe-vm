@@ -6,6 +6,9 @@ const currentMoneyReducer = (state, action) => {
   switch (action.type) {
     case 'decrease':
       return state - action.income;
+
+    case 'increase':
+      return state + action.income;
     default:
       throw new Error(`UserAccount 잘못된 액션입력입니다.${action.type}`);
   }
