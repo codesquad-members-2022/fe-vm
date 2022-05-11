@@ -1,3 +1,4 @@
+import styled from 'styled-components'
 import { css } from 'styled-components'
 
 const Relative = css`
@@ -17,10 +18,21 @@ const F_basicCenter = css`
   align-items: center;
 `
 
+const F_BetweenCenter = css`
+  ${F_basic}
+  align-items: center;
+  justify-content: space-between;
+`
+
 const F_Center = css`
   ${F_basic}
   align-items: center;
   justify-content: center;
+`
+
+const F_ColumnBetweenCenter = css`
+  ${F_BetweenCenter}
+  flex-direction: column;
 `
 
 const Radius10 = css`
@@ -40,6 +52,11 @@ const FontSize = {
   SMALL: '0.875rem', // 14px
 }
 
+const FontWeight = {
+  REGULAR: '400',
+  BOLD: '700',
+}
+
 const Color = {
   BLACK: '#1B1B1B',
   ORANGE: {
@@ -51,13 +68,24 @@ const Color = {
   BACKGROUND: '#FFFCE4',
 }
 
+const GrayButton = styled.div`
+  background: #c4c4c4;
+
+  &.active {
+    background: #ff7a00;
+  }
+`
+
 export {
   Relative,
   Absolute,
   F_basicCenter,
   F_Center,
+  F_ColumnBetweenCenter,
   Radius10,
   Radius20,
+  FontWeight,
   FontSize,
   Color,
+  GrayButton,
 }
