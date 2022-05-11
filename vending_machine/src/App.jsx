@@ -7,17 +7,15 @@ import Wallet from './pages/Wallet';
 import NotFound from './pages/NotFound';
 
 import Header from './components/Header';
-import GlobalStyle from './style/globalStyles';
 import { fetchData } from './utility/util';
 
-export const VmInputValueContext = React.createContext();
+export const TotalMoneyContext = React.createContext();
 export const ProgressContext = React.createContext();
 
 const App = () => {
   const [drinkData, setDrinkData] = useState([]);
-  const [inputValue, setInputValue] = useState(0);
-
   const [progressBox, setProgressBox] = useState([]);
+  const [totalMoney, setTotalMoney] = useState(0);
 
   useEffect(() => {
     const drinkUrl = `${process.env.PUBLIC_URL}data/drink.json`;
@@ -44,7 +42,7 @@ const App = () => {
   };
 
   return (
-    <VmInputValueContext.Provider value={{ inputValue, setInputValue }}>
+    <TotalMoneyContext.Provider value={{ totalMoney, setTotalMoney }}>
       <ProgressContext.Provider
         value={{
           progressBox,
@@ -53,7 +51,6 @@ const App = () => {
           selectedDrinkMessage,
         }}
       >
-        <GlobalStyle />
         <BrowserRouter>
           <StyledApp>
             <Header />
@@ -67,22 +64,19 @@ const App = () => {
           </StyledApp>
         </BrowserRouter>
       </ProgressContext.Provider>
-    </VmInputValueContext.Provider>
+    </TotalMoneyContext.Provider>
   );
 };
 
 const StyledApp = styled.div`
   max-width: 1000px;
-  width: 100%;
   margin: 0 auto;
   text-align: center;
-  margin-top: 20px;
 `;
 
 const StyledMain = styled.main`
   display: flex;
   margin-top: 20px;
-  width: 100%;
 `;
 
 export default App;
