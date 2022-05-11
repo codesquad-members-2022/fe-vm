@@ -16,3 +16,7 @@ export async function fetchData(url, { method, bodyData } = {}) {
 export function getWonTemplate(number) {
   return `${number.toLocaleString()}원`;
 }
+
+export function delay(time) {
+  return new Promise(res => setTimeout(() => res, time));
+}
