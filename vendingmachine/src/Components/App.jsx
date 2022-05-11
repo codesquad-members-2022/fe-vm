@@ -316,6 +316,7 @@ const App = () => {
     updateWalletInfoWhenPurchase(change);
     setInputMoney(0);
     input.current = false;
+    history.current = [];
   }
 
   return (
