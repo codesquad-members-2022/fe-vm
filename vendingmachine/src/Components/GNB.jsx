@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const GNB_TEXT = ['자판기', '지갑'];
-const GNB_LINK = ['/', '/wallet'];
+const GNB_LINK = ['/fe-vm/', '/fe-vm/wallet'];
 
 const GNB = () => {
   const [tabNumber, setTabNumber] = useState(0);

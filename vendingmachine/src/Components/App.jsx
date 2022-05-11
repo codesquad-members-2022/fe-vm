@@ -230,10 +230,7 @@ const App = () => {
   }
 
   function changeWhenNotBehavior() {
-    if (!input.current) {
-      handleClickChange();
-      input.current = false;
-    }
+    if (!input.current) handleClickChange();
   }
 
   function handleClickMoney(money, index) {
@@ -246,14 +243,17 @@ const App = () => {
   }
 
   function handleClickProduct(name, index) {
-    menuInfo[index].number > 0 &&
+    if (
+      menuInfo[index].number > 0 &&
       menuInfo[index].price <= inputMoney &&
-      inputMoney > 0 &&
+      inputMoney > 0
+    ) {
+      input.current = true;
       productSelectTimer(purchaseProduct.bind(null, name, index), 2000);
+    }
   }
 
   function updateWalletInfoWhenChange() {
-    input.current = true;
     const copy = JSON.parse(JSON.stringify(walletInfo));
 
     history.current.forEach(historyLog => (copy[historyLog].number += 1));
@@ -315,6 +315,7 @@ const App = () => {
     });
     updateWalletInfoWhenPurchase(change);
     setInputMoney(0);
+    input.current = false;
   }
 
   return (
@@ -324,7 +325,7 @@ const App = () => {
         <myContext.Provider value={{ inputMoney, handleClickProduct }}>
           <Routes>
             <Route
-              path="/"
+              path="/fe-vm/"
               element={
                 <VendingMachine
                   menuInfo={menuInfo}
@@ -334,7 +335,7 @@ const App = () => {
               }
             />
             <Route
-              path="/wallet"
+              path="/fe-vm/wallet"
               element={
                 <Wallet
                   walletInfo={walletInfo}
