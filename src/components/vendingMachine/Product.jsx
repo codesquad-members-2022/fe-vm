@@ -20,6 +20,7 @@ const Title = styled.div`
   width: 100%;
   margin-top: 3%;
   text-align: center;
+  color: ${colors.lightWhite};
 `;
 const Price = styled.div`
   width: 50%;
