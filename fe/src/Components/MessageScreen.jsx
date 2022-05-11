@@ -1,6 +1,6 @@
 import { INIT_ALERT_MESSAGE } from 'Helper/constant';
 import { getWonTemplate } from 'Helper/utils';
-import { AlertMessage, SetAlertMessage } from 'Pages/VendingMachine';
+import { AlertMessage, SetAlertMessage } from 'Pages/VendingMachine/VendingMachine';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { Message, Screen, ScreenContainer } from './MessageScreen.styled';
 

@@ -1,7 +1,7 @@
 import { WALLET_API } from 'Helper/constant';
 import useFetch from 'Hooks/useFetch';
 import Layout from 'Pages/Layout/Layout';
-import VendingMachine from 'Pages/VendingMachine';
+import VendingMachine from 'Pages/VendingMachine/VendingMachine';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 

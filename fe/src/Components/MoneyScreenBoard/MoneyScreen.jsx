@@ -1,5 +1,5 @@
 import { getWonTemplate } from 'Helper/utils';
-import { InvestmentContext } from 'Pages/VendingMachine';
+import { InvestmentContext } from 'Pages/VendingMachine/VendingMachine';
 import { useContext } from 'react';
 import { Screen } from './MoneyScreen.styled';
 
