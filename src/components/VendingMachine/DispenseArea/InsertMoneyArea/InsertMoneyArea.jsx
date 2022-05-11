@@ -1,13 +1,15 @@
-import Button from "components/form/Button/Button";
-import Input from "components/form/Input/Input";
+import Button from "components/common/form/Button/Button";
+import Input from "components/common/form/Input/Input";
 import constants from "mockData/constants";
-import styled from "styled-components";
+
+import { Wrapper, insertButtonStyle } from "./InsertMoneyArea.styled";
+
+const { CURRENCY } = constants;
+const { INSERT } = constants.BUTTON_NAME;
 
 const InsertMoneyArea = () => {
-  const { CURRENCY } = constants;
-
   return (
-    <Wrap>
+    <Wrapper>
       <div className="input-wrap">
         <Input
           type="number"
@@ -16,29 +18,9 @@ const InsertMoneyArea = () => {
         />{" "}
         {CURRENCY}
       </div>
-      <Button
-        data={{ name: "투입" }}
-        style={{
-          size: { width: "25%", height: "3rem" },
-          fontSize: "1.3rem",
-          color: "#fff",
-          bgColor: "#000",
-          margin: "0",
-        }}
-      />
-    </Wrap>
+      <Button data={{ name: INSERT }} style={insertButtonStyle} />
+    </Wrapper>
   );
 };
-
-const Wrap = styled.div`
-  font-size: 1.2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  .input-wrap {
-    width: 100%;
-  }
-`;
 
 export default InsertMoneyArea;

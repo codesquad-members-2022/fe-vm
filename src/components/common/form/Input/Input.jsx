@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import styled, { css } from "styled-components";
+import StyledInput from "./Input.styled";
 
 const Input = ({ type, value, style }) => {
   const [inputValue, setInputValue] = useState(value);
@@ -18,15 +18,5 @@ const Input = ({ type, value, style }) => {
     />
   );
 };
-
-const StyledInput = styled.input`
-  ${({ style: { size, fontSize } }) => {
-    return css`
-      width: ${size.width};
-      height: ${size.height};
-      font-size: ${fontSize};
-    `;
-  }}
-`;
 
 export default Input;

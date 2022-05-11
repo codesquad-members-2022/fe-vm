@@ -1,6 +1,7 @@
-import Navbar from "components/navigation/Navbar/NavBar";
+import Navbar from "components/Navbar/NavBar";
 import { Outlet } from "react-router-dom";
-import styled from "styled-components";
+
+import { Wrap, Main } from "./Layout.styled";
 
 const Layout = ({ menusData }) => {
   return (
@@ -15,20 +16,5 @@ const Layout = ({ menusData }) => {
     </Wrap>
   );
 };
-
-const Wrap = styled.div`
-  margin: 0 auto;
-  width: 45rem;
-  height: 100%;
-
-  .gnb {
-    text-align: center;
-    margin: 1rem 0;
-  }
-`;
-
-const Main = styled.main`
-  height: 40rem;
-`;
 
 export default Layout;

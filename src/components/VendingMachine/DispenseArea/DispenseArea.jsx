@@ -1,32 +1,26 @@
-import Button from "components/form/Button/Button";
-import styled from "styled-components";
+import Button from "components/common/form/Button/Button";
+import constants from "mockData/constants";
 
+import { returnButtonStyle, DispenseAreaWrap } from "./DispenseArea.styled";
 import InsertMoneyArea from "./InsertMoneyArea/InsertMoneyArea";
 import ProgressArea from "./ProgressArea/ProgressArea";
+
+const INITIAL_MONEY_VALUE = 0;
+const { RETURN } = constants.BUTTON_NAME;
 
 const DispenseArea = () => {
   return (
     <DispenseAreaWrap>
-      <InsertMoneyArea value="0" />
+      <InsertMoneyArea value={INITIAL_MONEY_VALUE} />
       <Button
         data={{
-          name: "반환",
+          name: RETURN,
         }}
-        style={{
-          size: { width: "100%", height: "3rem" },
-          fontSize: "1.3rem",
-          margin: "1rem 0",
-          color: "#fff",
-          bgColor: "#006ba8",
-        }}
+        style={returnButtonStyle}
       />
       <ProgressArea />
     </DispenseAreaWrap>
   );
 };
-
-const DispenseAreaWrap = styled.div`
-  height: 100%;
-`;
 
 export default DispenseArea;

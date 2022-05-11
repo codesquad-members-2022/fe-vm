@@ -1,6 +1,7 @@
 import MoneyItem from "components/Wallet/MoneyItem/MoneyItem";
 import cash from "mockData/money";
-import styled from "styled-components";
+
+import Wrapper from "./Wallet.styled";
 
 const Wallet = () => {
   const currentMoney = Object.entries(cash);
@@ -13,14 +14,5 @@ const Wallet = () => {
     </Wrapper>
   );
 };
-
-const Wrapper = styled.ul`
-  width: 11rem;
-  height: 100%;
-  padding: 1rem;
-
-  margin: 0 auto;
-  border: 2px solid #000;
-`;
 
 export default Wallet;
