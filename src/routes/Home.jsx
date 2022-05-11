@@ -30,15 +30,12 @@ const HomeLayer = styled.div`
     grid-template-rows: repeat(5, 1fr);
     grid-gap: 20px;
     overflow-y: auto;
-
-    > div {
-      border: 1px solid black;
-      height: 100px;
-    }
   }
 
   .${ACTION_LOGS} {
-    overflow-y: auto;
+    margin-right: 4px;
+    border: 1px solid #000;
+    overflow-y: hidden;
   }
 `;
 

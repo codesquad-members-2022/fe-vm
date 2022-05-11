@@ -1,55 +1,31 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const ActionLogsLayout = styled.div`
+  height: 580px;
+  padding-right: 5px;
+`;
+
+const ActionLogsLayer = styled.ol`
+  overflow-y: auto;
+  height: 100%;
+`;
 
 const ActionLogs = ({ className }) => {
   return (
-    <div className={className}>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-      <p>500원 투입</p>
-    </div>
+    <ActionLogsLayout className={className}>
+      <ActionLogsLayer>
+        <ActionLog />
+      </ActionLogsLayer>
+    </ActionLogsLayout>
+  );
+};
+
+const ActionLog = () => {
+  return (
+    <li>
+      <p>ActionLog</p>
+    </li>
   );
 };
 
