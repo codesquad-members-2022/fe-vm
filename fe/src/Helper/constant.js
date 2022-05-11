@@ -9,3 +9,8 @@ export const INIT_ALERT_MESSAGE = {
   changeAmount: 0,
   orderTitle: '',
 };
+
+export const NAV_MENUS = [
+  { id: 0, name: '자판기', path: '/' },
+  { id: 1, name: '지갑', path: '/wallet' },
+];
