@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { CenterSort } from "../style/Globalstyles";
 import Product from "./Product";
 
 function Menu() {
@@ -30,13 +31,11 @@ const MenuWrap = styled.div`
   width: 900px;
   height: 100%;
   border-right: 5px solid black;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   box-sizing: border-box;
   padding: 20px;
   gap: 10%;
+  ${CenterSort}
 `;
 const ProductWindow = styled.div`
   width: 800px;

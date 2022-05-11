@@ -2,6 +2,7 @@ import React from "react";
 import Info from "./Info";
 import Menu from "./Menu";
 import styled from "styled-components";
+import { WidthSort } from "../style/Globalstyles";
 
 function VendingMachine() {
   return (
@@ -22,7 +23,6 @@ const Machine = styled.div`
 `;
 const MachineWrap = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: center;
+  ${WidthSort}
 `;
 export default VendingMachine;

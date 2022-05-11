@@ -3,6 +3,7 @@ import Budget from "./Budget";
 import ReturnBtn from "./ReturnBtn";
 import Status from "./Status";
 import styled from "styled-components";
+import { HeightSort } from "../style/Globalstyles";
 
 function Info() {
   return (
@@ -16,9 +17,8 @@ function Info() {
 
 const InfoWrap = styled.div`
   height: 100%;
-  display: flex;
   flex-direction: column;
   width: 400px;
-  align-items: center;
+  ${HeightSort}
 `;
 export default Info;

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { CenterSort } from "../style/Globalstyles";
 
 function Nav() {
   return (
@@ -15,11 +16,9 @@ function Nav() {
   );
 }
 const NavBtns = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 20px;
   height: 100px;
+  ${CenterSort}
 `;
 const VendingMachineBtn = styled.button`
   width: 150px;

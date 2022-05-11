@@ -2,6 +2,7 @@ import React from "react";
 import Currency from "./Currency";
 import TotalMoney from "./TotalMoney";
 import styled from "styled-components";
+import { HeightSort } from "../style/Globalstyles";
 
 function Wallet() {
   return (
@@ -23,11 +24,10 @@ const WalletWrap = styled.div`
   height: 700px;
   border: 4px solid ${({ theme }) => theme.colors.lightBlue};
   margin: 0 auto;
-  display: flex;
   flex-direction: column;
-  align-items: center;
   box-sizing: border-box;
   padding: 20px;
   gap: 20px;
+  ${HeightSort}
 `;
 export default Wallet;

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import canSrc from "../img/free-icon-beer-can-95982.png";
+import { CenterSort, HeightSort } from "../style/Globalstyles";
 
 function Product() {
   return (
@@ -13,9 +14,8 @@ function Product() {
 }
 const ProductWrap = styled.div`
   border: 2px solid black;
-  display: flex;
   flex-direction: column;
-  align-items: center;
+  ${HeightSort}
 `;
 const ProductImage = styled.img`
   width: 100%;
@@ -24,16 +24,12 @@ const ProductImage = styled.img`
 const ProductTitle = styled.div`
   width: 100%;
   height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${CenterSort}
 `;
 const ProductPrice = styled.div`
   width: 100%;
   height: 30px;
   font-weight: bolder;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${CenterSort}
 `;
 export default Product;

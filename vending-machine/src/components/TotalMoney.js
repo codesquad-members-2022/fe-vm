@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { HeightSort } from "../style/Globalstyles";
 function TotalMoney() {
   return <TotalMoneyWrap>14000원</TotalMoneyWrap>;
 }
@@ -7,9 +8,7 @@ const TotalMoneyWrap = styled.div`
   width: 90%;
   height: 80px;
   margin-top: 50px;
-  display: flex;
   justify-content: flex-end;
-  align-items: center;
   border-radius: 5px;
   box-sizing: border-box;
   padding: 20px;
@@ -17,5 +16,6 @@ const TotalMoneyWrap = styled.div`
   font-weight: bold;
   font-size: 30px;
   color: ${({ theme }) => theme.colors.white};
+  ${HeightSort}
 `;
 export default TotalMoney;
