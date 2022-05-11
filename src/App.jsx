@@ -10,6 +10,8 @@ import NotFound from "./pages/NotFound/NotFound";
 import VendingMachine from "./pages/VendingMachine/VendingMachine";
 import Wallet from "./pages/Wallet/Wallet";
 
+const [indexPage, walletPage] = menus;
+
 const App = () => {
   return (
     <div className="App">
@@ -19,9 +21,9 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <BrowserRouter basename={process.env.PUBLIC_URL}>
           <Routes>
-            <Route path="/" element={<Layout menusData={menus} />}>
-              <Route path="/" element={<VendingMachine />} />
-              <Route path="/wallet" element={<Wallet />} />
+            <Route path={indexPage.path} element={<Layout menusData={menus} />}>
+              <Route path={indexPage.path} element={<VendingMachine />} />
+              <Route path={walletPage.path} element={<Wallet />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
