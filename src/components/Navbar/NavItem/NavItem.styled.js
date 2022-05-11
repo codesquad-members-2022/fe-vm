@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import styled, { css } from "styled-components";
 
 const navButtonStyle = css`
   width: 10rem;
@@ -12,4 +12,13 @@ const navButtonStyle = css`
     `}
   }
 `;
-export default navButtonStyle;
+
+const Wrapper = styled.div`
+  display: inline-block;
+  ${({ theme: { colors, whitespace }, isCurrentLocation }) => `
+      border-radius: ${whitespace.default};
+      border: ${isCurrentLocation && `2px solid ${colors.darkblue}`};
+    `}
+`;
+
+export { Wrapper, navButtonStyle };
