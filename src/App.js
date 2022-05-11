@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import VendingMachine from "./pages/VendingMachine";
-import Wallet from "./pages/Wallet";
+import { Link, Outlet } from "react-router-dom";
 
 const moneyUnit = {
   money: [
@@ -49,24 +47,17 @@ const App = () => {
   const MoneyContext = React.createContext(money);
 
   return (
-    <MoneyContext.Provider value={MoneyContext}>
-      <BrowserRouter>
-        <div className="my-3 mx-auto max-w-7xl">
-          <nav className="flex justify-center">
-            <button className="p-6 bg-slate-200 hover:bg-blue-200">
-              <Link to="/">자판기</Link>
-            </button>
-            <button className="p-6 bg-slate-200">
-              <Link to="/wallet">지갑</Link>
-            </button>
-          </nav>
-          <Routes>
-            <Route path="/" element={<VendingMachine />}></Route>
-            <Route path="/wallet" element={<Wallet />}></Route>
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </MoneyContext.Provider>
+    <div className="my-3 mx-auto max-w-7xl">
+      <nav className="flex justify-center">
+        <Link to="/" className="p-6 bg-slate-200 hover:bg-blue-200">
+          자판기
+        </Link>
+        <Link to="/wallet" className="p-6 bg-slate-200 hover:bg-blue-200">
+          지갑
+        </Link>
+      </nav>
+      <Outlet context={[money, setMoney]} />
+    </div>
   );
 };
 
