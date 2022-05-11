@@ -2,6 +2,15 @@ import styled from "styled-components";
 import MoneyUtil from "./MoneyUtil";
 import MessageDisplay from "./MessageDisplay";
 
+const UtilArea = () => {
+  return (
+    <UtilAreaWrapper>
+      <MoneyUtil />
+      <MessageDisplay />
+    </UtilAreaWrapper>
+  );
+};
+
 const UtilAreaWrapper = styled.div`
   position: relative;
   width: 280px;
@@ -14,14 +23,5 @@ const UtilAreaWrapper = styled.div`
   border-radius: 0 20px 20px 0;
   background-color: ${({ theme }) => theme.colors.grey4};
 `;
-
-const UtilArea = () => {
-  return (
-    <UtilAreaWrapper>
-      <MoneyUtil />
-      <MessageDisplay />
-    </UtilAreaWrapper>
-  );
-};
 
 export default UtilArea;

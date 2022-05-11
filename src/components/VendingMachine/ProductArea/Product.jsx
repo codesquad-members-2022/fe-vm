@@ -1,8 +1,58 @@
 import { useContext } from "react";
-import styled, { css } from "styled-components";
 import { InputSum, Records } from "../../../ContextProvider";
 import { activityType } from "../../../convention";
+import styled, { css } from "styled-components";
 import Button from "../../common/Button";
+
+const Product = ({ productInfo, stock, changeStock }) => {
+  const { inputSum, setInputSum } = useContext(InputSum);
+  const { updateRecord } = useContext(Records);
+
+  const handleClick = () => {
+    if (!stock) {
+      updateRecord(activityType.OUT_OF_STOCK, productInfo.name);
+    } else if (inputSum < productInfo.price) {
+      updateRecord(activityType.LACK_OF_MONEY);
+    } else {
+      purchaseProduct();
+      updateRecord(activityType.PURCHASE, productInfo.name);
+    }
+  };
+
+  const purchaseProduct = () => {
+    changeStock(productInfo.id, stock - 1);
+    setInputSum(inputSum - productInfo.price);
+  };
+
+  const decidePurchaseBtnStyles = () => {
+    if (!stock) {
+      return outOfStockButtonStyle;
+    }
+    if (productInfo.price > inputSum) {
+      return lackOfMoneyButtonStyle;
+    }
+    return normalButtonStyle;
+  };
+
+  const decidePurchaseBtnContent = () => {
+    return stock ? productInfo.price.toLocaleString() : "Sold out";
+  };
+
+  return (
+    <ProductWrapper>
+      <ProductImageWrapper stock={stock}>
+        <img src={productInfo.imgSrc} alt={productInfo.name} />
+      </ProductImageWrapper>
+      <ProductStand>
+        <Button
+          styles={decidePurchaseBtnStyles()}
+          content={decidePurchaseBtnContent()}
+          onClick={handleClick}
+        />
+      </ProductStand>
+    </ProductWrapper>
+  );
+};
 
 const ProductWrapper = styled.div`
   width: 25%;
@@ -48,56 +98,5 @@ const lackOfMoneyButtonStyle = css`
   ${normalButtonStyle};
   opacity: 0.3;
 `;
-
-const Product = ({ productInfo, stock, changeStock }) => {
-  const { inputSum, setInputSum } = useContext(InputSum);
-  const { updateRecord } = useContext(Records);
-
-  const handleClick = () => {
-    console.log("hi");
-    if (!stock) {
-      updateRecord(activityType.OUT_OF_STOCK, productInfo.name);
-    } else if (inputSum < productInfo.price) {
-      updateRecord(activityType.LACK_OF_MONEY);
-    } else {
-      purchaseProduct();
-    }
-  };
-
-  const purchaseProduct = () => {
-    changeStock(productInfo.id, stock - 1);
-    setInputSum(inputSum - productInfo.price);
-    updateRecord(activityType.PURCHASE, productInfo.name);
-  };
-
-  const decidePurchaseBtnStyles = () => {
-    if (!stock) {
-      return outOfStockButtonStyle;
-    }
-    if (productInfo.price > inputSum) {
-      return lackOfMoneyButtonStyle;
-    }
-    return normalButtonStyle;
-  };
-
-  const decidePurchaseBtnContent = () => {
-    return stock ? productInfo.price.toLocaleString() : "Sold out";
-  };
-
-  return (
-    <ProductWrapper>
-      <ProductImageWrapper stock={stock}>
-        <img src={productInfo.imgSrc} alt={productInfo.name} />
-      </ProductImageWrapper>
-      <ProductStand>
-        <Button
-          styles={decidePurchaseBtnStyles()}
-          content={decidePurchaseBtnContent()}
-          onClick={handleClick}
-        />
-      </ProductStand>
-    </ProductWrapper>
-  );
-};
 
 export default Product;

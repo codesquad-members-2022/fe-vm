@@ -3,22 +3,6 @@ import { InputSum, Records } from "../../../ContextProvider";
 import styled from "styled-components";
 import { activityType } from "../../../convention";
 
-const SumInput = styled.input`
-  width: 100%;
-  height: 50px;
-  font-size: 2rem;
-  text-align: right;
-  color: ${({ theme }) => theme.colors.black};
-
-  ::placeholder {
-    color: ${({ theme }) => theme.colors.black};
-  }
-`;
-
-const SubmitButton = styled.input`
-  display: none;
-`;
-
 const InputSumDisplay = () => {
   const { inputSum, setInputSum } = useContext(InputSum);
   const { updateRecord } = useContext(Records);
@@ -53,5 +37,21 @@ const InputSumDisplay = () => {
     </form>
   );
 };
+
+const SumInput = styled.input`
+  width: 100%;
+  height: 50px;
+  font-size: 2rem;
+  text-align: right;
+  color: ${({ theme }) => theme.colors.black};
+
+  ::placeholder {
+    color: ${({ theme }) => theme.colors.black};
+  }
+`;
+
+const SubmitButton = styled.input`
+  display: none;
+`;
 
 export default InputSumDisplay;

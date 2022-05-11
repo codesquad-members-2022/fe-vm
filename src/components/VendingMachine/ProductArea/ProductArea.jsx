@@ -1,15 +1,7 @@
-import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { fetchData } from "../../../fetcher";
+import styled from "styled-components";
 import ProductsDisplay from "./ProductsDisplay";
-
-const ProductAreaWrapper = styled.div`
-  width: 750px;
-  height: 100%;
-  box-sizing: border-box;
-  border-radius: 20px 0 0 20px;
-  background-color: ${({ theme }) => theme.colors.grey4};
-`;
 
 const ProductArea = () => {
   const [productsInfo, setProductsInfo] = useState();
@@ -38,5 +30,13 @@ const ProductArea = () => {
     </ProductAreaWrapper>
   );
 };
+
+const ProductAreaWrapper = styled.div`
+  width: 750px;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 20px 0 0 20px;
+  background-color: ${({ theme }) => theme.colors.grey4};
+`;
 
 export default ProductArea;

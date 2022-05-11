@@ -2,6 +2,18 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { Records } from "../../../ContextProvider";
 
+const MessageDisplay = () => {
+  const { records } = useContext(Records);
+
+  return (
+    <MessageWrapper>
+      {records.map((record, i) => (
+        <div key={i}>{record}</div>
+      ))}
+    </MessageWrapper>
+  );
+};
+
 const MessageWrapper = styled.div`
   position: absolute;
   bottom: 50px;
@@ -25,15 +37,4 @@ const MessageWrapper = styled.div`
   }
 `;
 
-const MessageDisplay = () => {
-  const { records } = useContext(Records);
-
-  return (
-    <MessageWrapper>
-      {records.map((record, i) => (
-        <div key={i}>{record}</div>
-      ))}
-    </MessageWrapper>
-  );
-};
 export default MessageDisplay;
