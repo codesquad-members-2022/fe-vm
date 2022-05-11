@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
 
+import {UserAccount} from '../../Store';
+
 export const VendingMachineInterface = () => {
+  const {insertedMoney} = useContext(UserAccount);
+
   return (
     <VM_Wrapper>
-      <VM_MoneyInput />
+      <VM_MoneyInput value={insertedMoney} />
       <VM_RefundBtn>잔액 반환</VM_RefundBtn>
       <VM_History></VM_History>
     </VM_Wrapper>
