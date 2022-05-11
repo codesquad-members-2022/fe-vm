@@ -41,7 +41,7 @@ const StyledSpan = styled.span`
 
 const Router = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={BASE_URL}>
       <Container>
         <NavBar>
           <TabList>
