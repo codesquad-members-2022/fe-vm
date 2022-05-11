@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components'
-import { Color } from './Assets/Common.style'
+import { createGlobalStyle } from 'styled-components';
+import { Color } from './Assets/Common.style';
 
 export const GlobalStyles = createGlobalStyle`
   html, * {
@@ -14,4 +14,4 @@ export const GlobalStyles = createGlobalStyle`
     padding: 52px 0 30px;
     background: ${Color.BACKGROUND};
   }
-`
+`;

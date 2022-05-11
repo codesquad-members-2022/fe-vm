@@ -1,16 +1,16 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import EnTitle from './EnTitle'
-import ToggleIcon from './ToggleIcon'
-import { Color, FontSize, F_Center } from '../Assets/Common.style'
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import EnTitle from './EnTitle';
+import ToggleIcon from './ToggleIcon';
+import { Color, FontSize, F_Center } from '../Assets/Common.style';
 
 export default function Header() {
-  const [active, setActive] = useState('vending-machine')
+  const [active, setActive] = useState('vending-machine');
 
   const tabClickHandler = (menu) => {
-    setActive(menu)
-  }
+    setActive(menu);
+  };
 
   return (
     <HEADER>
@@ -34,12 +34,12 @@ export default function Header() {
         </Link>
       </TabMenu>
     </HEADER>
-  )
+  );
 }
 
 const HEADER = styled.header`
   margin-bottom: 32px;
-`
+`;
 
 const TabMenu = styled.nav`
   ${F_Center}
@@ -55,4 +55,4 @@ const TabMenu = styled.nav`
   &.wallet .toggle-circle {
     left: 65px;
   }
-`
+`;
