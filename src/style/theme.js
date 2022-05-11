@@ -1,9 +1,10 @@
+import { css } from 'styled-components';
+
 const fontSize = {
   xLarge: '3em',
   large: '2em',
   medium: '1.5em',
-  small: '14px',
-  xSmall: '12px',
+  small: '1em',
 };
 
 const fontWeight = {
@@ -21,12 +22,20 @@ const colors = {
 };
 
 const mixin = {
-  flexMixin: (direction = 'row', align = 'center', justify = 'center') => `
-    display:flex;
-    flex-direction:${direction};
-    align-items:${align};
-    justify-content:${justify}
-    `,
+  flexMixin: (
+    direction = 'row',
+    align = 'center',
+    justify = 'center',
+    wrap = 'no-wrap'
+  ) => {
+    return css`
+      display: flex;
+      flex-direction: ${direction};
+      align-items: ${align};
+      justify-content: ${justify};
+      flex-wrap: ${wrap};
+    `;
+  },
 };
 
 const theme = {

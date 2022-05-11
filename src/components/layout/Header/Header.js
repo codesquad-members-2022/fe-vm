@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { _ } from '../../../constant/constant';
 
 const Header = (props) => {
   return (
@@ -13,8 +14,7 @@ const Header = (props) => {
 export default Header;
 
 const StyledHeader = styled.header`
-  ${({ theme }) =>
-    theme.mixin.flexMixin(undefined, undefined, 'space-between')};
+  ${({ theme }) => theme.mixin.flexMixin(_, _, 'space-between')};
   padding: 20px 40px 20px 20px;
 `;
 
