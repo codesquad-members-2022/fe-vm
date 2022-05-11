@@ -1,4 +1,5 @@
 import { WalletMoneyContext } from 'App';
+import { getWonTemplate } from 'Helper/utils';
 import { useContext, useEffect, useState } from 'react';
 import { Screen } from './RemainMoney.styled';
 
@@ -19,7 +20,7 @@ export default function RemainMoney() {
 
   return (
     <Screen flex justify="center" align="center">
-      {`현재 지갑에 남은 잔액 : ${assets}`}
+      {`현재 지갑에 남은 잔액 : ${getWonTemplate(assets)}`}
     </Screen>
   );
 }
