@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
-import { InputSum } from "../../../ContextProvider";
+import { InputSum, Records } from "../../../ContextProvider";
 import styled from "styled-components";
+import { activityType } from "../../../convention";
 
 const SumInput = styled.input`
   width: 80%;
@@ -21,6 +22,7 @@ const SubmitButton = styled.input`
 
 const InputSumDisplay = () => {
   const { inputSum, setInputSum } = useContext(InputSum);
+  const { updateRecord } = useContext(Records);
   const [tempInputSum, setTempInputSum] = useState("");
 
   const updateInputSum = (e) => {
@@ -28,6 +30,7 @@ const InputSumDisplay = () => {
     if (checkInputMoneyValidity(tempInputSum)) {
       setInputSum(tempInputSum);
     }
+    updateRecord(activityType.INPUT_MONEY, tempInputSum);
     setTempInputSum("");
   };
 

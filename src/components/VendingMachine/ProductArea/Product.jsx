@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { InputSum } from "../../../ContextProvider";
+import { InputSum, Records } from "../../../ContextProvider";
+import { activityType } from "../../../convention";
 
 const ProductWrapper = styled.div`
   width: 25%;
@@ -34,11 +35,23 @@ const PriceTag = styled.div`
 `;
 
 const Product = ({ productInfo, stock, changeStock }) => {
-  const { inputSum } = useContext(InputSum);
+  const { inputSum, setInputSum } = useContext(InputSum);
+  const { updateRecord } = useContext(Records);
 
   const handleClick = () => {
-    if (!stock) return;
+    if (!stock) {
+      updateRecord(activityType.OUT_OF_STOCK, productInfo.name);
+    } else if (inputSum < productInfo.price) {
+      updateRecord(activityType.LACK_OF_MONEY);
+    } else {
+      purchaseProduct();
+    }
+  };
+
+  const purchaseProduct = () => {
     changeStock(productInfo.id, stock - 1);
+    setInputSum(inputSum - productInfo.price);
+    updateRecord(activityType.PURCHASE, productInfo.name);
   };
 
   return (

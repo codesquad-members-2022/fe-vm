@@ -19,16 +19,33 @@ export const InputSumProvider = ({ children }) => {
 export const Records = createContext();
 
 export const RecordsProvider = ({ children }) => {
-  const [records, setRecords] = useState([
-    "aaaa",
-    "콜라를 구매했습니다. 우하우하우하우항후ㅏ",
-    "돈을 엄청 많이 벌었습니다! 야호야호야호야ㅗ햐오햫오ㅑ"
-  ]);
+  const [records, setRecords] = useState([]);
+
+  const updateRecord = (activityType, recordData) => {
+    const newRecord = makeRecord(activityType, recordData);
+    setRecords([newRecord, ...records]);
+  };
+
+  const makeRecord = (activityType, recordData = null) => {
+    switch (activityType) {
+      case "purchase":
+        return `${recordData}를 구매했습니다.`;
+      case "outOfStock":
+        return `${recordData}의 재고가 없습니다.`;
+      case "lackOfMoney":
+        return `투입 금액이 부족합니다.`;
+      case "inputMoney":
+        return `${recordData.toLocaleString()}원을 투입했습니다.`;
+      default:
+        console.log("invalid activity type");
+    }
+  };
+
   return (
     <Records.Provider
       value={{
         records,
-        setRecords
+        updateRecord
       }}
     >
       {children}
