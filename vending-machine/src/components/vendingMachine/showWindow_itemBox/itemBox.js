@@ -1,10 +1,11 @@
 import { StyledItemContainer, StyledItemName, StyledItemPrice } from './itemBox.styled';
 import { getWonTemplate, delay } from '../../../helper/utils';
-import { useContext, useState } from 'react';
-import { InputMoneyContext } from '../vendingMachine';
+import { useContext, useEffect, useState } from 'react';
+import { InputMoneyContext, LogContext } from '../vendingMachine';
 
 export function ItemBox({ item, inProgress, setInProgress }) {
   const { inputMoney, setInputMoney } = useContext(InputMoneyContext);
+  const { logList, setLogList } = useContext(LogContext);
   const [boxColor, setBoxColor] = useState('gray');
   const [itemStock, setItemStock] = useState(item.stock);
   const ITEM_DROP_TIME = 2000;
@@ -21,11 +22,31 @@ export function ItemBox({ item, inProgress, setInProgress }) {
     setBoxColor('red');
     setItemStock(itemStock - 1);
     printInputMoney();
+    logChooseItem();
 
     delay(ITEM_DROP_TIME).then(() => {
       paybackMoney();
+      logPaybackMoney();
       setInProgress(false);
     });
+  }
+
+  function logChooseItem() {
+    const log = `${item.name} 선택됨.`;
+    logList.push(log);
+    setLogList(logList);
+  }
+
+  function logSoldOut() {
+    const log = `${item.name} 품절됨.`;
+    logList.push(log);
+    setLogList(logList);
+  }
+
+  function logPaybackMoney() {
+    const log = `잔돈 ${getWonTemplate(inputMoney - item.price)} 반환됨.`;
+    logList.push(log);
+    setLogList(logList);
   }
 
   function printInputMoney() {
@@ -35,6 +56,7 @@ export function ItemBox({ item, inProgress, setInProgress }) {
 
   function paybackMoney() {
     setBoxColor('gray');
+    //setInputMoney(0);
   }
 
   return (

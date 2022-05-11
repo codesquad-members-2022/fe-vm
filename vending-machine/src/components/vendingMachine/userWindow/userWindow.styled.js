@@ -43,4 +43,5 @@ export const StyledRepaymentBtn = styled.button`
   width: 300px;
   height: 60px;
   font-size: 30px;
+  margin-bottom: 30px;
 `;
