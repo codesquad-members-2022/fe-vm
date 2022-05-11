@@ -4,19 +4,13 @@ import { products } from '@/mock/storage';
 
 const initialState = {
   products,
+  inputAmount: 0,
 };
 
-const ACTION = {
-  TEST: 'TEST',
-};
+const ACTION = {};
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case ACTION.TEST:
-      return {
-        ...state,
-      };
-
     default: {
       return state;
     }
