@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router-dom";
-import MoneySlot from "../components/MoneySlot";
+import MoneySlot from "../components/moneySlot/MoneySlot";
 import Products from "../components/product/Products";
 import RecordBoard from "../components/RecordBoard";
 
@@ -14,7 +14,6 @@ function VendingMachine() {
 
     return (
         <>
-            <h1>자판기</h1>
             <Products moneyInVendingMachine={moneyInVendingMachine} />
             <MoneySlot
                 addRecord={addRecord}

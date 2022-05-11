@@ -22,8 +22,15 @@ a {
 ul, ol {
     list-style: none;
 }
-p {
+p, span {
     font-size: 1.4rem;
+}
+input {
+    font-size: 1.4rem;
+    border: none;
+    &:focus {
+        outline: none;
+    }
 }
 `;
 

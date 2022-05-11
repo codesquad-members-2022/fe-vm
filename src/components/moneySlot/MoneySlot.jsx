@@ -1,3 +1,5 @@
+import { SlotContainer, Slot } from "./MoneySlot.style";
+
 const getMoneyFromWallet = (input, wallet) => {
     const unitOfMoney = Object.keys(wallet);
     const differenceBetweenInputAndWalletMoney = unitOfMoney.map((unit) => {
@@ -33,16 +35,16 @@ function MoneySlot({ addRecord, wallet, putMoneyIntoVendingMachine }) {
     };
 
     return (
-        <form>
-            <input
+        <SlotContainer>
+            <Slot
                 type="number"
                 min="10"
                 max="10000"
                 onKeyDown={putMoney}
                 placeholder="0"
-            ></input>
+            ></Slot>
             <span>원</span>
-        </form>
+        </SlotContainer>
     );
 }
 
