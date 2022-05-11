@@ -8,7 +8,7 @@ const ProductAreaWrapper = styled.div`
   height: 100%;
   box-sizing: border-box;
   border-radius: 20px 0 0 20px;
-  background-color: ${({ theme }) => theme.colors.lightNavy};
+  background-color: ${({ theme }) => theme.colors.grey4};
 `;
 
 const ProductArea = () => {

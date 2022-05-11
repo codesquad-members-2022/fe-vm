@@ -4,12 +4,11 @@ import styled from "styled-components";
 import { activityType } from "../../../convention";
 
 const SumInput = styled.input`
-  width: 80%;
+  width: 100%;
   height: 50px;
   font-size: 2rem;
   text-align: right;
   color: ${({ theme }) => theme.colors.black};
-  border: 1px solid ${({ theme }) => theme.colors.navy};
 
   ::placeholder {
     color: ${({ theme }) => theme.colors.black};

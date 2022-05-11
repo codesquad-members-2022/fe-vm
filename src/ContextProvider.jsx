@@ -36,6 +36,8 @@ export const RecordsProvider = ({ children }) => {
         return `투입 금액이 부족합니다.`;
       case "inputMoney":
         return `${recordData.toLocaleString()}원을 투입했습니다.`;
+      case "returnMoney":
+        return `${recordData.toLocaleString()}원이 반환되었습니다.`;
       default:
         console.log("invalid activity type");
     }

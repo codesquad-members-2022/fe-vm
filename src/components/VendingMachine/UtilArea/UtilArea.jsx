@@ -12,8 +12,9 @@ const UtilAreaWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   border-radius: 0 20px 20px 0;
-  background-color: ${({ theme }) => theme.colors.lightNavy};
+  background-color: ${({ theme }) => theme.colors.grey4};
 `;
+
 const UtilArea = () => {
   return (
     <UtilAreaWrapper>

@@ -1,11 +1,11 @@
 import InputSumDisplay from "./InputSumDisplay";
+import ReturnButton from "./ReturnButton";
 
 const MoneyUtil = () => {
   return (
     <>
       <InputSumDisplay />
-      {/* <MoneyInlet></MoneyInlet>
-      <ReturnButton></ReturnButton> */}
+      <ReturnButton />
     </>
   );
 };

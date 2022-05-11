@@ -8,11 +8,11 @@ const MessageWrapper = styled.div`
   width: calc(100% - 50px);
   height: 400px;
   border-radius: 10px;
-  box-shadow: inset 0px 0px 10px 0 rgba(31, 38, 135, 0.37);
-  background-color: ${({ theme }) => theme.colors.grey4};
+  box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.3);
+  background-color: ${({ theme }) => theme.colors.white};
 
   div {
-    margin: 5px;
+    margin: 10px;
     width: 95%;
     line-height: 20px;
     overflow: hidden;
@@ -30,8 +30,8 @@ const MessageDisplay = () => {
 
   return (
     <MessageWrapper>
-      {records.map((record) => (
-        <div>{record}</div>
+      {records.map((record, i) => (
+        <div key={i}>{record}</div>
       ))}
     </MessageWrapper>
   );

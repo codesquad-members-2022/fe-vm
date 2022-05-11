@@ -11,7 +11,7 @@ const DisplayLayout = styled.div`
   flex-wrap: wrap;
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors.grey4};
-  box-shadow: inset 0 30px 50px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 30px 60px 10px rgba(0, 0, 0, 0.3);
 `;
 
 const ProductsDisplay = ({ productsInfo, stockData, changeStock }) => {
