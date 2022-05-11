@@ -34,7 +34,7 @@ function App() {
     <StyledApp>
       <GlobalStyles />
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
           <Routes>
             <Route path="/" element={<Home />}>
               <Route index element={<VendingMachine />} />
