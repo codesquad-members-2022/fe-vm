@@ -3,7 +3,7 @@ import Home from "./routes/Home";
 import VendingMachine from "./routes/VendingMachine";
 import Wallet from "./routes/Wallet";
 import NotFound from "./routes/NotFound";
-import GlobalStyle from "./GlobalStyle";
+import { GlobalStyle } from "./GlobalStyle";
 
 function App() {
     return (

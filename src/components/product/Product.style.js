@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { RoundBorder } from "../../GlobalStyle";
 
 const ProductsContainer = styled.ul`
     width: 500px;
@@ -15,13 +16,12 @@ const ProductContainer = styled.li`
     align-items: center;
 `;
 
-const ProductNameWrapper = styled.div`
+const ProductNameWrapper = styled(RoundBorder)`
     width: 100%;
     height: 100%;
     padding: 10px;
     border: ${(props) =>
         props.choosable ? "2px solid red" : "1px solid black"};
-    border-radius: 10px;
     display: flex;
     justify-contents: center;
     align-items: center;

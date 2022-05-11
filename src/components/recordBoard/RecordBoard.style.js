@@ -1,10 +1,9 @@
 import styled from "styled-components";
+import { RoundBorder } from "../../GlobalStyle";
 
-const RecordContainer = styled.div`
+const RecordContainer = styled(RoundBorder)`
     width: 300px;
-    height: 300px;
-    border: 1px solid black;
-    border-radius: 10px;
+    height: 400px;
     overflow-y: scroll;
 `;
 
