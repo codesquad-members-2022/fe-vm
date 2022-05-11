@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 
 import CoinsContext from 'Components/Home/CoinsContext';
 import {
@@ -15,15 +15,9 @@ import {
 
 const InsertMoney = () => {
 	const unit = '원';
-	const debounceTime = 500;
-
-	const { coins, coinsSum } = useContext(CoinsContext);
-	const [showedMoney, setShowedMoney] = useState(0);
-	const [money, setMoney] = useState(0);
-
-	const handleFocus = ({ target: { value } }) => {
-		if (value === '0') setShowedMoney(0);
-	};
+	const debounceTime = 2000;
+	const { coins, coinsSum, money, setMoney, showedMoney, setShowedMoney } =
+		useContext(CoinsContext);
 
 	const handleInput = ({ target: { value } }) => {
 		const rNumber = /^[0-9]+$|^$/;
@@ -38,10 +32,10 @@ const InsertMoney = () => {
 
 	const checkShowedMoney = () => {
 		const difference = showedMoney - money;
-		const isMoneyInWallet = coinsSum > difference;
+		const isMoneyInWallet = coinsSum >= difference;
 
 		if (isMoneyInWallet) {
-			const calculatedMoney =
+			const { calculatedMoney } =
 				difference >= 0
 					? spendMoney(coins, difference)
 					: withdrawMoney(coins, difference);
@@ -61,11 +55,9 @@ const InsertMoney = () => {
 			<InsertMoneyDiv>
 				<InsertMoneyValue
 					type="text"
-					placeholder="0"
 					maxLength="11"
 					onInput={handleInput}
 					onPaste={handleInput}
-					onFocus={handleFocus}
 					value={getPriceType(showedMoney)}
 				/>
 				{unit}

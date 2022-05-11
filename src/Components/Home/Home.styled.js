@@ -22,7 +22,7 @@ const NavigatorDiv = styled.div`
 			display: inline-block;
 
 			:first-child {
-				background-color: ${colors.black};
+				background-color: ${colors.green};
 				color: ${colors.white};
 			}
 		}

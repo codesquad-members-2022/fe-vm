@@ -10,7 +10,6 @@ const VendingMachineDiv = styled.div`
 		margin: 0 auto;
 		margin-top: 40px;
 		width: 800px;
-		border: ${colors.black} solid 2px;
 		border-radius: 10px;
 	`}
 `;

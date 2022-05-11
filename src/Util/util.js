@@ -5,8 +5,8 @@ const getPriceType = (price, isUnit = false) => {
 	return price.toLocaleString('ko-KR') + unit;
 };
 
-const useDebounce = (func, delay) => {
-	const callback = useCallback(func, [func]);
+const useDebounce = (func, delay, deps) => {
+	const callback = useCallback(func, [func, deps]);
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -26,6 +26,8 @@ const spendMoney = (coins, difference) => {
 	}, 0);
 
 	const getTargetMoneyId = (array, targetId = array.length - 1) => {
+		if (targetId < 0) return targetId;
+
 		const id = array[targetId].count
 			? targetId
 			: getTargetMoneyId(array, targetId - 1);
@@ -52,11 +54,13 @@ const spendMoney = (coins, difference) => {
 		}
 	}
 
-	return difference - remainedPrice;
+	const calculatedMoney = difference - remainedPrice;
+
+	return { calculatedMoney, coinsInWallet };
 };
 
 const withdrawMoney = (coins, difference) => {
-	const coinsInWallet = coins; // 복사 방식 변경 필요!
+	const coinsInWallet = [...coins]; // 복사 방식 변경 필요!
 
 	let targetMoneyId = coinsInWallet[coinsInWallet.length - 1].id;
 	let remainedPrice = Math.abs(difference);
@@ -73,7 +77,9 @@ const withdrawMoney = (coins, difference) => {
 		}
 	}
 
-	return difference - remainedPrice;
+	const calculatedMoney = difference + remainedPrice;
+
+	return { calculatedMoney, coinsInWallet };
 };
 
 export { getPriceType, useDebounce, spendMoney, withdrawMoney };

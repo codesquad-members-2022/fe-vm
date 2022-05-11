@@ -2,7 +2,7 @@ const colors = {
 	black: '#181818',
 	green: '#5e895e',
 	yellow: '#eacf56',
-	red: '#874141',
+	red: '#DB6050',
 	white: '#FFFEF4',
 };
 

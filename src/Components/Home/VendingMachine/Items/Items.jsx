@@ -1,7 +1,8 @@
+import { useState, useEffect } from 'react';
+
 import itemsApi from 'Service/itemsApi';
-import { getPriceType } from 'Util/util';
-import { useEffect, useState } from 'react';
-import { ItemsDiv, ItemDiv, ItemNameDiv, ItmePriceDiv } from './Items.styled';
+import Item from './Item';
+import { ItemsDiv, ItemDiv } from './Items.styled';
 
 const Items = () => {
 	const [items, setItems] = useState([]);
@@ -12,15 +13,8 @@ const Items = () => {
 	};
 
 	const getList = (array) => {
-		const list = array.map((item) => (
-			<ItemDiv key={item.id}>
-				<ItemNameDiv>{item.name}</ItemNameDiv>
-				<ItmePriceDiv>{getPriceType(item.price, true)}</ItmePriceDiv>
-			</ItemDiv>
-		));
-
+		const list = array.map((item) => <Item key={item.id} item={item} />);
 		if (list.length % 2) list.push(<ItemDiv key={array.length} empty={true} />);
-
 		return list;
 	};
 
