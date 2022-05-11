@@ -1,8 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
-import VendingMachinePage from './VendingMachinePage';
-import WalletPage from './WalletPage';
+import VendingMachine from './pages/VendingMachine';
+import Wallet from './pages/Wallet';
+
+import Button from './components/Button';
 
 export default function App() {
   return (
@@ -10,18 +12,18 @@ export default function App() {
       <ul>
         <li>
           <Link to="/">
-            <button type="button">자판기</button>
+            <Button icon="자판기" />
           </Link>
         </li>
         <li>
           <Link to="/wallet">
-            <button type="button">지갑</button>
+            <Button icon="지갑" />
           </Link>
         </li>
       </ul>
       <Routes>
-        <Route path="/" element={<VendingMachinePage />} />
-        <Route path="/wallet" element={<WalletPage />} />
+        <Route path="/" element={<VendingMachine />} />
+        <Route path="/wallet" element={<Wallet />} />
       </Routes>
     </BrowserRouter>
   );
