@@ -35,4 +35,10 @@ export const itemData = [
     price: '1000',
     stock: '2',
   },
+  {
+    id: '6',
+    name: '머핀',
+    price: '1000',
+    stock: '2',
+  },
 ];
