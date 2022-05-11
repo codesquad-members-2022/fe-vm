@@ -8,7 +8,11 @@ import * as S from './style';
 function Layout() {
   return (
     <S.AppContainer>
-      <GlobalNavigation />
+      <S.Header>
+        <div>
+          <GlobalNavigation />
+        </div>
+      </S.Header>
       <S.Main>
         <Outlet />
       </S.Main>

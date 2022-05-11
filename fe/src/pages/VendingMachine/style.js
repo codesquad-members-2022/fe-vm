@@ -37,19 +37,19 @@ export const InsertMoneyFormBox = styled.form`
 export const ProductCard = styled.div`
   width: 100%;
   height: 100%;
-  border: 2px solid ${({ type }) => decideBorderColor(type)};
-  background-color: ${({ canBuy }) => canBuy && '#C4E538'};
+  border: 2px solid ${({ type, theme: { color } }) => decideBorderColor(type, color)};
+  background-color: ${({ canBuy, theme: { color } }) => canBuy && color.lemon};
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-const decideBorderColor = type => {
+const decideBorderColor = (type, color) => {
   switch (type) {
     case 'drink':
-      return 'tomato';
+      return color.orange;
     case 'snack':
-      return 'darkGreen';
+      return color.mint;
     default:
       return 'black';
   }
