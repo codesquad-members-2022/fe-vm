@@ -18,6 +18,7 @@ export const TotalBox = styled.div`
     border: 2px solid #000;
     box-sizing: border-box;
     border-radius: 10px;
+    cursor: pointer;
   }
 `;
 
@@ -30,6 +31,7 @@ export const Money = styled.div`
   border: 2px solid #000;
   box-sizing: border-box;
   border-radius: 10px;
+  cursor: pointer;
 `;
 
 export const Count = styled.div`
@@ -41,4 +43,5 @@ export const Count = styled.div`
   border: 2px solid #000;
   box-sizing: border-box;
   border-radius: 10px;
+  cursor: pointer;
 `;
