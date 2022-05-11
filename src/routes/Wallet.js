@@ -1,16 +1,31 @@
 import { useContext } from "react";
+import styled from "styled-components";
 import MoneyAmount from "../components/Wallet/MoneyAmount";
 import { WalletContext } from "../contexts/WalletContext";
 
 export default function Wallet() {
-  const { amountOfMoney, getTotalMoney, insertMoney } = useContext(WalletContext);
+  const { amountOfMoney, getTotalMoney } = useContext(WalletContext);
 
   return (
-    <div>
-      {Object.entries(amountOfMoney).map(([value, amount]) => (
-        <MoneyAmount key={value} value={value} amount={amount} />
+    <WalletWrapper>
+      {Object.entries(amountOfMoney).map(([valueKey, amount]) => (
+        <MoneyAmount key={valueKey} value={Number(valueKey)} amount={amount} />
       ))}
-      <div>총 금액은 {getTotalMoney().toLocaleString()}원 있다.</div>
-    </div>
+      <div>🔫</div>
+      <TotalMoney>{getTotalMoney().toLocaleString()}원</TotalMoney>
+    </WalletWrapper>
   );
 }
+
+const WalletWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+`;
+const TotalMoney = styled.div`
+  font-size: 40px;
+`;

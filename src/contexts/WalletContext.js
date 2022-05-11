@@ -10,7 +10,10 @@ function WalletProvider({ children }) {
   const [amountOfMoney, setAmountOfMoney] = useState({});
 
   function getTotalMoney() {
-    return Object.entries(amountOfMoney).reduce((total, [value, amount]) => (total += value * amount), 0);
+    return Object.entries(amountOfMoney).reduce(
+      (total, [valueKey, amount]) => (total += Number(valueKey) * amount),
+      0
+    );
   }
   useEffect(() => {
     setAmountOfMoney(amountOfMoneyData);
