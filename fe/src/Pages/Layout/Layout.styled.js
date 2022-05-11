@@ -15,17 +15,20 @@ export const NavUl = styled.ul`
   padding-left: 0px;
 `;
 export const NavLi = styled.li`
-  ${({ flex, justify, align }) => applyFlex({ flex, justify, align })};
   list-style: none;
   text-decoration: none;
   margin-right: 20px;
   font-size: 1.75rem;
-  padding: 20px;
   border: 2px solid #3f51b5;
   width: 150px;
   height: 50px;
 
   a {
+    ${({ flex, justify, align }) => applyFlex({ flex, justify, align })};
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
     text-decoration: none;
     color: #000;
   }
