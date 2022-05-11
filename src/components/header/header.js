@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Header = ({ VMStateObj, WalletStateObj }) => {
   const { isVMClicked, setVMClicked } = VMStateObj;
@@ -26,10 +26,10 @@ export const Header = ({ VMStateObj, WalletStateObj }) => {
 
 const VMButton = styled.button`
   color: ${({ isClick }) => isClick && 'tomato'};
-  cursor: pointe;
+  cursor: pointer;
 `;
 
 const WalletButton = styled.button`
   color: ${({ isClick }) => isClick && 'tomato'};
-  cursor: pointe;
+  cursor: pointer;
 `;
