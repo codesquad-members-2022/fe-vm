@@ -1,3 +1,4 @@
+import MessageScreen from 'Components/MessageScreen';
 import MoneyScreenBoard from 'Components/MoneyScreenBoard';
 import ProductScreenBoard from 'Components/ProductScreenBoard';
 import { INVESTMENT_API } from 'Helper/constant';
@@ -18,6 +19,9 @@ export default function VendingMachine() {
           <Column flex>
             <ProductScreenBoard />
             <MoneyScreenBoard />
+          </Column>
+          <Column>
+            <MessageScreen />
           </Column>
         </VendingMachineContainer>
       </InvestmentContext.Provider>
