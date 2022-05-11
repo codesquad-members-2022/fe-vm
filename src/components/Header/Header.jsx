@@ -2,10 +2,21 @@ import styled from "styled-components";
 import Nav from "./Nav";
 import { whaleImgSrc } from "../../styles/icons";
 
+const Header = () => {
+  return (
+    <HeaderWrapper>
+      <HeaderContent>
+        <Logo />
+        <Nav />
+      </HeaderContent>
+    </HeaderWrapper>
+  );
+};
+
 const HeaderWrapper = styled.div`
   width: 100%;
   height: 100px;
-  background-color: #022044;
+  background-color: ${({ theme }) => theme.colors.navy};
 `;
 
 const HeaderContent = styled.div`
@@ -17,23 +28,12 @@ const HeaderContent = styled.div`
 `;
 
 const Logo = styled.span`
+  width: 80px;
+  height: 80px;
   margin: 0 60px;
   background: url(${whaleImgSrc}) no-repeat center;
   background-size: cover;
   filter: invert(100%);
-  width: 80px;
-  height: 80px;
 `;
-
-const Header = () => {
-  return (
-    <HeaderWrapper>
-      <HeaderContent>
-        <Logo />
-        <Nav />
-      </HeaderContent>
-    </HeaderWrapper>
-  );
-};
 
 export default Header;
