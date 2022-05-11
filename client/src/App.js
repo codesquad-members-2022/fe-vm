@@ -1,22 +1,25 @@
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
+import NavBar from "./components/NavBar/NavBar";
+import NotFound from "./components/NotFound/NotFound";
+import VM from "./components/VM/VM";
+import Wallet from "./components/Wallet/Wallet";
+import InputStore from "./store/InputStore";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <NavBar />
+
+      <InputStore>
+        <Routes>
+          <Route path="/" element={<VM />} />
+          <Route path="/wallet" element={<Wallet />} />
+          {/* <Route path="/*" element={<NotFound />} /> */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </InputStore>
+    </BrowserRouter>
   );
 }
 
