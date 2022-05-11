@@ -3,15 +3,20 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const dotenv = require('dotenv');
 const webpack = require('webpack');
+
 dotenv.config();
 
 const path = require('path');
+
 module.exports = {
   mode: 'development',
-  entry: './src/app.js',
+  entry: path.resolve(__dirname, 'src/index.jsx'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -24,9 +29,6 @@ module.exports = {
   ],
   devtool: 'inline-source-map',
   devServer: {
-    static: {
-      directory: path.join(__dirname, 'dist'),
-    },
     client: {
       overlay: true,
     },
@@ -37,7 +39,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -49,6 +51,10 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]',
         },
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
