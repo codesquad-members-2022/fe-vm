@@ -8,24 +8,24 @@ import { flexCenter } from '../style/mixins';
 const Home = ({ drinkData }) => {
   return (
     <>
-      <DrinkMenuBox>
+      <StyledDrinkMenuBox>
         <DrinkMenu drinkData={drinkData} />
-      </DrinkMenuBox>
-      <OrderBox>
+      </StyledDrinkMenuBox>
+      <StyledOrderBox>
         <Order />
-      </OrderBox>
+      </StyledOrderBox>
     </>
   );
 };
 
-const DrinkMenuBox = styled.ul`
+const StyledDrinkMenuBox = styled.ul`
   ${flexCenter}
   width: 70%;
   flex-wrap: wrap;
   border: 3px solid black;
 `;
 
-const OrderBox = styled.div`
+const StyledOrderBox = styled.div`
   border: 3px solid black;
   width: 30%;
 `;
