@@ -5,12 +5,19 @@ interface ItemProps {
   count: number;
 }
 
-const ItemComponent = styled.div``;
+const ItemComponent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 2px solid ${({ theme }) => theme.colors.gray1};
+`;
 
-export default function Item(props: ItemProps): JSX.Element {
+export default function Item({ money, count }: ItemProps): JSX.Element {
   return (
     <>
-      <ItemComponent></ItemComponent>
+      <ItemComponent>{money}원</ItemComponent>
+      <ItemComponent>{count}개</ItemComponent>
     </>
   );
 }
