@@ -1,4 +1,4 @@
-import products from "../data/products";
+import products from "../../data/products";
 import { v4 as uuid } from "uuid";
 import {
     ProductContainer,
