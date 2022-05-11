@@ -3,8 +3,8 @@ import styled from "styled-components";
 const StyledHistoryBox = styled.ul`
   height: 300px;
   background-color: #f2f2f2;
-  margin-left: 10px;
   overflow-y: scroll;
+  margin-top: 10px;
 `;
 
 const History = styled.li``;

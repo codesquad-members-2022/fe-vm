@@ -6,7 +6,7 @@ const StyledInsertCoin = styled.input`
   background-color: #f2f2f2;
   border: none;
   border-radius: 10px;
-  margin: 0px 10px 10px 10px;
+  margin: 0px 10px 10px 0px;
   text-align: center;
   font-size: 1.5em;
 

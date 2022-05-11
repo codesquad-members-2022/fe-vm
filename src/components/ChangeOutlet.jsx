@@ -1,18 +1,11 @@
-import styled from "styled-components";
-
-const StyledChangeOutlet = styled.div`
-  height: 70px;
-  background-color: #000;
-  margin-left: 10px;
-  color: #fff;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
+import { Button } from "./Button";
 
 function ChangeOutlet() {
-  return <StyledChangeOutlet>change</StyledChangeOutlet>;
+  return (
+    <Button color="black" size="large">
+      change
+    </Button>
+  );
 }
 
 export { ChangeOutlet };

@@ -5,3 +5,4 @@ export * from "./VendController";
 export * from "./InsertCoin";
 export * from "./ChangeOutlet";
 export * from "./HistoryBox";
+export * from "./Button";

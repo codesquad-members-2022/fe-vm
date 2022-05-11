@@ -3,6 +3,7 @@ import { InsertCoin, ChangeOutlet, HistoryBox } from "components";
 
 const StyledVendController = styled.div`
   width: 300px;
+  margin-left: 10px;
 
   div {
     display: grid;
