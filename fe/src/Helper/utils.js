@@ -15,6 +15,10 @@ export function applyFlex({ flex, justify, align, direction, wrap }) {
   );
 }
 
+export function getWonTemplate(number) {
+  return `${number.toLocaleString()}원`;
+}
+
 function getFlexTemplate({ justify, align, direction, wrap }) {
   justify = justify || 'start';
   align = align || 'stretch';

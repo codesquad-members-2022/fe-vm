@@ -1,10 +1,16 @@
 import { SetWalletMoneyContext, WalletMoneyContext } from 'App';
-import { InvestmentContext, SetInvestmentContext } from 'Pages/VendingMachine';
+import { initAlertMessage } from 'Helper/constant';
+import { InvestmentContext, SetAlertMessage, SetInvestmentContext } from 'Pages/VendingMachine';
 import { useContext, useState } from 'react';
 import { CashInput, Button, ChargeForm } from './ChargeForm.styled';
 
 export default function ChargeScreen() {
   const [cash, setCash] = useState(0);
+  const setWalletMoney = useContext(SetWalletMoneyContext);
+  const setInvestment = useContext(SetInvestmentContext);
+  const setAlertMessage = useContext(SetAlertMessage);
+  const walletMoney = useContext(WalletMoneyContext);
+  const investment = useContext(InvestmentContext);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -23,17 +29,13 @@ export default function ChargeScreen() {
       setCash,
       adjustedCash,
     });
+    alertChargeMessage({ setAlertMessage, adjustedCash });
   };
 
   const handleInputChange = (evt) => {
     const { value } = evt.target;
     setCash(value);
   };
-
-  const walletMoney = useContext(WalletMoneyContext);
-  const setWalletMoney = useContext(SetWalletMoneyContext);
-  const investment = useContext(InvestmentContext);
-  const setInvestment = useContext(SetInvestmentContext);
 
   return (
     <ChargeForm flex onSubmit={handleSubmit}>
@@ -106,4 +108,10 @@ const chargeCash = ({ investment, setInvestment, walletMoney, setWalletMoney, se
   setCash(adjustedCash);
   setInvestment(newInvestment);
   setWalletMoney(newWalletMoney);
+};
+
+const alertChargeMessage = ({ setAlertMessage, adjustedCash }) => {
+  const newAlertMessage = { ...initAlertMessage };
+  newAlertMessage.chargeCash = Number(adjustedCash);
+  setAlertMessage(newAlertMessage);
 };
