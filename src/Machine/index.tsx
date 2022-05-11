@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import ItemList from './ItemList';
-import ActionComponentList from './ActionComponentList';
+import InfoList from '@/Machine/InfoList';
 
 const MachineWrapper = styled.section`
   display: flex;
@@ -12,7 +12,7 @@ export default function Machine(): JSX.Element {
     <>
       <MachineWrapper>
         <ItemList />
-        <ActionComponentList />
+        <InfoList />
       </MachineWrapper>
     </>
   );
