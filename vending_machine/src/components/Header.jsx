@@ -7,9 +7,9 @@ function Header() {
   const [isClickedVM, setIsClickedVM] = useState(true);
   const [isClickedWallet, setIsClickedWallet] = useState(false);
 
-  const changePage = url => navigate(`${url}`);
+  const changePage = (url) => navigate(`${url}`);
 
-  const changeColor = target => {
+  const changeColor = (target) => {
     if (target) return;
 
     setIsClickedVM(!isClickedVM);
@@ -41,7 +41,9 @@ function Header() {
   );
 }
 
-const StyledNav = styled.nav``;
+const StyledNav = styled.nav`
+  margin-top: 20px;
+`;
 
 const MainBtn = styled.button`
   border: 2px solid black;
