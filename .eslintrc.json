@@ -1,0 +1,18 @@
+{
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "extends": ["react-app", "prettier"],
+  "rules": {
+    "no-multiple-empty-lines": "warn",
+    "no-console": "warn",
+    "no-unused-vars": "warn",
+    "react/no-unused-state": "warn",
+    "react/no-direct-mutation-state": "warn",
+    "react/jsx-curly-brace-presence": "warn"
+}
+}
