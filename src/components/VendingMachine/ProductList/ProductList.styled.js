@@ -5,11 +5,11 @@ const ProductUl = styled.ul`
     padding: ${whitespace.default};
     border-radius: ${whitespace.default};
     background-color: ${colors.white};
+    grid-gap: ${whitespace.small};
   `};
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 0.5rem;
 `;
 
 export default ProductUl;

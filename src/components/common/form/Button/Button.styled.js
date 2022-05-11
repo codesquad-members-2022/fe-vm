@@ -9,7 +9,8 @@ const StyledButton = styled.button`
       line-height: ${fontStyle.lineHeight || "normal"};
       color: ${fontStyle.color || `${({ theme: { colors } }) => colors.black}`};
       font-weight: ${fontStyle.fontWeight || "normal"};
-      margin: ${margin || "0 0 0 1rem"};
+      margin: ${margin ||
+      `0 0 0 ${({ theme: { whitespace } }) => whitespace.default}`};
       border: ${border || "none"};
       background-color: ${bgColor ||
       `${({ theme: { colors } }) => colors.white}`};
