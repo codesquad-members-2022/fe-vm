@@ -1,25 +1,21 @@
 import { useOutletContext } from "react-router-dom";
 import { v4 as uuid } from "uuid";
+import { WalletWrapper, WalletItemContainer, WalletItem } from "./Wallet.Style";
 
 function Wallet() {
     const { wallet } = useOutletContext();
     const walletState = [];
 
-    for (let key of Object.keys(wallet)) {
+    for (let moneyUnit of Object.keys(wallet)) {
         walletState.push(
-            <li key={uuid()}>
-                <div>{key}</div>
-                <div>{wallet[key]}</div>
-            </li>
+            <WalletItemContainer key={uuid()}>
+                <WalletItem>{moneyUnit}</WalletItem>
+                <WalletItem>{wallet[moneyUnit]}</WalletItem>
+            </WalletItemContainer>
         );
     }
 
-    return (
-        <>
-            <h1>지갑</h1>
-            <ul>{walletState}</ul>
-        </>
-    );
+    return <WalletWrapper>{walletState}</WalletWrapper>;
 }
 
 export default Wallet;
