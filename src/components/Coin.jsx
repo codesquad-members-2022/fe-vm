@@ -2,9 +2,10 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { MoneyContext } from 'components/App';
+import MESSAGES from 'messages';
 
 function Coin({ amount, cnt }) {
-  const { curMoney, setMoney } = useContext(MoneyContext);
+  const { curMoney, setMoney, showErrorMsg } = useContext(MoneyContext);
   const [moneyCnt, setMoneyCnt] = useState(cnt);
   return (
     <Wrap>
@@ -15,6 +16,7 @@ function Coin({ amount, cnt }) {
   function handleChargeMoney() {
     const hasEnoughCoins = moneyCnt >= 1;
     if (!hasEnoughCoins) {
+      showErrorMsg(MESSAGES.ERROR.NOT_ENOUGH_COINS);
       return;
     }
     setMoney(curMoney + amount);
