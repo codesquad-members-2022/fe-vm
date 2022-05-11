@@ -1,28 +1,33 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { ProgressContext, VmInputValueContext } from '../App';
+import { ProgressContext, TotalMoneyContext } from '../App';
 import History from './History';
 
 function Order() {
-  const { setInputValue } = useContext(VmInputValueContext);
+  const [inputValue, setInputValue] = useState(0);
+  const inputTag = useRef();
 
   const { progressBox, addMoneyMessage } = useContext(ProgressContext);
+  const { totalMoney, setTotalMoney } = useContext(TotalMoneyContext);
 
-  const changeValue = ({ target }) => {
-    setInputValue(Number(target.value));
-    // 로그 계속 찍힘
-    addMoneyMessage(target.value);
+  const changeTotalMoney = (e) => {
+    e.preventDefault();
+    setInputValue(0);
+    setTotalMoney(Number(totalMoney) + Number(inputValue));
+    addMoneyMessage(Number(inputValue));
+    inputTag.current.value = '';
+  };
+
+  const changeValue = ({ target: { value } }) => {
+    setInputValue(value);
   };
 
   return (
     <>
-      <StyledForm
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        <StyledInput type="text" onChange={changeValue} />
+      <StyledTotal>{totalMoney}원</StyledTotal>
+      <StyledForm onSubmit={changeTotalMoney}>
+        <StyledInput type="text" onChange={changeValue} ref={inputTag} />
         <StyledSpan>원</StyledSpan>
       </StyledForm>
 
@@ -36,6 +41,15 @@ function Order() {
     </>
   );
 }
+
+const StyledTotal = styled.p`
+  margin: 0 auto;
+  width: 270px;
+  height: 40px;
+  margin-top: 30px;
+  border: 2px solid gray;
+  font-size: 20px;
+`;
 
 const StyledForm = styled.form`
   margin: 0 auto;
