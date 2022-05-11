@@ -25,7 +25,8 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "styled-reset": "^4.3.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
