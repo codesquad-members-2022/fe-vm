@@ -1,3 +1,2 @@
-export default function Wallet() {
-  return <p>지갑</p>;
-}
+import Wallet from 'components/Wallet';
+export default Wallet;
