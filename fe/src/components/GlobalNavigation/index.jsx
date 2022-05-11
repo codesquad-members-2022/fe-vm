@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Tab, Tabs } from '@mui/material';
 import * as S from './style';
 
+// FIXME: 새로 고침했을 때 URL과 상관없이 활성화탭이 0번으로 되는 버그
 function GlobalNavigation() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

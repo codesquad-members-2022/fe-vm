@@ -1,24 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { Context as VMcontext } from 'context/VMcontext';
+import Products from 'components/Products';
 import InsertMoneyForm from './InsertMoneyForm';
-import ProductsContainer from './ProductsContainer';
 import * as S from './style';
-
-// TODO: nested라우터 활용하기
-// products
-// inputHandler
-// ChangesUnits
-
-const CHANGES_UMITS = [
-  { id: 10, unit: 10, count: 0 },
-  { id: 500, unit: 500, count: 0 },
-  { id: 50, unit: 50, count: 0 },
-  { id: 100, unit: 100, count: 0 },
-  { id: 5000, unit: 5000, count: 0 },
-  { id: 1000, unit: 1000, count: 0 },
-  { id: 10000, unit: 10000, count: 0 },
-];
-
-const TOTAL_BALANCE = 23500;
 
 const findClosestUnit = (existUnits, submitOnlyNumber) => {
   return existUnits.reduce((acc, { unit }) => {
@@ -37,8 +21,8 @@ const findTargetUnit = (existUnits, submitOnlyNumber) => {
 };
 
 function VendingMachine(props) {
-  const [totalBalance, setTotalBalance] = useState(TOTAL_BALANCE);
-  const [changesUnits, setChangesUnits] = useState(CHANGES_UMITS);
+  const { VMstate, VMdispatch } = useContext(VMcontext);
+  const { totalBalance, changesUnits } = VMstate;
   // FIXME: input defualt value 0일 때 에러 수정 -> 0123, 1230이런식으로 0이 안없어짐
   const [insertMoney, setInsertMoney] = useState(0);
 
@@ -71,16 +55,23 @@ function VendingMachine(props) {
     setInsertMoney(onlyNumber);
   }, []);
 
+  const isPriceUnderInsertMoney = useCallback(
+    targetPrice => {
+      return targetPrice <= insertMoney;
+    },
+    [insertMoney],
+  );
+
   return (
-    <S.VMContainer>
-      <ProductsContainer insertMoney={insertMoney} />
+    <S.Container>
+      <Products isPriceUnderInsertMoney={isPriceUnderInsertMoney} />
       <InsertMoneyForm
         totalBalance={totalBalance}
         insertMoney={insertMoney}
         onChangeInsertMoney={onChangeInsertMoney}
         handleSubmitInsertMoney={handleSubmitInsertMoney}
       />
-    </S.VMContainer>
+    </S.Container>
   );
 }
 

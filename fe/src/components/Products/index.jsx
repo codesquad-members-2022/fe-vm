@@ -1,16 +1,10 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import randomProducts from 'mock/randomProducts';
 import Product from './Product';
 import * as S from './style';
 
-function ProductsContainer({ insertMoney }) {
-  const isPriceUnderInsertMoney = useCallback(
-    targetPrice => {
-      return targetPrice <= insertMoney;
-    },
-    [insertMoney],
-  );
+function Products({ isPriceUnderInsertMoney }) {
   return (
     <S.ProductsContainer>
       {randomProducts.map(product => (
@@ -24,8 +18,8 @@ function ProductsContainer({ insertMoney }) {
   );
 }
 
-ProductsContainer.propTypes = {
-  insertMoney: PropTypes.number.isRequired,
+Products.propTypes = {
+  isPriceUnderInsertMoney: PropTypes.func.isRequired,
 };
 
-export default ProductsContainer;
+export default Products;
