@@ -19,18 +19,14 @@ const Navigation = () => {
   const WALLET_ID = '/wallet';
 
   return (
-    <>
-      {(location.pathname === '/' || location.pathname === '/wallet') && (
-        <Nav onClick={onClick}>
-          <StyeldLink to="/" focus={focusLink} id={MACHINE_ID}>
-            🧃 자판기
-          </StyeldLink>
-          <StyeldLink to="wallet" focus={focusLink} id={WALLET_ID}>
-            지갑 💵
-          </StyeldLink>
-        </Nav>
-      )}
-    </>
+    <Nav onClick={onClick}>
+      <StyeldLink to="/" focus={focusLink} id={MACHINE_ID}>
+        🧃 자판기
+      </StyeldLink>
+      <StyeldLink to="wallet" focus={focusLink} id={WALLET_ID}>
+        지갑 💵
+      </StyeldLink>
+    </Nav>
   );
 };
 
