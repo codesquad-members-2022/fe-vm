@@ -3,7 +3,6 @@ import Home from 'pages/Home';
 import Wallet from 'pages/Wallet';
 import React, { useState } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import { LINK_STYLE, Nav } from 'components/App.style';
 import styled from 'styled-components';
 import { delay } from 'utils';
 
@@ -20,12 +19,8 @@ function App() {
     <MoneyContext.Provider value={{ curMoney, setMoney, showErrorMsg }}>
       <BrowserRouter>
         <Nav>
-          <Link to="/" style={LINK_STYLE}>
-            자판기
-          </Link>
-          <Link to="wallet" style={LINK_STYLE}>
-            지갑
-          </Link>
+          <Link to="/">자판기</Link>
+          <Link to="wallet">지갑</Link>
         </Nav>
         <Routes>
           <Route index path="/" element={<Home />} />
@@ -37,13 +32,18 @@ function App() {
   );
   async function showErrorMsg(msg) {
     setErrorMsg(msg);
-    await delay(3000);
+    const DELAY_MS = 3000;
+    await delay(DELAY_MS);
     setErrorMsg('');
   }
 }
 
 export default App;
 
+const Nav = styled.nav({
+  display: 'flex',
+  gap: '10px',
+});
 const ErrorMsg = styled.div({
   padding: '10px',
 });

@@ -13,14 +13,12 @@ function Product({ name, price }) {
 export default Product;
 
 const Wrap = styled.div({});
-
 const Name = styled.div({
   border: '1px solid black',
   height: '50px',
   textAlign: 'center',
   lineHeight: '50px',
 });
-
 const Price = styled.div({
   textAlign: 'center',
 });

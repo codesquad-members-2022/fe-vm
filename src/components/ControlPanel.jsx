@@ -25,16 +25,13 @@ const Wrap = styled.div({
   padding: '20px',
   gap: '20px',
 });
-
 const Row = styled.div({
   display: 'flex',
 });
-
 const Money = styled.input({
   width: '100%',
   textAlign: 'right',
 });
-
 const EventLog = styled.div({
   border: '1px solid black',
   height: '100%',

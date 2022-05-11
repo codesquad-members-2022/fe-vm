@@ -10,8 +10,8 @@ function MoneyCharge() {
     <Wrap>
       <Coins />
       <Total>
-        <Money>{curMoney}</Money>
-        <Unit>원</Unit>
+        <div>{curMoney}</div>
+        <div>원</div>
       </Total>
     </Wrap>
   );
@@ -39,7 +39,5 @@ const Total = styled.div({
   height: '50px',
   lineHeight: '50px',
 });
-const Money = styled.div({});
-const Unit = styled.div({});
 
 export default MoneyCharge;

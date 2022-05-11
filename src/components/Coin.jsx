@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { MoneyContext } from 'components/App';
@@ -14,8 +13,8 @@ function Coin({ amount, cnt }) {
     </Wrap>
   );
   function handleChargeMoney() {
-    const hasEnoughCoins = moneyCnt >= 1;
-    if (!hasEnoughCoins) {
+    const hasCoins = moneyCnt >= 1;
+    if (!hasCoins) {
       showErrorMsg(MESSAGES.ERROR.NOT_ENOUGH_COINS);
       return;
     }

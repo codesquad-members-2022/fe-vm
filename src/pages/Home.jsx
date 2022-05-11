@@ -28,7 +28,6 @@ function Products() {
 const Wrap = styled.div({
   display: 'flex',
 });
-
 const ProductWrap = styled.div({
   display: 'grid',
   gridTemplateColumns: 'repeat(4, 100px)',
