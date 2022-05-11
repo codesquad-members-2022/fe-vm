@@ -66,6 +66,11 @@ module.exports = env => {
           test: /\.(sc|c|sa)ss$/,
           use: [lastCssLoader, 'css-loader'],
         },
+        {
+          test: /\.svg$/i,
+          issuer: /\.[jt]sx?$/,
+          use: ['@svgr/webpack'],
+        },
       ],
     },
     plugins: [
