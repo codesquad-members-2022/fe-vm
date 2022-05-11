@@ -37,7 +37,6 @@ const NotFoundContainer = styled.div`
 
 const Message = styled.p`
   margin-bottom: 40px;
-  width: 500px;
   ${({ theme }) => theme.fontStyles.display};
 `;
 
