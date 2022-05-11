@@ -67,6 +67,11 @@ const Reset = createGlobalStyle`
     padding: 0;
     background-color: transparent;
   }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 export default Reset;

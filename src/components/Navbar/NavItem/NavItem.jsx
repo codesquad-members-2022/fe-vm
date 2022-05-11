@@ -1,7 +1,6 @@
-import Button from "components/common/form/Button/Button";
 import { NavLink } from "react-router-dom";
 
-import { Wrapper, navButtonStyle } from "./NavItem.styled";
+import Wrapper from "./NavItem.styled";
 
 const NavItem = ({ menuItem }) => {
   const { menuName, path } = menuItem;
@@ -10,9 +9,9 @@ const NavItem = ({ menuItem }) => {
     <Wrapper>
       <NavLink
         to={path}
-        className={({ isActive }) => (isActive ? "current-path" : "nav-link")}
+        className={({ isActive }) => (isActive ? "current-path link" : "link")}
       >
-        <Button styles={navButtonStyle} data={{ name: menuName }} />
+        {menuName}
       </NavLink>
     </Wrapper>
   );
