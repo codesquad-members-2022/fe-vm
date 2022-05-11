@@ -6,14 +6,10 @@ const colors = {
 	white: '#FFFEF4',
 };
 
-const padding = {
-	small: '20px',
+const distance = {
+	small: '10px',
 };
 
-const border = {
-	main: 'solid 2px',
-};
-
-const theme = { colors, padding, border };
+const theme = { colors, distance };
 
 export default theme;

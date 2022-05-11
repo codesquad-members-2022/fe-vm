@@ -5,24 +5,28 @@ const HomeDiv = styled.div`
 `;
 
 const NavigatorDiv = styled.div`
-	overflow: auto;
-	margin: 0 auto;
-	> div {
-		${({ theme: { colors, padding } }) => css`
+	${({ theme: { colors, distance } }) => css`
+		overflow: auto;
+		margin: 0 auto;
+		display: flex;
+		justify-content: space-around;
+		border-radius: ${distance.small};
+		padding: ${distance.small};
+		border: solid 2px ${colors.black};
+		width: 200px;
+
+		> div {
+			cursor: pointer;
+			border-radius: ${distance.small};
+			padding: ${distance.small};
 			display: inline-block;
-			padding: ${padding.small};
-			border: solid 2px ${colors.black};
+
 			:first-child {
-				border-radius: 10px 0 0 10px;
+				background-color: ${colors.black};
+				color: ${colors.white};
 			}
-			:last-child {
-				border-radius: 0 10px 10px 0;
-			}
-			:not(:last-child) {
-				border-right: 0;
-			}
-		`}
-	}
+		}
+	`};
 `;
 
 export { HomeDiv, NavigatorDiv };

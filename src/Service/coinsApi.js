@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const baseURL = '/api/items';
+const baseURL = '/api/coins';
 const client = axios.create({ baseURL });
 
-const itemsApi = {
-	getItems: async () => {
+const coinsApi = {
+	getCoins: async () => {
 		try {
 			const response = await client.get('/');
 			return response.data;
@@ -14,4 +14,4 @@ const itemsApi = {
 	},
 };
 
-export default itemsApi;
+export default coinsApi;

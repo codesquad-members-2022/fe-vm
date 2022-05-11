@@ -14,4 +14,14 @@ const items = [
 	{ id: 12, name: '딸기맛 우유', price: 500 },
 ];
 
-export default items;
+const coins = [
+	{ id: 0, price: 10, count: 10 },
+	{ id: 1, price: 50, count: 10 },
+	{ id: 2, price: 100, count: 10 },
+	{ id: 3, price: 500, count: 10 },
+	{ id: 4, price: 1000, count: 10 },
+	{ id: 5, price: 5000, count: 10 },
+	{ id: 6, price: 10000, count: 10 },
+];
+
+export { items, coins };
