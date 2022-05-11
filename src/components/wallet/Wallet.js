@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 import colors from "../../constants/colors";
 import money from "../../constants/money";
-import Text from "../../Text";
-import { FONT } from "../../constants/fonts";
+import MoneyInfo from "./MoneyInfo";
+import TotalAmount from "./TotalAmount";
 
 const WalletWrap = styled.div`
   display: flex;
@@ -18,23 +18,26 @@ const WalletWrap = styled.div`
   margin-top: 5%;
 `;
 
-const MoneyInfoWrap = styled.div``;
+const MoneyWrap = styled.div`
+  width: 100%;
+  height: 80%;
+  margin-top: 15%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+`;
 
 const Wallet = () => {
   return (
     <WalletWrap>
-      {money.map((money, idx) => {
-        return (
-          <MoneyInfoWrap key={idx}>
-            <Text key={(idx + 1) / 3.3} font={FONT.MEDIUM_BOLD}>
-              {money.type}
-            </Text>
-            <Text key={idx / 3.2} font={FONT.MEDIUM_BOLD}>
-              {money.amount}
-            </Text>
-          </MoneyInfoWrap>
-        );
-      })}
+      <MoneyWrap>
+        {money.map((money, idx) => {
+          return <MoneyInfo money={money} key={idx} />;
+        })}
+      </MoneyWrap>
+      <TotalAmount />
     </WalletWrap>
   );
 };
