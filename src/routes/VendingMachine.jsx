@@ -10,6 +10,7 @@ import {
 function VendingMachine() {
     const {
         wallet,
+        updateWallet,
         record,
         addRecord,
         moneyInVendingMachine,
@@ -23,6 +24,7 @@ function VendingMachine() {
                 <MoneySlot
                     addRecord={addRecord}
                     wallet={wallet}
+                    updateWallet={updateWallet}
                     putMoneyIntoVendingMachine={putMoneyIntoVendingMachine}
                 />
                 <RecordBoard record={record} />

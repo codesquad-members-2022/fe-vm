@@ -1,11 +1,12 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import wallet from "../data/wallet";
+import dataOfwallet from "../data/wallet";
 
 function Home() {
     const { pathname } = useLocation();
     const [record, setRecord] = useState([]);
     const [moneyInVendingMachine, setMoneyInVendingMachine] = useState({});
+    const [wallet, setWallet] = useState(dataOfwallet);
 
     const addRecord = (newRecord) => {
         setRecord([...record, newRecord]);
@@ -15,6 +16,9 @@ function Home() {
             ? moneyInVendingMachine[money] + 1
             : 1;
         setMoneyInVendingMachine(moneyInVendingMachine);
+    };
+    const updateWallet = (newWallet) => {
+        setWallet(newWallet);
     };
 
     return (
@@ -27,6 +31,7 @@ function Home() {
             <Outlet
                 context={{
                     wallet,
+                    updateWallet,
                     record,
                     addRecord,
                     moneyInVendingMachine,

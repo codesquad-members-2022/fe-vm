@@ -1,4 +1,4 @@
-const wallet = {
+const dataOfwallet = {
     10: 3,
     50: 3,
     100: 3,
@@ -8,4 +8,4 @@ const wallet = {
     10000: 3,
 };
 
-export default wallet;
+export default dataOfwallet;
