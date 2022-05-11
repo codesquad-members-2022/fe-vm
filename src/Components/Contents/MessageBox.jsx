@@ -24,6 +24,7 @@ export default function MessageBox() {
 const MassegeContent = styled.div`
   text-align: center;
 `;
+
 const TextBox = styled.div`
   height: 320px;
   ${Radius10}
