@@ -13,7 +13,7 @@ export default function App() {
       <AppWrapper>
         <GlobalStyles />
         <GlobbalFonts />
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
           <WalletProvider>
             <Nav />
             <Routes>
