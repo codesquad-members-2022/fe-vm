@@ -1,7 +1,14 @@
 import styled, { css } from 'styled-components';
+import { useState } from 'react';
 
 interface TStyledView {
-  activate: boolean;
+  active: boolean;
+}
+
+interface HeaderProps {
+  tab: string;
+  texts: string[];
+  handleTab: Function;
 }
 
 const HeaderWrapper = styled.header`
@@ -13,8 +20,8 @@ const HeaderWrapper = styled.header`
 const Button = styled.button<TStyledView>`
   width: 80px;
   height: 50px;
-  background-color: ${(props: any) => {
-    if (props.activate) {
+  background-color: ${props => {
+    if (props.active) {
       return css`
         ${({ theme }) => theme.colors.gray1}
       `;
@@ -24,8 +31,8 @@ const Button = styled.button<TStyledView>`
       `;
     }
   }};
-  color: ${(props: any) => {
-    if (props.activate) {
+  color: ${props => {
+    if (props.active) {
       return css`
         ${({ theme }) => theme.colors.white}
       `;
@@ -40,14 +47,29 @@ const Button = styled.button<TStyledView>`
   cursor: pointer;
 `;
 
-export default function Header(props: { texts: string[] }): JSX.Element {
-  const [text1, text2] = props.texts;
+export default function Header({
+  tab,
+  texts,
+  handleTab,
+}: HeaderProps): JSX.Element {
+  const [tab1, tab2] = texts;
+  const [active, setActive] = useState(true);
+
+  const onButtonHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (tab === e.currentTarget.name) return;
+    setActive(!active);
+    handleTab(e.currentTarget.name);
+  };
 
   return (
     <>
       <HeaderWrapper>
-        <Button activate={true}>{text1}</Button>
-        <Button activate={false}>{text2}</Button>
+        <Button active={active} onClick={onButtonHandle} name={tab1}>
+          {tab1}
+        </Button>
+        <Button active={!active} onClick={onButtonHandle} name={tab2}>
+          {tab2}
+        </Button>
       </HeaderWrapper>
     </>
   );
