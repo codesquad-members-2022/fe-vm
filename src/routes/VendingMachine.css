@@ -25,9 +25,8 @@
   height: 50px;
   border: 1px solid #000;
 }
-.vendingmachine-wrapper-input {
+.vendingmachine-input-wrapper {
   width: 300px;
   height: 600px;
-  /* background: red; */
   margin-top: 20px;
 }
