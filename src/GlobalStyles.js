@@ -4,10 +4,6 @@ import reset from 'styled-reset';
 const GlobalStyles = createGlobalStyle`
   ${reset}
 
-  .App {
-    font: inherit;
-  }
-
   html,
   body,
   div,
