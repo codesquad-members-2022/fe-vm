@@ -4,10 +4,12 @@ import setLocalString from 'utils/setLocalString';
 export default function Product({ info }) {
   return (
     <ProductWrapper>
-      <ProductButton stock={info.stock}>{info.name}</ProductButton>
-      <PriceWrapper>
-        <PriceState stock={info.stock} />
-        <Price stock={info.stock}>{info.stock ? setLocalString(info.price) + '원' : '품절'}</Price>
+      <ProductName stock={info.stock}>{info.name}</ProductName>
+      <PriceWrapper stock={info.stock}>
+        <span className="price_state"></span>
+        <button className="push_btn">
+          {info.stock ? setLocalString(info.price) + '원' : '품절'}
+        </button>
       </PriceWrapper>
     </ProductWrapper>
   );
@@ -19,7 +21,7 @@ const ProductWrapper = styled.div`
   align-items: center;
 `;
 
-const ProductButton = styled.button`
+const ProductName = styled.div`
   width: 100%;
   padding: 16px 12px;
   margin-bottom: 8px;
@@ -42,37 +44,43 @@ const ProductButton = styled.button`
 const PriceWrapper = styled.div`
   width: 70%;
   padding: 4px 8px;
-  border: 1px solid ${({ theme }) => theme.colors.gray4};
   border-radius: 999px;
   background: ${({ theme }) => theme.colors.gray3};
   cursor: default;
-`;
 
-const PriceState = styled.span`
-  display: inline-block;
-  padding: 4px;
-  margin-right: 6px;
-  border-radius: 50%;
+  .price_state {
+    display: inline-block;
+    padding: 4px;
+    margin-right: 6px;
+    border-radius: 50%;
+  }
 
-  ${props =>
-    props.stock
-      ? css`
-          background: ${({ theme }) => theme.colors.green};
-        `
-      : css`
-          background: ${({ theme }) => theme.colors.red};
-        `};
-`;
-
-const Price = styled.span`
-  ${({ theme }) => theme.fontStyles.xSmallBold};
+  .push_btn {
+    ${({ theme }) => theme.fontStyles.xSmallBold};
+  }
 
   ${props =>
     props.stock
       ? css`
-          color: ${({ theme }) => theme.colors.gray3};
+          border: 2px solid ${({ theme }) => theme.colors.gray4};
+
+          .price_state {
+            background: ${({ theme }) => theme.colors.green};
+          }
+
+          .push_btn {
+            color: ${({ theme }) => theme.colors.gray3};
+          }
         `
       : css`
-          color: ${({ theme }) => theme.colors.red};
+          border: 2px solid ${({ theme }) => theme.colors.red};
+
+          .price_state {
+            background: ${({ theme }) => theme.colors.red};
+          }
+
+          .push_btn {
+            color: ${({ theme }) => theme.colors.red};
+          }
         `};
 `;
