@@ -13,6 +13,7 @@ export default function Beverage({ title, price }) {
 
   const handleOrder = () => {
     if (!buyPossible) {
+      alertWrongProduct(setAlertMessage);
       return;
     }
     const remainMoney = investmentPrice - price;
@@ -37,5 +38,11 @@ export default function Beverage({ title, price }) {
 const alertOrderMessage = ({ title, setAlertMessage }) => {
   const alertMessage = { ...initAlertMessage };
   alertMessage.orderTitle = title;
+  setAlertMessage(alertMessage);
+};
+
+const alertWrongProduct = (setAlertMessage) => {
+  const alertMessage = { ...initAlertMessage };
+  alertMessage.wrong = true;
   setAlertMessage(alertMessage);
 };

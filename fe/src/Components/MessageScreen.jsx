@@ -50,6 +50,7 @@ const generateMessage = (alertName, alertAmount) => {
     chargeCash: generateInvestmentMessage,
     changeAmount: generateChangeMessage,
     orderTitle: generateOrderMessage,
+    wrong: generateWrongMessage,
   };
   return alerts[alertName](alertAmount);
 };
@@ -64,6 +65,10 @@ const generateChangeMessage = (amount) => {
 
 const generateInvestmentMessage = (amount) => {
   return `자판기에 ${getWonTemplate(amount)}이 투입되었습니다.`;
+};
+
+const generateWrongMessage = () => {
+  return `주문할 수 없는 상품입니다.`;
 };
 
 const createArrayKeyForNoHasID = (message, key) => {
