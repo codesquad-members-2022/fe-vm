@@ -3,8 +3,8 @@ import {
   useState,
   useRef,
   useReducer,
-  useMemo,
   createContext,
+  useMemo,
 } from 'react';
 import Header from './Header';
 import styled from 'styled-components';
@@ -149,6 +149,8 @@ const MENU_INFO = [
   },
 ];
 
+const MONEY_UNIT_INFO = [10000, 5000, 1000, 500, 100, 50, 10];
+
 const ACTION_TYPE = {
   product: 'product',
   money: 'money',
@@ -197,6 +199,10 @@ const App = () => {
     setTotalMoney(WALLET_INFO[WALLET_INFO.length - 1].total);
   }, []);
 
+  useEffect(() => {
+    autoChangeTimer(changeWhenNotBehavior, 5000);
+  }, [inputMoney]);
+
   function updateTotalMoney(copy, index, str) {
     switch (str) {
       case 'wallet':
@@ -223,6 +229,13 @@ const App = () => {
     return copy;
   }
 
+  function changeWhenNotBehavior() {
+    if (!input.current) {
+      handleClickChange();
+      input.current = false;
+    }
+  }
+
   function handleClickMoney(money, index) {
     if (walletInfo[index].number > 0) {
       setInputMoney(inputMoney + money);
@@ -239,13 +252,15 @@ const App = () => {
       productSelectTimer(purchaseProduct.bind(null, name, index), 2000);
   }
 
-  function updateWalletInfo() {
+  function updateWalletInfoWhenChange() {
+    input.current = true;
     const copy = JSON.parse(JSON.stringify(walletInfo));
+
     history.current.forEach(historyLog => (copy[historyLog].number += 1));
     setTotalMoney(
       copy
         .filter(moneyUnit => !moneyUnit.total)
-        .reduce((acc, prev) => acc + prev.unit * prev.number, 0),
+        .reduce((acc, { unit, number }) => acc + unit * number, 0),
     );
     setWalletInfo(copy);
     history.current = [];
@@ -255,17 +270,50 @@ const App = () => {
     if (inputMoney > 0) {
       setInputMoney(0);
       dispatch({ type: ACTION_TYPE.change, changeMoney: inputMoney });
-      updateWalletInfo();
+      updateWalletInfoWhenChange();
     }
   }
 
+  function calcChangeUnit(currentChange) {
+    return MONEY_UNIT_INFO.map(unit => {
+      const changeUnitNumber = parseInt(currentChange / unit);
+      currentChange = parseInt(currentChange % unit);
+      return changeUnitNumber;
+    }).reverse();
+  }
+
+  function updateWalletInfoWhenPurchase(change) {
+    let currentChange = change;
+
+    const changeUnitsNumber = calcChangeUnit(currentChange);
+    const copy = JSON.parse(JSON.stringify(walletInfo));
+    const temp = copy
+      .filter(moneyUnit => !moneyUnit.total)
+      .map((moneyUnit, index) => {
+        return {
+          unit: moneyUnit.unit,
+          number: moneyUnit.number + changeUnitsNumber[index],
+        };
+      });
+    const sumMoney = temp.reduce(
+      (acc, { unit, number }) => acc + unit * number,
+      0,
+    );
+    temp[temp.length] = copy[temp.length];
+    setWalletInfo(temp);
+    setTotalMoney(sumMoney);
+  }
+
   function purchaseProduct(name, index) {
+    const change = inputMoney - menuInfo[index].price;
+
     setMenuInfo(updateInfo(index, menuInfo, 'menu'));
     dispatch({ type: ACTION_TYPE.product, name: name });
     dispatch({
       type: ACTION_TYPE.change,
-      changeMoney: inputMoney - menuInfo[index].price,
+      changeMoney: change,
     });
+    updateWalletInfoWhenPurchase(change);
     setInputMoney(0);
   }
 

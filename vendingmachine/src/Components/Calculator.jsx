@@ -5,6 +5,7 @@ import {
   FlexCenter,
   CalculatorText,
   boxShadowBorderRadi,
+  ButtonCommon,
 } from '../styled-components/util';
 import { myContext } from './App';
 
@@ -51,13 +52,11 @@ const Change = styled(CalculatorText)`
   display: block;
   width: 90%;
   height: 6rem;
-  cursor: pointer;
   margin-top: ${({ theme }) => theme.margin.xLarge};
-  background-color: transparent;
   padding: 0;
-  border: none;
   ${boxShadowBorderRadi}
-
+  ${ButtonCommon}
+  
   &:hover {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
   }
