@@ -5,16 +5,15 @@ import setLocalString from 'utils/setLocalString';
 const Money = ({ info }) => {
   return (
     <MoneyWrapper>
-      <span>{setLocalString(info.money)}원</span>
+      <span>{setLocalString(info.count)}원</span>
       <button>{info.amount}개</button>
     </MoneyWrapper>
   );
 };
 
 export default function Wallet() {
-  const [moneyData] = walletInfo;
-  const moneyInfo = moneyData.money.map((money, index) => <Money key={index} info={money} />);
-  const totalMoney = moneyData.money.reduce((acc, cur) => acc + cur.money * cur.amount, 0);
+  const moneyInfo = walletInfo.map((money, index) => <Money key={index} info={money} />);
+  const totalMoney = walletInfo.reduce((acc, cur) => acc + cur.count * cur.amount, 0);
 
   return (
     <WalletContainer>
