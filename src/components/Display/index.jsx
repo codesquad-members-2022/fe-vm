@@ -9,7 +9,7 @@ const Display = ({ className }) => {
   return (
     <div className={className}>
       {products.map(({ id, name, price, stock }) => {
-        return <Product key={id} name={name} price={price} stock={stock} purchasable={true} />;
+        return <Product key={id} name={name} price={price} stock={stock} purchasable={false} />;
       })}
     </div>
   );

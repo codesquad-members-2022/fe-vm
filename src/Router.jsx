@@ -8,7 +8,7 @@ import Wallet from '@/routes/Wallet';
 
 const Container = styled.div`
   width: 1080px;
-  margin: 0 auto;
+  margin: 30px auto;
 `;
 
 const NavBar = styled.nav``;
@@ -18,11 +18,12 @@ const TabList = styled.ul`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
 `;
 
 const Tab = styled.li`
   & + & {
-    margin-left: 4px;
+    margin-left: 8px;
   }
 `;
 

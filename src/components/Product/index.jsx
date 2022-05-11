@@ -9,11 +9,22 @@ const ProductLayer = styled.span`
   padding: 4px;
   border: 2px solid black;
   border-radius: 8px;
+  user-select: none;
   ${({ purchasable }) => purchasable && Highlight};
 
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
+  transition: background-color 200ms;
+
+  &:hover {
+    background-color: #00000022;
+  }
+
+  &:active {
+    background-color: #00000011;
+  }
 `;
 
 const Name = styled.header`
