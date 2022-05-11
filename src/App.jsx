@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import GNB from 'components/GNB';
+import GNB from 'components/GNB/GNB';
 import VendingMachine from 'pages/VendingMachine';
 import Wallet from 'pages/Wallet';
 import 'App.css';
