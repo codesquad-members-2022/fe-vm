@@ -5,16 +5,21 @@ import Wallet from "./components/Wallet";
 import GlobalStyles from "./style/Globalstyles";
 import theme from "./style/theme";
 import styled from "styled-components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles></GlobalStyles>
-      <AppWrap>
-        <Nav></Nav>
-        <VendingMachine></VendingMachine>
-        <Wallet></Wallet>
-      </AppWrap>
+      <BrowserRouter>
+        <AppWrap>
+          <Nav></Nav>
+          <Routes>
+            <Route path="/" element={<VendingMachine></VendingMachine>}></Route>
+            <Route path="/wallet" element={<Wallet></Wallet>}></Route>
+          </Routes>
+        </AppWrap>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

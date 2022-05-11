@@ -1,14 +1,33 @@
 import React from "react";
-import Money from "./Money";
+import Currency from "./Currency";
 import TotalMoney from "./TotalMoney";
+import styled from "styled-components";
 
 function Wallet() {
   return (
-    <div>
-      <Money></Money>
+    <WalletWrap>
+      <Currency></Currency>
+      <Currency></Currency>
+      <Currency></Currency>
+      <Currency></Currency>
+      <Currency></Currency>
+      <Currency></Currency>
+      <Currency></Currency>
       <TotalMoney></TotalMoney>
-    </div>
+    </WalletWrap>
   );
 }
 
+const WalletWrap = styled.div`
+  width: 300px;
+  height: 700px;
+  border: 4px solid ${({ theme }) => theme.colors.lightBlue};
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 20px;
+  gap: 20px;
+`;
 export default Wallet;

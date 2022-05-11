@@ -1,11 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function Nav() {
   return (
     <NavBtns>
-      <VendingMachineBtn>자판기</VendingMachineBtn>
-      <WalletBtn>지갑</WalletBtn>
+      <Link to="/">
+        <VendingMachineBtn>자판기 </VendingMachineBtn>
+      </Link>
+      <Link to="wallet">
+        <WalletBtn>지갑 </WalletBtn>
+      </Link>
     </NavBtns>
   );
 }
@@ -25,6 +30,8 @@ const VendingMachineBtn = styled.button`
   font-weight: bold;
   font-size: 20px;
   transition: 0.5s;
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.white};
   &:hover {
     background: ${({ theme }) => theme.colors.lightGray};
   }
