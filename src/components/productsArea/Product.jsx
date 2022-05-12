@@ -4,8 +4,8 @@ import { ProductBtn, Detail, Price } from 'components/productsArea/Product.style
 
 export default function Product({ detail, price, quantity }) {
   return (
-    <ProductBtn disabled={!(quantity > 0)}>
-      <Detail quantity={quantity}>{detail}</Detail>
+    <ProductBtn quantity={quantity} disabled={!(quantity > 0)}>
+      <Detail>{detail}</Detail>
       <Price>{price.toLocaleString('en')}</Price>
     </ProductBtn>
   );
