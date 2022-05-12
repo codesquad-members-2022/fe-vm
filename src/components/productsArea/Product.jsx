@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ProductBtn, Detail, Price } from 'components/productsArea/Product.style';
 
 export default function Product({ detail, price }) {
@@ -10,3 +10,13 @@ export default function Product({ detail, price }) {
     </ProductBtn>
   );
 }
+
+Product.propTypes = {
+  detail: PropTypes.string,
+  price: PropTypes.number
+};
+
+Product.defaultProps = {
+  detail: '',
+  price: 0
+};
