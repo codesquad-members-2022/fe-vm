@@ -1,10 +1,15 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
     <>
-      <Menu>Vending machine</Menu>
-      <Menu>Stock Manager</Menu>
+      <Link to="/vending-machine">
+        <Menu>Vending machine</Menu>
+      </Link>
+      <Link to="stock-manager">
+        <Menu>Stock Manager</Menu>
+      </Link>
     </>
   );
 };

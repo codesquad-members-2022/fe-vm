@@ -4,14 +4,14 @@ import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
-    <AppWrapper>
+    <LayoutWrapper>
       <Header />
       <Outlet />
-    </AppWrapper>
+    </LayoutWrapper>
   );
 };
 
-const AppWrapper = styled.div`
+const LayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -19,7 +19,7 @@ const Main = () => {
 
 const MainWrapper = styled.div`
   display: flex;
-  margin-top: 100px;
+  margin: 100px 0;
   justify-content: space-between;
   width: 1440px;
 `;
