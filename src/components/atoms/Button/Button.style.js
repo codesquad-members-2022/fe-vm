@@ -64,7 +64,7 @@ const Button = styled.button`
   }
 
   &:disabled {
-    background-color: ${COLOR.GREY};
+    background-color: ${COLOR.LIGHT_GREY};
   }
 
   span {
