@@ -1,5 +1,20 @@
 import styled from "styled-components";
 
+const HomeContainer = styled.main`
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+`;
+
+const TabNav = styled.nav`
+    display: flex;
+    gap: 20px;
+`;
+
 const TabButton = styled.button`
     width: 100px;
     height: 45px;
@@ -19,4 +34,4 @@ const TabButton = styled.button`
     }
 `;
 
-export { TabButton };
+export { HomeContainer, TabNav, TabButton };

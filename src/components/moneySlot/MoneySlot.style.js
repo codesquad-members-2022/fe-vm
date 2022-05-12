@@ -6,7 +6,7 @@ const SlotContainer = styled.form`
     border: 1px solid black;
     border-radius: 5px;
     display: flex;
-    justify-contents: end;
+    justify-content: end;
     align-items: center;
     padding: 0px 8px;
 `;

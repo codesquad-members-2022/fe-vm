@@ -5,6 +5,7 @@ const VendingMachineContainer = styled(RoundBorder)`
     display: flex;
     padding: 30px;
     width: 900px;
+    height: 600px;
     gap: 30px;
 `;
 

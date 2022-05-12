@@ -23,7 +23,7 @@ const ProductNameWrapper = styled(RoundBorder)`
     border: ${(props) =>
         props.choosable ? "2px solid red" : "1px solid black"};
     display: flex;
-    justify-contents: center;
+    justify-content: center;
     align-items: center;
 `;
 

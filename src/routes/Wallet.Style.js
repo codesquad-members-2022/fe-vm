@@ -6,6 +6,7 @@ const WalletWrapper = styled(RoundBorder)`
     flex-direction: column;
     padding: 30px;
     width: 250px;
+    height: 600px;
     gap: 20px;
 `;
 
