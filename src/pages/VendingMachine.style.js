@@ -6,6 +6,7 @@ const Container = styled.div`
   min-height: calc(100vh - 140px);
   margin: 0 auto;
   border: 2px solid #333;
+  border-radius: 8px;
 `;
 
 export { Container };

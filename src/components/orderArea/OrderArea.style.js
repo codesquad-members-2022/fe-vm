@@ -6,4 +6,27 @@ const Container = styled.div`
   border-left: 2px solid #333;
 `;
 
-export { Container };
+const BtnWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 30px 0;
+`;
+
+const PutBtn = styled.button`
+  width: 65px;
+  line-height: 65px;
+  border-radius: 50%;
+  background: #25dd39;
+  color: #fff;
+`;
+
+const ReturnBtn = styled.button`
+  width: 65px;
+  line-height: 65px;
+  border-radius: 50%;
+  background: #e42b2b;
+  color: #fff;
+`;
+
+export { Container, BtnWrap, PutBtn, ReturnBtn };
