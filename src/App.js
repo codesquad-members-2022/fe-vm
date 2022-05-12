@@ -2,8 +2,7 @@ import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { theme } from "styles";
 import reset from "styled-reset";
 import { DisplayProvider } from "context";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home, VendingMachine, Wallet, NotFound } from "pages";
+import { Routers } from "components";
 
 const GlobalStyles = createGlobalStyle`
 ${reset}
@@ -32,16 +31,7 @@ function App() {
     <DisplayProvider>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
-          <Routes>
-            <Route path="/" element={<Home />}>
-              <Route index element={<VendingMachine />} />
-              <Route path="/vendingmachine" element={<VendingMachine />} />
-              <Route path="/wallet/*" element={<Wallet />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <Routers />
       </ThemeProvider>
     </DisplayProvider>
   );

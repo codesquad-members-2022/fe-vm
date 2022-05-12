@@ -1,38 +1,36 @@
 import styled from "styled-components";
-import { Button } from "components";
+import { Coin } from "components";
 
-const CoinContainer = styled.ul`
+const StyledCoinContainer = styled.ul`
   li {
     display: grid;
+    justify-items: center;
     align-items: center;
     grid-template-columns: 50% 50%;
+    margin: 10px;
 
-    div {
+    span {
+      width: 100%;
       background-color: #fff7bc;
       display: grid;
       place-items: center;
       height: 50px;
       color: #000;
-      margin: 10px;
+      border-radius: 10px;
     }
   }
 `;
 
-const Count = styled.div``;
-
-function Coin({ coin }) {
+function CoinContainer({ coin }) {
   return (
-    <CoinContainer>
+    <StyledCoinContainer>
       {coin.map(({ id, unit, count }) => (
         <li key={id}>
-          <Button color="yellow" size="medium">
-            {unit}
-          </Button>
-          <Count>{count}</Count>
+          <Coin unit={unit} count={count}></Coin>
         </li>
       ))}
-    </CoinContainer>
+    </StyledCoinContainer>
   );
 }
 
-export { Coin };
+export { CoinContainer };

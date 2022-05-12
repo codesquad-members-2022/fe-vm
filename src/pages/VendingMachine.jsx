@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Vendproduct, VendController } from "components";
+import { VendProductContainer, VendController } from "components";
 
 const StyledVendingMachine = styled.div`
   margin-top: 50px;
@@ -31,7 +31,7 @@ const VendingMachine = () => {
     <StyledVendingMachine>
       <VendingMachineTitle>DocaCola</VendingMachineTitle>
       <VendingMachineTop>
-        <Vendproduct />
+        <VendProductContainer />
         <VendController />
       </VendingMachineTop>
       <VendProductOutlet />

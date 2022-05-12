@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { Nav } from "components";
 
 const StyledNav = styled.nav`
   position: absolute;
@@ -30,25 +30,25 @@ const Li = styled.li`
   }
 `;
 
-function Nav() {
+function MainNav() {
   const activeStyle = ({ isActive }) => ({ backgroundColor: isActive ? "#512d6d" : "#9772fb" });
 
   return (
     <StyledNav>
       <ul>
         <Li>
-          <NavLink to="/vendingmachine" style={activeStyle}>
+          <Nav link="/vendingmachine" activeStyle={activeStyle}>
             자판기
-          </NavLink>
+          </Nav>
         </Li>
         <Li>
-          <NavLink to="/wallet" style={activeStyle}>
+          <Nav to="/wallet" activeStyle={activeStyle}>
             지갑
-          </NavLink>
+          </Nav>
         </Li>
       </ul>
     </StyledNav>
   );
 }
 
-export { Nav };
+export { MainNav };

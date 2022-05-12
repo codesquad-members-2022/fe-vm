@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Coin, Balance } from "components";
+import { CoinContainer, Balance } from "components";
 import { money } from "data";
 import { useState } from "react";
 
@@ -21,7 +21,7 @@ const Wallet = () => {
 
   return (
     <StyledWallet>
-      <Coin coin={coin} />
+      <CoinContainer coin={coin} />
       <Balance balance={balance} />
     </StyledWallet>
   );

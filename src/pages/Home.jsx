@@ -1,4 +1,4 @@
-import { AppLayout, Nav, ToggleDisplay } from "components";
+import { AppLayout, MainNav, ToggleDisplay } from "components";
 import { Outlet } from "react-router-dom";
 import { DisplayContext } from "context";
 import { theme } from "styles";
@@ -11,7 +11,7 @@ function Home() {
   return (
     <AppLayout display={displayObject}>
       <ToggleDisplay />
-      <Nav />
+      <MainNav />
       <Outlet />
     </AppLayout>
   );
