@@ -42,7 +42,7 @@ const InputForm = ({ dispatch, setIsSubmitted }) => {
 
     /* 금액 투입, 로그 추가 */
     dispatch({
-      type: ACTION.INSERT_MONEY,
+      type: ACTION.INSERT_MONEY_BY_TYPING,
       payload: {
         amount: inputValue,
       },

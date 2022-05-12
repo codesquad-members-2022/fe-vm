@@ -11,36 +11,57 @@ const initialState = {
 };
 
 const ACTION = {
-  // TODO: INSERT_MONEY 이름 바꾸기
-  INSERT_MONEY: 'INSERT_MONEY',
+  INSERT_MONEY_BY_TYPING: 'INSERT_MONEY_BY_TYPING',
   INSERT_COIN: 'INSERT_COIN',
   INCREMENT_COIN: 'INCREMENT_COIN',
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case ACTION.INSERT_MONEY: {
+    case ACTION.INSERT_MONEY_BY_TYPING: {
       const { amount } = action.payload;
-      const { balance, coins, logs } = state;
-
-      //requested input amount
-      const inputAmount = balance < amount ? balance : amount;
-
-      let realInputAmount = 0;
+      const { balance, coins, logs, totalInputAmount } = state;
+      const requestedInputAmount = balance < amount ? balance : amount;
       const newCoins = [...coins];
-      console.log(newCoins);
-      newCoins;
+
+      if (requestedInputAmount === 0) {
+        return state;
+      }
+
+      let surplus = requestedInputAmount;
+      for (let i = newCoins.length - 1; i >= 0; i--) {
+        if (surplus === 0) {
+          break;
+        }
+
+        const { amount, count } = newCoins[i];
+
+        const requiredCount = Math.floor(surplus / amount);
+        const realRequiredCount = requiredCount > count ? count : requiredCount;
+        const newCount = count - realRequiredCount;
+        surplus -= realRequiredCount * amount;
+        newCoins[i] = { ...newCoins[i], count: newCount };
+        console.log(`%c[${amount}]: ${realRequiredCount}개 사용`, 'color: #fe2;');
+      }
+      console.log(`----------`);
+      const realInputAmount = requestedInputAmount - surplus;
 
       const newLogs = [...logs];
       newLogs.push({
         id: newLogs.length,
-        message: `${inputAmount.toLocaleString()}원이 투입됐습니다.`,
+        message: `${realInputAmount.toLocaleString()}원이 투입됐습니다.`,
       });
+
+      const newTotalInputAmount = totalInputAmount + realInputAmount;
+
+      const newBalance = balance - realInputAmount;
 
       return {
         ...state,
-        totalInputAmount: 10000,
+        totalInputAmount: newTotalInputAmount,
+        coins: newCoins,
         logs: newLogs,
+        balance: newBalance,
       };
     }
 
