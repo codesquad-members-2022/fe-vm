@@ -9,6 +9,19 @@
         "groups": ["builtin", "external", "internal", "index"],
         "pathGroups": [
           {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@constants",
+            "group": "internal"
+          },
+          {
+            "pattern": "@storybook/**",
+            "group": "external"
+          },
+          {
             "pattern": "@*/**",
             "group": "internal"
           },
