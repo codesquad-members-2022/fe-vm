@@ -7,6 +7,7 @@ import Wallet from 'pages/Wallet';
 import { delay } from 'utils';
 
 export const MoneyContext = React.createContext();
+export const ErrorContext = React.createContext();
 
 const defaultMoney = 0;
 const defaultErrorMsg = '';
@@ -16,19 +17,21 @@ function App() {
   const [errorMsg, setErrorMsg] = useState(defaultErrorMsg);
 
   return (
-    <MoneyContext.Provider value={{ curMoney, setMoney, showErrorMsg }}>
-      <BrowserRouter>
-        <Nav>
-          <Link to="/">자판기</Link>
-          <Link to="wallet">지갑</Link>
-        </Nav>
-        <Routes>
-          <Route index path="/" element={<Home />} />
-          <Route path="wallet" element={<Wallet />} />
-        </Routes>
-        <ErrorMsg>{errorMsg}</ErrorMsg>
-      </BrowserRouter>
-    </MoneyContext.Provider>
+    <ErrorContext.Provider value={{ showErrorMsg }}>
+      <MoneyContext.Provider value={{ curMoney, setMoney }}>
+        <BrowserRouter>
+          <Nav>
+            <Link to="/">자판기</Link>
+            <Link to="wallet">지갑</Link>
+          </Nav>
+          <Routes>
+            <Route index path="/" element={<Home />} />
+            <Route path="wallet" element={<Wallet />} />
+          </Routes>
+          <ErrorMsg>{errorMsg}</ErrorMsg>
+        </BrowserRouter>
+      </MoneyContext.Provider>
+    </ErrorContext.Provider>
   );
   async function showErrorMsg(msg) {
     setErrorMsg(msg);

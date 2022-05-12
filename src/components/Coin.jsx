@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { MoneyContext } from 'components/App';
+import { MoneyContext, ErrorContext } from 'components/App';
 import MESSAGES from 'constants/messages';
 
 function Coin({ amount, cnt }) {
-  const { curMoney, setMoney, showErrorMsg } = useContext(MoneyContext);
+  const { curMoney, setMoney } = useContext(MoneyContext);
+  const { showErrorMsg } = useContext(ErrorContext);
   const [moneyCnt, setMoneyCnt] = useState(cnt);
   return (
     <Wrap>
