@@ -32,4 +32,5 @@ const ProductName = styled.p`
     text-align: center;
     word-break: keep-all;
 `;
+
 export { ProductsContainer, ProductContainer, ProductNameWrapper, ProductName };

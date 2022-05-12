@@ -16,7 +16,6 @@ const GlobalStyle = createGlobalStyle`
         &:hover,
         &:active {
             text-decoration: none;
-            color: black;
         }
     }
     ul,
@@ -33,6 +32,11 @@ const GlobalStyle = createGlobalStyle`
         &:focus {
             outline: none;
         }
+    }
+    button {
+        border: none;
+        outline: 0;
+        background-color: transparent;
     }
 `;
 

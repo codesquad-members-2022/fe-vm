@@ -1,9 +1,14 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import dataOfwallet from "../data/wallet";
+import { TabButton } from "./Routes.style";
+
+const VM = "vm";
+const WALLET = "wallet";
 
 function Home() {
     const { pathname } = useLocation();
+    const [currentTab, setCurrentTab] = useState(pathname.slice(1));
     const [record, setRecord] = useState([]);
     const [moneyInVendingMachine, setMoneyInVendingMachine] = useState({});
     const [wallet, setWallet] = useState(dataOfwallet);
@@ -20,12 +25,23 @@ function Home() {
     const updateWallet = (newWallet) => {
         setWallet(newWallet);
     };
+    const changeTab = (newTab) => {
+        setCurrentTab(newTab);
+    };
 
     return (
         <>
             <nav>
-                <Link to="/vm">자판기</Link>
-                <Link to="/wallet">지갑</Link>
+                <TabButton isCurrentTab={currentTab === VM}>
+                    <Link to="/vm" onClick={() => changeTab(VM)}>
+                        자판기
+                    </Link>
+                </TabButton>
+                <TabButton isCurrentTab={currentTab === WALLET}>
+                    <Link to="/wallet" onClick={() => changeTab(WALLET)}>
+                        지갑
+                    </Link>
+                </TabButton>
             </nav>
             {pathname === "/" && <h1>버튼을 클릭하세요</h1>}
             <Outlet
