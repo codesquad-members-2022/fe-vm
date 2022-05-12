@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 
 import * as S from '@components/atoms/Button/Button.style';
 
-export const ButtonTheme = {
+export const BUTTON_THEME = {
   DEFAULT: 'default',
-  ROUNDED: 'roudned',
+  ROUNDED: 'rounded',
 };
 
-export const ButtonSize = {
+export const BUTTON_SIZE = {
   SMALL: 'small',
   MEDIUM: 'medium',
   LARGE: 'large',
@@ -34,8 +34,8 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  theme: ButtonTheme.DEFAULT,
-  size: ButtonSize.MEDIUM,
+  theme: BUTTON_THEME.DEFAULT,
+  size: BUTTON_SIZE.MEDIUM,
   onClick: () => {},
   disabled: false,
 };

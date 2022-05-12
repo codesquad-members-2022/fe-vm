@@ -1,17 +1,17 @@
 import styled, { css } from 'styled-components';
 
-import { ButtonTheme, ButtonSize } from '@components/atoms/Button/index';
+import { BUTTON_THEME, BUTTON_SIZE } from '@components/atoms/Button/index';
 import { COLOR, FONT_SIZE, FONT_WEIGHT } from '@constants';
 
 const themeStyles = css`
   ${({ theme }) =>
-    theme === ButtonTheme.DEFAULT &&
+    theme === BUTTON_THEME.DEFAULT &&
     css`
       border-radius: 7px;
     `}
 
   ${({ theme }) =>
-    theme === ButtonTheme.ROUNDED &&
+    theme === BUTTON_THEME.ROUNDED &&
     css`
       border-radius: 30px;
     `}
@@ -20,7 +20,7 @@ const themeStyles = css`
 
 const sizeStyles = css`
   ${({ size }) =>
-    size === ButtonSize.SMALL &&
+    size === BUTTON_SIZE.SMALL &&
     css`
       width: 80px;
       height: 40px;
@@ -28,7 +28,7 @@ const sizeStyles = css`
     `}
 
   ${({ size }) =>
-    size === ButtonSize.MEDIUM &&
+    size === BUTTON_SIZE.MEDIUM &&
     css`
       width: 100px;
       height: 35px;
@@ -36,7 +36,7 @@ const sizeStyles = css`
     `}
 
   ${({ size }) =>
-    size === ButtonSize.LARGE &&
+    size === BUTTON_SIZE.LARGE &&
     css`
       width: 150px;
       height: 80px;
@@ -44,7 +44,7 @@ const sizeStyles = css`
     `}
 
   ${({ size }) =>
-    size === ButtonSize.X_LARGE &&
+    size === BUTTON_SIZE.X_LARGE &&
     css`
       width: 250px;
       height: 58px;

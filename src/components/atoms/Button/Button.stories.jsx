@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Button, { ButtonSize, ButtonTheme } from '@components/atoms/Button';
+import Button, { BUTTON_THEME, BUTTON_SIZE } from '@components/atoms/Button';
 
 export default {
   title: 'Atom/Button',
   component: Button,
   args: {
-    theme: ButtonTheme.DEFAULT,
-    size: ButtonSize.MEDIUM,
+    theme: BUTTON_THEME.DEFAULT,
+    size: BUTTON_SIZE.MEDIUM,
     onClick: () => {},
     disabled: false,
   },
@@ -16,13 +16,13 @@ export default {
       control: {
         type: 'radio',
       },
-      options: [ButtonTheme.DEFAULT, ButtonTheme.ROUNDED],
+      options: [BUTTON_THEME.DEFAULT, BUTTON_THEME.ROUNDED],
     },
     size: {
       control: {
         type: 'radio',
       },
-      options: [ButtonSize.SMALL, ButtonSize.MEDIUM, ButtonSize.LARGE, ButtonSize.X_LARGE],
+      options: [BUTTON_SIZE.SMALL, BUTTON_SIZE.MEDIUM, BUTTON_SIZE.LARGE, BUTTON_SIZE.X_LARGE],
     },
     disabled: {
       control: {
