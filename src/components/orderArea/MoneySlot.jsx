@@ -1,12 +1,12 @@
 /* eslint-disable no-restricted-globals */
-import React, { useContext } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Container, MoneyInput, Unit } from 'components/orderArea/MoneySlot.style';
-import { PaymentContext } from 'components/orderArea/OrderArea';
 
 const MAX_PAYMENT = 100000;
 
-export default function MoneySlot() {
-  const [payment, setPayMent] = useContext(PaymentContext);
+export default function MoneySlot({ usePaymentState }) {
+  const [payment, setPayment] = usePaymentState;
 
   const isRightPayMent = inputValue => {
     if (isNaN(inputValue)) return false;
@@ -17,8 +17,8 @@ export default function MoneySlot() {
   const handleChangeMoneyInput = ({ target }) => {
     const inputValue = target.value;
     const numPayMent = parseFloat(inputValue.replace(/[,]/gim, ''));
-    if (!inputValue) setPayMent('');
-    if (isRightPayMent(numPayMent)) setPayMent(numPayMent);
+    if (!inputValue) setPayment('');
+    if (isRightPayMent(numPayMent)) setPayment(numPayMent);
   };
 
   return (
@@ -28,3 +28,11 @@ export default function MoneySlot() {
     </Container>
   );
 }
+
+MoneySlot.propTypes = {
+  usePaymentState: PropTypes.arrayOf(PropTypes.number, PropTypes.func)
+};
+
+MoneySlot.defaultProps = {
+  usePaymentState: []
+};
