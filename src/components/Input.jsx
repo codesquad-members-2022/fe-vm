@@ -12,6 +12,17 @@ function Input() {
   };
 
   const handleClickSave = () => {
+    if (Number.isNaN(Number(content))) {
+      window.alert('숫자만 입력 가능합니다.');
+      return;
+    }
+
+    if (Number(content) < 10) {
+      window.alert('10원 이상 추가해야합니다.');
+      return;
+    }
+
+    // Todo : 지갑에 요금의 개수가 없거나 지갑 전체 요금보다 큰 경우 예외처리
     setPrice(content);
   };
 
