@@ -20,62 +20,63 @@ const ACTION = {
 const reducer = (state, action) => {
   switch (action.type) {
     case ACTION.INSERT_MONEY: {
-      const { balance } = state;
       const { amount } = action.payload;
+      const { balance, coins, logs } = state;
 
-      const tmp = balance < amount ? balance : amount;
+      //requested input amount
+      const inputAmount = balance < amount ? balance : amount;
 
-      const logs = [...state.logs];
-      const id = logs.length;
-      const message = `${amount.toLocaleString()}원이 투입됐습니다.`;
-      logs.push({ id, message });
+      console.log(coins);
+
+      const newLogs = [...logs];
+      newLogs.push({
+        id: newLogs.length,
+        message: `${inputAmount.toLocaleString()}원이 투입됐습니다.`,
+      });
 
       return {
         ...state,
-        totalInputAmount: amount,
+        totalInputAmount: 10000,
         logs,
       };
     }
 
     case ACTION.INSERT_COIN: {
       const { amount, count } = action.payload;
+      const { logs, totalInputAmount, coins, balance } = state;
 
-      if (count === 0) {
-        return state;
-      }
-      const logs = [...state.logs];
-      const id = logs.length;
-      const message = `${amount.toLocaleString()}원이 투입됐습니다.`;
-      logs.push({ id, message });
+      const newLogs = [...logs];
+      newLogs.push({ id: newLogs.length, message: `${amount.toLocaleString()}원이 투입됐습니다.` });
 
-      const coins = { ...state.coins };
-      coins[amount].count = count - 1;
+      const newCoins = { ...coins };
+      newCoins[amount].count = count - 1;
 
-      const totalInputAmount = state.totalInputAmount + amount;
+      const newTotalInputAmount = totalInputAmount + amount;
 
-      const balance = state.balance - amount;
+      const newBalance = balance - amount;
 
       return {
         ...state,
-        logs,
-        coins,
-        totalInputAmount,
-        balance,
+        logs: newLogs,
+        coins: newCoins,
+        totalInputAmount: newTotalInputAmount,
+        balance: newBalance,
       };
     }
 
     case ACTION.INCREMENT_COIN: {
       const { amount, count } = action.payload;
+      const { coins, balance } = state;
 
-      const coins = { ...state.coins };
-      coins[amount].count = count + 1;
+      const newCoins = { ...coins };
+      newCoins[amount].count = count + 1;
 
-      const balance = state.balance + amount;
+      const newBalance = balance + amount;
 
       return {
         ...state,
-        coins,
-        balance,
+        coins: newCoins,
+        balance: newBalance,
       };
     }
 
