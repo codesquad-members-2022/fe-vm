@@ -1,7 +1,17 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { InputAmountContext } from "../../contexts/InputAmount";
+import { LogContext } from "../../contexts/Log";
 
 export default function ReturnButton() {
-  return <ReturnButtonWrapper>반환</ReturnButtonWrapper>;
+  const { inputAmount, subtractInputAmount } = useContext(InputAmountContext);
+  const { log } = useContext(LogContext);
+  function returnInputAmount() {
+    subtractInputAmount(inputAmount);
+    // 지갑에 inputAmount 추가
+    log("return", inputAmount);
+  }
+  return <ReturnButtonWrapper onClick={returnInputAmount}>반환</ReturnButtonWrapper>;
 }
 
 const ReturnButtonWrapper = styled.button`
