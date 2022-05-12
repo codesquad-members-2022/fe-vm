@@ -14,7 +14,9 @@ import {
 import soldOutIcon from '../../../Assets/Images/sold-out.svg';
 
 export default function Product({ products }) {
-  const item = products.map((product) => <Item product={product} />);
+  const item = products.map((product) => (
+    <Item key={product.id} product={product} />
+  ));
   return item;
 }
 
@@ -22,7 +24,7 @@ function Item({ product }) {
   const [isSoldOut, setIsSoldOut] = useState(!product.stock);
 
   return (
-    <ProductItem key={product.id} className={isSoldOut ? 'sold-out' : ''}>
+    <ProductItem className={isSoldOut ? 'sold-out' : ''}>
       <button>
         <ImgBox>
           <Img style={{ backgroundImage: `url(${product.image})` }}></Img>
