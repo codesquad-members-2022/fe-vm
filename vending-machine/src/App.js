@@ -6,6 +6,7 @@ import GlobalStyles, { WidthSort } from "./style/Globalstyles";
 import theme from "./style/theme";
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import WalletProvider from "./contexts/walletContext";
 
 function App() {
   return (
@@ -14,10 +15,15 @@ function App() {
       <BrowserRouter>
         <AppWrap>
           <Nav></Nav>
-          <Routes>
-            <Route path="/" element={<VendingMachine></VendingMachine>}></Route>
-            <Route path="/wallet" element={<Wallet></Wallet>}></Route>
-          </Routes>
+          <WalletProvider>
+            <Routes>
+              <Route
+                path="/"
+                element={<VendingMachine></VendingMachine>}
+              ></Route>
+              <Route path="/wallet" element={<Wallet></Wallet>}></Route>
+            </Routes>
+          </WalletProvider>
         </AppWrap>
       </BrowserRouter>
     </ThemeProvider>

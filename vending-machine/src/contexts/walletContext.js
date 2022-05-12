@@ -1,7 +1,5 @@
 import { createContext, useState } from "react";
 import { wallet } from "../datas/wallet";
-import Currency from "../components/Currency";
-import TotalMoney from "../components/TotalMoney";
 
 const initialState = {
   state: wallet,
@@ -10,9 +8,9 @@ const initialState = {
   },
 };
 
-const WalletContext = createContext(initialState);
+export const WalletContext = createContext(initialState);
 
-function WalletProvider() {
+function WalletProvider({ children }) {
   let [moneyAmount, setMoneyAmount] = useState();
   const value = initialState;
   const sum = initialState.state.reduce(
@@ -20,15 +18,8 @@ function WalletProvider() {
     0
   );
   return (
-    <WalletContext.Provider value={value}>
-      {value.state.map((currency, idx) => (
-        <Currency
-          key={idx}
-          money={currency.money}
-          amount={currency.amount}
-        ></Currency>
-      ))}
-      <TotalMoney sum={sum}></TotalMoney>
+    <WalletContext.Provider value={{ value: value, sum: sum }}>
+      {children}
     </WalletContext.Provider>
   );
 }
