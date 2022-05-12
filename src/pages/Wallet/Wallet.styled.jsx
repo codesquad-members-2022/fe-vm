@@ -32,6 +32,11 @@ const CoinPrice = styled.div`
   height: 40px;
   line-height: 40px;
   border: 1px solid black;
+
+  &:hover {
+    background-color: #ff8e14;
+    cursor: pointer;
+  }
 `;
 
 const CoinCount = styled.div`

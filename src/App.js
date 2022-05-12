@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import { VendingMachineContainer, Layout, Wallet, NotFound } from "components";
+import { Layout, NotFound } from "components";
+import { VendingMachineContainer, Wallet } from "pages";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
