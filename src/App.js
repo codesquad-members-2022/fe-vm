@@ -7,7 +7,6 @@ import AmountProvider from './store/AmountProvider';
 import Container from './components/UI/container';
 import Vending from './components/layout/Vending/Vending';
 import Wallet from './components/layout/Wallet/Wallet';
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -15,9 +14,9 @@ function App() {
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <AmountProvider>
-          <AppContainer width="860px" height="100vh">
-            <Header />
+        <AppContainer width="860px" height="100vh">
+          <Header />
+          <AmountProvider>
             <BrowserRouter>
               <Nav />
               <Routes>
@@ -25,19 +24,13 @@ function App() {
                 <Route path="/wallet" element={<Wallet />} />
               </Routes>
             </BrowserRouter>
-          </AppContainer>
-        </AmountProvider>
+          </AmountProvider>
+        </AppContainer>
       </ThemeProvider>
     </>
   );
 }
 
-//  //{' '}
-//  <main>
-//  // <Vending />
-//  // {/* <Wallet /> */}
-//  //{' '}
-// </main>
 const AppContainer = styled(Container)`
   background-color: ${({ theme }) => theme.colors.grey};
   margin: 0 auto;
