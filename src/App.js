@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import GlobalStyle from 'styles/GlobalStyle';
 import Layout from 'components/layout/Layout';
 import { VendingMachine, Wallet, Admin, NotFound } from 'components/pages';
 
@@ -17,6 +18,7 @@ function App() {
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      <GlobalStyle />
     </div>
   );
 }
