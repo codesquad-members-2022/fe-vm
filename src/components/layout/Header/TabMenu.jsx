@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react';
+import { useContext } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
