@@ -1,5 +1,5 @@
 const port = process.env.PORT || 3001;
-const baseURL = `http://localhost:${port}/`;
+const baseURL = `http://localhost:${port}`;
 
 export const request = {
   async getData(target) {
@@ -8,15 +8,15 @@ export const request = {
     return data;
   },
 
-  async putData(target, id, requestBody) {
+  async patchData(target, id, requestBody) {
     const URL = makeURL(target, id);
-    const makeRequestMessage = makeRequestMessage("PUT", requestBody);
-    fetch(URL, makeRequestMessage);
+    const requestMessage = makeRequestMessage("PATCH", requestBody);
+    fetch(URL, requestMessage);
   }
 };
 
 const makeURL = (target, id = "") => {
-  return `${baseURL}${target}${id}`;
+  return `${baseURL}/${target}/${id}`;
 };
 
 const makeRequestMessage = (method, requestBody) => {

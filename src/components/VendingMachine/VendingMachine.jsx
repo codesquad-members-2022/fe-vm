@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 import ProductArea from "./ProductArea/ProductArea";
 import UtilArea from "./UtilArea/UtilArea";

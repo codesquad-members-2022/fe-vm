@@ -1,16 +1,14 @@
+import { useContext } from "react";
 import styled from "styled-components";
 import Product from "./Product";
+import { ProductsInfo } from "../../../contextProviders/ProductsInfoProvider";
 
-const ProductsDisplay = ({ productsInfo, stockData, changeStock }) => {
+const ProductsDisplay = () => {
+  const { productsInfo } = useContext(ProductsInfo);
   return (
     <DisplayLayout>
-      {productsInfo.map((productInfo) => (
-        <Product
-          key={productInfo.id}
-          productInfo={productInfo}
-          stock={stockData[productInfo.id]}
-          changeStock={changeStock}
-        />
+      {productsInfo?.map((productInfo, idx) => (
+        <Product key={productInfo.id} productInfo={productInfo} productIdx={idx} />
       ))}
     </DisplayLayout>
   );
