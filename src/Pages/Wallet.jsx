@@ -1,9 +1,9 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
 
-import {MONEY_BUTTON_DATA} from '../../mocks/MoneyButtonData';
-import {UserAccount} from '../../Store';
-import {InsertButton} from './InsertButton';
+import {MONEY_BUTTON_DATA} from '../mocks/MoneyButtonData';
+import {UserAccount} from '../Store';
+import {InsertButton} from '../Component/Wallet/InsertButton';
 
 export const Wallet = () => {
   const {userMoney} = useContext(UserAccount);

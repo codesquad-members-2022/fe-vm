@@ -3,9 +3,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import styled from 'styled-components';
 
 import {UserAccountContext} from '../Store';
-import {VendingMachine} from './Vending_machine';
-import {Wallet} from './Wallet';
-import {UiChangeBtn} from './Toggle';
+import {Home, VendingMachine, Wallet} from '../Pages';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -19,10 +17,11 @@ const App = () => {
     <BrowserRouter>
       <AppWrapper>
         <UserAccountContext>
-          <UiChangeBtn />
           <Routes>
-            <Route path="/" element={<VendingMachine />} />
-            <Route path="/wallet" element={<Wallet />} />
+            <Route path="/" element={<Home />}>
+              <Route path="vendingMachine" element={<VendingMachine />} />
+              <Route path="wallet" element={<Wallet />} />
+            </Route>
           </Routes>
         </UserAccountContext>
       </AppWrapper>

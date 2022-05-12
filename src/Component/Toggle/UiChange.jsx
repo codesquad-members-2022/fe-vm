@@ -6,7 +6,7 @@ import styled from 'styled-components';
 export const UiChangeBtn = () => {
   return (
     <ButtonWrapper>
-      <Link to="/">
+      <Link to="/vendingMachine">
         <ChangeBtn>자판기</ChangeBtn>
       </Link>
       <Link to="/wallet">

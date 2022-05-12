@@ -29,7 +29,6 @@ const handleMoneyButton = (unit, currentMoney, insertMoney) => {
   if (currentMoney < unit) {
     return;
   }
-
   insertMoney(unit);
 };
 

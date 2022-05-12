@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {Products} from './Products';
-import {VendingMachineInterface} from './VendingMachineInterface';
+import {Products} from '../Component/Vending_machine/Products';
+import {VendingMachineInterface} from '../Component/Vending_machine/VendingMachineInterface';
 
-import {PRODUCTS_DATA} from '../../mocks/ProductData';
+import {PRODUCTS_DATA} from '../mocks/ProductData';
 
 const createProducts = ProductsList => {
   return ProductsList.map(productData => (
