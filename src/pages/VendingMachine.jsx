@@ -5,10 +5,13 @@ import { items } from '../store/store';
 import Button from '../components/Button';
 import AvailableButton from '../components/AvailableButton';
 import Input from '../components/Input';
+import ProgressBoard from '../components/ProgressBoard';
 
 export default function VendingMachine() {
   const [inputPrice, setPrice] = useState(0);
   const [content, setContent] = useState(0);
+  const [progressMsg, setProgressMsg] = useState([]);
+  const [remainMoney, setRemainMoney] = useState(null);
 
   const handleChangeInput = ({ currentTarget }) => {
     setContent(currentTarget.textContent);
@@ -26,7 +29,25 @@ export default function VendingMachine() {
     }
 
     // Todo : 지갑에 요금의 개수가 없거나 지갑 전체 요금보다 큰 경우 예외처리
-    setPrice(Number(content));
+    const currentPrice = Number(content);
+    setPrice(currentPrice);
+    setRemainMoney(remainMoney + currentPrice);
+    setProgressMsg([...progressMsg, `${currentPrice}원이 투입되었습니다.`]);
+  };
+
+  const handleSelectItem = (title, price) => {
+    const currentRemainMoney = remainMoney - price;
+    if (currentRemainMoney < 0 && remainMoney !== null) {
+      window.alert('요금을 초과하였습니다.');
+      return;
+    }
+
+    setRemainMoney(currentRemainMoney);
+    setProgressMsg([...progressMsg, `${title}가 선택되었습니다.`]);
+  };
+
+  const handleClickReturnRemain = () => {
+    setProgressMsg([...progressMsg, `잔돈 ${remainMoney}원이 반환됩니다.`]);
   };
   return (
     <StyledContainer>
@@ -35,8 +56,9 @@ export default function VendingMachine() {
           <StyledItem key={`vm-item-${title}`}>
             <AvailableButton
               icon={title}
-              isAvailabe={inputPrice >= price}
-              disabled={!(inputPrice >= price)}
+              isAvailabe={remainMoney >= price}
+              disabled={!(remainMoney >= price)}
+              onClick={() => handleSelectItem(title, price)}
             />
             <StyledPrice>{price}</StyledPrice>
           </StyledItem>
@@ -48,8 +70,8 @@ export default function VendingMachine() {
           onChangeInput={handleChangeInput}
           onClickSave={handleClickSave}
         />
-        <Button icon="반환" />
-        <div>현황판</div>
+        <Button icon="반환" onClick={handleClickReturnRemain} />
+        <ProgressBoard progressMsg={progressMsg} />
       </StyledController>
     </StyledContainer>
   );
