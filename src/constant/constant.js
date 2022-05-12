@@ -101,6 +101,37 @@ const DUMMY_DATA = [
   },
 ];
 
+const CURRENCY = [
+  {
+    id: 111,
+    unit: 10,
+  },
+  {
+    id: 112,
+    unit: 50,
+  },
+  {
+    id: 113,
+    unit: 100,
+  },
+  {
+    id: 114,
+    unit: 500,
+  },
+  {
+    id: 115,
+    unit: 1000,
+  },
+  {
+    id: 116,
+    unit: 5000,
+  },
+  {
+    id: 117,
+    unit: 10000,
+  },
+];
+
 const _ = undefined;
 
-export { DUMMY_DATA, _ };
+export { DUMMY_DATA, _, CURRENCY };
