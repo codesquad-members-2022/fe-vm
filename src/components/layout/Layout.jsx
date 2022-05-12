@@ -1,14 +1,12 @@
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
-import TabMenu from 'components/TabMenu';
+import Header from './Header/Header';
 
 const Layout = () => {
   return (
     <Container>
-      <header>
-        <TabMenu />
-      </header>
+      <Header />
       <main>
         <Outlet />
       </main>
