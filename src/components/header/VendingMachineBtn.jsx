@@ -6,6 +6,25 @@ import { FONT } from "../../constants/fonts";
 import HeaderInfoContextStore from "../../stores/headerInfoStore";
 import { useContext } from "react";
 
+const VendingMachineBtn = () => {
+  const headerInfo = useContext(HeaderInfoContextStore);
+  const onHeaderBtnClick = () => {
+    headerInfo.setHeaderBtnDisplay(true);
+  };
+  return (
+    <HeaderBtn onClick={onHeaderBtnClick} displays={headerInfo.headerBtnDisplay}>
+      <Text font={FONT.MEDIUM_BOLD}>자판기</Text>
+    </HeaderBtn>
+  );
+};
+
+export const HeaderWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 3.5vh;
+  margin-top: 3.5vh;
+`;
+
 const HeaderBtn = styled.div`
   display: flex;
   width: 10vw;
@@ -14,21 +33,9 @@ const HeaderBtn = styled.div`
   align-items: center;
   border-radius: 10px;
   border: 1px solid black;
-  background-color: ${(props) => (props.display ? colors.black : colors.lightWhite)};
+  background-color: ${(props) => (props.displays ? colors.black : colors.lightWhite)};
   margin: 0 1vw 0 1vw;
-  color: ${(props) => (props.display ? colors.lightWhite : colors.black)};
+  color: ${(props) => (props.displays ? colors.lightWhite : colors.black)};
 `;
-
-const VendingMachineBtn = () => {
-  const headerInfo = useContext(HeaderInfoContextStore);
-  const onHeaderBtnClick = () => {
-    headerInfo.setHeaderBtnDisplay(true);
-  };
-  return (
-    <HeaderBtn onClick={onHeaderBtnClick} display={headerInfo.headerBtnDisplay}>
-      <Text font={FONT.MEDIUM_BOLD}>자판기</Text>
-    </HeaderBtn>
-  );
-};
 
 export default VendingMachineBtn;

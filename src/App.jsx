@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import VendingMachine from "./components/vendingMachine/Machine";
 import Wallet from "./components/wallet/Wallet";
-import { HeaderWrap } from "./components/header/Header";
+import { HeaderWrap } from "./components/header/VendingMachineBtn";
 import GlobalStyles from "./globalStyles";
 import VendingMachineBtn from "./components/header/VendingMachineBtn";
 import WalletBtn from "./components/header/WalletBtn";

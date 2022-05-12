@@ -6,6 +6,18 @@ import { FONT } from "../../constants/fonts";
 import HeaderInfoContextStore from "../../stores/headerInfoStore";
 import { useContext } from "react";
 
+const WalletBtn = () => {
+  const headerInfo = useContext(HeaderInfoContextStore);
+  const onHeaderBtnClick = () => {
+    headerInfo.setHeaderBtnDisplay(false);
+  };
+  return (
+    <HeaderBtn onClick={onHeaderBtnClick} displays={headerInfo.headerBtnDisplay}>
+      <Text font={FONT.MEDIUM_BOLD}>지갑</Text>
+    </HeaderBtn>
+  );
+};
+
 const HeaderBtn = styled.div`
   display: flex;
   width: 10vw;
@@ -14,21 +26,9 @@ const HeaderBtn = styled.div`
   align-items: center;
   border-radius: 10px;
   border: 1px solid black;
-  background-color: ${(props) => (props.display ? colors.lightWhite : colors.black)};
+  background-color: ${(props) => (props.displays ? colors.lightWhite : colors.black)};
   margin: 0 1vw 0 1vw;
-  color: ${(props) => (props.display ? colors.black : colors.lightWhite)};
+  color: ${(props) => (props.displays ? colors.black : colors.lightWhite)};
 `;
-
-const WalletBtn = () => {
-  const headerInfo = useContext(HeaderInfoContextStore);
-  const onHeaderBtnClick = () => {
-    headerInfo.setHeaderBtnDisplay(false);
-  };
-  return (
-    <HeaderBtn onClick={onHeaderBtnClick} display={headerInfo.headerBtnDisplay}>
-      <Text font={FONT.MEDIUM_BOLD}>지갑</Text>
-    </HeaderBtn>
-  );
-};
 
 export default WalletBtn;

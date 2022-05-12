@@ -22,7 +22,7 @@ const Product = ({ product }) => {
     } else {
       setProductDisplay("lightWhite");
     }
-  });
+  }, [VmWalletInfo.currMoney, product.price]);
 
   return (
     <ProductWrap display={productDisplay} onClick={onProductClick}>

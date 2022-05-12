@@ -5,6 +5,19 @@ import money from "../../constants/money";
 import MoneyInfo from "./MoneyInfo";
 import TotalAmount from "./TotalAmount";
 
+const Wallet = () => {
+  return (
+    <WalletWrap>
+      <MoneyWrap>
+        {money.map((money, idx) => {
+          return <MoneyInfo money={money} key={idx} />;
+        })}
+      </MoneyWrap>
+      <TotalAmount />
+    </WalletWrap>
+  );
+};
+
 const WalletWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -28,18 +41,5 @@ const MoneyWrap = styled.div`
   flex-direction: column;
   justify-content: space-around;
 `;
-
-const Wallet = () => {
-  return (
-    <WalletWrap>
-      <MoneyWrap>
-        {money.map((money, idx) => {
-          return <MoneyInfo money={money} key={idx} />;
-        })}
-      </MoneyWrap>
-      <TotalAmount />
-    </WalletWrap>
-  );
-};
 
 export default Wallet;
