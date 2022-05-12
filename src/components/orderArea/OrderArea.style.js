@@ -6,5 +6,4 @@ const Container = styled.div`
   border-left: 2px solid #333;
 `;
 
-// eslint-disable-next-line import/prefer-default-export
 export { Container };

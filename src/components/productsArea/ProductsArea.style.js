@@ -10,5 +10,4 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-// eslint-disable-next-line import/prefer-default-export
 export { Container };
