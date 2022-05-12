@@ -1,49 +1,50 @@
-import React, {useState, useReducer} from 'react';
+import React from 'react';
+
+import {useAccount} from '../Hooks/Account';
 
 export const UserAccount = React.createContext(null);
 
-const currentMoneyReducer = (state, action) => {
+const accountReducer = (state, action) => {
   switch (action.type) {
-    case 'decrease':
-      return state - action.income;
-
-    case 'increase':
-      return state + action.income;
-    default:
-      throw new Error(`UserAccount 잘못된 액션입력입니다.${action.type}`);
-  }
-};
-
-const insertedMoneyReducer = (state, action) => {
-  switch (action.type) {
-    case 'increase':
-      return state + action.income;
+    case 'insert':
+      return {
+        currentMoney: state.currentMoney - action.incomeMoney,
+        insertedMoney: state.insertedMoney + action.incomeMoney,
+      };
 
     case 'refund':
-      return 0;
+      return {
+        currentMoney: state.currentMoney + state.insertMoney,
+        insertedMoney: 0,
+      };
+
+    case 'buy':
+      return {
+        currentMoney: state.currentMoney,
+        insertMoney: state.insertMoney - action.incomeMoney,
+      };
 
     default:
-      throw new Error(`UserAccount 잘못된 액션입력입니다.${action.type}`);
+      throw new Error(`잘못된 액션 입력입니다. ${action.type}`);
   }
 };
 
 export const UserAccountContext = props => {
-  const [currentMoney, dispatchCurrentMoney] = useReducer(
-    currentMoneyReducer,
-    35650,
+  const {insertMoney, refundMoney, buyProduct, userMoney} = useAccount(
+    {
+      currentMoney: 36450,
+      insertedMoney: 0,
+    },
+    accountReducer,
   );
 
-  const [insertedMoney, dispatchInsertedMoney] = useReducer(
-    insertedMoneyReducer,
-    0,
-  );
   return (
     <UserAccount.Provider
       value={{
-        currentMoney,
-        insertedMoney,
-        dispatchCurrentMoney,
-        dispatchInsertedMoney,
+        insertMoney,
+        refundMoney,
+        buyProduct,
+        userMoney,
       }}
     >
       {props.children}
