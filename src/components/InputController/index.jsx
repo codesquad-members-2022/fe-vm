@@ -3,6 +3,58 @@ import styled from 'styled-components';
 
 import { ACTION, VMContext } from '@/Provider/VMProvider';
 
+const InputController = ({ className }) => {
+  const [submitted, setSubmitted] = useState(true);
+  const { state, dispatch } = useContext(VMContext);
+
+  const onClickInputAmount = () => {
+    setSubmitted(false);
+  };
+
+  return (
+    <InputControllerLayout className={className}>
+      <InputLayer>
+        {submitted ? (
+          <InputAmount onClick={onClickInputAmount}>{state.inputAmount}</InputAmount>
+        ) : (
+          <InputForm dispatch={dispatch} setSubmitted={setSubmitted} />
+        )}
+        <span>원</span>
+      </InputLayer>
+      <ReturnButton>반환</ReturnButton>
+    </InputControllerLayout>
+  );
+};
+
+const InputForm = ({ dispatch, setSubmitted }) => {
+  const inputRef = useRef(null);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const inputValue = Number(inputRef.current.value);
+
+    setSubmitted(true);
+
+    /* 금액 투입, 로그 추가 */
+    dispatch({
+      type: ACTION.INSERT_MONEY,
+      payload: {
+        amount: inputValue,
+      },
+    });
+  };
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  return (
+    <InputFormLayout onSubmit={onSubmit}>
+      <Input ref={inputRef} min={0} />
+    </InputFormLayout>
+  );
+};
+
 const InputControllerLayout = styled.div`
   display: flex;
   flex-direction: column;
@@ -70,57 +122,5 @@ const ReturnButton = styled.button.attrs({ type: 'button' })`
     background-color: #00000011;
   }
 `;
-
-const InputController = ({ className }) => {
-  const [submitted, setSubmitted] = useState(true);
-  const { state, dispatch } = useContext(VMContext);
-
-  const onClickInputAmount = () => {
-    setSubmitted(false);
-  };
-
-  return (
-    <InputControllerLayout className={className}>
-      <InputLayer>
-        {submitted ? (
-          <InputAmount onClick={onClickInputAmount}>{state.inputAmount}</InputAmount>
-        ) : (
-          <InputForm dispatch={dispatch} setSubmitted={setSubmitted} />
-        )}
-        <span>원</span>
-      </InputLayer>
-      <ReturnButton>반환</ReturnButton>
-    </InputControllerLayout>
-  );
-};
-
-const InputForm = ({ dispatch, setSubmitted }) => {
-  const inputRef = useRef(null);
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const inputValue = Number(inputRef.current.value);
-
-    setSubmitted(true);
-
-    /* 금액 투입, 로그 추가 */
-    dispatch({
-      type: ACTION.INSERT_MONEY,
-      payload: {
-        amount: inputValue,
-      },
-    });
-  };
-
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
-
-  return (
-    <InputFormLayout onSubmit={onSubmit}>
-      <Input ref={inputRef} min={0} />
-    </InputFormLayout>
-  );
-};
 
 export default InputController;

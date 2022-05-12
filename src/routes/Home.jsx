@@ -5,6 +5,18 @@ import ActionLogs from '@/components/ActionLogs';
 import Display from '@/components/Display';
 import InputController from '@/components/InputController';
 
+const Home = () => {
+  return (
+    <HomeLayout>
+      <HomeLayer>
+        <Display className={DISPLAY} />
+        <InputController className={INPUT_CONTROLLER} />
+        <ActionLogs className={ACTION_LOGS} />
+      </HomeLayer>
+    </HomeLayout>
+  );
+};
+
 const DISPLAY = 'vm-display';
 const INPUT_CONTROLLER = 'vm-input-controller';
 const ACTION_LOGS = 'vm-action-logs';
@@ -38,17 +50,5 @@ const HomeLayer = styled.div`
     overflow-y: hidden;
   }
 `;
-
-const Home = () => {
-  return (
-    <HomeLayout>
-      <HomeLayer>
-        <Display className={DISPLAY} />
-        <InputController className={INPUT_CONTROLLER} />
-        <ActionLogs className={ACTION_LOGS} />
-      </HomeLayer>
-    </HomeLayout>
-  );
-};
 
 export default Home;

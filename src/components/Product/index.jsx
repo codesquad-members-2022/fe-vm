@@ -1,6 +1,16 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
+const Product = ({ name, price, stock, purchasable }) => {
+  return (
+    <ProductLayer purchasable={purchasable}>
+      <Name>{name}</Name>
+      <span>{stock}개 남음</span>
+      <Price>{price.toLocaleString()}원</Price>
+    </ProductLayer>
+  );
+};
+
 const Highlight = css`
   border-color: red;
 `;
@@ -37,15 +47,5 @@ const Name = styled.header`
 const Price = styled.footer`
   flex-shrink: 0;
 `;
-
-const Product = ({ name, price, stock, purchasable }) => {
-  return (
-    <ProductLayer purchasable={purchasable}>
-      <Name>{name}</Name>
-      <span>{stock}개 남음</span>
-      <Price>{price.toLocaleString()}원</Price>
-    </ProductLayer>
-  );
-};
 
 export default Product;
