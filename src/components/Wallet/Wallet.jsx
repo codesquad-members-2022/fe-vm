@@ -1,6 +1,7 @@
 import React from "react";
 import { walletItem } from "data";
 import { StyledWallet, WalletDetail, TotalAmout, CoinPrice, CoinCount } from "./Wallet.styled";
+import { addComma } from "utils";
 
 function Wallet() {
   const getTotalAmout = (wallet) => {
@@ -16,12 +17,12 @@ function Wallet() {
       <WalletDetail>
         {walletItem.map(({ id, price, quantity }) => (
           <>
-            <CoinPrice key={id}>{price}원</CoinPrice>
+            <CoinPrice key={id}>{addComma(price)}원</CoinPrice>
             <CoinCount key={id}>{quantity}개</CoinCount>
           </>
         ))}
       </WalletDetail>
-      <TotalAmout>{getTotalAmout(walletItem)}원</TotalAmout>
+      <TotalAmout>{addComma(getTotalAmout(walletItem))}원</TotalAmout>
     </StyledWallet>
   );
 }
