@@ -11,37 +11,40 @@ const divideCurrentMoney = (moneyList, money) => {
   return moneyList;
 };
 
-const handleMoneyButton = (
-  unit,
-  currentMoney,
-  dispatchCurrentMoney,
-  dispatchInsertedMoney,
-) => {
+// const handleMoneyButton = (
+//   unit,
+//   currentMoney,
+//   dispatchCurrentMoney,
+//   dispatchInsertedMoney,
+// ) => {
+//   if (currentMoney < unit) {
+//     return;
+//   }
+
+//   dispatchCurrentMoney({type: 'decrease', income: unit});
+//   dispatchInsertedMoney({type: 'increase', income: unit});
+// };
+
+const handleMoneyButton = (unit, currentMoney, insertMoney) => {
   if (currentMoney < unit) {
     return;
   }
 
-  dispatchCurrentMoney({type: 'decrease', income: unit});
-  dispatchInsertedMoney({type: 'increase', income: unit});
+  insertMoney(unit);
 };
 
 export const InsertButton = ({insertBtnData}) => {
-  const {currentMoney, dispatchCurrentMoney, dispatchInsertedMoney} =
-    useContext(UserAccount);
+  const {
+    userMoney: {currentMoney},
+    insertMoney,
+  } = useContext(UserAccount);
   const insertBtnList = divideCurrentMoney(insertBtnData, currentMoney);
 
   return insertBtnList.map(({unit, id, count}) => (
     <InsertBtnWrapper>
       <MoneyBtn
         key={id}
-        onClick={() =>
-          handleMoneyButton(
-            unit,
-            currentMoney,
-            dispatchCurrentMoney,
-            dispatchInsertedMoney,
-          )
-        }
+        onClick={() => handleMoneyButton(unit, currentMoney, insertMoney)}
       >
         {unit + '원'}
       </MoneyBtn>

@@ -4,20 +4,20 @@ import styled from 'styled-components';
 import {UserAccount} from '../../Store';
 
 export const VendingMachineInterface = () => {
-  const {insertedMoney, dispatchCurrentMoney, dispatchInsertedMoney} =
-    useContext(UserAccount);
+  // const {insertedMoney, dispatchCurrentMoney, dispatchInsertedMoney} =
+  //   useContext(UserAccount);
+  const {userMoney, refundMoney} = useContext(UserAccount);
   const refundBtn = useRef(null);
 
-  const handleRefundBtn = () => {
-    console.log(refundBtn.current);
-    dispatchCurrentMoney({type: 'increase', income: refundBtn.current.value});
-    dispatchInsertedMoney({type: 'refund'});
-  };
+  // const handleRefundBtn = () => {
+  //   dispatchCurrentMoney({type: 'increase', income: refundBtn.current.value});
+  //   dispatchInsertedMoney({type: 'refund'});
+  // };
 
   return (
     <VM_Wrapper>
-      <VM_MoneyInput value={insertedMoney} />
-      <VM_RefundBtn ref={refundBtn} onClick={handleRefundBtn}>
+      <VM_MoneyInput value={userMoney.insertedMoney} />
+      <VM_RefundBtn ref={refundBtn} onClick={refundMoney}>
         잔액 반환
       </VM_RefundBtn>
       <VM_History></VM_History>
