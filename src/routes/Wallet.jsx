@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, memo } from 'react';
 import styled, { css } from 'styled-components';
 
-import { VMContext } from '@/Provider/VMProvider';
+import { ACTION, VMContext } from '@/Provider/VMProvider';
 
 const Wallet = () => {
   const {
@@ -9,14 +9,12 @@ const Wallet = () => {
     dispatch,
   } = useContext(VMContext);
 
-  console.log(Object.values(coins));
-
   return (
     <WalletLayout>
       <WalletLayer>
         <CoinList>
           {Object.values(coins).map(({ id, amount, count }) => (
-            <Coin key={id} amount={amount} count={count} />
+            <Coin key={id} amount={amount} count={count} dispatch={dispatch} />
           ))}
         </CoinList>
         <Balance>총{balance.toLocaleString()}원</Balance>
@@ -25,17 +23,31 @@ const Wallet = () => {
   );
 };
 
-const Coin = ({ amount, count }) => {
+const Coin = memo(({ amount, count, dispatch }) => {
+  const onClickInsertButton = () => {
+    if (count === 0) {
+      return;
+    }
+
+    dispatch({
+      type: ACTION.INSERT_COIN,
+      payload: {
+        amount,
+        count,
+      },
+    });
+  };
+
   return (
     <CoinLayer>
       <Amount>
-        <InsertButton>{amount}원</InsertButton>
+        <InsertButton onClick={onClickInsertButton}>{amount}원</InsertButton>
       </Amount>
       <Count>{count}개</Count>
       <IncrementButton>+</IncrementButton>
     </CoinLayer>
   );
-};
+});
 
 const WalletLayout = styled.main`
   display: flex;
