@@ -5,7 +5,10 @@ import { ACTION, VMContext } from '@/Provider/VMProvider';
 
 const InputController = ({ className }) => {
   const [submitted, setSubmitted] = useState(true);
-  const { state, dispatch } = useContext(VMContext);
+  const {
+    state: { inputAmount },
+    dispatch,
+  } = useContext(VMContext);
 
   const onClickInputAmount = () => {
     setSubmitted(false);
@@ -15,7 +18,7 @@ const InputController = ({ className }) => {
     <InputControllerLayout className={className}>
       <InputLayer>
         {submitted ? (
-          <InputAmount onClick={onClickInputAmount}>{state.inputAmount}</InputAmount>
+          <InputAmount onClick={onClickInputAmount}>{inputAmount.toLocaleString()}</InputAmount>
         ) : (
           <InputForm dispatch={dispatch} setSubmitted={setSubmitted} />
         )}
@@ -50,7 +53,7 @@ const InputForm = ({ dispatch, setSubmitted }) => {
 
   return (
     <InputFormLayout onSubmit={onSubmit}>
-      <Input ref={inputRef} min={0} />
+      <Input ref={inputRef} min={0} max={50000} />
     </InputFormLayout>
   );
 };
