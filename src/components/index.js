@@ -6,3 +6,4 @@ export * from "./Information/Information";
 export * from "./Menu/Menu";
 export * from "./Layout";
 export * from "./Wallet/Wallet";
+export * from "./NotFound";

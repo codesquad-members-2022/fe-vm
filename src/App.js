@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { VendingMachineContainer, Layout, Wallet } from "components";
+import { VendingMachineContainer, Layout, Wallet, NotFound } from "components";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
@@ -22,10 +22,11 @@ function App() {
       <GlobalStyles />
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<VendingMachineContainer />}></Route>
-          <Route path="/vendingmachine" element={<VendingMachineContainer />}></Route>
-          <Route path="/wallet" element={<Wallet />}></Route>
+          <Route index element={<VendingMachineContainer />} />
+          <Route path="/vendingmachine" element={<VendingMachineContainer />} />
+          <Route path="/wallet" element={<Wallet />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
