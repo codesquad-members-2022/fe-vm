@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
 import { Container, NavItem } from 'layout/GNB/GNB.style';
 
@@ -10,9 +9,9 @@ const navItems = [
 export default function GNB() {
   const [selecetedNavIdx, setSelectedNavIdx] = useState(0);
 
-  function handleNavClick(idx) {
+  const handleNavClick = idx => {
     setSelectedNavIdx(idx);
-  }
+  };
 
   return (
     <Container>
