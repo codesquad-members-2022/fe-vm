@@ -2,22 +2,19 @@ import { createContext, useState } from "react";
 import { products } from "../datas/products";
 import Product from "../components/Product";
 
-const ProductContext = createContext({
+const initialState = {
   state: products,
   actions: {
     setAmount: () => {},
   },
-});
+};
+
+const ProductContext = createContext(initialState);
 
 function ProductProvider() {
   const [amount, setAmount] = useState();
 
-  const value = {
-    state: products,
-    actions: {
-      setAmount: () => {},
-    },
-  };
+  const value = initialState;
   return (
     <ProductContext.Provider value={value}>
       {value.state.map((product, idx) => (

@@ -1,19 +1,11 @@
 import React from "react";
-import Currency from "./Currency";
-import TotalMoney from "./TotalMoney";
 import styled from "styled-components";
+import WalletProvider from "../contexts/walletContext";
 
 function Wallet() {
   return (
     <WalletWrap>
-      <Currency></Currency>
-      <Currency></Currency>
-      <Currency></Currency>
-      <Currency></Currency>
-      <Currency></Currency>
-      <Currency></Currency>
-      <Currency></Currency>
-      <TotalMoney></TotalMoney>
+      <WalletProvider></WalletProvider>
     </WalletWrap>
   );
 }

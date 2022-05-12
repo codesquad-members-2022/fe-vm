@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-function Currency() {
+function Currency({ money, amount }) {
   return (
     <CurrencyWrap>
-      <Money>1000원</Money>
-      <Amount>2개</Amount>
+      <Money>{money.toLocaleString()}원</Money>
+      <Amount>{amount}개</Amount>
     </CurrencyWrap>
   );
 }

@@ -1,23 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import Product from "./Product";
 import ProductProvider from "../contexts/productContext";
 
 function Menu() {
   return (
     <MenuWrap>
       <ProductWindow>
-        <ProductProvider>
-          {(value) => {
-            value.state.map((product, idx) => (
-              <Product
-                key={idx}
-                title={product.title}
-                price={product.price}
-              ></Product>
-            ));
-          }}
-        </ProductProvider>
+        <ProductProvider></ProductProvider>
       </ProductWindow>
       <ProductOutput></ProductOutput>
     </MenuWrap>

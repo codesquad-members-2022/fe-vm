@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-function TotalMoney() {
-  return <TotalMoneyWrap>14000원</TotalMoneyWrap>;
+function TotalMoney({ sum }) {
+  return <TotalMoneyWrap>{sum.toLocaleString()}원</TotalMoneyWrap>;
 }
 const TotalMoneyWrap = styled.div`
   width: 90%;

@@ -10,6 +10,6 @@ const StatusWrap = styled.div`
   background: ${({ theme }) => theme.colors.gray};
   box-sizing: border-box;
   padding: 10px;
-  gap = 10px;
+  gap: 10px;
 `;
 export default Status;

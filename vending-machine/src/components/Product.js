@@ -23,7 +23,7 @@ const ProductImage = styled.img`
 `;
 const ProductTitle = styled.div`
   width: 100%;
-  height: 30px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
