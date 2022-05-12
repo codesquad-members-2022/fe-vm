@@ -6,6 +6,7 @@ import GlobalStyles from "./globalStyles";
 import VendingMachineBtn from "./components/header/VendingMachineBtn";
 import WalletBtn from "./components/header/WalletBtn";
 import HeaderInfoContext from "./context/HeaderInfoContext";
+import VmWalletContext from "./context/VmWalletContext";
 
 function App() {
   return (
@@ -25,11 +26,12 @@ function App() {
             </HeaderWrap>
           </nav>
         </HeaderInfoContext>
-
-        <Routes>
-          <Route path="/vm" element={<VendingMachine />} />
-          <Route path="/wallet" element={<Wallet />}></Route>
-        </Routes>
+        <VmWalletContext>
+          <Routes>
+            <Route path="/vm" element={<VendingMachine />} />
+            <Route path="/wallet" element={<Wallet />}></Route>
+          </Routes>
+        </VmWalletContext>
       </BrowserRouter>
     </div>
   );

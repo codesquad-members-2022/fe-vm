@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { useEffect, useRef, useContext } from "react";
 
 import { FONT } from "../../constants/fonts";
 import Text from "../../Text";
+import VmWalletContextStore from "../../stores/VmWalletStore";
 
 const InfoWrap = styled.div`
   width: 80%;
@@ -23,11 +25,39 @@ const InputCoins = styled.input`
   outline: none;
 `;
 
+const ShowCoins = styled.div`
+  width: 80%;
+  height: 50%;
+  margin-top: 5%;
+  font-size: 18px;
+  text-align: right;
+`;
+
 const InputCoin = () => {
+  const inputRef = useRef();
+  const VmWalletInfo = useContext(VmWalletContextStore);
+
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      inputRef.current.disabled = true;
+      VmWalletInfo.setCurrMoney(Number(inputRef.current.value));
+      VmWalletInfo.setIsInsertCoin(true);
+    }
+  };
+  const onInputClick = () => {
+    VmWalletInfo.setIsInsertCoin(false);
+  };
+  useEffect(() => {}, []);
   return (
     <InfoWrap>
-      <InputCoins placeholder="금액을 입력하세요"></InputCoins>
-      <Text font={FONT.LARGE_BOLD}>원</Text>
+      {VmWalletInfo.isInsertCoin ? (
+        <ShowCoins onClick={onInputClick}>{VmWalletInfo.currMoney}원</ShowCoins>
+      ) : (
+        <div>
+          <InputCoins onKeyPress={onKeyPress} ref={inputRef} placeholder="금액을 입력하세요"></InputCoins>
+          <Text font={FONT.LARGE_BOLD}>원</Text>
+        </div>
+      )}
     </InfoWrap>
   );
 };

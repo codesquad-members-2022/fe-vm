@@ -18,7 +18,6 @@ const Products = () => {
   return (
     <ProductsWrap>
       {products.map((product, idx) => {
-        console.log({ product });
         return <Product key={idx} product={product} />;
       })}
     </ProductsWrap>

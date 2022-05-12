@@ -4,6 +4,7 @@ const colors = {
   lightWhite: "#fefefe",
   lightBlue: "#7093df",
   none: "rgba(0, 0, 0, 0)",
+  red: "#dc143c",
 };
 
 export default colors;
