@@ -1,4 +1,4 @@
-import React, { useContext, memo } from 'react';
+import React, { useContext, memo, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { VMContext } from '@/Provider/VMProvider';
@@ -7,10 +7,19 @@ const ActionLogs = ({ className }) => {
   const {
     state: { logs },
   } = useContext(VMContext);
+  const actionLogsRef = useRef(null);
+
+  useEffect(() => {
+    if (actionLogsRef === null) {
+      return;
+    }
+
+    actionLogsRef.current.scrollTop = actionLogsRef.current.scrollHeight;
+  });
 
   return (
     <ActionLogsLayout className={className}>
-      <ActionLogsLayer>
+      <ActionLogsLayer ref={actionLogsRef}>
         {logs.map(({ id, message }) => (
           <ActionLog key={id} message={message} />
         ))}
