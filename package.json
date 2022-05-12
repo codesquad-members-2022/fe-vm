@@ -83,7 +83,8 @@
       "implicit-arrow-linebreak": "off",
       "no-confusing-arrow": "off",
       "operator-linebreak": "off",
-      "object-curly-newline": "off"
+      "object-curly-newline": "off",
+      "import/prefer-default-export": "off"
     }
   },
   "browserslist": {

@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 
+import { parseMoneyFormat } from 'common/utils';
 import COLORS from 'constants/colors';
 import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
@@ -31,7 +32,7 @@ const MoneyBox = ({ money: { amount, count } }) => {
   return (
     <Wrapper>
       <MoneyAmount isActive={isActive} onClick={handleClickMoneyAmount}>
-        {amount}원
+        {parseMoneyFormat(amount)}
       </MoneyAmount>
       <MoneyCount>{count}개</MoneyCount>
     </Wrapper>
@@ -56,19 +57,16 @@ const BorderBox = styled.div`
 const MoneyAmount = styled(BorderBox)`
   background-color: ${({ isActive }) =>
     isActive ? COLORS.MAIN_BG : COLORS.WHITE};
-  ${({ isActive }) => {
-    if (isActive) {
-      return `
-            transition: all 0.2s;
-            cursor: pointer;
-            &:hover {
-                background-color: ${COLORS.GREY};
-                color: ${COLORS.WHITE};
-            }
-        `;
-    }
-    return '';
-  }}
+  ${({ isActive }) =>
+    isActive &&
+    `
+      transition: all 0.2s;
+      cursor: pointer;
+      &:hover {
+          background-color: ${COLORS.GREY};
+          color: ${COLORS.WHITE};
+      }
+    `}
 `;
 
 const MoneyCount = styled(BorderBox)``;

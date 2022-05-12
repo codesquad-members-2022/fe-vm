@@ -1,32 +1,38 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import COLORS from 'constants/colors';
 
-const Layout = () => (
-  <>
-    <Header>
-      <HeaderTitle>코쿼 자판기</HeaderTitle>
-      <nav>
-        <NavItems>
-          <NavItem>
-            <Link to='/vendingMachine'>
-              <Button>자판기</Button>
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link to='/wallet'>
-              <Button>지갑</Button>
-            </Link>
-          </NavItem>
-        </NavItems>
-      </nav>
-    </Header>
-    <Content>
-      <Outlet />
-    </Content>
-  </>
-);
+const Layout = () => {
+  const location = useLocation();
+  const isVMButtonActive =
+    location.pathname === '/vendingMachine' || location.pathname === '/';
+  const isWalletButtonActive = location.pathname === '/wallet';
+  return (
+    <>
+      <Header>
+        <HeaderTitle>코쿼 자판기</HeaderTitle>
+        <nav>
+          <NavItems>
+            <NavItem>
+              <Link to='vendingMachine'>
+                <Button isActive={isVMButtonActive}>자판기</Button>
+              </Link>
+            </NavItem>
+            <NavItem>
+              <Link to='wallet'>
+                <Button isActive={isWalletButtonActive}>지갑</Button>
+              </Link>
+            </NavItem>
+          </NavItems>
+        </nav>
+      </Header>
+      <Content>
+        <Outlet />
+      </Content>
+    </>
+  );
+};
 
 const Header = styled.header`
   display: flex;
@@ -49,10 +55,10 @@ const NavItems = styled.ul`
   display: flex;
   justify-content: center;
   width: 20rem;
+  gap: 10px;
 `;
 
 const NavItem = styled.li`
-  margin: 0px 5px;
   font-size: 20px;
   width: 50%;
 `;
@@ -61,7 +67,8 @@ const Button = styled.button`
   font-size: 1em;
   cursor: pointer;
   width: 100%;
-  background-color: ${COLORS.SKY_BLUE};
+  background-color: ${({ isActive }) =>
+    isActive ? COLORS.BLUE : COLORS.SKY_BLUE};
   border-radius: 5px;
   color: ${COLORS.WHITE};
   transition: background-color 0.2s;

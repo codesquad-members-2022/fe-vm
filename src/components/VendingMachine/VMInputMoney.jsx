@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
 
+import { parseMoneyFormat } from 'common/utils';
 import VMInputBox from 'components/VendingMachine/VMInputBox';
 import COLORS from 'constants/colors';
 import { LogContext } from 'context/LogProvider';
@@ -39,7 +40,9 @@ const VMInputMoney = () => {
           updateInputMoney={updateInputMoney}
         />
       ) : (
-        <TextBox onClick={handleClickTextBox}>{inputMoney} 원</TextBox>
+        <TextBox onClick={handleClickTextBox}>
+          {parseMoneyFormat(inputMoney)}
+        </TextBox>
       )}
     </VMInputMoneyWrapper>
   );

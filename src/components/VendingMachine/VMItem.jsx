@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 
+import { parseMoneyFormat } from 'common/utils';
 import COLORS from 'constants/colors';
 import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
@@ -26,7 +27,7 @@ const VMItem = ({ item: { name, price } }) => {
           <span>{name}</span>
         </ItemNameBox>
         <ItemPriceBox>
-          <span>{price}원</span>
+          <span>{parseMoneyFormat(price)}</span>
         </ItemPriceBox>
       </ItemWrapper>
     </li>
