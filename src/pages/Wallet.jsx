@@ -1,7 +1,7 @@
 import React from 'react';
 
 import WalletItem from '../components/WalletItem';
-import money from '../store/store';
+import { money } from '../store/store';
 
 export default function Wallet() {
   const handleClickWon = () => {
