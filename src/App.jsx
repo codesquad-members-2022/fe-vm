@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import GNB from 'components/GNB/GNB';
+import GNB from 'layout/GNB/GNB';
 import VendingMachine from 'pages/VendingMachine';
 import Wallet from 'pages/Wallet';
 import 'App.css';
 
-function App() {
+export default function App() {
   return (
     <div className="App">
       <BrowserRouter>
@@ -18,5 +18,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

@@ -4,9 +4,9 @@ import OrderArea from 'components/orderArea/OrderArea';
 import prdData from 'data/products';
 import { Container } from 'pages/VendingMachine.style';
 
-export const VendingMachineContext = createContext([]);
+const VendingMachineContext = createContext([]);
 
-function VendingMachine() {
+export default function VendingMachine() {
   const [productsData, setProductsData] = useState(prdData);
 
   return (
@@ -19,4 +19,4 @@ function VendingMachine() {
   );
 }
 
-export default VendingMachine;
+export { VendingMachineContext };
