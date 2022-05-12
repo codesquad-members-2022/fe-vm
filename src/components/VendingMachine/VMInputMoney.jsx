@@ -8,7 +8,7 @@ import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
 
 const VMInputMoney = () => {
-  const { inputMoney, setInputMoney } = useContext(MoneyContext);
+  const { inputMoney, insertInputMoney } = useContext(MoneyContext);
   const [, insertLog] = useContext(LogContext);
   const [isInputSelected, setIsInputSelected] = useState(false);
 
@@ -23,12 +23,11 @@ const VMInputMoney = () => {
       setIsInputSelected(false);
       return;
     }
-    // newMoney 알고리즘
-    setInputMoney(+newMoney);
+    const newInsertMoney = insertInputMoney(+newMoney);
     setIsInputSelected(false);
     insertLog({
       type: 'insert',
-      data: newMoney - inputMoney,
+      data: newInsertMoney - inputMoney,
     });
   };
 
