@@ -15,8 +15,9 @@ const StyledButton = styled.button`
   cursor: pointer;
   border: none;
   background-color: transparent;
-  :disabled {
+  &:disabled {
     color: grey;
+    cursor: default;
   }
 `;
 
