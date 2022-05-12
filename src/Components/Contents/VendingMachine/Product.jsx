@@ -73,7 +73,7 @@ const ProductItem = styled.li`
 
 const ImgBox = styled.div`
   width: 100%;
-  height: 80px;
+  height: calc(100% - 35px);
 `;
 
 const Img = styled.div`
