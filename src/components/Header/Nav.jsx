@@ -1,15 +1,21 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { alertMessage } from "../../convention";
 
 const Nav = () => {
+  const navigate = useNavigate();
+  const handleClickStockManager = () => {
+    if (window.confirm(alertMessage.moveToStockManager)) {
+      navigate("/stock-manager");
+    }
+  };
+
   return (
     <>
       <Link to="/vending-machine">
         <Menu>Vending machine</Menu>
       </Link>
-      <Link to="stock-manager">
-        <Menu>Stock Manager</Menu>
-      </Link>
+      <Menu onClick={handleClickStockManager}>Stock Manager</Menu>
     </>
   );
 };
