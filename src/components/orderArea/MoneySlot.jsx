@@ -3,20 +3,22 @@ import React, { useContext } from 'react';
 import { Container, MoneyInput, Unit } from 'components/orderArea/MoneySlot.style';
 import { PaymentContext } from 'components/orderArea/OrderArea';
 
+const MAX_PAYMENT = 100000;
+
 export default function MoneySlot() {
   const [payment, setPayMent] = useContext(PaymentContext);
 
   const isRightPayMent = inputValue => {
-    if (inputValue[0] === '0') return false;
-    if (isNaN(inputValue[inputValue.length - 1])) return false;
-    if (inputValue.length > 6) return false;
+    if (isNaN(inputValue)) return false;
+    if (inputValue >= MAX_PAYMENT) return false;
     return true;
   };
 
   const handleChangeMoneyInput = ({ target }) => {
     const inputValue = target.value;
-    const numPayMent = Number(inputValue.replace(/[,]/gim, ''));
-    if (isRightPayMent(inputValue)) setPayMent(numPayMent);
+    const numPayMent = parseFloat(inputValue.replace(/[,]/gim, ''));
+    if (!inputValue) setPayMent('');
+    if (isRightPayMent(numPayMent)) setPayMent(numPayMent);
   };
 
   return (
