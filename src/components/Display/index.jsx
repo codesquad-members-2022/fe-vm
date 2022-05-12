@@ -11,12 +11,14 @@ const Display = ({ className }) => {
 
   return (
     <div className={className}>
-      {products.map(({ id, name, price, stock }) => (
+      {products.map(({ id, name, price, stock }, index) => (
         <Product
           key={id}
           name={name}
           price={price}
           stock={stock}
+          index={index}
+          dispatch={dispatch}
           purchasable={totalInputAmount >= price}
         />
       ))}

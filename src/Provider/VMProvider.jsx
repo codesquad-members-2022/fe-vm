@@ -14,6 +14,7 @@ const ACTION = {
   INSERT_MONEY_BY_TYPING: 'INSERT_MONEY_BY_TYPING',
   INSERT_COIN: 'INSERT_COIN',
   INCREMENT_COIN: 'INCREMENT_COIN',
+  SELECT_PRODUCT: 'SELECT_PRODUCT',
 };
 
 const reducer = (state, action) => {
@@ -103,6 +104,34 @@ const reducer = (state, action) => {
         ...state,
         coins: newCoins,
         balance: newBalance,
+      };
+    }
+
+    case ACTION.SELECT_PRODUCT: {
+      const { name, price, stock, index } = action.payload;
+      const { totalInputAmount, products, logs } = state;
+
+      if (totalInputAmount < price) {
+        return state;
+      }
+
+      const newStock = stock - 1;
+      const newProducts = [...products];
+      newProducts[index] = { ...newProducts[index], stock: newStock };
+
+      const newLogs = [...logs];
+      newLogs.push({
+        id: newLogs.length,
+        message: `${name}이(가) 선택됨`,
+      });
+
+      const newTotalInputAmount = totalInputAmount - price;
+
+      return {
+        ...state,
+        products: newProducts,
+        logs: newLogs,
+        totalInputAmount: newTotalInputAmount,
       };
     }
 

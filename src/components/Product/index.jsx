@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 
-const Product = ({ name, price, stock, purchasable }) => {
+import { ACTION } from '@/Provider/VMProvider';
+
+const Product = memo(({ name, price, stock, index, purchasable, dispatch }) => {
   const outOfStock = stock === 0;
   const maxNumOfDisplay = 99;
+  const onClick = () => {
+    if (stock === 0) {
+      return;
+    }
+
+    dispatch({
+      type: ACTION.SELECT_PRODUCT,
+      payload: { name, price, stock, index },
+    });
+  };
 
   return (
-    <ProductLayer purchasable={purchasable} outOfStock={outOfStock}>
+    <ProductLayer onClick={onClick} purchasable={purchasable} outOfStock={outOfStock}>
       <Name>{name}</Name>
       <Price>{price.toLocaleString()}원</Price>
       <Stock>
@@ -16,7 +28,7 @@ const Product = ({ name, price, stock, purchasable }) => {
       {outOfStock && <DisabledMark>Out Of Stock</DisabledMark>}
     </ProductLayer>
   );
-};
+});
 
 const disabled = css`
   border: 2px solid #ee4646;
@@ -96,7 +108,7 @@ const Stock = styled.span`
   font-size: 50px;
   font-weight: bold;
   color: inherit;
-  opacity: 0;
+  opacity: 0.1;
   transition: opacity 400ms;
 
   &:hover {
