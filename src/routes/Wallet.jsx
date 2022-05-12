@@ -17,7 +17,7 @@ const Wallet = () => {
             <Coin key={id} amount={amount} count={count} dispatch={dispatch} index={index} />
           ))}
         </CoinList>
-        <Balance>총{balance.toLocaleString()}원</Balance>
+        <Balance>총 {balance.toLocaleString()}원</Balance>
       </WalletLayer>
     </WalletLayout>
   );
@@ -114,11 +114,11 @@ const buttonCommonStyle = css`
   transition: all 200ms;
 
   &:hover {
-    background-color: #00000022;
+    background-color: #0002;
   }
 
   &:active {
-    background-color: #00000011;
+    background-color: #0001;
   }
 `;
 

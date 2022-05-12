@@ -40,7 +40,6 @@ const InputForm = ({ dispatch, setIsSubmitted }) => {
 
     setIsSubmitted(true);
 
-    /* 금액 투입, 로그 추가 */
     dispatch({
       type: ACTION.INSERT_MONEY_BY_TYPING,
       payload: {
@@ -104,11 +103,11 @@ const InputAmount = styled.div`
   transition: background-color 200ms;
 
   &:hover {
-    background-color: #00000022;
+    background-color: #0002;
   }
 
   &:active {
-    background-color: #00000011;
+    background-color: #0001;
   }
 `;
 
@@ -120,11 +119,11 @@ const ReturnButton = styled.button.attrs({ type: 'button' })`
   transition: background-color 200ms;
 
   &:hover {
-    background-color: #00000022;
+    background-color: #0002;
   }
 
   &:active {
-    background-color: #00000011;
+    background-color: #0001;
   }
 `;
 

@@ -40,7 +40,7 @@ const HomeLayer = styled.div`
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    grid-gap: 20px;
+    grid-gap: 15px;
     overflow-y: auto;
   }
 
