@@ -14,10 +14,10 @@ import {
 import soldOutIcon from '../../../Assets/Images/sold-out.svg';
 
 export default function Product({ products }) {
-  const item = products.map((product) => (
+  const items = products.map((product) => (
     <Item key={product.id} product={product} />
   ));
-  return item;
+  return items;
 }
 
 function Item({ product }) {
