@@ -1,17 +1,36 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 
-import { ProgressContext, TotalMoneyContext } from '../App';
+import { DrinkDataContext, ProgressContext, TotalMoneyContext } from '../App';
+import { changedKoreanLocaleMoney } from '../utility/util';
 
-const DrinkMenu = ({ drinkData }) => {
+const DrinkMenu = () => {
+  const { drinkData, setDrinkData } = useContext(DrinkDataContext);
   const { selectedDrinkMessage } = useContext(ProgressContext);
 
   const { totalMoney, setTotalMoney } = useContext(TotalMoneyContext);
 
   const selectDrink = (idx) => {
     if (totalMoney < drinkData[idx].price) return;
+
     selectedDrinkMessage(drinkData[idx].name);
     setTotalMoney(totalMoney - drinkData[idx].price);
+    minusQuantity(drinkData[idx]);
+  };
+
+  const minusQuantity = ({ id, name, quantity, price }) => {
+    setDrinkData(
+      drinkData.map((data) =>
+        data.id !== id
+          ? data
+          : {
+              id: id,
+              name: name,
+              quantity: (quantity -= 1),
+              price: price,
+            }
+      )
+    );
   };
 
   return (
@@ -25,7 +44,8 @@ const DrinkMenu = ({ drinkData }) => {
             soldOut={false}
           >
             <DrinkNameBtn onClick={() => selectDrink(idx)}>{name}</DrinkNameBtn>
-            <DrinkPrice>{price}</DrinkPrice>
+            <DrinkPrice>{changedKoreanLocaleMoney(price)}</DrinkPrice>
+            <DrinkPrice>{quantity}</DrinkPrice>
           </DrinkMenuItem>
         ) : (
           <DrinkMenuItem
@@ -36,6 +56,7 @@ const DrinkMenu = ({ drinkData }) => {
           >
             <DrinkNameBtn>{name} 품절</DrinkNameBtn>
             <DrinkPrice>X</DrinkPrice>
+            <DrinkPrice>{quantity}</DrinkPrice>
           </DrinkMenuItem>
         )
       )}
@@ -47,7 +68,6 @@ const DrinkMenuItem = styled.li`
   width: 25%;
   border: ${({ price, totalMoney }) =>
     price > totalMoney ? '2px solid black' : '2px solid blue'};
-
   background-color: ${({ soldOut }) => (soldOut ? 'red' : '')};
   margin: 15px;
 `;
