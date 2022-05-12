@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import Tab from '@components/atoms/Tab';
 import * as S from '@components/molecules/TabMenu/TabMenu.style';
-import tabs from '@data/tabs';
 
 // TODO: 현재 활성화된 탭 상태로 관리
 const TabMenu = ({ tabs }) => {
@@ -21,10 +20,6 @@ const TabMenu = ({ tabs }) => {
 
 TabMenu.propTypes = {
   tabs: PropTypes.array,
-};
-
-TabMenu.defaultProps = {
-  tabs,
 };
 
 export default TabMenu;
