@@ -11,6 +11,11 @@ const StyledMenu = styled.div`
     height: 40px;
     line-height: 40px;
     padding: 10px;
+
+    &:hover {
+      background-color: #ff8e14;
+      cursor: pointer;
+    }
   }
 
   p {
