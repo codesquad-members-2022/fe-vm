@@ -26,7 +26,10 @@ const reducer = (state, action) => {
       //requested input amount
       const inputAmount = balance < amount ? balance : amount;
 
-      console.log(coins);
+      let realInputAmount = 0;
+      const newCoins = [...coins];
+      console.log(newCoins);
+      newCoins;
 
       const newLogs = [...logs];
       newLogs.push({
@@ -37,19 +40,20 @@ const reducer = (state, action) => {
       return {
         ...state,
         totalInputAmount: 10000,
-        logs,
+        logs: newLogs,
       };
     }
 
     case ACTION.INSERT_COIN: {
-      const { amount, count } = action.payload;
+      const { amount, count, index } = action.payload;
       const { logs, totalInputAmount, coins, balance } = state;
 
       const newLogs = [...logs];
       newLogs.push({ id: newLogs.length, message: `${amount.toLocaleString()}원이 투입됐습니다.` });
 
-      const newCoins = { ...coins };
-      newCoins[amount].count = count - 1;
+      const newCoins = [...coins];
+      newCoins[index] = { ...newCoins[index] };
+      newCoins[index].count = count - 1;
 
       const newTotalInputAmount = totalInputAmount + amount;
 
@@ -65,11 +69,12 @@ const reducer = (state, action) => {
     }
 
     case ACTION.INCREMENT_COIN: {
-      const { amount, count } = action.payload;
+      const { amount, count, index } = action.payload;
       const { coins, balance } = state;
 
-      const newCoins = { ...coins };
-      newCoins[amount].count = count + 1;
+      const newCoins = [...coins];
+      newCoins[index] = { ...newCoins[index] };
+      newCoins[index].count = count + 1;
 
       const newBalance = balance + amount;
 

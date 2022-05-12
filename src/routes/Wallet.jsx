@@ -13,8 +13,8 @@ const Wallet = () => {
     <WalletLayout>
       <WalletLayer>
         <CoinList>
-          {Object.values(coins).map(({ id, amount, count }) => (
-            <Coin key={id} amount={amount} count={count} dispatch={dispatch} />
+          {coins.map(({ id, amount, count }, index) => (
+            <Coin key={id} amount={amount} count={count} dispatch={dispatch} index={index} />
           ))}
         </CoinList>
         <Balance>총{balance.toLocaleString()}원</Balance>
@@ -23,7 +23,7 @@ const Wallet = () => {
   );
 };
 
-const Coin = memo(({ amount, count, dispatch }) => {
+const Coin = memo(({ amount, count, dispatch, index }) => {
   const onClickInsertButton = () => {
     if (count === 0) {
       return;
@@ -34,6 +34,7 @@ const Coin = memo(({ amount, count, dispatch }) => {
       payload: {
         amount,
         count,
+        index,
       },
     });
   };
@@ -44,6 +45,7 @@ const Coin = memo(({ amount, count, dispatch }) => {
       payload: {
         amount,
         count,
+        index,
       },
     });
   };

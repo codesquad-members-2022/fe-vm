@@ -151,43 +151,43 @@ export const products = [
   },
 ];
 
-export const coins = {
-  10: {
+export const coins = [
+  {
     id: '10',
     amount: 10,
     count: 1,
   },
-  50: {
+  {
     id: '50',
     amount: 50,
     count: 1,
   },
-  100: {
+  {
     id: '100',
     amount: 100,
     count: 1,
   },
-  500: {
+  {
     id: '500',
     amount: 500,
     count: 1,
   },
-  1000: {
+  {
     id: '1000',
     amount: 1000,
     count: 1,
   },
-  5000: {
+  {
     id: '5000',
     amount: 5000,
     count: 1,
   },
-  10000: {
+  {
     id: '10000',
     amount: 10000,
     count: 1,
   },
-};
+];
 
 export const logs = [];
 
