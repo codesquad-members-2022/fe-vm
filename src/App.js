@@ -8,6 +8,8 @@ import Container from './components/UI/container';
 import Vending from './components/layout/Vending/Vending';
 import Wallet from './components/layout/Wallet/Wallet';
 
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 function App() {
   return (
     <>
@@ -16,11 +18,13 @@ function App() {
         <AmountProvider>
           <AppContainer width="860px" height="100vh">
             <Header />
-            <Nav />
-            <main>
-              <Vending />
-              {/* <Wallet /> */}
-            </main>
+            <BrowserRouter>
+              <Nav />
+              <Routes>
+                <Route path="/" element={<Vending />} />
+                <Route path="/wallet" element={<Wallet />} />
+              </Routes>
+            </BrowserRouter>
           </AppContainer>
         </AmountProvider>
       </ThemeProvider>
@@ -28,6 +32,12 @@ function App() {
   );
 }
 
+//  //{' '}
+//  <main>
+//  // <Vending />
+//  // {/* <Wallet /> */}
+//  //{' '}
+// </main>
 const AppContainer = styled(Container)`
   background-color: ${({ theme }) => theme.colors.grey};
   margin: 0 auto;
