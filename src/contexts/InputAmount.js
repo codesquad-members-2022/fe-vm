@@ -9,14 +9,14 @@ const InputAmountContext = createContext({
 function InputAmountProvider({ children }) {
   const [inputAmount, setInputAmount] = useState(0);
 
-  function addAmount(money) {
+  function addInputAmount(money) {
     setInputAmount(inputAmount + money);
   }
-  function subtractAmount(money) {
+  function subtractInputAmount(money) {
     setInputAmount(inputAmount - money);
   }
 
-  const value = { inputAmount, addAmount, subtractAmount };
+  const value = { inputAmount, addInputAmount, subtractInputAmount };
   return <InputAmountContext.Provider value={value}>{children}</InputAmountContext.Provider>;
 }
 
