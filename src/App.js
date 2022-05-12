@@ -1,21 +1,20 @@
-import styled, { ThemeProvider } from "styled-components";
-import { createGlobalStyle } from "styled-components";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
+import { theme } from "styles";
 import reset from "styled-reset";
+import { DisplayProvider } from "context";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home, VendingMachine, Wallet, NotFound } from "pages";
-import { theme } from "styles";
-
-const StyledApp = styled.div`
-  display: grid;
-  place-items: center;
-  align-content: center;
-  min-height: 100vh;
-`;
 
 const GlobalStyles = createGlobalStyle`
 ${reset}
 * {
   box-sizing : border-box;
+}
+
+body{
+  width:100%;
+  margin: 0 auto;
+  font-family: sans-serif;
 }
 
 div {
@@ -26,14 +25,13 @@ a:hover {
   cursor: pointer;
   font-size: 1.2em;
 }
-
 `;
 
 function App() {
   return (
-    <StyledApp>
-      <GlobalStyles />
+    <DisplayProvider>
       <ThemeProvider theme={theme}>
+        <GlobalStyles />
         <BrowserRouter basename={process.env.PUBLIC_URL}>
           <Routes>
             <Route path="/" element={<Home />}>
@@ -45,7 +43,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
-    </StyledApp>
+    </DisplayProvider>
   );
 }
 

@@ -2,15 +2,17 @@ import styled from "styled-components";
 import { Vendproduct, VendController } from "components";
 
 const StyledVendingMachine = styled.div`
-  background-color: #ff0000;
+  margin-top: 50px;
   padding: 20px 20px 100px 20px;
   border-radius: 20px;
+  background-color: #ff0000;
 `;
 
 const VendingMachineTitle = styled.p`
   font-size: 2em;
   font-weight: 800;
   color: #fff;
+  font-family: cursive;
 `;
 
 const VendingMachineTop = styled.div`
