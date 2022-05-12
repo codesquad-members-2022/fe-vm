@@ -22,6 +22,12 @@
       ],
       "@assets/*": [
         "assets/*"
+      ],
+      "@constants/*": [
+        "constants/*"
+      ],
+      "@constants": [
+        "constants"
       ]
     }
   },
