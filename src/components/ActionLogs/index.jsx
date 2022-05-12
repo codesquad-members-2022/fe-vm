@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+
+import { VMContext } from '@/Provider/VMProvider';
 
 const ActionLogsLayout = styled.div`
   height: 580px;
@@ -11,21 +13,37 @@ const ActionLogsLayer = styled.ol`
   height: 100%;
 `;
 
+const ActionLogLayer = styled.li`
+  & + & {
+    margin-top: 10px;
+  }
+`;
+
+const Message = styled.p`
+  font-size: 18px;
+`;
+
 const ActionLogs = ({ className }) => {
+  const {
+    state: { logs },
+  } = useContext(VMContext);
+
   return (
     <ActionLogsLayout className={className}>
       <ActionLogsLayer>
-        <ActionLog />
+        {logs.map(({ id, message }) => (
+          <ActionLog key={id} message={message} />
+        ))}
       </ActionLogsLayer>
     </ActionLogsLayout>
   );
 };
 
-const ActionLog = () => {
+const ActionLog = ({ message }) => {
   return (
-    <li>
-      <p>ActionLog</p>
-    </li>
+    <ActionLogLayer>
+      <Message>{message}</Message>
+    </ActionLogLayer>
   );
 };
 

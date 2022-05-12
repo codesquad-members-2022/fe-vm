@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { VMContext } from '@/Provider/VMProvider';
+import { ACTION, VMContext } from '@/Provider/VMProvider';
 
 const InputControllerLayout = styled.div`
   display: flex;
@@ -99,10 +99,17 @@ const InputForm = ({ dispatch, setSubmitted }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    const inputValue = Number(inputRef.current.value);
+
     setSubmitted(true);
 
-    // TODO: 투입금액 업데이트
-    // TODO: 로그 업데이트
+    /* 금액 투입, 로그 추가 */
+    dispatch({
+      type: ACTION.INSERT_MONEY,
+      payload: {
+        amount: inputValue,
+      },
+    });
   };
 
   useEffect(() => {
@@ -111,7 +118,7 @@ const InputForm = ({ dispatch, setSubmitted }) => {
 
   return (
     <InputFormLayout onSubmit={onSubmit}>
-      <Input ref={inputRef} />
+      <Input ref={inputRef} min={0} />
     </InputFormLayout>
   );
 };
