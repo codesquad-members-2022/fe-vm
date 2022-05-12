@@ -1,6 +1,6 @@
 import { StyledItemContainer, StyledItemName, StyledItemPrice } from './itemBox.styled';
 import { getWonTemplate, delay } from '../../../helper/utils';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { InputMoneyContext, LogContext } from '../vendingMachine';
 
 export function ItemBox({ item, inProgress, setInProgress }) {

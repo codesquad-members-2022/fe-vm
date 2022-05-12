@@ -1,4 +1,4 @@
-import { ItemBox } from '../showWindow_itemBox/itemBox';
+import { ItemBox } from '../showWindowItemBox/itemBox';
 import { StyledShowWindowContainer } from './showWindow.styled';
 import { useState } from 'react';
 

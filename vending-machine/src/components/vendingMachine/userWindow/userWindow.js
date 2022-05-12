@@ -8,7 +8,7 @@ import {
 } from './userWindow.styled';
 import { useContext } from 'react';
 import { InputMoneyContext, LogContext } from '../vendingMachine';
-import { LogMonitor } from '../userWindow_logMonitor/logMonitor';
+import { LogMonitor } from '../userWindowLogMonitor/logMonitor';
 
 export function UserWindow() {
   const { inputMoney, setInputMoney } = useContext(InputMoneyContext);
