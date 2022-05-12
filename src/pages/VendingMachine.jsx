@@ -5,18 +5,22 @@ import initialProductsData from 'data/products';
 import { Container } from 'pages/VendingMachine.style';
 
 const ProductsContext = createContext([]);
+const PaymentContext = createContext([]);
 
 export default function VendingMachine() {
   const useProductsState = useState(initialProductsData);
+  const usePaymentState = useState(0);
 
   return (
     <ProductsContext.Provider value={useProductsState}>
-      <Container>
-        <ProductsArea />
-        <OrderArea />
-      </Container>
+      <PaymentContext.Provider value={usePaymentState}>
+        <Container>
+          <ProductsArea />
+          <OrderArea />
+        </Container>
+      </PaymentContext.Provider>
     </ProductsContext.Provider>
   );
 }
 
-export { ProductsContext };
+export { ProductsContext, PaymentContext };

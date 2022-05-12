@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, BtnWrap, ReturnBtn } from 'components/orderArea/OrderArea.style';
 import MoneySlot from 'components/orderArea/MoneySlot';
 import History from 'components/orderArea/History';
 import PutBtn from 'components/orderArea/PutBtn';
 
 export default function OrderArea() {
-  const usePaymentState = useState('');
-
   return (
     <Container>
-      <MoneySlot usePaymentState={usePaymentState} />
+      <MoneySlot />
       <BtnWrap>
-        <PutBtn usePaymentState={usePaymentState} />
+        <PutBtn />
         <ReturnBtn>반환</ReturnBtn>
       </BtnWrap>
       <History />
