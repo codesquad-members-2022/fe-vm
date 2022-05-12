@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import MoneyUtil from "./MoneyUtil";
-import MessageDisplay from "./MessageDisplay";
+import MoneyUtil from "./MoneyUtil/MoneyUtil";
+import MessageDisplay from "./MessageDisplay/MessageDisplay";
 
 const UtilArea = () => {
   return (
