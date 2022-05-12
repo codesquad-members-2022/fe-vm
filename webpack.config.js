@@ -1,9 +1,10 @@
-/* eslint-disable */
-const webpack = require('webpack');
 const path = require('path');
+
 const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
+
 // const dotenv = require("dotenv");
 
 module.exports = (env) => {
@@ -17,15 +18,15 @@ module.exports = (env) => {
   const DEV = NODE_ENV === 'development';
   const mode = DEV ? 'development' : 'production';
   const devtool = DEV ? 'eval-source-map' : false;
-  const lastCssLoader = DEV ? "style-loader" : MiniCssExtractPlugin.loader;
+  const lastCssLoader = DEV ? 'style-loader' : MiniCssExtractPlugin.loader;
   const miniCssExtractPlugin = DEV
     ? { apply: () => {} }
     : new MiniCssExtractPlugin({ filename: 'css/style.css' });
   const refreshWebpackPlugin = DEV ? new RefreshWebpackPlugin() : { apply: () => {} };
   const refreshBabel = DEV ? 'react-refresh/babel' : {};
-  const BASE_URL = DEV ? "" : "fe-vm"
+  const BASE_URL = DEV ? '' : 'fe-vm';
   const definePlugin = new webpack.DefinePlugin({
-    BASE_URL: JSON.stringify(BASE_URL)
+    BASE_URL: JSON.stringify(BASE_URL),
   });
 
   return {
