@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "components";
 import { VendingMachineContainer, Wallet, NotFound } from "pages";
@@ -17,18 +18,24 @@ const GlobalStyles = createGlobalStyle`
   }  
 `;
 
+export const MoneyContext = React.createContext();
+
 function App() {
+  const [inputMoney, setInputMoney] = useState(0);
+
   return (
     <>
-      <GlobalStyles />
-      <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<VendingMachineContainer />} />
-          <Route path="/vendingmachine" element={<VendingMachineContainer />} />
-          <Route path="/wallet" element={<Wallet />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <MoneyContext.Provider value={{ inputMoney, setInputMoney }}>
+        <GlobalStyles />
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index element={<VendingMachineContainer />} />
+            <Route path="/vendingmachine" element={<VendingMachineContainer />} />
+            <Route path="/wallet" element={<Wallet />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </MoneyContext.Provider>
     </>
   );
 }
