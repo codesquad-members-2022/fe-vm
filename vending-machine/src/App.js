@@ -1,10 +1,10 @@
 import { Reset } from "styled-reset";
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route, Link, Outlet } from "react-router-dom";
-import Layout from "./Layout";
-import VendingMachine from "./VendingMachine";
-import Wallet from "./Wallet";
-import NotFound from "./NotFound";
+import Layout from "./page/Layout";
+import VendingMachine from "./page/VendingMachine";
+import Wallet from "./page/Wallet";
+import NotFound from "./page/NotFound";
 
 function App() {
   return (
