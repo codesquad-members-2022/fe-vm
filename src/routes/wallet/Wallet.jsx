@@ -1,19 +1,29 @@
 import { useOutletContext } from "react-router-dom";
 import { v4 as uuid } from "uuid";
-import { WalletWrapper, WalletItemContainer, WalletItem } from "./Wallet.Style";
+import {
+    WalletContainer,
+    WalletItemContainer,
+    WalletItem,
+    TotalAmount,
+} from "./Wallet.Style";
 
 function Wallet() {
     const { wallet } = useOutletContext();
+    const totalAmount = Object.keys(wallet).reduce(
+        (acc, moneyUnit) => acc + moneyUnit * wallet[moneyUnit],
+        0
+    );
 
     return (
-        <WalletWrapper>
+        <WalletContainer>
             {Object.keys(wallet).map((moneyUnit) => (
                 <WalletItemContainer key={uuid()}>
-                    <WalletItem>{moneyUnit}</WalletItem>
-                    <WalletItem>{wallet[moneyUnit]}</WalletItem>
+                    <WalletItem>{moneyUnit}원</WalletItem>
+                    <WalletItem>{wallet[moneyUnit]}개</WalletItem>
                 </WalletItemContainer>
             ))}
-        </WalletWrapper>
+            <TotalAmount>{totalAmount.toLocaleString()}원</TotalAmount>
+        </WalletContainer>
     );
 }
 
