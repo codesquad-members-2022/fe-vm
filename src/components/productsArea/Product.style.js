@@ -9,6 +9,8 @@ const ProductBtn = styled.button`
 const Detail = styled.span`
   display: block;
   font-size: 50px;
+  letter-spacing: -20px;
+  text-indent: -20px;
 `;
 
 const Price = styled.span`

@@ -113,7 +113,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html {
-    font: 400 16px/1.4 'Do Hyeon', sans-serif;
+    font: 400 18px/1.4 'Do Hyeon', sans-serif;
   }
 
   body {

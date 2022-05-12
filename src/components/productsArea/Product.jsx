@@ -6,7 +6,7 @@ export default function Product({ detail, price }) {
   return (
     <ProductBtn>
       <Detail>{detail}</Detail>
-      <Price>{price}</Price>
+      <Price>{price.toLocaleString('en')}</Price>
     </ProductBtn>
   );
 }
