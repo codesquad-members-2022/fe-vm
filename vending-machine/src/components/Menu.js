@@ -1,27 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { CenterSort } from "../style/Globalstyles";
-import Product from "./Product";
+import ProductProvider from "../contexts/productContext";
 
 function Menu() {
   return (
     <MenuWrap>
       <ProductWindow>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
-        <Product></Product>
+        <ProductProvider></ProductProvider>
       </ProductWindow>
       <ProductOutput></ProductOutput>
     </MenuWrap>

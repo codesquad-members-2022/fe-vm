@@ -3,12 +3,12 @@ import styled from "styled-components";
 import canSrc from "../img/free-icon-beer-can-95982.png";
 import { CenterSort, HeightSort } from "../style/Globalstyles";
 
-function Product() {
+function Product({ title, price }) {
   return (
     <ProductWrap>
       <ProductImage src={canSrc}></ProductImage>
-      <ProductTitle>콜라</ProductTitle>
-      <ProductPrice>1000원</ProductPrice>
+      <ProductTitle>{title}</ProductTitle>
+      <ProductPrice>{price.toLocaleString()}원</ProductPrice>
     </ProductWrap>
   );
 }
