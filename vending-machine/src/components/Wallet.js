@@ -6,7 +6,7 @@ import Currency from "./Currency";
 import TotalMoney from "./TotalMoney";
 function Wallet() {
   const walletMoney = useContext(WalletContext);
-  const money = walletMoney.value.state;
+  const money = walletMoney.value.walletMoney;
   const sum = walletMoney.sum;
   return (
     <WalletWrap>
