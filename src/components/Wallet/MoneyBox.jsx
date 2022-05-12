@@ -8,21 +8,12 @@ import { MoneyContext } from 'context/MoneyProvider';
 
 const MoneyBox = ({ money: { amount, count } }) => {
   const [, setLogs] = useContext(LogContext);
-  const { walletMoney, setWalletMoney, inputMoney, setInputMoney } =
-    useContext(MoneyContext);
+  const { insertMoneyByClick } = useContext(MoneyContext);
 
   const isActive = count !== 0;
 
   const handleClickMoneyAmount = () => {
-    if (count === 0) return;
-    const newMoney = walletMoney.map((oMoney) => {
-      if (amount === oMoney.amount) {
-        return { ...oMoney, count: count - 1 };
-      }
-      return oMoney;
-    });
-    setInputMoney(inputMoney + amount);
-    setWalletMoney(newMoney);
+    insertMoneyByClick(count, amount);
     setLogs({
       type: 'insert',
       data: amount,

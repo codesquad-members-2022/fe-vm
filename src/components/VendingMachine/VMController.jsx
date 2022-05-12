@@ -8,11 +8,11 @@ import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
 
 const VMController = () => {
-  const { inputMoney, setInputMoney } = useContext(MoneyContext);
+  const { inputMoney, returnInputMoney } = useContext(MoneyContext);
   const [, insertLog] = useContext(LogContext);
 
   const handleClickReturnButton = () => {
-    setInputMoney(0);
+    returnInputMoney();
     insertLog({
       type: 'return',
       data: inputMoney,
