@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { MoneyContext } from 'components/App';
 import Coin from 'components/Coin';
-import COINS from 'mock/coins';
+import COINS from 'mocks/coins';
 
 function MoneyCharge() {
   const { curMoney } = useContext(MoneyContext);

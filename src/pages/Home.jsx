@@ -1,6 +1,6 @@
 import ControlPanel from 'components/ControlPanel';
 import Product from 'components/Product';
-import PRODUCTS from 'mock/products';
+import PRODUCTS from 'mocks/products';
 import React from 'react';
 import styled from 'styled-components';
 

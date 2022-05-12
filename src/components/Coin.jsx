@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { MoneyContext } from 'components/App';
-import MESSAGES from 'messages';
+import MESSAGES from 'constants/messages';
 
 function Coin({ amount, cnt }) {
   const { curMoney, setMoney, showErrorMsg } = useContext(MoneyContext);
