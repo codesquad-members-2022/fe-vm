@@ -17,6 +17,7 @@ export const BalanceProvider = ({ children }) => {
   const updateBalance = (newWallet, newInputSum) => {
     setWallet(newWallet);
     setInputSum(newInputSum);
+    request.patchData("wallet", "", newWallet);
   };
 
   return (

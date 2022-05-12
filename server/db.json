@@ -5,21 +5,21 @@
       "name": "product1",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
       "price": 1300,
-      "stock": 0
+      "stock": 3
     },
     {
       "id": 2,
       "name": "product2",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
       "price": 1300,
-      "stock": 0
+      "stock": 3
     },
     {
       "id": 3,
       "name": "product3",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
       "price": 1300,
-      "stock": 0
+      "stock": 4
     },
     {
       "id": 4,
@@ -91,8 +91,8 @@
     "100": 10,
     "500": 4,
     "1000": 10,
-    "5000": 10,
-    "10000": 0,
+    "5000": 4,
+    "10000": 1,
     "50000": 0
   }
 }
