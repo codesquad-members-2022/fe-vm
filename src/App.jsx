@@ -3,11 +3,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GNB from 'layout/GNB/GNB';
 import VendingMachine from 'pages/VendingMachine';
 import Wallet from 'pages/Wallet';
-import 'App.css';
+import { Container } from 'App.style';
 
 export default function App() {
   return (
-    <div className="App">
+    <Container>
       <BrowserRouter>
         <GNB />
         <Routes>
@@ -15,6 +15,6 @@ export default function App() {
           <Route path="/wallet" element={<Wallet />} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </Container>
   );
 }
