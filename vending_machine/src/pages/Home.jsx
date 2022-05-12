@@ -5,11 +5,11 @@ import DrinkMenu from '../components/DrinkMenu';
 import Order from '../components/Order';
 import { flexCenter } from '../style/mixins';
 
-const Home = ({ drinkData }) => {
+const Home = () => {
   return (
     <>
       <StyledDrinkMenuBox>
-        <DrinkMenu drinkData={drinkData} />
+        <DrinkMenu />
       </StyledDrinkMenuBox>
       <StyledOrderBox>
         <Order />
