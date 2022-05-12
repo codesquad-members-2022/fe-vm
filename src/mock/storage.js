@@ -150,3 +150,47 @@ export const products = [
     stock: 79,
   },
 ];
+
+export const coins = {
+  10: {
+    id: '10',
+    amount: 10,
+    count: 0,
+  },
+  50: {
+    id: '50',
+    amount: 50,
+    count: 0,
+  },
+  100: {
+    id: '100',
+    amount: 100,
+    count: 0,
+  },
+  500: {
+    id: '500',
+    amount: 500,
+    count: 0,
+  },
+  1000: {
+    id: '1000',
+    amount: 1000,
+    count: 0,
+  },
+  5000: {
+    id: '5000',
+    amount: 5000,
+    count: 0,
+  },
+  10000: {
+    id: '10000',
+    amount: 10000,
+    count: 0,
+  },
+};
+
+export const logs = [];
+
+export const inputAmount = 0;
+
+export const balance = 10000;

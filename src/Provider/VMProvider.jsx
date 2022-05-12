@@ -1,11 +1,13 @@
 import React, { createContext, useReducer, useMemo } from 'react';
 
-import { products } from '@/mock/storage';
+import { products, coins, logs, inputAmount, balance } from '@/mock/storage';
 
 const initialState = {
   products,
-  inputAmount: 0,
-  logs: [],
+  logs,
+  inputAmount,
+  balance,
+  coins,
 };
 
 const ACTION = {
@@ -18,7 +20,7 @@ const reducer = (state, action) => {
       const { amount } = action.payload;
       const logs = [...state.logs];
       const id = logs.length;
-      const message = `${amount}원이 투입됐습니다.`;
+      const message = `${amount.toLocaleString()}원이 투입됐습니다.`;
       logs.push({ id, message });
       return {
         ...state,
