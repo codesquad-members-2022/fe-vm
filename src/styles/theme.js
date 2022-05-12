@@ -25,8 +25,14 @@ const fontSize = {
   xSmall: '14px',
 };
 
+const activeNavStyle = {
+  backgroundColor: greyScale.white,
+  borderRadius: '10px',
+};
+
 export const theme = {
   greyScale,
   color,
   fontSize,
+  activeNavStyle,
 };

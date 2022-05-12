@@ -1,19 +1,33 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-import * as S from './Navbar.style';
+import * as S from '@/components/Navbar/Navbar.style';
+import { theme } from '@/styles/theme';
 
-const Header = () => {
+const Navbar = () => {
   return (
     <S.NavbarWrapper>
       <S.NavbarInner>
-        <S.LogoIcon />
+        <NavLink to="/" style={({ isActive }) => (isActive ? theme.activeNavStyle : undefined)}>
+          <S.LogoIcon />
+        </NavLink>
         <S.IconBox>
-          <S.MoneyIcon />
-          <S.StockIcon />
+          <NavLink
+            to="/wallet"
+            style={({ isActive }) => (isActive ? theme.activeNavStyle : undefined)}
+          >
+            <S.MoneyIcon />
+          </NavLink>
+          <NavLink
+            to="/stock"
+            style={({ isActive }) => (isActive ? theme.activeNavStyle : undefined)}
+          >
+            <S.StockIcon />
+          </NavLink>
         </S.IconBox>
       </S.NavbarInner>
     </S.NavbarWrapper>
   );
 };
 
-export default Header;
+export default Navbar;

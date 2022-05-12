@@ -1,12 +1,22 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Navbar from './components/Navbar';
+import Layout from '@/components/Layout';
+import Stock from '@/pages/Stock';
+import Vendor from '@/pages/Vendor';
+import Wallet from '@/pages/Wallet';
 
 const App = () => {
   return (
-    <>
-      <Navbar />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Vendor />} />
+          <Route path="/wallet" element={<Wallet />} />
+          <Route path="/stock" element={<Stock />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 };
 
