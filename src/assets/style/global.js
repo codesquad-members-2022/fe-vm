@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import CherryBombTTF from 'assets/font/CherryBomb-Regular.ttf';
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -46,6 +47,11 @@ li,
 menu {
   padding-left: 0;
   list-style: none;
+}
+
+@font-face {
+  font-family: 'CherryBomb';
+  src: url(${CherryBombTTF});
 }
 `;
 
