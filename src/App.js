@@ -2,8 +2,8 @@ import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import styled from 'styled-components';
 
-import {UserAccountContext} from '../Store';
-import {Home, VendingMachine, Wallet, NotFound} from '../Pages';
+import {UserAccountContext} from './Store';
+import {Home, VendingMachine, Wallet, NotFound} from './Pages';
 
 const AppWrapper = styled.div`
   display: flex;
