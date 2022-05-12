@@ -7,7 +7,6 @@ import Button from "../../common/Button";
 const ReturnButton = () => {
   const { inputSum, setInputSum } = useContext(InputSum);
   const { updateRecord } = useContext(Records);
-
   const handleClick = () => {
     if (!inputSum) return;
     updateRecord(activityType.RETURN_MONEY, inputSum);
