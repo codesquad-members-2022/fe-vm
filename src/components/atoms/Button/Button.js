@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { Size, Border, ColorStyle } from './Button.style';
+import StyledButton from './Button.style';
 
 const Button = ({ sizeType, borderType, colorType, children, onClick, disabled = false, ...props }) => {
   return (
@@ -17,12 +16,6 @@ const Button = ({ sizeType, borderType, colorType, children, onClick, disabled =
     </StyledButton>
   );
 };
-
-const StyledButton = styled.button`
-  ${({ sizeType }) => sizeType && Size[sizeType]}
-  ${({ borderType }) => borderType && Border[borderType]}
-  ${ColorStyle};
-`;
 
 Button.defaultProps = {
   sizeType: 'thin',

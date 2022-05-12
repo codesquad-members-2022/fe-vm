@@ -1,5 +1,5 @@
-import { defaultTheme } from 'style/default';
-import { css } from 'styled-components';
+import { defaultTheme } from 'assets/style/default';
+import styled, { css } from 'styled-components';
 import { darken, lighten } from 'polished';
 
 /* SizeType : width, height */
@@ -78,4 +78,10 @@ const ColorStyle = css`
   }
 `;
 
-export { Size, Border, ColorStyle };
+const StyledButton = styled.button`
+  ${({ sizeType }) => sizeType && Size[sizeType]}
+  ${({ borderType }) => borderType && Border[borderType]}
+  ${ColorStyle};
+`;
+
+export default StyledButton;
