@@ -1,4 +1,4 @@
-const product = [
+export const products = [
   {
     title: "콜라",
     price: 500,
@@ -66,6 +66,11 @@ const product = [
   },
   {
     title: "빅웨이브",
+    price: 1500,
+    amount: 4,
+  },
+  {
+    title: "블랑",
     price: 1500,
     amount: 4,
   },

@@ -1,4 +1,4 @@
-const wallet = [
+export const wallet = [
   {
     money: 10,
     amount: 2,
