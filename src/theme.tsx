@@ -1,7 +1,7 @@
 const colors = {
   gray1: '#434343',
   white: '#ffffff',
-  skyblue: 'skyblue',
+  ultramarine: '#7BCEEF',
 };
 
 const theme = { colors };
