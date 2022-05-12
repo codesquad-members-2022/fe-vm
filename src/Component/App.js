@@ -3,7 +3,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import styled from 'styled-components';
 
 import {UserAccountContext} from '../Store';
-import {Home, VendingMachine, Wallet} from '../Pages';
+import {Home, VendingMachine, Wallet, NotFound} from '../Pages';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -22,6 +22,7 @@ const App = () => {
               <Route path="vendingMachine" element={<VendingMachine />} />
               <Route path="wallet" element={<Wallet />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </UserAccountContext>
       </AppWrapper>
