@@ -19,8 +19,9 @@ const App = () => {
         <UserAccountContext>
           <Routes>
             <Route path="/" element={<Home />}>
-              <Route path="vendingMachine" element={<VendingMachine />} />
-              <Route path="wallet" element={<Wallet />} />
+              <Route index element={<VendingMachine />} />
+              <Route path="/vendingMachine" element={<VendingMachine />} />
+              <Route path="/wallet/*" element={<Wallet />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
