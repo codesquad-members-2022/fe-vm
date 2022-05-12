@@ -4,12 +4,24 @@ import Header from './Components/Header';
 import VendingMachine from './Components/Contents/VendingMachine/index';
 import Wallet from './Components/Contents/Wallet/index';
 
+const MENU = {
+  menu1: {
+    title: 'Vending Machine',
+    value: 'vending-machine',
+  },
+  menu2: {
+    title: 'Wallet',
+    value: 'wallet',
+  },
+};
+
 function App() {
   return (
     <>
-      <Header />
+      <Header menu={MENU} />
       <Routes>
         <Route path="/" element={<VendingMachine />} />
+        <Route path="/vending-machine" element={<VendingMachine />} />
         <Route path="/wallet" element={<Wallet />} />
       </Routes>
     </>
