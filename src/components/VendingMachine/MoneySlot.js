@@ -8,6 +8,7 @@ export default function MoneySlot() {
   const { getWithDrawableAmount } = useContext(WalletContext);
 
   const [isInput, setIsInput] = useState(false);
+  const [inputValue, setInputValue] = useState("");
 
   function inputMoney({ key, target }) {
     if (key !== "Enter") return;
@@ -21,12 +22,20 @@ export default function MoneySlot() {
   }
   function setInputFalse() {
     setIsInput(false);
+    setInputValue("");
+  }
+  function checkNumber({ target: { value } }) {
+    const numberRegeExp = /^[0-9]*$/;
+    if (numberRegeExp.test(value)) {
+      setInputValue(value);
+    }
   }
   return (
     <div>
       {isInput ? (
         <MoneySlotInput
-          defaultValue={!isInput ? inputAmount : ""}
+          value={inputValue}
+          onInput={checkNumber}
           onKeyPress={inputMoney}
           onBlur={setInputFalse}
           placeholder="돈 넣으세요"
