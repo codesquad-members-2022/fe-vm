@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { fetchData } from "../fetcher";
+import { request } from "../fetcher";
 
 export const Stocks = createContext();
 
@@ -8,7 +8,7 @@ export const StocksProvider = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      const initialStocks = await fetchData("stock");
+      const initialStocks = await request.getData("stock");
       setStocks(initialStocks);
     })();
   }, []);

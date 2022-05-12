@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchData } from "../../../fetcher";
+import { request } from "../../../fetcher";
 import styled from "styled-components";
 import ProductsDisplay from "./ProductsDisplay";
 
@@ -9,8 +9,8 @@ const ProductArea = () => {
 
   useEffect(() => {
     (async () => {
-      const initialProductsInfo = await fetchData("productsInfo");
-      const initialStockData = await fetchData("stock");
+      const initialProductsInfo = await request.getData("productsInfo");
+      const initialStockData = await request.getData("stock");
       setProductsInfo(initialProductsInfo);
       setStockData(initialStockData);
     })();

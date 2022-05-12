@@ -1,0 +1,102 @@
+{
+  "stock": {
+    "1": 3,
+    "2": 3,
+    "3": 3,
+    "4": 3,
+    "5": 3,
+    "6": 3,
+    "7": 3,
+    "8": 3,
+    "9": 3,
+    "10": 0,
+    "11": 0,
+    "12": 0
+  },
+
+  "productsInfo": [
+    {
+      "id": 1,
+      "name": "product1",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "price": 1000
+    },
+    {
+      "id": 2,
+      "name": "product2",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "price": 1100
+    },
+    {
+      "id": 3,
+      "name": "product3",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "price": 1200
+    },
+    {
+      "id": 4,
+      "name": "product4",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "price": 1300
+    },
+    {
+      "id": 5,
+      "name": "product5",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "price": 1400
+    },
+    {
+      "id": 6,
+      "name": "product6",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "price": 1500
+    },
+    {
+      "id": 7,
+      "name": "product7",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "price": 1600
+    },
+    {
+      "id": 8,
+      "name": "product8",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "price": 1700
+    },
+    {
+      "id": 9,
+      "name": "product9",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "price": 1800
+    },
+    {
+      "id": 10,
+      "name": "product10",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "price": 1900
+    },
+    {
+      "id": 11,
+      "name": "product11",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "price": 2000
+    },
+    {
+      "id": 12,
+      "name": "product12",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "price": 2100
+    }
+  ],
+
+  "wallet": {
+    "10": 10,
+    "50": 2,
+    "100": 10,
+    "500": 4,
+    "1000": 10,
+    "5000": 10,
+    "10000": 0,
+    "50000": 0
+  }
+}
