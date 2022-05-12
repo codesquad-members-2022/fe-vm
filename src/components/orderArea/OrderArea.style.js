@@ -13,14 +13,6 @@ const BtnWrap = styled.div`
   margin: 30px 0;
 `;
 
-const PutBtn = styled.button`
-  width: 65px;
-  line-height: 65px;
-  border-radius: 50%;
-  background: #25dd39;
-  color: #fff;
-`;
-
 const ReturnBtn = styled.button`
   width: 65px;
   line-height: 65px;
@@ -29,4 +21,4 @@ const ReturnBtn = styled.button`
   color: #fff;
 `;
 
-export { Container, BtnWrap, PutBtn, ReturnBtn };
+export { Container, BtnWrap, ReturnBtn };
