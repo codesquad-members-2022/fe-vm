@@ -1,0 +1,5 @@
+export const VENDING_MACHINE_WIDTH = 1000;
+
+export const VENDING_MACHINE_HEIHGT = 700;
+
+export const VENDING_MACHINE_PRODUCT_HEIGHT = 100;
