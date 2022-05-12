@@ -38,13 +38,23 @@ const Coin = memo(({ amount, count, dispatch }) => {
     });
   };
 
+  const onClickIncrementButton = () => {
+    dispatch({
+      type: ACTION.INCREMENT_COIN,
+      payload: {
+        amount,
+        count,
+      },
+    });
+  };
+
   return (
     <CoinLayer>
       <Amount>
         <InsertButton onClick={onClickInsertButton}>{amount}원</InsertButton>
       </Amount>
       <Count>{count}개</Count>
-      <IncrementButton>+</IncrementButton>
+      <IncrementButton onClick={onClickIncrementButton}>+</IncrementButton>
     </CoinLayer>
   );
 });

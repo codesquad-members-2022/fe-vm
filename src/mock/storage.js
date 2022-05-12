@@ -191,7 +191,7 @@ export const coins = {
 
 export const logs = [];
 
-export const inputAmount = 0;
+export const totalInputAmount = 0;
 
 export const balance = Object.values(coins).reduce((acc, cur) => {
   return acc + cur.amount * cur.count;

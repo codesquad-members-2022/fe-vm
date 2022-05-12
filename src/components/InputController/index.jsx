@@ -4,23 +4,25 @@ import styled from 'styled-components';
 import { ACTION, VMContext } from '@/Provider/VMProvider';
 
 const InputController = ({ className }) => {
-  const [submitted, setSubmitted] = useState(true);
+  const [isSubmitted, setIsSubmitted] = useState(true);
   const {
-    state: { inputAmount },
+    state: { totalInputAmount },
     dispatch,
   } = useContext(VMContext);
 
   const onClickInputAmount = () => {
-    setSubmitted(false);
+    setIsSubmitted(false);
   };
 
   return (
     <InputControllerLayout className={className}>
       <InputLayer>
-        {submitted ? (
-          <InputAmount onClick={onClickInputAmount}>{inputAmount.toLocaleString()}</InputAmount>
+        {isSubmitted ? (
+          <InputAmount onClick={onClickInputAmount}>
+            {totalInputAmount.toLocaleString()}
+          </InputAmount>
         ) : (
-          <InputForm dispatch={dispatch} setSubmitted={setSubmitted} />
+          <InputForm dispatch={dispatch} setIsSubmitted={setIsSubmitted} />
         )}
         <span>원</span>
       </InputLayer>
@@ -29,14 +31,14 @@ const InputController = ({ className }) => {
   );
 };
 
-const InputForm = ({ dispatch, setSubmitted }) => {
+const InputForm = ({ dispatch, setIsSubmitted }) => {
   const inputRef = useRef(null);
 
   const onSubmit = (e) => {
     e.preventDefault();
     const inputValue = Number(inputRef.current.value);
 
-    setSubmitted(true);
+    setIsSubmitted(true);
 
     /* 금액 투입, 로그 추가 */
     dispatch({
