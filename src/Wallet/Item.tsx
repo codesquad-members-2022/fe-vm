@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface ItemProps {
-  money: string;
+  unit: number;
   count: number;
 }
 
@@ -13,10 +13,10 @@ const ItemComponent = styled.div`
   border: 2px solid ${({ theme }) => theme.colors.gray1};
 `;
 
-export default function Item({ money, count }: ItemProps): JSX.Element {
+export default function Item({ unit, count }: ItemProps): JSX.Element {
   return (
     <>
-      <ItemComponent>{money}원</ItemComponent>
+      <ItemComponent>{unit}원</ItemComponent>
       <ItemComponent>{count}개</ItemComponent>
     </>
   );
