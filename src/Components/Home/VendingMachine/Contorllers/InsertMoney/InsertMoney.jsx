@@ -15,9 +15,16 @@ import {
 
 const InsertMoney = () => {
 	const unit = '원';
-	const debounceTime = 2000;
-	const { coins, coinsSum, money, setMoney, showedMoney, setShowedMoney } =
-		useContext(CoinsContext);
+	const debounceTime = 1000;
+	const {
+		coins,
+		coinsSum,
+		money,
+		showedMoney,
+		isTakingOut,
+		setMoney,
+		setShowedMoney,
+	} = useContext(CoinsContext);
 
 	const handleInput = ({ target: { value } }) => {
 		const rNumber = /^[0-9]+$|^$/;
@@ -26,9 +33,7 @@ const InsertMoney = () => {
 		if (rNumber.test(valueNumber)) setShowedMoney(valueNumber);
 	};
 
-	const handleClick = () => {
-		setShowedMoney(0);
-	};
+	const handleClick = () => !isTakingOut && setShowedMoney(0);
 
 	const checkShowedMoney = () => {
 		const difference = showedMoney - money;
@@ -52,17 +57,21 @@ const InsertMoney = () => {
 
 	return (
 		<>
-			<InsertMoneyDiv>
+			<InsertMoneyDiv isTakingOut={isTakingOut}>
 				<InsertMoneyValue
 					type="text"
 					maxLength="11"
 					onInput={handleInput}
 					onPaste={handleInput}
 					value={getPriceType(showedMoney)}
+					disabled={isTakingOut}
+					isTakingOut={isTakingOut}
 				/>
 				{unit}
 			</InsertMoneyDiv>
-			<WithdrawDiv onClick={handleClick}>반납</WithdrawDiv>
+			<WithdrawDiv onClick={handleClick} isTakingOut={isTakingOut}>
+				반납
+			</WithdrawDiv>
 		</>
 	);
 };

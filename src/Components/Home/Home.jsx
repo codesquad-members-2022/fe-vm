@@ -3,12 +3,13 @@ import { Outlet } from 'react-router-dom';
 
 import coinsApi from 'Service/coinsApi';
 import CoinsContext from './CoinsContext';
-import { NavigatorDiv, HomeDiv } from './Home.styled';
+import { NavigatorDiv, NavigatorlistDiv, HomeDiv } from './Home.styled';
 
 const Home = () => {
 	const [coins, setCoins] = useState([]);
 	const [money, setMoney] = useState(0);
 	const [showedMoney, setShowedMoney] = useState(0);
+	const [isTakingOut, setIsTakingOut] = useState(false);
 
 	const fetchCoins = async () => {
 		const coinsData = await coinsApi.getCoins();
@@ -27,8 +28,10 @@ const Home = () => {
 			setMoney,
 			showedMoney,
 			setShowedMoney,
+			isTakingOut,
+			setIsTakingOut,
 		};
-	}, [coins, money, showedMoney]);
+	}, [coins, money, showedMoney, isTakingOut]);
 
 	useEffect(() => {
 		fetchCoins();
@@ -37,8 +40,8 @@ const Home = () => {
 	return (
 		<HomeDiv>
 			<NavigatorDiv>
-				<div>자판기</div>
-				<div>지갑</div>
+				<NavigatorlistDiv>자판기</NavigatorlistDiv>
+				<NavigatorlistDiv>지갑</NavigatorlistDiv>
 			</NavigatorDiv>
 			<CoinsContext.Provider value={contextInfo}>
 				<Outlet />

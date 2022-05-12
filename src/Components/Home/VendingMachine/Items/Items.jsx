@@ -1,11 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
+import CoinsContext from 'Components/Home/CoinsContext';
 import itemsApi from 'Service/itemsApi';
 import Item from './Item';
-import { ItemsDiv, ItemDiv } from './Items.styled';
+import {
+	ItemsWrapper,
+	ItemsDiv,
+	ItemDiv,
+	TakingOutDiv,
+	Loading,
+} from './Items.styled';
 
 const Items = () => {
 	const [items, setItems] = useState([]);
+	const { isTakingOut } = useContext(CoinsContext);
 
 	const fetchItems = async () => {
 		const itemsData = await itemsApi.getItems();
@@ -24,7 +32,19 @@ const Items = () => {
 		fetchItems();
 	}, []);
 
-	return <ItemsDiv>{list}</ItemsDiv>;
+	return (
+		<ItemsWrapper>
+			<TakingOutDiv isTakingOut={isTakingOut}>
+				<div>
+					상품이 나오는 중
+					<Loading>
+						<div />
+					</Loading>
+				</div>
+			</TakingOutDiv>
+			<ItemsDiv>{list}</ItemsDiv>
+		</ItemsWrapper>
+	);
 };
 
 export default Items;
