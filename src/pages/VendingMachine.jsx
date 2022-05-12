@@ -1,22 +1,22 @@
 import React, { useState, createContext } from 'react';
 import ProductsArea from 'components/productsArea/ProductsArea';
 import OrderArea from 'components/orderArea/OrderArea';
-import prdData from 'data/products';
+import initialProductsData from 'data/products';
 import { Container } from 'pages/VendingMachine.style';
 
-const VendingMachineContext = createContext([]);
+const ProductsContext = createContext([]);
 
 export default function VendingMachine() {
-  const [productsData, setProductsData] = useState(prdData);
+  const useProductsState = useState(initialProductsData);
 
   return (
-    <VendingMachineContext.Provider value={productsData}>
+    <ProductsContext.Provider value={useProductsState}>
       <Container>
         <ProductsArea />
         <OrderArea />
       </Container>
-    </VendingMachineContext.Provider>
+    </ProductsContext.Provider>
   );
 }
 
-export { VendingMachineContext };
+export { ProductsContext };
