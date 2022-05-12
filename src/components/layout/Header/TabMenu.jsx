@@ -1,8 +1,10 @@
-import { Link } from 'react-router-dom';
+import { useContext, useMemo } from 'react';
+import { Link, useMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { CashContext } from 'context';
 import { COLORS, TYPOGRAPHY } from 'constants';
-import { useState } from 'react';
+import { formatPrice } from 'util/util';
 
 const menus = [
   { id: 1, label: '자판기', link: 'vendingMachine' },
@@ -11,21 +13,19 @@ const menus = [
 ];
 
 const TabMenu = () => {
-  const defaultMenuId = 1;
-  const [activeTabId, setActiveTabId] = useState(defaultMenuId);
+  const path = useMatch('/:page')?.params.page;
+  const walletMenuId = 2;
 
-  const handleTabClick = id => {
-    if (activeTabId === id) return;
-    setActiveTabId(id);
-  };
+  const { totalCash } = useContext(CashContext);
 
   return (
     <nav>
       <Menus>
         {menus.map(({ id, label, link }) => (
-          <Menu key={id} isActive={id === activeTabId ? true : false}>
-            <Link onClick={() => handleTabClick(id)} to={link}>
+          <Menu key={id} isActive={link === path}>
+            <Link to={link}>
               {label}
+              {id === walletMenuId && `(${formatPrice(totalCash)})`}
             </Link>
           </Menu>
         ))}
@@ -47,7 +47,7 @@ const Menu = styled.li`
     font-size: ${TYPOGRAPHY.SIZE.LARGE};
     font-weight: ${TYPOGRAPHY.WEIGHT.MEDIUM};
     color: ${({ isActive }) => (isActive ? COLORS.BLUE : COLORS.BLACK)};
-    ${({ isActive }) => (isActive ? `border-bottom: 2px solid ${COLORS.BLUE}` : '')};
+    ${({ isActive }) => isActive && `border-bottom: 2px solid ${COLORS.BLUE}`};
   }
 `;
 
