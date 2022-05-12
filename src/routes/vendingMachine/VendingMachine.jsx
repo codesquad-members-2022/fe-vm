@@ -1,7 +1,7 @@
 import { useOutletContext } from "react-router-dom";
-import MoneySlot from "../components/moneySlot/MoneySlot";
-import Products from "../components/product/Products";
-import RecordBoard from "../components/recordBoard/RecordBoard";
+import MoneySlot from "../../components/moneySlot/MoneySlot";
+import Products from "../../components/product/Products";
+import RecordBoard from "../../components/recordBoard/RecordBoard";
 import {
     VendingMachineContainer,
     UserInputInformationContainer,

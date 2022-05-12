@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./routes/Home";
-import VendingMachine from "./routes/VendingMachine";
-import Wallet from "./routes/Wallet";
+import Home from "./routes/home/Home";
+import VendingMachine from "./routes/vendingMachine/VendingMachine";
+import Wallet from "./routes/wallet/Wallet";
 import NotFound from "./routes/NotFound";
 import { GlobalStyle } from "./GlobalStyle";
 

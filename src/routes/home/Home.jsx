@@ -1,6 +1,6 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import dataOfwallet from "../data/wallet";
+import dataOfwallet from "../../data/wallet";
 import { HomeContainer, TabNav, TabButton } from "./Home.style";
 
 const VM = "vm";

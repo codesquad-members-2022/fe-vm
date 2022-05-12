@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { RoundBorder } from "../GlobalStyle";
+import { RoundBorder } from "../../GlobalStyle";
 
 const WalletWrapper = styled(RoundBorder)`
     display: flex;
