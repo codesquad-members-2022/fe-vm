@@ -1,9 +1,10 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Container, MoneyInput, Unit } from 'components/orderArea/MoneySlot.style';
+import { PaymentContext } from 'components/orderArea/OrderArea';
 
 export default function MoneySlot() {
-  const [payment, setPayMent] = useState('');
+  const [payment, setPayMent] = useContext(PaymentContext);
 
   const isRightPayMent = inputValue => {
     if (inputValue[0] === '0') return false;
@@ -17,8 +18,6 @@ export default function MoneySlot() {
     const numPayMent = Number(inputValue.replace(/[,]/gim, ''));
     if (isRightPayMent(inputValue)) setPayMent(numPayMent);
   };
-
-  useEffect(() => {}, [payment]);
 
   return (
     <Container>
