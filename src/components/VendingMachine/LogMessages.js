@@ -1,7 +1,16 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { LogContext } from "../../contexts/Log";
 
 export default function LogMessages() {
-  return <LogMessagesWrapper>100000원이 투입되었음</LogMessagesWrapper>;
+  const { logMessages } = useContext(LogContext);
+  return (
+    <LogMessagesWrapper>
+      {logMessages.map((logMessage, index) => (
+        <LogMessage key={index}>{logMessage}</LogMessage>
+      ))}
+    </LogMessagesWrapper>
+  );
 }
 
 const LogMessagesWrapper = styled.div`
@@ -13,3 +22,4 @@ const LogMessagesWrapper = styled.div`
   height: 200px;
   overflow: auto;
 `;
+const LogMessage = styled.div``;

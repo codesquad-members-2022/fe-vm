@@ -1,14 +1,17 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { InputAmountContext } from "../../contexts/InputAmount";
+import { LogContext } from "../../contexts/Log";
 import { WalletContext } from "../../contexts/WalletContext";
 
 export default function MoneyAmount({ value, amount }) {
   const { subtractMoney } = useContext(WalletContext);
   const { addInputAmount } = useContext(InputAmountContext);
+  const { log } = useContext(LogContext);
   function insertMoneyToVM() {
     subtractMoney(value, 1);
     addInputAmount(value);
+    log("insert", value);
   }
   return (
     <MoneyAmountWrapper>

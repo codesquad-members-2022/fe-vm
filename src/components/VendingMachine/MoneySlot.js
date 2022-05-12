@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import { InputAmountContext } from "../../contexts/InputAmount";
+import { LogContext } from "../../contexts/Log";
 import { WalletContext } from "../../contexts/WalletContext";
 
 export default function MoneySlot() {
   const { inputAmount, addInputAmount } = useContext(InputAmountContext);
   const { getWithDrawableAmount } = useContext(WalletContext);
+  const { log } = useContext(LogContext);
 
   const [isInput, setIsInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -15,7 +17,7 @@ export default function MoneySlot() {
     const withDrawableAmount = getWithDrawableAmount(Number(target.value));
     addInputAmount(withDrawableAmount);
     setInputFalse();
-    console.log(`${withDrawableAmount}원이 투입됨`); // log context로 변경 예정
+    log("insert", withDrawableAmount); // log context로 변경 예정
   }
   function setInputTrue() {
     setIsInput(true);
