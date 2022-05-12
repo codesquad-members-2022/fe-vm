@@ -10,13 +10,13 @@ const WalletContext = createContext({
 function WalletProvider({ children }) {
   const [amountOfMoney, setAmountOfMoney] = useState({});
 
-  function getWithDrawableAmount(money) {
+  function getWithdrawableAmount(requiredAmount) {
     const amountOfMoneyTemp = amountOfMoney;
     const withdrawableAmount = Object.entries(amountOfMoneyTemp)
       .sort((a, b) => b[0] - a[0])
       .map(([value, amount]) => {
-        const numberOfSubstracted = Math.min(Math.floor(money / Number(value)), amount);
-        money -= value * numberOfSubstracted;
+        const numberOfSubstracted = Math.min(Math.floor(requiredAmount / Number(value)), amount);
+        requiredAmount -= value * numberOfSubstracted;
         amountOfMoneyTemp[value] -= numberOfSubstracted;
         return [value, numberOfSubstracted];
       })
@@ -40,7 +40,7 @@ function WalletProvider({ children }) {
   useEffect(() => {
     setAmountOfMoney(amountOfMoneyData);
   }, []);
-  const value = { amountOfMoney, getWithDrawableAmount, getTotalMoney, subtractMoney };
+  const value = { amountOfMoney, getWithdrawableAmount, getTotalMoney, subtractMoney };
   return <WalletContext.Provider value={value}>{children}</WalletContext.Provider>;
 }
 

@@ -6,7 +6,7 @@ import { WalletContext } from "../../contexts/WalletContext";
 
 export default function MoneySlot() {
   const { inputAmount, addInputAmount } = useContext(InputAmountContext);
-  const { getWithDrawableAmount } = useContext(WalletContext);
+  const { getWithdrawableAmount } = useContext(WalletContext);
   const { log } = useContext(LogContext);
 
   const [isInput, setIsInput] = useState(false);
@@ -14,10 +14,10 @@ export default function MoneySlot() {
 
   function inputMoney({ key, target }) {
     if (key !== "Enter") return;
-    const withDrawableAmount = getWithDrawableAmount(Number(target.value));
-    addInputAmount(withDrawableAmount);
+    const withdrawableAmount = getWithdrawableAmount(Number(target.value));
+    addInputAmount(withdrawableAmount);
     setInputFalse();
-    log("insert", withDrawableAmount); // log context로 변경 예정
+    log("insert", withdrawableAmount); // log context로 변경 예정
   }
   function setInputTrue() {
     setIsInput(true);
