@@ -1,6 +1,10 @@
 import styled, { css } from 'styled-components';
 
+const MessagesWrapper = styled.div``;
+
 const MessagesDiv = styled.div`
+	height: 80px;
+	overflow: scroll;
 	padding: 20px;
 	flex-grow: 1;
 	text-align: left;
@@ -9,8 +13,8 @@ const MessagesDiv = styled.div`
 	`}
 `;
 
-const Messages = () => {
-	return <MessagesDiv>MESSAGES</MessagesDiv>;
-};
+const MessageDiv = styled.div`
+	padding: 2px;
+`;
 
-export default Messages;
+export { MessagesWrapper, MessagesDiv, MessageDiv };

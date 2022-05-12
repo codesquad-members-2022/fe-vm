@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 
-import CoinsContext from 'Components/Home/CoinsContext';
+import { IsTakingOutContext } from 'Components/Contexts';
 import itemsApi from 'Service/itemsApi';
 import Item from './Item';
 import {
@@ -13,7 +13,7 @@ import {
 
 const Items = () => {
 	const [items, setItems] = useState([]);
-	const { isTakingOut } = useContext(CoinsContext);
+	const { isTakingOut } = useContext(IsTakingOutContext);
 
 	const fetchItems = async () => {
 		const itemsData = await itemsApi.getItems();

@@ -19,67 +19,15 @@ const useDebounce = (func, delay, deps) => {
 	}, [callback, delay]);
 };
 
-const spendMoney = (coins, difference) => {
-	const coinsInWallet = [...coins]; // 복사 방식 변경 필요!
-	let totalCount = coinsInWallet.reduce((pre, post) => {
-		return pre + post.count;
-	}, 0);
-
-	const getTargetMoneyId = (array, targetId = array.length - 1) => {
-		if (targetId < 0) return targetId;
-
-		const id = array[targetId].count
-			? targetId
-			: getTargetMoneyId(array, targetId - 1);
-		return id;
-	};
-
-	let targetMoneyId = getTargetMoneyId(coinsInWallet);
-	let remainedPrice = difference;
-
-	while (remainedPrice > 0 && totalCount && targetMoneyId >= 0) {
-		const targetMoney = coinsInWallet[targetMoneyId];
-		const targetPrice = targetMoney.price;
-
-		if (remainedPrice >= targetPrice) {
-			remainedPrice -= targetPrice;
-			targetMoney.count -= 1;
-			totalCount -= 1;
-		} else {
-			targetMoneyId -= 1;
-		}
-
-		if (!targetMoney.count) {
-			targetMoneyId = getTargetMoneyId(coinsInWallet, targetMoneyId - 1);
-		}
-	}
-
-	const calculatedMoney = difference - remainedPrice;
-
-	return { calculatedMoney, coinsInWallet };
+const getPresentTime = () => {
+	const now = new Date();
+	let hours = now.getHours();
+	let minutes = now.getMinutes();
+	let seconds = now.getSeconds();
+	hours = hours < 10 ? `0${hours}` : hours;
+	minutes = minutes < 10 ? `0${minutes}` : minutes;
+	seconds = seconds < 10 ? `0${seconds}` : seconds;
+	return `${hours}:${minutes}:${seconds}`;
 };
 
-const withdrawMoney = (coins, difference) => {
-	const coinsInWallet = [...coins]; // 복사 방식 변경 필요!
-
-	let targetMoneyId = coinsInWallet[coinsInWallet.length - 1].id;
-	let remainedPrice = Math.abs(difference);
-
-	while (remainedPrice > 0 && targetMoneyId >= 0) {
-		const targetMoney = coinsInWallet[targetMoneyId];
-		const targetPrice = targetMoney.price;
-
-		if (remainedPrice >= targetPrice) {
-			remainedPrice -= targetPrice;
-			targetMoney.count += 1;
-		} else {
-			targetMoneyId -= 1;
-		}
-	}
-
-	const calculatedMoney = difference + remainedPrice;
-
-	return { calculatedMoney, coinsInWallet };
-};
-
-export { getPriceType, useDebounce, spendMoney, withdrawMoney };
+export { getPriceType, useDebounce, getPresentTime };
