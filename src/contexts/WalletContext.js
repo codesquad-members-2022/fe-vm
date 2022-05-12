@@ -33,10 +33,14 @@ function WalletProvider({ children }) {
     );
   }
 
+  function subtractMoney(value, numberOfSubstracted) {
+    setAmountOfMoney({ ...amountOfMoney, [value]: amountOfMoney[value] - numberOfSubstracted });
+  }
+
   useEffect(() => {
     setAmountOfMoney(amountOfMoneyData);
   }, []);
-  const value = { amountOfMoney, getWithDrawableAmount, getTotalMoney };
+  const value = { amountOfMoney, getWithDrawableAmount, getTotalMoney, subtractMoney };
   return <WalletContext.Provider value={value}>{children}</WalletContext.Provider>;
 }
 

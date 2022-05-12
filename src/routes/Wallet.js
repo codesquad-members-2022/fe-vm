@@ -27,5 +27,7 @@ const WalletWrapper = styled.div`
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 `;
 const TotalMoney = styled.div`
+  width: 200px;
   font-size: 40px;
+  text-align: center;
 `;
