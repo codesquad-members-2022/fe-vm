@@ -1,6 +1,6 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { Context as VMcontext } from 'context/VMcontext';
+import React, { useCallback, useState } from 'react';
 import Products from 'components/Products';
+import { useVMContext } from 'context/VMContext';
 import InsertMoneyForm from './InsertMoneyForm';
 import * as S from './style';
 
@@ -20,9 +20,8 @@ const findTargetUnit = (existUnits, submitOnlyNumber) => {
   return targetUnit?.unit;
 };
 
-function VendingMachine(props) {
-  const { VMstate, VMdispatch } = useContext(VMcontext);
-  const { totalBalance, changesUnits } = VMstate;
+function VendingMachine() {
+  const { totalBalance, changesUnits } = useVMContext();
   // FIXME: input defualt value 0일 때 에러 수정 -> 0123, 1230이런식으로 0이 안없어짐
   const [insertMoney, setInsertMoney] = useState(0);
 

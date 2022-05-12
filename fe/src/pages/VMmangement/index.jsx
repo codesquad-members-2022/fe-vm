@@ -1,12 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 import ChangesUnits from 'pages/VMmangement/ChangesUnits';
-import { Context as VMcontext } from 'context/VMcontext';
 import Products from 'components/Products';
+import { useVMContext } from 'context/VMContext';
 import * as S from './style';
 
 function VMmangement() {
-  const { VMstate, VMdispatch } = useContext(VMcontext);
-  const { totalBalance, changesUnits } = VMstate;
+  const { totalBalance, changesUnits, divideBalance } = useVMContext();
+  console.log('changesUnits', changesUnits);
+
+  useEffect(() => {
+    divideBalance(changesUnits, totalBalance);
+  }, [totalBalance, divideBalance]);
+
   return (
     <S.Container>
       <Products isPriceUnderInsertMoney={() => {}} />
