@@ -5,7 +5,7 @@ import initialProductsData from 'data/products';
 import { Container } from 'pages/VendingMachine.style';
 
 const ProductsContext = createContext([]);
-const PaymentContext = createContext([]);
+const FinalPayContext = createContext([]);
 
 export default function VendingMachine() {
   const useProductsState = useState(initialProductsData);
@@ -13,14 +13,14 @@ export default function VendingMachine() {
 
   return (
     <ProductsContext.Provider value={useProductsState}>
-      <PaymentContext.Provider value={usePaymentState}>
+      <FinalPayContext.Provider value={usePaymentState}>
         <Container>
           <ProductsArea />
           <OrderArea />
         </Container>
-      </PaymentContext.Provider>
+      </FinalPayContext.Provider>
     </ProductsContext.Provider>
   );
 }
 
-export { ProductsContext, PaymentContext };
+export { ProductsContext, FinalPayContext };

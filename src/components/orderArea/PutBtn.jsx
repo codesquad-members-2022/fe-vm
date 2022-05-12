@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'components/orderArea/PutBtn.style';
-import { PaymentContext } from 'pages/VendingMachine';
+import { FinalPayContext } from 'pages/VendingMachine';
 import { WalletContext } from 'App';
 
-export default function PutBtn() {
-  const [payment, setPayment] = useContext(PaymentContext);
-  const [walletState, setWalletState] = useContext(WalletContext);
+export default function PutBtn({ inputPay }) {
+  const [finalPay, setFinalPay] = useContext(FinalPayContext);
+  const [walletState] = useContext(WalletContext);
 
   const getSumOfUnitCloseToPayment = (sumOfUnit, unit, quantity) => {
     let newSumOfUnit = sumOfUnit;
@@ -14,7 +15,7 @@ export default function PutBtn() {
 
     while (usedAmount <= quantity) {
       newSumOfUnit += unit;
-      if (newSumOfUnit + unit > payment) break;
+      if (newSumOfUnit + unit > inputPay) break;
       usedAmount += 1;
     }
 
@@ -24,7 +25,7 @@ export default function PutBtn() {
   const modifyPayment = () => {
     const usedMoney = {};
     const modifiedPayment = walletState.reduceRight((sumOfUnit, { unit, quantity }) => {
-      if (sumOfUnit + unit > payment || !quantity) return sumOfUnit;
+      if (sumOfUnit + unit > inputPay || !quantity) return sumOfUnit;
 
       const { newSumOfUnit, usedAmount } = getSumOfUnitCloseToPayment(sumOfUnit, unit, quantity);
       usedMoney[unit] = usedAmount;
@@ -37,8 +38,16 @@ export default function PutBtn() {
 
   const handlePutBtnClick = () => {
     const { modifiedPayment, usedMoney } = modifyPayment();
-    setPayment(modifiedPayment);
+    setFinalPay(modifiedPayment);
   };
 
   return <Button onClick={handlePutBtnClick}>투입</Button>;
 }
+
+PutBtn.propTypes = {
+  inputPay: PropTypes.number
+};
+
+PutBtn.defaultProps = {
+  inputPay: 0
+};

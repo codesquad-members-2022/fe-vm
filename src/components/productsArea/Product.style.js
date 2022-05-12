@@ -5,7 +5,7 @@ const ProductBtn = styled.button`
   width: 100px;
   height: 100px;
   text-align: center;
-  opacity: ${({ quantity }) => (quantity > 0 ? 1 : 0.3)};
+  opacity: ${({ disabled }) => (disabled ? 0.3 : 1)};
   &:disabled {
     cursor: default;
     & span:first-child:hover {
