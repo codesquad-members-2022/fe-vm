@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '../../UI/Button';
 import { _ } from '../../../constant/constant';
+
 const Nav = (props) => {
   return (
     <StyledNav>
