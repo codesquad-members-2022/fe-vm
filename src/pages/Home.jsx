@@ -1,8 +1,8 @@
+import React from 'react';
+import styled from 'styled-components';
 import ControlPanel from 'components/ControlPanel';
 import Product from 'components/Product';
 import PRODUCTS from 'mocks/products';
-import styled from 'styled-components';
-import React from 'react';
 
 function Home() {
   return (

@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import Home from 'pages/Home';
-import Wallet from 'pages/Wallet';
 import React, { useState } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
+import Home from 'pages/Home';
+import Wallet from 'pages/Wallet';
 import { delay } from 'utils';
 
 export const MoneyContext = React.createContext();
