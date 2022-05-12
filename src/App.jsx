@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { StocksProvider } from "./contextProviders/StockProvider";
 import Layout from "./pages/Layout";
 import Main from "./pages/Main";
 
-const App = () => {
-  return (
+const App = () => (
+  <StocksProvider>
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -11,7 +12,7 @@ const App = () => {
         </Route>
       </Routes>
     </Router>
-  );
-};
+  </StocksProvider>
+);
 
 export default App;

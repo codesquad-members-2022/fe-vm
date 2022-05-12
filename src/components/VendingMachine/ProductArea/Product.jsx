@@ -1,11 +1,12 @@
 import { useContext } from "react";
-import { InputSum, Records } from "../../../ContextProvider";
+import { Balance } from "../../../contextProviders/BalanceProvider";
+import { Records } from "../../../contextProviders/RecordsProvider";
 import { activityType } from "../../../convention";
 import styled, { css } from "styled-components";
 import Button from "../../common/Button";
 
 const Product = ({ productInfo, stock, changeStock }) => {
-  const { inputSum, setInputSum } = useContext(InputSum);
+  const { inputSum, setInputSum } = useContext(Balance);
   const { updateRecord } = useContext(Records);
 
   const handleClick = () => {

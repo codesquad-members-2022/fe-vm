@@ -1,11 +1,12 @@
 import { css } from "styled-components";
 import { useContext } from "react";
-import { InputSum, Records } from "../../../ContextProvider";
+import { Balance } from "../../../contextProviders/BalanceProvider";
+import { Records } from "../../../contextProviders/RecordsProvider";
 import { activityType } from "../../../convention";
 import Button from "../../common/Button";
 
 const ReturnButton = () => {
-  const { inputSum, setInputSum } = useContext(InputSum);
+  const { inputSum, setInputSum } = useContext(Balance);
   const { updateRecord } = useContext(Records);
   const handleClick = () => {
     if (!inputSum) return;

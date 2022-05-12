@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { Records } from "../../../ContextProvider";
+import { Records } from "../../../contextProviders/RecordsProvider";
 
 const MessageDisplay = () => {
   const { records } = useContext(Records);
