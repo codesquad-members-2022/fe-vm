@@ -8,8 +8,8 @@ export default function ProductsArea() {
 
   return (
     <Container>
-      {productsData.map(({ id, detail, price }) => (
-        <Product key={id} detail={detail} price={price} />
+      {productsData.map(({ id, detail, price, quantity }) => (
+        <Product key={id} detail={detail} price={price} quantity={quantity} />
       ))}
     </Container>
   );
