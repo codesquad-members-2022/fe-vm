@@ -14,6 +14,7 @@ const ProductContainer = styled.li`
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
 `;
 
 const ProductNameWrapper = styled(RoundBorder)`

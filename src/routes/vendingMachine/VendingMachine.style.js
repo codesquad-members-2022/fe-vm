@@ -9,10 +9,19 @@ const VendingMachineContainer = styled(RoundBorder)`
     gap: 30px;
 `;
 
-const UserInputInformationContainer = styled.div`
+const UserInterfaceContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 20px;
 `;
 
-export { VendingMachineContainer, UserInputInformationContainer };
+const ChangesButton = styled.button`
+    width: 300px;
+    font-size: 1.6rem;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+`;
+
+export { VendingMachineContainer, UserInterfaceContainer, ChangesButton };

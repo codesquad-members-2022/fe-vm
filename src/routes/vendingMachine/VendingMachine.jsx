@@ -4,7 +4,8 @@ import Products from "../../components/product/Products";
 import RecordBoard from "../../components/recordBoard/RecordBoard";
 import {
     VendingMachineContainer,
-    UserInputInformationContainer,
+    UserInterfaceContainer,
+    ChangesButton,
 } from "./VendingMachine.style";
 
 function VendingMachine() {
@@ -20,15 +21,16 @@ function VendingMachine() {
     return (
         <VendingMachineContainer>
             <Products moneyInVendingMachine={moneyInVendingMachine} />
-            <UserInputInformationContainer>
+            <UserInterfaceContainer>
                 <MoneySlot
                     addRecord={addRecord}
                     wallet={wallet}
                     updateWallet={updateWallet}
                     putMoneyIntoVendingMachine={putMoneyIntoVendingMachine}
                 />
+                <ChangesButton>반환</ChangesButton>
                 <RecordBoard record={record} />
-            </UserInputInformationContainer>
+            </UserInterfaceContainer>
         </VendingMachineContainer>
     );
 }
