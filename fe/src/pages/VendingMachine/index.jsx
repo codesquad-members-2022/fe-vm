@@ -1,24 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Products from 'components/Products';
 import { useVMContext } from 'context/VMContext';
 import InsertMoneyForm from './InsertMoneyForm';
 import * as S from './style';
-
-const findClosestUnit = (existUnits, submitOnlyNumber) => {
-  return existUnits.reduce((acc, { unit }) => {
-    const substractAbs = Math.abs(submitOnlyNumber - acc);
-    console.log('substractAbs :>> ', substractAbs);
-    if (substractAbs < acc) {
-      return acc;
-    }
-    return unit;
-  }, 0);
-};
-
-const findTargetUnit = (existUnits, submitOnlyNumber) => {
-  const targetUnit = existUnits.find(({ unit }) => unit === submitOnlyNumber);
-  return targetUnit?.unit;
-};
 
 function VendingMachine() {
   const { totalBalance, changesUnits } = useVMContext();
@@ -75,3 +59,19 @@ function VendingMachine() {
 }
 
 export default VendingMachine;
+
+const findClosestUnit = (existUnits, submitOnlyNumber) => {
+  return existUnits.reduce((acc, { unit }) => {
+    const substractAbs = Math.abs(submitOnlyNumber - acc);
+    console.log('substractAbs :>> ', substractAbs);
+    if (substractAbs < acc) {
+      return acc;
+    }
+    return unit;
+  }, 0);
+};
+
+const findTargetUnit = (existUnits, submitOnlyNumber) => {
+  const targetUnit = existUnits.find(({ unit }) => unit === submitOnlyNumber);
+  return targetUnit?.unit;
+};

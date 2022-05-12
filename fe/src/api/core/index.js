@@ -10,7 +10,7 @@ instance.defaults.timeout = 2500;
 instance.interceptors.request.use(
   config => {
     // 요청을 보내기 전에 수행할 로직
-    const newConfig = [...config];
+    const newConfig = { ...config };
     newConfig.headers['Content-Type'] = 'application/json; charset=utf-8';
     return newConfig;
   },

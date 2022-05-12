@@ -1,4 +1,4 @@
-import { GET_REST_UNITS } from './type';
+import { GET_PRODUCTS, GET_REST_UNITS } from './type';
 
 const CHANGES_UNITS = [
   { id: 10, unit: 10, count: 0 },
@@ -15,6 +15,7 @@ const TOTAL_BALANCE = 23500;
 export const vmInitiState = {
   totalBalance: TOTAL_BALANCE,
   changesUnits: CHANGES_UNITS,
+  products: [],
 };
 
 export const vmReducer = (state, action) => {
@@ -24,7 +25,11 @@ export const vmReducer = (state, action) => {
         ...state,
         changesUnits: action.payload,
       };
-
+    case GET_PRODUCTS:
+      return {
+        ...state,
+        products: action.payload,
+      };
     default:
       return { ...state };
   }

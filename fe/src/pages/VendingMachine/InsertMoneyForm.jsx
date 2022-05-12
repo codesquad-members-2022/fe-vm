@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import { setKoreanLocaleMoney } from 'utils';
@@ -40,4 +40,4 @@ InsertMoneyForm.propTypes = {
   handleSubmitInsertMoney: PropTypes.func.isRequired,
 };
 
-export default InsertMoneyForm;
+export default memo(InsertMoneyForm);

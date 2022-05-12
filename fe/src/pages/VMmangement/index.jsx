@@ -2,15 +2,15 @@ import React, { useEffect } from 'react';
 import ChangesUnits from 'pages/VMmangement/ChangesUnits';
 import Products from 'components/Products';
 import { useVMContext } from 'context/VMContext';
+import { divideBalance } from 'context/VMContext/action';
 import * as S from './style';
 
 function VMmangement() {
-  const { totalBalance, changesUnits, divideBalance } = useVMContext();
-  console.log('changesUnits', changesUnits);
+  const { totalBalance, changesUnits, dispatch } = useVMContext();
 
   useEffect(() => {
-    divideBalance(changesUnits, totalBalance);
-  }, [totalBalance, divideBalance]);
+    divideBalance(dispatch, changesUnits, totalBalance);
+  }, [totalBalance, dispatch]);
 
   return (
     <S.Container>

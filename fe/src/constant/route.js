@@ -6,5 +6,5 @@ export const ROUTE = {
 export const API_ROOT_URL = '/api';
 
 export const API = {
-  GET: '/api',
+  GET_PRODUCTS: '/products',
 };
