@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import { Balance } from "../../../contextProviders/BalanceProvider";
-import { Records } from "../../../contextProviders/RecordsProvider";
+import { Balance } from "../../../../contextProviders/BalanceProvider";
+import { Records } from "../../../../contextProviders/RecordsProvider";
 import styled from "styled-components";
-import { activityType } from "../../../convention";
+import { activityType } from "../../../../convention";
 
 const InputSumDisplay = () => {
   const { inputSum, setInputSum } = useContext(Balance);
