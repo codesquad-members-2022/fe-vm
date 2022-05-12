@@ -5,15 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 
-// const dotenv = require("dotenv");
-
 module.exports = (env) => {
   const { NODE_ENV } = env;
   console.log(`[NODE_ENV] >>> ${NODE_ENV}`);
   if (!['production', 'development'].includes(NODE_ENV))
     throw '[NODE_ENV] must be production or development';
-
-  // dotenv.config();
 
   const DEV = NODE_ENV === 'development';
   const mode = DEV ? 'development' : 'production';
