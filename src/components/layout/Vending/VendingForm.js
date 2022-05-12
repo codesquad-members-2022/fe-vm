@@ -1,17 +1,22 @@
 import React, { useRef, useContext } from 'react';
+import styled from 'styled-components';
 import Input from '../../UI/Input';
+import Container from '../../UI/container';
+import Button from '../../UI/Button';
 import AmountContext from '../../../store/AmountContext';
 
 const VendingForm = (props) => {
   const amountInputRef = useRef();
   const amountCtx = useContext(AmountContext);
+
   const submitHandler = (event) => {
     event.preventDefault();
     amountCtx.add(amountInputRef.current.value);
   };
+
   return (
     <>
-      <form onSubmit={submitHandler}>
+      <StyledForm onSubmit={submitHandler}>
         <Input
           ref={amountInputRef}
           label="Amount"
@@ -23,11 +28,28 @@ const VendingForm = (props) => {
             defaultValue: '0',
           }}
         />
-        <button style={{ width: '100%' }}>입금</button>
-      </form>
-      <button>반환</button>
+        <p style={{ marginBottom: '10px' }}>경고 메세지</p>
+        <InputButton>입금하기</InputButton>
+      </StyledForm>
+      <InputButton>반환하기</InputButton>
     </>
   );
 };
+
+const InputButton = styled(Button)`
+  width: calc(80% + 20px);
+  height: 50px;
+  background-color: ${({ theme }) => theme.colors.navy};
+  color: #fff;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.deepNavy};
+  }
+`;
+
+const StyledForm = styled.form`
+  ${({ theme }) => theme.mixin.flexMixin('column')};
+  width: 100%;
+`;
 
 export default VendingForm;
