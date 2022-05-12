@@ -29,7 +29,7 @@ const ActionLog = memo(({ message }) => {
 
 const ActionLogsLayout = styled.div`
   height: 580px;
-  padding-right: 5px;
+  padding: 10px;
 `;
 
 const ActionLogsLayer = styled.ol`

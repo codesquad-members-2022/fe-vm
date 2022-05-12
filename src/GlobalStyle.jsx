@@ -149,6 +149,10 @@ const GlobalStyle = createGlobalStyle`
     border: 0;
     outline: 0;
   }
+  
+  button {
+    padding: 0;
+  }
 `;
 
 export default GlobalStyle;
