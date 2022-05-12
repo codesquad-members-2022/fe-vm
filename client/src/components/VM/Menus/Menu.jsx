@@ -14,6 +14,8 @@ export default function Menu() {
   useEffect(() => {
     if (input >= menuDB[0].price) {
       ref.current.style.border = "2px solid red";
+    } else {
+      ref.current.style.border = "2px solid black";
     }
   }, [input]);
 
@@ -38,7 +40,7 @@ const StyledMenu = styled.li`
   flex-direction: column;
   width: 120px;
   height: 150px;
-  border: 1px solid black;
+  border: 2px solid black;
   margin: 10px;
   align-items: center;
   cursor: pointer;
