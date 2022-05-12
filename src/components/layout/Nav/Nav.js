@@ -21,5 +21,6 @@ const StyledNav = styled.nav`
   background-color: ${({ theme }) => theme.colors.grey};
   font-size: ${({ theme }) => theme.fontSize.medium};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  margin-bottom: 25px;
+  margin-bottom: 20px;
+  margin-top: 20px;
 `;
