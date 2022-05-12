@@ -1,14 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { HeaderBlock, VendingMachineButton, WalletButton } from "./Header.styled";
 
 function Header() {
   return (
     <HeaderBlock>
       <VendingMachineButton>
-        <p>자판기</p>
+        <Link to="/vendingmachine" style={{ textDecoration: "none" }}>
+          자판기
+        </Link>
       </VendingMachineButton>
       <WalletButton>
-        <p>지갑</p>
+        <Link to="/wallet" style={{ textDecoration: "none" }}>
+          지갑
+        </Link>
       </WalletButton>
     </HeaderBlock>
   );
