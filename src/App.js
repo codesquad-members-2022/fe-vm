@@ -7,28 +7,33 @@ import theme from "./styles/theme";
 
 import VendingMachine from "./routes/VendingMachine";
 import Wallet from "./routes/Wallet";
+
 import Nav from "./components/Nav";
+
 import { WalletProvider } from "./contexts/WalletContext";
 import { InputAmountProvider } from "./contexts/InputAmount";
+import { LogProvider } from "./contexts/Log";
 
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <InputAmountProvider>
-        <WalletProvider>
-          <AppWrapper>
-            <GlobalStyles />
-            <GlobbalFonts />
-            <BrowserRouter basename={process.env.PUBLIC_URL}>
-              <Nav />
-              <Routes>
-                <Route path="/" element={<VendingMachine />}></Route>
-                <Route path="/wallet" element={<Wallet />}></Route>
-              </Routes>
-            </BrowserRouter>
-          </AppWrapper>
-        </WalletProvider>
-      </InputAmountProvider>
+      <LogProvider>
+        <InputAmountProvider>
+          <WalletProvider>
+            <AppWrapper>
+              <GlobalStyles />
+              <GlobbalFonts />
+              <BrowserRouter basename={process.env.PUBLIC_URL}>
+                <Nav />
+                <Routes>
+                  <Route path="/" element={<VendingMachine />}></Route>
+                  <Route path="/wallet" element={<Wallet />}></Route>
+                </Routes>
+              </BrowserRouter>
+            </AppWrapper>
+          </WalletProvider>
+        </InputAmountProvider>
+      </LogProvider>
     </ThemeProvider>
   );
 }
