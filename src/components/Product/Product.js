@@ -1,10 +1,12 @@
-const Product = ({ name, price, onClick }) => {
+const Product = ({ name, price, onClick, amount }) => {
   return (
     <div className="product-info">
-      <div className="product" onClick={onClick}>
-        {name}
+      <div style={price <= amount ? { color: "red" } : { color: "black" }}>
+        <div className="product" onClick={onClick}>
+          {name}
+        </div>
+        {price}
       </div>
-      {price}
     </div>
   );
 };
