@@ -4,7 +4,9 @@ const MessageView = ({ message }) => {
   return (
     <div className="message-view">
       {message.map((v, i) => (
-        <p key={i}>{v}</p>
+        <div key={i}>
+          {typeof v === "string" ? <p>{v} 선택</p> : <p>{v} 투입</p>}
+        </div>
       ))}
     </div>
   );

@@ -30,6 +30,7 @@ const VendingMachine = () => {
 
   const returnPrice = () => {
     setAccumulatedPrice(0);
+    setMessage([]);
   };
 
   return (
@@ -50,7 +51,7 @@ const VendingMachine = () => {
         <InputValue
           onSubmit={insertPriceHandler}
           onChange={writePriceHandler}
-          inputPrice={inputPrice}
+          value={inputPrice}
         />
         <ReturnButton onClick={returnPrice} />
         <MessageView message={message} />
