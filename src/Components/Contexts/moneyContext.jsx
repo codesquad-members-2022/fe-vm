@@ -5,10 +5,11 @@ const MoneyContext = createContext({});
 
 const MoneyProvider = ({ inner }) => {
 	const [money, setMoney] = useState(0);
+	const [showedMoney, setShowedMoney] = useState(0);
 
 	const value = useMemo(() => {
-		return { money, setMoney };
-	}, [money]);
+		return { money, setMoney, showedMoney, setShowedMoney };
+	}, [money, showedMoney]);
 
 	return <MoneyContext.Provider value={value}>{inner}</MoneyContext.Provider>;
 };

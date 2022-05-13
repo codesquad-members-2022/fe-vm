@@ -1,9 +1,7 @@
 import { useContext } from 'react';
 
 import {
-	insertMoneyTime,
 	autoWithdrawTime,
-	emptyMoney,
 	MINUS,
 	PLUS,
 	UNIT,
@@ -11,36 +9,24 @@ import {
 import {
 	CoinsContext,
 	MoneyContext,
-	ShowedMoneyContext,
 	IsTakingOutContext,
 	MessagesDispatchContext,
 } from 'Components/Contexts';
 import { getPriceType } from 'Util/util';
 import useDebounce from 'Util/hooks';
 import { spendMoney, withdrawMoney } from 'Components/Common/controlMoney';
-import {
-	InsertMoneyDiv,
-	InsertMoneyValue,
-	WithdrawDiv,
-} from './InsertMoney.styled';
+import { InsertMoneyDiv, InsertMoneyValue } from './InsertMoney.styled';
+import Btns from './Btns';
 
 const InsertMoney = () => {
 	const { coins, coinsSum } = useContext(CoinsContext);
-	const { showedMoney, setShowedMoney } = useContext(ShowedMoneyContext);
-	const { money, setMoney } = useContext(MoneyContext);
+	const { money, setMoney, showedMoney, setShowedMoney } =
+		useContext(MoneyContext);
 	const { isTakingOut } = useContext(IsTakingOutContext);
 	const messagesDispatch = useContext(MessagesDispatchContext);
 
-	const handleInput = ({ target: { value } }) => {
-		const numberFilter = /^[0-9]+$|^$/;
-		const valueNumber = Number(value.replaceAll(',', ''));
-		if (numberFilter.test(valueNumber)) setShowedMoney(valueNumber);
-	};
-
-	const handleClick = () => !isTakingOut && setShowedMoney(emptyMoney);
-
-	const getCalculatingOptions = (difference) => {
-		const isSpending = difference >= 0;
+	const getCalculatingOptions = (diffWithInsert) => {
+		const isSpending = diffWithInsert >= 0;
 		const calculatingOptions = {
 			calculateMoney: isSpending ? spendMoney : withdrawMoney,
 			calculatingType: isSpending ? MINUS : PLUS,
@@ -48,18 +34,21 @@ const InsertMoney = () => {
 		return calculatingOptions;
 	};
 
-	const checkShowedMoney = () => {
-		const difference = showedMoney - money;
-		const isMoneyInWallet = coinsSum >= difference;
+	const calculateAndReportMoney = (isEmpty) => {
+		const diffWithInsert = isEmpty ? -money : showedMoney - money;
+		const isMoneyInWallet = coinsSum >= diffWithInsert; // is inserted money much larger than wallet
 		const { calculateMoney, calculatingType } =
-			getCalculatingOptions(difference);
+			getCalculatingOptions(diffWithInsert);
 
 		if (!isMoneyInWallet) {
 			setShowedMoney(money);
 			return;
 		}
 
-		const { calculatedMoney, changedCoins } = calculateMoney(coins, difference);
+		const { calculatedMoney, changedCoins } = calculateMoney(
+			coins,
+			diffWithInsert
+		);
 		const totalMoney = money + calculatedMoney;
 
 		setMoney(totalMoney);
@@ -70,8 +59,23 @@ const InsertMoney = () => {
 		});
 	};
 
-	useDebounce(checkShowedMoney, insertMoneyTime);
-	useDebounce(handleClick, autoWithdrawTime);
+	const handleInput = ({ target: { value } }) => {
+		const numberFilter = /^[0-9]+$|^$/;
+		const valueNumber = Number(value.replaceAll(',', ''));
+		if (numberFilter.test(valueNumber)) setShowedMoney(valueNumber);
+	};
+
+	const withdrawAll = (isEmpty) => {
+		if (isTakingOut || !showedMoney) return;
+		calculateAndReportMoney(isEmpty);
+	};
+
+	const handleKeyUp = ({ key }) => {
+		const isEnterKey = key === 'Enter';
+		if (isEnterKey) calculateAndReportMoney();
+	};
+
+	useDebounce(withdrawAll, autoWithdrawTime);
 
 	return (
 		<>
@@ -81,15 +85,14 @@ const InsertMoney = () => {
 					maxLength="11"
 					onInput={handleInput}
 					onPaste={handleInput}
+					onKeyUp={handleKeyUp}
 					value={getPriceType(showedMoney)}
 					disabled={isTakingOut}
 					isTakingOut={isTakingOut}
 				/>
 				{UNIT}
 			</InsertMoneyDiv>
-			<WithdrawDiv onClick={handleClick} isTakingOut={isTakingOut}>
-				반납
-			</WithdrawDiv>
+			<Btns isTakingOut={isTakingOut} withdrawAll={withdrawAll} />
 		</>
 	);
 };

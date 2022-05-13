@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 const ItemsWrapper = styled.div`
 	position: relative;
-	width: 50%;
+	flex-basis: 50%;
 `;
 
 const ItemsDiv = styled.div`
@@ -12,8 +12,10 @@ const ItemsDiv = styled.div`
 	padding: 10px;
 	margin: 10px;
 	flex: 1 1 0;
+	width: 400px;
+	height: 100%;
 	${({ theme: { colors } }) => css`
-		border-radius: 10px;
+		border-radius: 20px;
 		border: 2px solid ${colors.black};
 	`}
 `;
@@ -28,7 +30,7 @@ const ItemDiv = styled.div`
 		!empty &&
 		css`
 			border: 2px solid ${colors.black};
-			border-radius: 10px;
+			border-radius: 20px;
 		`};
 
 	${({ theme: { colors }, isSelectable }) =>
@@ -68,18 +70,21 @@ const ItemWrapper = styled.div``;
 
 const TakingOutDiv = styled.div`
 	${({ theme: { colors } }) => css`
-		box-sizing: border-box;
 		position: absolute;
-		width: 100%;
+		width: 400px;
 		height: 100%;
 		opacity: 70%;
-		border-radius: 10px;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		color: ${colors.yellow};
 		font-size: 25px;
-		background-color: ${colors.black};}
+		padding: 10px;
+		margin: 10px;
+		border: solid 2px ${colors.black};
+		border-radius: 20px;
+		background-color: ${colors.black};
+	}
 	`}
 
 	${({ isTakingOut }) =>
@@ -92,8 +97,6 @@ const TakingOutDiv = styled.div`
 const Loading = styled.div`
 	${({ theme: { colors } }) => css`
 		position: relative;
-		width: 100%;
-		height: 100%;
 		margin-top: 20px;
 
 		div {

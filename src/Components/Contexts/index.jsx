@@ -6,15 +6,15 @@ import {
 	MessagesDispatchContext,
 	MessagesProvider,
 } from 'Components/Contexts/MessagesContext';
-import { ShowedMoneyContext, ShowedMoneyProvider } from './ShowedMoneyContext';
+import { ItemsContext, ItemsProvider } from './ItemsContext';
 import { MoneyContext, MoneyProvider } from './moneyContext';
 import { IsTakingOutContext, IsTakingOutProvider } from './IsTakingOutContext';
 
 const providersArr = [
+	ItemsProvider,
 	CoinsProvider,
 	MessagesProvider,
 	MoneyProvider,
-	ShowedMoneyProvider,
 	IsTakingOutProvider,
 ];
 
@@ -29,10 +29,10 @@ const getContextsProvider =
 const ContextsProvider = getContextsProvider(providersArr);
 
 export {
+	ItemsContext,
 	CoinsContext,
 	MessagesContext,
 	MoneyContext,
-	ShowedMoneyContext,
 	IsTakingOutContext,
 	MessagesDispatchContext,
 	ContextsProvider,

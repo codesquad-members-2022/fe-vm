@@ -5,7 +5,6 @@ import debounce from 'lodash.debounce';
 import { takingOutTime, BUY } from 'Components/Common/constant';
 import {
 	MoneyContext,
-	ShowedMoneyContext,
 	IsTakingOutContext,
 	MessagesDispatchContext,
 } from 'Components/Contexts';
@@ -21,8 +20,7 @@ const Item = ({ item }) => {
 	const targetItem = item;
 	const { name, price, count } = targetItem;
 	const { setIsTakingOut } = useContext(IsTakingOutContext);
-	const { setShowedMoney } = useContext(ShowedMoneyContext);
-	const { money, setMoney } = useContext(MoneyContext);
+	const { money, setMoney, setShowedMoney } = useContext(MoneyContext);
 	const messagesDispatch = useContext(MessagesDispatchContext);
 	const difference = money - price;
 	const isSelectable = difference >= 0 && count;
