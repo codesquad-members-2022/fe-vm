@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Layout from '@/components/Layout';
+import Layout from '@/layout';
 import NotFound from '@/pages/NotFound';
 import Stock from '@/pages/Stock';
 import Vendor from '@/pages/Vendor';
