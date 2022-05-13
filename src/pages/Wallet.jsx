@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import myWallet from "data/myWallet";
+import myWallet from "mocks/myWallet";
 import { convert2MoneyUnit } from "utils";
 import MoneyUnitItem from "components/Wallet/MoneyUnitItem";
 

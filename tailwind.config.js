@@ -11,6 +11,7 @@ module.exports = {
       "gray-dark": "#273444",
       gray: "#8492a6",
       "gray-light": "#d3dce6",
+      "gray-white": "#f1f5f9",
     },
     fontFamily: {
       main: ["Noto Sans KR", "sans-serif"],

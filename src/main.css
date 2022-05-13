@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply font-main;
+    @apply font-main bg-gray-white;
   }
 }
 
@@ -20,6 +20,10 @@
 
   .btn--starbucks {
     @apply font-medium text-black border-starbucks-dark hover:bg-starbucks hover:text-white active:bg-starbucks-dark active:text-white focus:ring;
+  }
+
+  .tab--starbucks {
+    @apply btn btn--starbucks w-[100px] py-2;
   }
 }
 

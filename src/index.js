@@ -12,8 +12,8 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<App />}>
-          <Route path="/" element={<VendingMachine />} />
+        <Route path="/" element={<App />}>
+          <Route index exact path="/" element={<VendingMachine />} />
           <Route path="/wallet" element={<Wallet />} />
         </Route>
         <Route path="*" element={<NotFound />} />
