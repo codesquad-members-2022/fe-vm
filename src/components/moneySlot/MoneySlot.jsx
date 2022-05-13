@@ -1,18 +1,17 @@
 import { SlotContainer, Slot } from "./MoneySlot.style";
 
 const getMoneyFromWallet = (input, wallet) => {
-    const unitOfMoney = Object.keys(wallet);
-    const differenceBetweenInputAndWalletMoney = unitOfMoney.map((unit) => {
+    const differenceBetweenInputAndWalletMoney = wallet.map((money) => {
         return {
-            difference: Math.abs(input - unit),
-            unit,
+            difference: Math.abs(input - money.unit),
+            ...money,
         };
     });
     const minDifference = differenceBetweenInputAndWalletMoney
         .sort((a, b) => a.difference - b.difference)
-        .filter(({ unit }) => wallet[unit] > 0);
+        .filter(({ count }) => count > 0);
 
-    return minDifference.length ? minDifference[0].unit : null;
+    return minDifference.length ? minDifference[0] : null;
 };
 
 function MoneySlot({
@@ -34,10 +33,14 @@ function MoneySlot({
         if (!moneyFromWallet) {
             return;
         }
-        wallet[moneyFromWallet] -= 1;
+
+        const moneyInWallet = wallet.find(
+            (money) => money.id === moneyFromWallet.id
+        );
+        moneyInWallet.count -= 1;
         updateWallet(wallet);
-        addRecord(`${moneyFromWallet}원이 투입됨`);
-        putMoneyIntoVendingMachine(moneyFromWallet);
+        addRecord(`${moneyFromWallet.unit}원이 투입됨`);
+        putMoneyIntoVendingMachine(moneyFromWallet.unit);
     };
 
     return (

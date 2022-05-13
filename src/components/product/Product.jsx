@@ -1,5 +1,4 @@
-import products from "../../data/products";
-import { v4 as uuid } from "uuid";
+import dataOfProducts from "../../data/products";
 import {
     ProductContainer,
     ProductNameWrapper,
@@ -9,8 +8,8 @@ import {
 function Product({ moneyInVendingMachine }) {
     return (
         <>
-            {products.map((product) => (
-                <ProductContainer key={uuid()}>
+            {dataOfProducts.map((product) => (
+                <ProductContainer key={product.id}>
                     <ProductNameWrapper
                         choosable={
                             moneyInVendingMachine >= Number(product.price)
