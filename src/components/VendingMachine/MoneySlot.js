@@ -17,7 +17,7 @@ export default function MoneySlot() {
     const withdrawableAmount = getWithdrawableAmount(Number(target.value));
     addInputAmount(withdrawableAmount);
     setInputFalse();
-    log("insert", withdrawableAmount); // log context로 변경 예정
+    log("insert", withdrawableAmount);
   }
   function setInputTrue() {
     setIsInput(true);

@@ -1,11 +1,22 @@
 import styled from "styled-components";
+import { useState, useContext } from "react";
+import { LogContext } from "../../contexts/Log";
+import { InputAmountContext } from "../../contexts/InputAmount";
 
 export default function Product({ item }) {
-  const { emoji, price } = item;
+  const { emoji, name, price } = item;
+  const { log } = useContext(LogContext);
+  const { inputAmount, subtractInputAmount } = useContext(InputAmountContext);
+  function selectProduct() {
+    subtractInputAmount(price);
+    log("select", name);
+  }
   return (
     <ProductWrapper>
       <Emoji>{emoji}</Emoji>
-      <Price>{price}</Price>
+      <Price disabled={price > inputAmount} onClick={selectProduct}>
+        {price}
+      </Price>
     </ProductWrapper>
   );
 }
@@ -18,12 +29,18 @@ const Emoji = styled.div`
   text-align: center;
   font-size: 45px;
 `;
-const Price = styled.div`
-  width: 60px;
-  padding: 4px 10px 2px 10px;
-  border-radius: 999px;
-  background-color: ${({ theme }) => theme.colors.gray3};
-  text-align: center;
+const Price = styled.button`
+  box-sizing: content-box;
 
+  width: 60px;
+  padding: 2px 10px;
+  border: none;
+  border-radius: 999px;
+  background-color: ${({ theme }) => theme.colors.orange};
+  text-align: center;
+  font-size: 16px;
   color: ${({ theme }) => theme.colors.white};
+  :disabled {
+    background-color: ${({ theme }) => theme.colors.gray3};
+  }
 `;

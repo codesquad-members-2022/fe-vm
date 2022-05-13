@@ -21,5 +21,6 @@ const LogMessagesWrapper = styled.div`
   width: 200px;
   height: 200px;
   overflow: auto;
+  font-size: 12px;
 `;
 const LogMessage = styled.div``;
