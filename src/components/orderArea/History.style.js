@@ -4,7 +4,7 @@ const HistoryList = styled.ol`
   height: 20%;
   min-height: 200px;
   padding: 25px 20px;
-  border: 1px solid #333;
+  background: #fff;
   border-radius: 4px;
   overflow-y: auto;
 `;

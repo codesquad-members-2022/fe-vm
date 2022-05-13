@@ -17,7 +17,7 @@ const ReturnBtn = styled.button`
   width: 65px;
   line-height: 65px;
   border-radius: 50%;
-  background: #e42b2b;
+  background: #c7366d;
   color: #fff;
 `;
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Container = styled.div`
   margin-top: 40px;
   height: 300px;
-  background: linear-gradient(to bottom, #ddd, #aaa);
+  background: linear-gradient(to bottom, #635659, #2c2a2b);
   text-align: center;
   overflow: hidden;
 `;

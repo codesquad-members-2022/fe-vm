@@ -4,15 +4,17 @@ const ProductBtn = styled.button`
   position: relative;
   width: 100px;
   height: 100px;
+  padding: 10px 0 5px;
   text-align: center;
-  opacity: ${({ disabled }) => (disabled ? 0.3 : 1)};
+  background: linear-gradient(to bottom left, #d6f1fc, #ffffff, #daf2fc);
+  border-radius: 5px;
   &:disabled {
     cursor: default;
-    & span:first-child:hover {
+    & span:first-child {
       transform: scale(1);
     }
-    & span:last-child {
-      text-decoration: line-through;
+    & span {
+      opacity: ${({ disabled }) => (disabled ? 0.3 : 1)};
     }
   }
 `;
@@ -30,7 +32,7 @@ const Detail = styled.span`
 
 const Price = styled.span`
   display: block;
-  margin-top: 15px;
+  margin-top: 10px;
 `;
 
 export { ProductBtn, Detail, Price };
