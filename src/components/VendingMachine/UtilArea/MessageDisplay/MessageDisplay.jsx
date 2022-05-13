@@ -1,14 +1,15 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { Records } from "../../../../contextProviders/RecordsProvider";
+import { v4 as uuidv4 } from "uuid";
 
 const MessageDisplay = () => {
   const { records } = useContext(Records);
 
   return (
     <MessageWrapper>
-      {records.map((record, i) => (
-        <div key={i}>{record}</div>
+      {records.map((record) => (
+        <div key={uuidv4()}>{record}</div>
       ))}
     </MessageWrapper>
   );
