@@ -7,6 +7,11 @@ const SmallSize = css`
   height: 56px;
 `;
 
+const MediumSize = css`
+  width: 65px;
+  height: 58px;
+`;
+
 const LargeSize = css`
   width: 465px;
   height: 80px;
@@ -14,6 +19,7 @@ const LargeSize = css`
 
 const Size = {
   small: SmallSize,
+  medium: MediumSize,
   large: LargeSize,
 };
 
@@ -33,9 +39,15 @@ const XXLargeFont = css`
   font-size: ${({ theme: { fontSize } }) => fontSize.xxLarge};
 `;
 
+const LogoFont = css`
+  ${DefaultFont}
+  font-size: ${({ theme: { fontSize } }) => fontSize.logo};
+`;
+
 const Font = {
   medium: MediumFont,
   xxLarge: XXLargeFont,
+  logo: LogoFont,
 };
 
 const StyledLabel = styled.li`

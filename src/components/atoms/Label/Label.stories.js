@@ -6,11 +6,11 @@ export default {
   component: Label,
   argTypes: {
     sizeType: {
-      options: ['small', 'large'],
+      options: ['small', 'medium', 'large'],
       control: { type: 'radio' },
     },
     fontType: {
-      options: ['medium', 'large'],
+      options: ['medium', 'large', 'logo'],
       control: { type: 'radio' },
     },
     borderType: {
@@ -34,8 +34,18 @@ LargeLabel.args = {
   sizeType: 'large',
   fontType: 'xxLarge',
   borderType: 'rounded',
-  children: '1,000,000원',
+  children: '500원',
 };
 LargeLabel.storyName = 'LargeLabel';
+
+export const EmojiLabel = Template.bind({});
+EmojiLabel.args = {
+  flexType: 'center',
+  sizeType: 'medium',
+  fontType: 'logo',
+  borderType: 'none',
+  children: '🍿',
+};
+EmojiLabel.storyName = 'EmojiLabel';
 
 export const DefaultLabel = () => <Label />;
