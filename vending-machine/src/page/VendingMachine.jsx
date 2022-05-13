@@ -2,6 +2,7 @@ import styled from "styled-components";
 import * as uiConst from "../constant/uiConstant";
 import { vendingMachineProductList } from "../mockData/mockData";
 import Product from "../component/Product";
+import OrderBox from "../component/OrderBox";
 
 function VendingMachine() {
   const products = vendingMachineProductList.map((product) => (
@@ -18,12 +19,12 @@ function VendingMachine() {
       <VendingMachineLeftCol>
         <ProductContainer>{products}</ProductContainer>
       </VendingMachineLeftCol>
-      <VendingMachineRightCol></VendingMachineRightCol>
+      <VendingMachineRightCol>
+        <OrderBox />
+      </VendingMachineRightCol>
     </VendingMachineBox>
   );
 }
-
-//TODO: width, height 매직 넘버 없애라
 
 const ProductContainer = styled.div`
   display: grid;
@@ -32,29 +33,20 @@ const ProductContainer = styled.div`
 
 const VendingMachineBox = styled.div`
   width: ${uiConst.VENDING_MACHINE_WIDTH}px;
-  border: 5px solid black;
   margin: 0 auto;
   display: flex;
 `;
 
 const VendingMachineLeftCol = styled.div`
-  border: 2px solid red;
-  width: 100px;
+  border: 5px solid #000;
   min-height: ${uiConst.VENDING_MACHINE_HEIHGT}px;
-  width: 600px;
+  width: 60%;
 `;
 
 const VendingMachineRightCol = styled.div`
-  border: 2px solid blue;
-  width: 100px;
+  border: 5px solid #000;
   height: ${uiConst.VENDING_MACHINE_HEIHGT}px;
-  width: 400px;
+  width: 40%;
 `;
-
-function VendingMachineCredit() {}
-
-function VendingMachineReturnBtn() {}
-
-function VendingMachineLog() {}
 
 export default VendingMachine;
