@@ -1,5 +1,6 @@
 const fontSize = {
   logo: '50px',
+  xxLarge: '34px',
   xLarge: '24px',
   large: '20px',
   medium: '16px',

@@ -1,6 +1,7 @@
 import { defaultTheme } from 'assets/style/default';
 import styled, { css } from 'styled-components';
 import { darken, lighten } from 'polished';
+import { Border } from 'assets/style/common';
 
 /* SizeType : width, height */
 const ThinSize = css`
@@ -28,22 +29,6 @@ const Size = {
   small: SmallSize,
   medium: MediumSize,
   large: LargeSize,
-};
-
-/* BorderType : border, radius */
-const DefaultBorder = css`
-  border: 1px solid;
-  border-color: ${({ theme: { colors } }) => colors.black};
-`;
-
-const RoundedBorder = css`
-  ${DefaultBorder}
-  border-radius: 5px;
-`;
-
-const Border = {
-  default: DefaultBorder,
-  rounded: RoundedBorder,
 };
 
 /* ColorType : Background, Font */
