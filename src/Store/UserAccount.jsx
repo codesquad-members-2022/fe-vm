@@ -14,14 +14,14 @@ const accountReducer = (state, action) => {
 
     case 'refund':
       return {
-        currentMoney: state.currentMoney + state.insertMoney,
+        currentMoney: state.currentMoney + state.insertedMoney,
         insertedMoney: 0,
       };
 
     case 'buy':
       return {
         currentMoney: state.currentMoney,
-        insertMoney: state.insertMoney - action.incomeMoney,
+        insertedMoney: state.insertedMoney - action.incomeMoney,
       };
 
     default:
