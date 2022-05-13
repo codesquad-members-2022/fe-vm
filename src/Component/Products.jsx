@@ -1,9 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, {useContext} from 'react';
+import styled, {css} from 'styled-components';
+
+import {UserAccount} from '../Store';
 
 export const Products = ({title, price}) => {
+  const {userMoney} = useContext(UserAccount);
+
   return (
-    <ProductWrapper>
+    <ProductWrapper
+      insertedMoney={userMoney.insertedMoney}
+      productPrice={price}
+    >
       <Product>{title}</Product>
       <PriceTag>{price}</PriceTag>
     </ProductWrapper>
@@ -15,6 +22,14 @@ const ProductWrapper = styled.li`
   flex-direction: column;
   align-items: center;
   height: 200px;
+
+  ${({insertedMoney, productPrice}) => {
+    return insertedMoney > productPrice
+      ? css`
+          border: 3px solid red;
+        `
+      : null;
+  }}
 `;
 
 const Product = styled.div`

@@ -7,6 +7,7 @@ import {InsertButton} from '../Component';
 
 export const Wallet = () => {
   const {userMoney} = useContext(UserAccount);
+
   return (
     <WalletWrapper>
       <InsertButton insertBtnData={MONEY_BUTTON_DATA} />

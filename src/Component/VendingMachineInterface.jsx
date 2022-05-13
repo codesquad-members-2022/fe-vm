@@ -1,11 +1,26 @@
-import React, {useContext, useRef, forwardRef} from 'react';
+import React, {
+  useContext,
+  useRef,
+  forwardRef,
+  useEffect,
+  useState,
+} from 'react';
 import styled from 'styled-components';
 
 import {UserAccount} from '../Store';
 
 export const VendingMachineInterface = () => {
   const {userMoney, refundMoney} = useContext(UserAccount);
+  const [history, setHistory] = useState({
+    record: [],
+    insertedMoney: null,
+  });
   const refundBtn = useRef(null);
+
+  useEffect(() => {
+    setHistory({...history, insertedMoney: userMoney.insertedMoney});
+    console.log(userMoney.insertedMoney);
+  }, [userMoney.insertedMoney]);
 
   return (
     <VM_Wrapper>
@@ -27,13 +42,13 @@ const VM_Wrapper = styled.ul`
     padding 10px
 `;
 
-const VM_MoneyInput = forwardRef(styled.input`
+const VM_MoneyInput = styled.input`
   width: 300px;
   height: 80px;
   font-size: 20px;
   border-radius: 20px;
   padding: 10px;
-`);
+`;
 
 const VM_RefundBtn = styled.button`
   width: 300px;
