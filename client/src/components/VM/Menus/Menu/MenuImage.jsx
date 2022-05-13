@@ -10,7 +10,7 @@ export default function MenuImage({ imageURL, name }) {
 }
 
 const StyledMenuImageFigure = styled.figure`
-  width: 80px;
+  width: 120px;
   height: 120px;
   margin: 5px 5px 0 5px;
   display: flex;
