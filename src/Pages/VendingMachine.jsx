@@ -1,20 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {Products, VendingMachineInterface} from '../Component';
+import {ProductList, VendingMachineInterface} from '../Component';
 
 import {PRODUCTS_DATA} from '../mocks/ProductData';
-
-const createProducts = ProductsList => {
-  return ProductsList.map(productData => (
-    <Products title={productData.title} price={productData.price} />
-  ));
-};
 
 export const VendingMachine = () => {
   return (
     <VendingMachineWrapper>
-      <ProductList>{createProducts(PRODUCTS_DATA)}</ProductList>
+      <ProductList ProductsData={PRODUCTS_DATA} />
       <VendingMachineInterface />
     </VendingMachineWrapper>
   );
@@ -25,13 +19,4 @@ const VendingMachineWrapper = styled.div`
   height: 1000px;
   display: flex;
   border: 5px solid black;
-`;
-
-const ProductList = styled.ul`
-  padding: 10px;
-  width: 60%;
-  border-right: 5px solid black;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
 `;
