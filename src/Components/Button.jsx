@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { Color, Radius10 } from '../Assets/Common.style';
 import EnTitle from './EnTitle';
 
-export default function Btn({ title, type, textTag, fontSize }) {
+export default function Btn({ title, type, textTag, fontSize, eventHandler }) {
   return (
-    <BUTTON type={type}>
+    <BUTTON type={type} onClick={eventHandler}>
       <EnTitle title={title} tag={textTag} size={fontSize} />
     </BUTTON>
   );
