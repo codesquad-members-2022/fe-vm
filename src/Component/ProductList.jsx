@@ -11,7 +11,11 @@ export const ProductList = ({ProductsData}) => {
 
 const createProducts = ProductsList => {
   return ProductsList.map(productData => (
-    <Products title={productData.title} price={productData.price} />
+    <Products
+      key={productData.id}
+      title={productData.title}
+      price={productData.price}
+    />
   ));
 };
 
