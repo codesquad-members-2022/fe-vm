@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import styled from "styled-components";
-import { Coin } from "components";
+import { CoinContext } from "context";
+import { MemoizedCoin } from "components";
 
 const StyledCoinContainer = styled.ul`
   li {
@@ -21,12 +23,14 @@ const StyledCoinContainer = styled.ul`
   }
 `;
 
-function CoinContainer({ coin }) {
+function CoinContainer() {
+  const { coin } = useContext(CoinContext);
+
   return (
     <StyledCoinContainer>
       {coin.map(({ id, unit, count }) => (
         <li key={id}>
-          <Coin unit={unit} count={count}></Coin>
+          <MemoizedCoin unit={unit} count={count} />
         </li>
       ))}
     </StyledCoinContainer>

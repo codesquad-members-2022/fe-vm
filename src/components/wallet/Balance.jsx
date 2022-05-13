@@ -1,4 +1,7 @@
+import { useEffect, useContext } from "react";
 import styled from "styled-components";
+import { CoinContext } from "context";
+import { useBalance } from "hooks";
 
 const StyledBalance = styled.div`
   width: 100%;
@@ -11,7 +14,14 @@ const StyledBalance = styled.div`
   margin-top: 10px;
 `;
 
-function Balance({ balance }) {
+function Balance() {
+  const { coin } = useContext(CoinContext);
+  const { balance, calcBalance } = useBalance(0);
+
+  useEffect(() => {
+    calcBalance(coin);
+  }, [coin, calcBalance]);
+
   return <StyledBalance>{balance + "원"}</StyledBalance>;
 }
 

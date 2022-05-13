@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import { CoinContainer, Balance } from "components";
-import { money } from "data";
-import { useState } from "react";
 
 const StyledWallet = styled.div`
   width: 400px;
@@ -12,17 +10,10 @@ const StyledWallet = styled.div`
 `;
 
 const Wallet = () => {
-  const calcBalance = (coin) => {
-    return coin.reduce((acc, cur) => acc + cur.unit * cur.count, 0);
-  };
-
-  const [coin, setCoin] = useState(money);
-  const [balance, setBalance] = useState(calcBalance(coin));
-
   return (
     <StyledWallet>
-      <CoinContainer coin={coin} />
-      <Balance balance={balance} />
+      <CoinContainer />
+      <Balance />
     </StyledWallet>
   );
 };
