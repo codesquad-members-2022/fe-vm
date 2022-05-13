@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+
 import { ProgressContext } from '../App';
+import { color, fontSize } from '../style/variables';
 
 const ReturnBtn = ({ totalMoney, setTotalMoney }) => {
   const { returnMoneyMessage } = useContext(ProgressContext);
@@ -16,10 +18,10 @@ const ReturnBtn = ({ totalMoney, setTotalMoney }) => {
 
 const StyledBtn = styled.button`
   margin-top: 20px;
-  font-size: 20px;
+  font-size: ${fontSize.xl};
   width: 270px;
   height: 60px;
-  border: 2px solid gray;
+  border: 2px solid ${color.grey};
 `;
 
 export default ReturnBtn;
