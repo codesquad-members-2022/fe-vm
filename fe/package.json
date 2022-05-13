@@ -20,8 +20,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "REACT_APP_MSW=false react-scripts start",
-    "msw": "REACT_APP_MSW=true react-scripts start",
+    "start": "react-scripts start",
+    "msw": "REACT_APP_MOCK_TOOL=msw react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

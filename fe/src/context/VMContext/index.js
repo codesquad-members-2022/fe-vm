@@ -7,7 +7,7 @@ const Context = createContext();
 export const useVMContext = () => {
   const context = useContext(Context);
 
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useVMContext must be used within VMContext');
   }
 

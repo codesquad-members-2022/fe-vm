@@ -1,5 +1,6 @@
-import GlobalNavigation from 'components/GlobalNavigation';
 import React from 'react';
+import VMContext from 'context/VMContext';
+import GlobalNavigation from 'components/GlobalNavigation';
 import { Outlet } from 'react-router-dom';
 import * as S from './style';
 
@@ -14,7 +15,9 @@ function Layout() {
         </div>
       </S.Header>
       <S.Main>
-        <Outlet />
+        <VMContext>
+          <Outlet />
+        </VMContext>
       </S.Main>
     </S.AppContainer>
   );

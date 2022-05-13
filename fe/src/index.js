@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from 'App';
 import theme from 'style/theme';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from 'style/globalStyle';
-import VMContext from 'context/VMContext';
 import worker from 'mocks/brower';
 
-if (process.env.REACT_APP_MSW) {
+// FIXME: npm script 명령어에 boolean 입력 가능할까?
+if (process.env.REACT_APP_MOCK_TOOL === 'msw') {
   worker.start();
 }
 
@@ -16,9 +16,7 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <VMContext>
-        <App />
-      </VMContext>
+      <App />
     </ThemeProvider>
   </React.StrictMode>,
 );

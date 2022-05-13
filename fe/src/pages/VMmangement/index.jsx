@@ -1,21 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import ChangesUnits from 'pages/VMmangement/ChangesUnits';
 import Products from 'components/Products';
 import { useVMContext } from 'context/VMContext';
-import { divideBalance } from 'context/VMContext/action';
+import { getBalance, addTargetBalance, substractTargetBalance } from 'context/VMContext/action';
 import * as S from './style';
 
 function VMmangement() {
   const { totalBalance, changesUnits, dispatch } = useVMContext();
 
+  const fetchAddTargetBalance = useCallback(
+    id => {
+      addTargetBalance(dispatch, id);
+    },
+    [dispatch],
+  );
+
+  const fetchSubstractTargetBalance = useCallback(
+    id => {
+      substractTargetBalance(dispatch, id);
+    },
+    [dispatch],
+  );
+
   useEffect(() => {
-    divideBalance(dispatch, changesUnits, totalBalance);
-  }, [totalBalance, dispatch]);
+    getBalance(dispatch);
+  }, [dispatch]);
 
   return (
     <S.Container>
-      <Products isPriceUnderInsertMoney={() => {}} />
-      <ChangesUnits totalBalance={totalBalance} changesUnits={changesUnits} />
+      <Products isManger isPriceUnderInsertMoney={() => {}} />
+      <ChangesUnits
+        totalBalance={totalBalance}
+        changesUnits={changesUnits}
+        fetchAddTargetBalance={fetchAddTargetBalance}
+        fetchSubstractTargetBalance={fetchSubstractTargetBalance}
+      />
     </S.Container>
   );
 }

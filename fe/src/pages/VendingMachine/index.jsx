@@ -47,7 +47,7 @@ function VendingMachine() {
 
   return (
     <S.Container>
-      <Products isPriceUnderInsertMoney={isPriceUnderInsertMoney} />
+      <Products isManger={false} isPriceUnderInsertMoney={isPriceUnderInsertMoney} />
       <InsertMoneyForm
         totalBalance={totalBalance}
         insertMoney={insertMoney}
