@@ -8,6 +8,7 @@ const StyledProductBox = styled.div`
   ${({ flexType }) => flexType && Flex[flexType]};
   flex-direction: column;
   padding: 10px;
+  background-color: ${({ theme: { colors } }) => colors.white}; ;
 `;
 
 export { StyledProductBox };

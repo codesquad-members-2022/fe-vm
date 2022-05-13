@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 const StyledLogo = styled.div`
   width: 100%;
-  height: 90%;
+  height: 90px;
   ${({ flexType }) => flexType && Flex[flexType]};
   background-color: ${({ theme: { colors } }) => colors.darkBlue};
 `;
