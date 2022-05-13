@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { LogContext } from "../../contexts/Log";
 import { InputAmountContext } from "../../contexts/InputAmount";
 

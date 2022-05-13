@@ -2,13 +2,15 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { InputAmountContext } from "../../contexts/InputAmount";
 import { LogContext } from "../../contexts/Log";
+import { WalletContext } from "../../contexts/WalletContext";
 
 export default function ReturnButton() {
   const { inputAmount, subtractInputAmount } = useContext(InputAmountContext);
   const { log } = useContext(LogContext);
+  const { putMoneyToWallet } = useContext(WalletContext);
   function returnInputAmount() {
     subtractInputAmount(inputAmount);
-    // 지갑에 inputAmount 추가
+    putMoneyToWallet(inputAmount);
     log("return", inputAmount);
   }
   return <ReturnButtonWrapper onClick={returnInputAmount}>반환</ReturnButtonWrapper>;

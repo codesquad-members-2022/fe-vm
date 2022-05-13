@@ -32,15 +32,24 @@ function WalletProvider({ children }) {
       0
     );
   }
-
   function subtractMoney(value, numberOfSubstracted) {
     setAmountOfMoney({ ...amountOfMoney, [value]: amountOfMoney[value] - numberOfSubstracted });
   }
-
+  function putMoneyToWallet(addedAmount) {
+    const amountOfMoneyTemp = amountOfMoney;
+    Object.entries(amountOfMoneyTemp)
+      .sort(([valueA], [valueB]) => valueB - valueA)
+      .forEach(([value]) => {
+        const numberOfAdded = Math.min(Math.floor(addedAmount / Number(value)));
+        addedAmount -= value * numberOfAdded;
+        amountOfMoneyTemp[value] += numberOfAdded;
+      });
+    setAmountOfMoney(amountOfMoneyTemp);
+  }
   useEffect(() => {
     setAmountOfMoney(amountOfMoneyData);
   }, []);
-  const value = { amountOfMoney, getWithdrawableAmount, getTotalMoney, subtractMoney };
+  const value = { amountOfMoney, getWithdrawableAmount, getTotalMoney, subtractMoney, putMoneyToWallet };
   return <WalletContext.Provider value={value}>{children}</WalletContext.Provider>;
 }
 
