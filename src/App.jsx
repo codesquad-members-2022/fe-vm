@@ -7,23 +7,27 @@ import walletData from 'data/wallet';
 import { Container } from 'App.style';
 
 const WalletContext = createContext(null);
+const SelectedProductContext = createContext(null);
 
 export default function App() {
   const useWalletState = useState(walletData);
+  const useSelectedProductState = useState({});
 
   return (
     <WalletContext.Provider value={useWalletState}>
-      <Container>
-        <BrowserRouter>
-          <GNB />
-          <Routes>
-            <Route path="/" element={<VendingMachine />} />
-            <Route path="/wallet" element={<Wallet />} />
-          </Routes>
-        </BrowserRouter>
-      </Container>
+      <SelectedProductContext.Provider value={useSelectedProductState}>
+        <Container>
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <GNB />
+            <Routes>
+              <Route path="/" element={<VendingMachine />} />
+              <Route path="/wallet" element={<Wallet />} />
+            </Routes>
+          </BrowserRouter>
+        </Container>
+      </SelectedProductContext.Provider>
     </WalletContext.Provider>
   );
 }
 
-export { WalletContext };
+export { WalletContext, SelectedProductContext };

@@ -8,7 +8,7 @@ const Container = styled.div`
   column-gap: 15px;
   width: 55%;
   height: fit-content;
-  padding: 20px;
+  padding: 40px 30px;
 `;
 
 export { Container };

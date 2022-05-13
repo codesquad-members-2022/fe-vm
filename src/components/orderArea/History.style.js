@@ -1,16 +1,21 @@
 import styled from 'styled-components';
 
 const HistoryList = styled.ol`
-  min-height: 100px;
-  max-height: 60%;
-  padding: 15px;
+  height: 20%;
+  min-height: 200px;
+  padding: 25px 20px;
   border: 1px solid #333;
   border-radius: 4px;
   overflow-y: auto;
 `;
 
 const HistoryItem = styled.li`
-  margin-top: 5px;
+  margin-top: 12px;
+  font-size: 22px;
+  letter-spacing: -0.2px;
+  &:first-child {
+    margin-top: 0;
+  }
 `;
 
 export { HistoryList, HistoryItem };

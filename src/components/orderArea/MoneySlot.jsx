@@ -1,12 +1,14 @@
 /* eslint-disable no-restricted-globals */
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Container, MoneyInput, Unit } from 'components/orderArea/MoneySlot.style';
+import { FinalPayContext } from 'pages/VendingMachine';
 
 const MAX_PAYMENT = 100000;
 
-export default function MoneySlot({ useInputPayState }) {
+export default function MoneySlot({ useInputPayState, canOrderState }) {
   const [inputPay, setInputPay] = useInputPayState;
+  const finalPay = useContext(FinalPayContext)[0];
 
   const isRightPayMent = inputValue => {
     if (isNaN(inputValue)) return false;
@@ -21,18 +23,27 @@ export default function MoneySlot({ useInputPayState }) {
     if (isRightPayMent(numPay)) setInputPay(numPay);
   };
 
+  useEffect(() => setInputPay(0), [finalPay]);
+
   return (
     <Container>
-      <MoneyInput type="text" value={inputPay ? inputPay.toLocaleString('en') : ''} onChange={handleChangeMoneyInput} />
+      <MoneyInput
+        type="text"
+        value={inputPay > 0 ? inputPay.toLocaleString('en') : ''}
+        onChange={handleChangeMoneyInput}
+        readOnly={!canOrderState}
+      />
       <Unit>원</Unit>
     </Container>
   );
 }
 
 MoneySlot.propTypes = {
-  useInputPayState: PropTypes.arrayOf(PropTypes.number, PropTypes.func)
+  useInputPayState: PropTypes.arrayOf(PropTypes.number, PropTypes.func),
+  canOrderState: PropTypes.bool
 };
 
 MoneySlot.defaultProps = {
-  useInputPayState: []
+  useInputPayState: [],
+  canOrderState: true
 };
