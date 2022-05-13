@@ -28,6 +28,10 @@ const VendingMachine = () => {
     setMessage((prev) => [event.target.innerText, ...prev]);
   };
 
+  const returnPrice = () => {
+    setAccumulatedPrice(0);
+  };
+
   return (
     <div className="vendingmachine-wrapper">
       <div className="product-wrapper">
@@ -48,7 +52,7 @@ const VendingMachine = () => {
           onChange={writePriceHandler}
           inputPrice={inputPrice}
         />
-        <ReturnButton />
+        <ReturnButton onClick={returnPrice} />
         <MessageView message={message} />
       </div>
     </div>
