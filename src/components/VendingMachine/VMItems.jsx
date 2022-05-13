@@ -7,11 +7,25 @@ import vmItems from 'mocks/vmItems';
 const initItems = vmItems;
 
 const VMItems = () => {
-  const [items] = useState(initItems);
+  const [items, setItems] = useState(initItems);
+
+  const reduceItemCount = (selectedItemId) => {
+    const newItems = items.map((item) => {
+      if (item.id === selectedItemId) {
+        return {
+          ...item,
+          count: item.count - 1,
+        };
+      }
+      return item;
+    });
+    setItems(newItems);
+  };
+
   return (
     <VMItemsWrapper>
       {items.map((item) => (
-        <VMItem key={item.id} item={item} />
+        <VMItem key={item.id} item={item} onClickActiveItem={reduceItemCount} />
       ))}
     </VMItemsWrapper>
   );
