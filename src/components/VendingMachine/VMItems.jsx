@@ -1,13 +1,11 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 
 import VMItem from 'components/VendingMachine/VMItem';
-import vmItems from 'mocks/vmItems';
-
-const initItems = vmItems;
+import { ItemContext } from 'context/ItemProvider';
 
 const VMItems = () => {
-  const [items, setItems] = useState(initItems);
+  const [items, setItems] = useContext(ItemContext);
 
   const reduceItemCount = (selectedItemId) => {
     const newItems = items.map((item) => {
