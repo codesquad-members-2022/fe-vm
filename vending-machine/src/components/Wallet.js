@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { WalletContext } from "../contexts/walletContext";
+import WalletProvider, { WalletContext } from "../contexts/walletContext";
 import { HeightSort } from "../style/Globalstyles";
 import Currency from "./Currency";
 import TotalMoney from "./TotalMoney";
@@ -13,7 +13,7 @@ function Wallet() {
       {money.map((currency, idx) => (
         <Currency
           key={idx}
-          money={currency.money}
+          money={currency.title}
           amount={currency.amount}
         ></Currency>
       ))}

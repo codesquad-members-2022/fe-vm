@@ -1,30 +1,14 @@
 import { createContext, useState } from "react";
 import { products } from "../datas/products";
-import Product from "../components/Product";
 
-const initialState = {
-  state: products,
-  actions: {
-    setAmount: () => {},
-  },
-};
+export const ProductContext = createContext(products);
 
-const ProductContext = createContext(initialState);
+function ProductProvider({ children }) {
+  const [beverage, setBeverage] = useState(products);
 
-function ProductProvider() {
-  const [amount, setAmount] = useState();
-
-  const value = initialState;
+  const value = { beverage, setBeverage };
   return (
-    <ProductContext.Provider value={value}>
-      {value.state.map((product, idx) => (
-        <Product
-          key={idx}
-          title={product.title}
-          price={product.price}
-        ></Product>
-      ))}
-    </ProductContext.Provider>
+    <ProductContext.Provider value={value}>{children}</ProductContext.Provider>
   );
 }
 

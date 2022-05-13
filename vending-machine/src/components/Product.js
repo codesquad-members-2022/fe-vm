@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { ProductContext } from "../contexts/productContext";
 import canSrc from "../img/free-icon-beer-can-95982.png";
 import { CenterSort, HeightSort } from "../style/Globalstyles";
+import { decreaseAmount } from "../util/util";
 
-function Product({ title, price }) {
+function Product({ title, price, amount }) {
+  const { beverage, setBeverage } = useContext(ProductContext);
+
   return (
-    <ProductWrap>
+    <ProductWrap
+      onClick={() => {
+        decreaseAmount(beverage, amount, setBeverage, title);
+      }}
+    >
       <ProductImage src={canSrc}></ProductImage>
       <ProductTitle>{title}</ProductTitle>
       <ProductPrice>{price.toLocaleString()}원</ProductPrice>
+      {amount}
     </ProductWrap>
   );
 }

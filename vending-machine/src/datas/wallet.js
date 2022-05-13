@@ -1,34 +1,34 @@
 export const wallet = [
   {
-    money: 10,
+    title: 10,
     amount: 2,
   },
   {
-    money: 50,
+    title: 50,
     amount: 2,
   },
   {
-    money: 100,
+    title: 100,
     amount: 4,
   },
   {
-    money: 500,
+    title: 500,
     amount: 5,
   },
   {
-    money: 1000,
+    title: 1000,
     amount: 2,
   },
   {
-    money: 5000,
+    title: 5000,
     amount: 1,
   },
   {
-    money: 10000,
+    title: 10000,
     amount: 4,
   },
   {
-    money: 50000,
+    title: 50000,
     amount: 0,
   },
 ];

@@ -1,22 +1,19 @@
-import React, { useContext, useDebugValue } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { CenterSort, HeightSort } from "../style/Globalstyles";
 import { WalletContext } from "../contexts/walletContext";
+import { decreaseAmount } from "../util/util";
 function Currency({ money, amount }) {
-  const { value, _ } = useContext(WalletContext);
-  function decreaseAmount() {
-    if (amount === 0) return;
-    const newMoney = value.walletMoney.map((currency) => {
-      if (money === currency.money) {
-        return { ...currency, amount: amount - 1 };
-      }
-      return currency;
-    });
-    value.setWalletMoney(newMoney);
-  }
+  const { walletMoney, setWalletMoney } = useContext(WalletContext).value;
   return (
     <CurrencyWrap>
-      <Money onClick={decreaseAmount}>{money.toLocaleString()}원</Money>
+      <Money
+        onClick={() => {
+          decreaseAmount(walletMoney, amount, setWalletMoney, money);
+        }}
+      >
+        {money.toLocaleString()}원
+      </Money>
       <Amount>{amount}개</Amount>
     </CurrencyWrap>
   );

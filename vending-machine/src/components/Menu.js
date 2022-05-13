@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { CenterSort } from "../style/Globalstyles";
-import ProductProvider from "../contexts/productContext";
+import { ProductContext } from "../contexts/productContext";
+import Product from "./Product";
 
 function Menu() {
+  const beverage = useContext(ProductContext).beverage;
   return (
     <MenuWrap>
       <ProductWindow>
-        <ProductProvider></ProductProvider>
+        {beverage.map((product, idx) => (
+          <Product
+            key={idx}
+            title={product.title}
+            price={product.price}
+            amount={product.amount}
+          ></Product>
+        ))}
       </ProductWindow>
       <ProductOutput></ProductOutput>
     </MenuWrap>
