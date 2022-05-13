@@ -11,7 +11,7 @@ export function getMessage(type, value) {
       valueMessage = `${value}원을 `;
       break;
     case '구입':
-      valueMessage = `상품${value}을 `;
+      valueMessage = `상품(${value})을 `;
       break;
     default:
       return;
