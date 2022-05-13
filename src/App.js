@@ -5,7 +5,7 @@ import GlobalStyle from 'styles/GlobalStyle';
 import { CashProvider } from 'context';
 import { PATH } from 'constants';
 import Layout from 'components/layout/Layout';
-import { VendingMachine, Wallet, Admin, NotFound } from 'components/pages';
+import { VendingMachine, Wallet, Admin, NotFound } from 'pages';
 
 function App() {
   return (
@@ -15,10 +15,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path={URL.INDEX} element={<Layout />}>
-              <Route
-                index
-                element={<Navigate to={PATH.VENDING_MACHINE} replace />}
-              />
+              <Route index element={<Navigate to={PATH.VENDING_MACHINE} replace />} />
               <Route path={PATH.VENDING_MACHINE} element={<VendingMachine />} />
               <Route path={PATH.WALLET} element={<Wallet />} />
               <Route path={PATH.ADMIN} element={<Admin />} />
