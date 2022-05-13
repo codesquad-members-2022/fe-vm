@@ -1,15 +1,11 @@
-import React, { useEffect, useReducer, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React, { useReducer, useState } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Home from './pages/Home';
-import Wallet from './pages/Wallet';
-import NotFound from './pages/NotFound';
-
 import Header from './components/Header';
-import { changedKoreanLocaleMoney, fetchData } from './utility/util';
+import Main from './components/Main';
+import { changeKoreanLocalMoney } from './utility/util';
 
-export const DrinkDataContext = React.createContext();
 export const TotalMoneyContext = React.createContext();
 export const ProgressContext = React.createContext();
 
@@ -35,33 +31,20 @@ const reducer = (state, { type, data }) => {
 };
 
 const App = () => {
-  const [drinkData, setDrinkData] = useState([]);
   const [totalMoney, setTotalMoney] = useState(0);
   const [progressBox, dispatch] = useReducer(reducer, []);
-
-  useEffect(() => {
-    const drinkUrl = `${process.env.PUBLIC_URL}data/drink.json`;
-
-    getDrinkData(drinkUrl, setDrinkData);
-  }, []);
-
-  const getDrinkData = async (url, setData) => {
-    const response = await fetchData(url);
-
-    setData(response.drink);
-  };
 
   const addMoneyMessage = (inputMoney) => {
     dispatch({
       type: 'ADD_MONEY',
-      data: changedKoreanLocaleMoney(inputMoney),
+      data: changeKoreanLocalMoney(inputMoney),
     });
   };
 
   const returnMoneyMessage = (totalMoney) => {
     dispatch({
       type: 'RETURN_MONEY',
-      data: changedKoreanLocaleMoney(totalMoney),
+      data: changeKoreanLocalMoney(totalMoney),
     });
   };
 
@@ -72,32 +55,24 @@ const App = () => {
     });
   };
 
+  const progressContextValue = {
+    progressBox,
+    addMoneyMessage,
+    returnMoneyMessage,
+    selectedDrinkMessage,
+  };
+
   return (
-    <DrinkDataContext.Provider value={{ drinkData, setDrinkData }}>
-      <TotalMoneyContext.Provider value={{ totalMoney, setTotalMoney }}>
-        <ProgressContext.Provider
-          value={{
-            progressBox,
-            addMoneyMessage,
-            returnMoneyMessage,
-            selectedDrinkMessage,
-          }}
-        >
-          <BrowserRouter>
-            <StyledApp>
-              <Header />
-              <StyledMain>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/wallet" element={<Wallet />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </StyledMain>
-            </StyledApp>
-          </BrowserRouter>
-        </ProgressContext.Provider>
-      </TotalMoneyContext.Provider>
-    </DrinkDataContext.Provider>
+    <TotalMoneyContext.Provider value={[totalMoney, setTotalMoney]}>
+      <ProgressContext.Provider value={progressContextValue}>
+        <BrowserRouter>
+          <StyledApp>
+            <Header />
+            <Main />
+          </StyledApp>
+        </BrowserRouter>
+      </ProgressContext.Provider>
+    </TotalMoneyContext.Provider>
   );
 };
 
@@ -105,11 +80,6 @@ const StyledApp = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   text-align: center;
-`;
-
-const StyledMain = styled.main`
-  display: flex;
-  margin-top: 20px;
 `;
 
 export default App;
