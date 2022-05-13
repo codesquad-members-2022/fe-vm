@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Input from "./OperationMenu/Input";
-import MessageContainer from "./OperationMenu/Message";
+import MessageContainer from "./OperationMenu/MessageContainer";
 import Return from "./OperationMenu/Return";
 
 export default function Operations() {
