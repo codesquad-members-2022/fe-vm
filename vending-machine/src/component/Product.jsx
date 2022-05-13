@@ -15,7 +15,6 @@ function Product({ name, price, quantity }) {
 const ProductBox = styled.button`
   margin: 20px;
   height: ${uiConst.VENDING_MACHINE_PRODUCT_HEIGHT}px;
-  font-size: 1.5rem;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -23,7 +22,11 @@ const ProductBox = styled.button`
   align-items: center;
 `;
 
-const ProductName = styled.div``;
-const ProductPrice = styled.div``;
+const ProductName = styled.div`
+  font-size: ${uiConst.VENDING_MACHINE_PRODUCT_SIZE}rem;
+`;
+const ProductPrice = styled.div`
+  font-size: 1.2rem;
+`;
 
 export default Product;
