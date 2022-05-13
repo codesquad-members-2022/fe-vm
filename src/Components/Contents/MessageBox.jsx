@@ -2,7 +2,11 @@ import styled from 'styled-components';
 import { Color, FontSize, Radius10 } from '../../Assets/Common.style';
 import EnTitle from '../EnTitle';
 
-export default function MessageBox() {
+export default function MessageBox({ message }) {
+  const printMessages = message.map((msg, idx) => {
+    return <p key={idx}>{msg}</p>;
+  });
+
   return (
     <MassegeContent>
       <EnTitle
@@ -12,10 +16,7 @@ export default function MessageBox() {
         color={Color.WHITE}
       />
       <TextBox>
-        <Text>
-          <p>100원 투입</p>
-          <p>상품선택</p>
-        </Text>
+        <Text>{printMessages}</Text>
       </TextBox>
     </MassegeContent>
   );
