@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {Products} from '../Component/Vending_machine/Products';
-import {VendingMachineInterface} from '../Component/Vending_machine/VendingMachineInterface';
+import {Products, VendingMachineInterface} from '../Component';
 
 import {PRODUCTS_DATA} from '../mocks/ProductData';
 

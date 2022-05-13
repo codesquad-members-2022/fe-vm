@@ -1,1 +1,0 @@
-export {VendingMachine} from './VendingMachine';

@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
 
-import {UserAccount} from '../../Store';
+import {UserAccount} from '../Store';
 
 const divideCurrentMoney = (moneyList, money) => {
   moneyList.forEach(v => {

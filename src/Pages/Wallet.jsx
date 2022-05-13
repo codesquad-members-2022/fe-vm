@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import {MONEY_BUTTON_DATA} from '../mocks/MoneyButtonData';
 import {UserAccount} from '../Store';
-import {InsertButton} from '../Component/Wallet/InsertButton';
+import {InsertButton} from '../Component';
 
 export const Wallet = () => {
   const {userMoney} = useContext(UserAccount);

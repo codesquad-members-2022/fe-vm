@@ -1,7 +1,7 @@
 import React, {useContext, useRef} from 'react';
 import styled from 'styled-components';
 
-import {UserAccount} from '../../Store';
+import {UserAccount} from '../Store';
 
 export const VendingMachineInterface = () => {
   // const {insertedMoney, dispatchCurrentMoney, dispatchInsertedMoney} =

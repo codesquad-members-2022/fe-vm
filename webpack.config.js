@@ -33,7 +33,6 @@ module.exports = {
   },
   plugins: [
     new RefreshWebpackPlugin(),
-
     // new HtmlWebpackPlugin({
     //   template: path.join(__dirname + "/src", "index.html"),
     // }),
