@@ -20,18 +20,9 @@ const IconBox = styled(FlexBox)`
   justify-content: space-around;
 `;
 
-const SelectedIconStyle = css`
-  background-color: ${({ theme: { greyScale } }) => greyScale.white};
-  border-radius: 10px;
-`;
-
 const IconStyle = css`
   cursor: pointer;
-  transition: all 300ms ease;
-  padding: 10px;
-  :hover {
-    ${SelectedIconStyle}
-  }
+  margin: 10px;
 `;
 
 const LogoIcon = styled(Logo)`
