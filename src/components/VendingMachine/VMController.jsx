@@ -6,10 +6,14 @@ import VMLogs from 'components/VendingMachine/VMLogs';
 import COLORS from 'constants/colors';
 import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
+import createHoverCss from 'styles/createHoverCss';
 
 const VMController = () => {
   const { inputMoney, returnInputMoney } = useContext(MoneyContext);
   const [, insertLog] = useContext(LogContext);
+  const hoverCss = createHoverCss({
+    bgColor: { base: COLORS.WHITE, hover: COLORS.MAIN_BG },
+  });
 
   const handleClickReturnButton = () => {
     returnInputMoney();
@@ -22,7 +26,7 @@ const VMController = () => {
   return (
     <VMControllerWrapper>
       <VMInputMoney />
-      <ReturnMoneyButton onClick={handleClickReturnButton}>
+      <ReturnMoneyButton onClick={handleClickReturnButton} hoverCss={hoverCss}>
         반환
       </ReturnMoneyButton>
       <VMLogs />
@@ -44,10 +48,7 @@ const ReturnMoneyButton = styled.button`
   align-items: center;
   border: 3px solid ${COLORS.GREY};
   cursor: pointer;
-  transition: background-color 0.2s;
-  &:hover {
-    background-color: ${COLORS.MAIN_BG};
-  }
+  ${({ hoverCss }) => hoverCss}
 `;
 
 export default VMController;
