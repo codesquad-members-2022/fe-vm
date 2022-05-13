@@ -1,7 +1,11 @@
-const Product = ({ name, price, onClick, amount }) => {
+const Product = ({ name, price, onClick, accumulatedPrice }) => {
   return (
     <div className="product-info">
-      <div style={price <= amount ? { color: "red" } : { color: "black" }}>
+      <div
+        style={
+          price <= accumulatedPrice ? { color: "red" } : { color: "black" }
+        }
+      >
         <div className="product" onClick={onClick}>
           {name}
         </div>

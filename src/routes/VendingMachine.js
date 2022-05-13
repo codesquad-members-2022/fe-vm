@@ -4,28 +4,27 @@ import { data } from "../datas/data";
 import "./VendingMachine.css";
 import Product from "../components/Product/Product";
 import InputValue from "../components/Input/InputValue";
-import ReturnValue from "../components/ReturnValue/ReturnValue";
+import ReturnButton from "../components/ReturnButton/ReturnButton";
 import MessageView from "../components/MessageView/MessageView";
 import CurrentPrice from "../components/CurrentPrice/CurrentPrice";
 
 const VendingMachine = () => {
-  const [value, setValue] = useState("");
+  const [inputPrice, setInputPrice] = useState(undefined);
   const [message, setMessage] = useState([]);
-  const [amount, setAmount] = useState(0);
+  const [accumulatedPrice, setAccumulatedPrice] = useState(0);
 
-  const onChangeValue = (event) => {
-    setValue(Number(event.target.value));
+  const writePriceHandler = (event) => {
+    setInputPrice(Number(event.target.value));
   };
 
-  const onSubmit = (event) => {
+  const insertPriceHandler = (event) => {
     event.preventDefault();
-    setMessage((prev) => [value, ...prev]);
-    setAmount(amount + value);
-    console.log(amount);
-    setValue("");
+    setMessage((prev) => [inputPrice, ...prev]);
+    setAccumulatedPrice(accumulatedPrice + inputPrice);
+    setInputPrice("");
   };
 
-  const onClick = (event) => {
+  const selectProductHandler = (event) => {
     setMessage((prev) => [event.target.innerText, ...prev]);
   };
 
@@ -37,19 +36,19 @@ const VendingMachine = () => {
             key={v.id}
             name={v.name}
             price={v.price}
-            amount={amount}
-            onClick={onClick}
+            accumulatedPrice={accumulatedPrice}
+            onClick={selectProductHandler}
           />
         ))}
       </div>
       <div className="vendingmachine-input-wrapper">
-        <CurrentPrice amount={amount} />
+        <CurrentPrice accumulatedPrice={accumulatedPrice} />
         <InputValue
-          onSubmit={onSubmit}
-          onChange={onChangeValue}
-          value={value}
+          onSubmit={insertPriceHandler}
+          onChange={writePriceHandler}
+          inputPrice={inputPrice}
         />
-        <ReturnValue />
+        <ReturnButton />
         <MessageView message={message} />
       </div>
     </div>
