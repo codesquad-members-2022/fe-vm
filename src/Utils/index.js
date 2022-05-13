@@ -1,1 +1,1 @@
-export {uuidv4} from './util';
+export {uuidv4} from './Util';
