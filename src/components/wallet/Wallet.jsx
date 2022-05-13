@@ -13,7 +13,6 @@ const Wallet = () => {
     <WalletWrap>
       <MoneyWrap>
         {VmWalletInfo.moneyInfo.map((money, idx) => {
-          console.log("re-rendering wallet");
           return <MoneyInfo money={money} number={idx} key={idx} />;
         })}
       </MoneyWrap>

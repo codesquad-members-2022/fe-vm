@@ -13,6 +13,9 @@ const Product = ({ product }) => {
   const onProductClick = () => {
     if (productDisplay === "red") {
       VmWalletInfo.setCurrMoney(VmWalletInfo.currMoney - product.price);
+      VmWalletInfo.setLogMessage(
+        VmWalletInfo.logMessage.concat(`${product.title}을 선택하셨습니다`)
+      );
     }
   };
 

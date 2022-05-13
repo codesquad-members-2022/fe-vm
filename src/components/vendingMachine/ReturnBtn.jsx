@@ -8,11 +8,12 @@ import { useContext } from "react";
 const ReturnBtn = () => {
   const VmWalletInfo = useContext(VmWalletContextStore);
 
-  const onReturnClick = () => {
-    if (VmWalletInfo.isInsertCoin) {
-      // VmWalletInfo.currMoney;
-    }
-  };
+  // const onReturnClick = () => {
+  //   if (VmWalletInfo.isInsertCoin) {
+  //     // VmWalletInfo.currMoney;
+  //   }
+  // };
+
   return (
     <ReturnBtnWrap>
       <Text font={FONT.LARGE_BOLD}>반환</Text>
