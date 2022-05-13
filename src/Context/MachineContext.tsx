@@ -36,10 +36,10 @@ export function MachineContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [machine, dispatch] = useReducer(machineReducer, []);
+  const [machine, machineDispatch] = useReducer(machineReducer, []);
 
   return (
-    <MachineDispatchContext.Provider value={dispatch}>
+    <MachineDispatchContext.Provider value={machineDispatch}>
       <MachineStateContext.Provider value={machine}>
         {children}
       </MachineStateContext.Provider>
@@ -49,12 +49,12 @@ export function MachineContextProvider({
 
 export function useMachineState() {
   const state = useContext(MachineStateContext);
-  if (!state) throw new Error('Cannot find PriceContextProvider');
+  if (!state) throw new Error('Cannot find MachineContextProvider');
   return state;
 }
 
 export function useMachineDispatch() {
   const dispatch = useContext(MachineDispatchContext);
-  if (!dispatch) throw new Error('Cannot find PriceContextProvider');
+  if (!dispatch) throw new Error('Cannot find MachineContextProvider');
   return dispatch;
 }

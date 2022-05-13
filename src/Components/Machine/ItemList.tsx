@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import Item from '@/Components/Machine/Item';
 
 import { IItem, useItemState } from '@/Context/ItemContext';
-import { useMachineState } from '@/Context/MachineContext';
+import { useWalletDispatch } from '@/Context/WalletContext';
+import { useMachineState, useMachineDispatch } from '@/Context/MachineContext';
 
 const ItemListerWrapper = styled.article`
   display: grid;
@@ -19,6 +20,8 @@ const ItemListerWrapper = styled.article`
 export default function ItemList(): JSX.Element {
   const itemState = useItemState();
   const machineState = useMachineState();
+  const machineDispatch = useMachineDispatch();
+  const walletDispatch = useWalletDispatch();
 
   const machinePriceAmount = machineState.reduce((prev, cur) => {
     return (prev += cur.unit);
@@ -39,6 +42,11 @@ export default function ItemList(): JSX.Element {
     }
 
     // MachineMessage Update
+    machineDispatch({
+      type: 'INSERT_MESSAGE',
+      unit: 0,
+      message: `${item.text}가 선택 됨`,
+    });
     // 잔돈 -> Wallet Update
     // 5초 카운트 종료
     // 2초 뒤 상품 배출

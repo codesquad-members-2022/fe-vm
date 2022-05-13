@@ -11,7 +11,9 @@ interface IWallet {
 // 모든 액션 객체들에 대한 타입 준비
 type WalletAction =
   | { type: 'INCREASE_WALLET_UNIT'; unit: number; count: number }
-  | { type: 'DECREASE_WALLET_UNIT'; unit: number; count: number };
+  | { type: 'DECREASE_WALLET_UNIT'; unit: number; count: number }
+  | { type: 'UPDATE_WALLET_UNIT'; unit: number; count: number };
+
 type WalletDispatch = Dispatch<WalletAction>;
 type WalletState = IWallet[];
 
@@ -34,6 +36,8 @@ function walletReducer(state: WalletState, action: WalletAction): WalletState {
           : wallet;
       });
 
+    case 'UPDATE_WALLET_UNIT':
+    // return [...state, { unit: action.unit, count: action.count }];
     default:
       throw new Error('Unhandled action');
   }
