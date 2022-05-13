@@ -81,6 +81,7 @@ export {
   Absolute,
   F_basicCenter,
   F_Center,
+  F_BetweenCenter,
   F_ColumnBetweenCenter,
   Radius10,
   Radius20,

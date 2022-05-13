@@ -5,7 +5,7 @@ import EnTitle from './EnTitle';
 import ToggleIcon from './ToggleIcon';
 import { Color, FontSize, F_Center } from '../Assets/Common.style';
 
-export default function Header() {
+export default function Header({ menu }) {
   const [active, setActive] = useState('vending-machine');
 
   const tabClickHandler = (menu) => {
@@ -15,18 +15,24 @@ export default function Header() {
   return (
     <HEADER>
       <TabMenu className={active}>
-        <Link to="/" onClick={tabClickHandler.bind(null, 'vending-machine')}>
+        <Link
+          to={`/${menu.menu1.value}`}
+          onClick={tabClickHandler.bind(null, menu.menu1.value)}
+        >
           <EnTitle
-            title="Vending Machine"
+            title={menu.menu1.title}
             tag="h2"
             size={FontSize.DISPLAY}
             color={Color.BLACK}
           />
         </Link>
         <ToggleIcon />
-        <Link to="/wallet" onClick={tabClickHandler.bind(null, 'wallet')}>
+        <Link
+          to={`/${menu.menu2.value}`}
+          onClick={tabClickHandler.bind(null, menu.menu2.value)}
+        >
           <EnTitle
-            title="Wallet"
+            title={menu.menu2.title}
             tag="h2"
             size={FontSize.DISPLAY}
             color={Color.BLACK}

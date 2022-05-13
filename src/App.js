@@ -1,17 +1,23 @@
 import React from 'react';
-import { Route, Routes } from 'react-router';
 import Header from './Components/Header';
-import VendingMachine from './Components/Contents/VendingMachine/index';
-import Wallet from './Components/Contents/Wallet/index';
+import Main from './Page';
+
+const MENU = {
+  menu1: {
+    title: 'Vending Machine',
+    value: 'vending-machine',
+  },
+  menu2: {
+    title: 'Wallet',
+    value: 'wallet',
+  },
+};
 
 function App() {
   return (
     <>
-      <Header />
-      <Routes>
-        <Route path="/" element={<VendingMachine />} />
-        <Route path="/wallet" element={<Wallet />} />
-      </Routes>
+      <Header menu={MENU} />
+      <Main />
     </>
   );
 }

@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { getMessage } from '../../../Utils/utils';
 import {
   Absolute,
   Color,
@@ -13,22 +14,53 @@ import {
 } from '../../../Assets/Common.style';
 import soldOutIcon from '../../../Assets/Images/sold-out.svg';
 
-export default function Product({ products }) {
-  const item = products.map((product) => <Item product={product} />);
-  return item;
+export default function Product({ products, payTotal, message }) {
+  const items = products.map((product) => (
+    <Item
+      key={product.id}
+      product={product}
+      payTotal={payTotal}
+      message={message}
+    />
+  ));
+  return items;
 }
 
-function Item({ product }) {
+function Item({ product, payTotal, message }) {
   const [isSoldOut, setIsSoldOut] = useState(!product.stock);
+  const [isActive, setIsActive] = useState(payTotal.value >= product.price);
+
+  const buyProductHandler = () => {
+    const MESSAGE = getMessage('구입', product.title);
+    const updateTotal = payTotal.value - product.price;
+
+    payTotal.set(updateTotal);
+    message.set([...message.value, MESSAGE]);
+    product.stock -= 1;
+  };
+
+  useEffect(() => {
+    setIsActive(payTotal.value >= product.price);
+  }, [payTotal.value]);
+
+  useEffect(() => {
+    setIsSoldOut(!product.stock);
+  }, [product.stock]);
 
   return (
-    <ProductItem key={product.id} className={isSoldOut ? 'sold-out' : ''}>
+    <ProductItem
+      className={(isSoldOut ? 'sold-out' : '') + (isActive ? ' active' : '')}
+      onClick={isActive && !isSoldOut ? buyProductHandler : null}
+    >
       <button>
         <ImgBox>
-          <Img style={{ backgroundImage: `url(${product.image})` }}></Img>
-          <span hidden>{product.title}</span>
+          <Img
+            hidden
+            style={{ backgroundImage: `url(${product.image})` }}
+          ></Img>
+          <span>{product.title}</span>
         </ImgBox>
-        <Price>{product.price}원</Price>
+        <Price className={isActive ? 'active' : ''}>{product.price}원</Price>
       </button>
     </ProductItem>
   );
@@ -51,7 +83,8 @@ const ProductItem = styled.li`
     bottom: 0;
     left: 0;
   }
-  &:not(.sold-out):hover::before {
+
+  &.active:not(.sold-out):hover::before {
     border: 3px solid ${Color.ORANGE[200]};
     cursor: pointer;
   }
@@ -71,7 +104,7 @@ const ProductItem = styled.li`
 
 const ImgBox = styled.div`
   width: 100%;
-  height: 80px;
+  height: calc(100% - 35px);
 `;
 
 const Img = styled.div`
