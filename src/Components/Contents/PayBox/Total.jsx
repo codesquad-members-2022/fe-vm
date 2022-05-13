@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { Color, FontSize, Radius10 } from '../../../Assets/Common.style';
+import { changeNumToLocalMoney } from '../../../Utils/utils';
 
-export default function PayTotal() {
-  return <Total>0</Total>;
+export default function PayTotal({ value }) {
+  const formatValue = changeNumToLocalMoney(value);
+  return <Total>{formatValue}</Total>;
 }
 
 const Total = styled.div`
