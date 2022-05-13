@@ -13,7 +13,7 @@ const menus = [
 ];
 
 const TabMenu = () => {
-  const path = useMatch('/:page')?.params.page;
+  const path = useMatch('/:path')?.params.path;
   const walletMenuId = 2;
 
   const { totalCash } = useContext(CashContext);
