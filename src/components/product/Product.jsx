@@ -5,14 +5,14 @@ import {
     ProductName,
 } from "./Product.style";
 
-function Product({ moneyInVendingMachine }) {
+function Product({ totalMoneyInVendingMachine }) {
     return (
         <>
             {dataOfProducts.map((product) => (
                 <ProductContainer key={product.id}>
                     <ProductNameWrapper
                         choosable={
-                            moneyInVendingMachine >= Number(product.price)
+                            totalMoneyInVendingMachine >= Number(product.price)
                         }
                     >
                         <ProductName>{product.name}</ProductName>

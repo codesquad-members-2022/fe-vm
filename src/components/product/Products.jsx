@@ -11,7 +11,7 @@ function Products({ moneyInVendingMachine }) {
 
     return (
         <ProductsContainer>
-            <Product moneyInVendingMachine={totalMoneyInVendingMachine} />
+            <Product totalMoneyInVendingMachine={totalMoneyInVendingMachine} />
         </ProductsContainer>
     );
 }
