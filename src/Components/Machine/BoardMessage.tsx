@@ -3,9 +3,10 @@ import { useMachineState } from '@/Context/MachineContext';
 
 const MessageWrapper = styled.div`
   width: 100%;
-  min-height: 500px;
+  height: 500px;
   border-radius: 8px;
   border: 2px solid ${({ theme }) => theme.colors.white};
+  overflow-y: auto;
 `;
 
 const Message = styled.p`
