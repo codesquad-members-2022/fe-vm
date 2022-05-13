@@ -5,6 +5,7 @@ const TabMenu = styled.div`
   width: fit-content;
   border-radius: 5px;
   overflow: hidden;
+  margin: 58px auto 50px;
 `;
 
 export { TabMenu };
