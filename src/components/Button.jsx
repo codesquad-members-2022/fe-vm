@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-function Button({ className, icon, disabled, onClick }) {
+export default function Button({ className, icon, disabled, onClick }) {
   return (
     <StyledButton disabled={disabled} className={className} onClick={onClick}>
       {icon}
@@ -27,5 +27,3 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
 };
-
-export default Button;

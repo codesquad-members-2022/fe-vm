@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 import VendingMachine from './pages/VendingMachine';
 import Wallet from './pages/Wallet';
-
 import Button from './components/Button';
 
 export default function App() {
