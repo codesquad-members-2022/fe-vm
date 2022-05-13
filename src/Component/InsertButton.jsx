@@ -11,20 +11,6 @@ const divideCurrentMoney = (moneyList, money) => {
   return moneyList;
 };
 
-// const handleMoneyButton = (
-//   unit,
-//   currentMoney,
-//   dispatchCurrentMoney,
-//   dispatchInsertedMoney,
-// ) => {
-//   if (currentMoney < unit) {
-//     return;
-//   }
-
-//   dispatchCurrentMoney({type: 'decrease', income: unit});
-//   dispatchInsertedMoney({type: 'increase', income: unit});
-// };
-
 const handleMoneyButton = (unit, currentMoney, insertMoney) => {
   if (currentMoney < unit) {
     return;
