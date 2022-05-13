@@ -1,10 +1,17 @@
-const Product = ({ name, price, onClick }) => {
+import "./Product.css";
+const Product = ({ name, price, onClick, accumulatedPrice }) => {
   return (
     <div className="product-info">
-      <div className="product" onClick={onClick}>
-        {name}
+      <div
+        style={
+          price <= accumulatedPrice ? { color: "red" } : { color: "black" }
+        }
+      >
+        <div className="product" onClick={onClick}>
+          {name}
+        </div>
+        {price}
       </div>
-      {price}
     </div>
   );
 };

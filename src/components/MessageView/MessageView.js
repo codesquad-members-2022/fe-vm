@@ -1,13 +1,12 @@
 import "./MessageView.css";
 
-const MessageView = ({ message, text }) => {
+const MessageView = ({ message }) => {
   return (
     <div className="message-view">
-      {text.map((text, i) => (
-        <p key={i}>{text}</p>
-      ))}
       {message.map((v, i) => (
-        <p key={i}>{v}원 투입</p>
+        <div key={i}>
+          {typeof v === "string" ? <p>{v} 선택</p> : <p>{v} 투입</p>}
+        </div>
       ))}
     </div>
   );

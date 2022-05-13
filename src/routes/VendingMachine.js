@@ -4,42 +4,57 @@ import { data } from "../datas/data";
 import "./VendingMachine.css";
 import Product from "../components/Product/Product";
 import InputValue from "../components/Input/InputValue";
-import ReturnValue from "../components/ReturnValue/ReturnValue";
+import ReturnButton from "../components/ReturnButton/ReturnButton";
 import MessageView from "../components/MessageView/MessageView";
+import CurrentPrice from "../components/CurrentPrice/CurrentPrice";
 
 const VendingMachine = () => {
-  const [value, setValue] = useState("");
+  const [inputPrice, setInputPrice] = useState(undefined);
   const [message, setMessage] = useState([]);
-  const [product, setProduct] = useState("");
-  const [text, setText] = useState([]);
+  const [accumulatedPrice, setAccumulatedPrice] = useState(0);
 
-  const onChangeValue = (event) => setValue(event.target.value);
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    setMessage((prev) => [value, ...prev]);
-    setValue("");
+  const writePriceHandler = (event) => {
+    setInputPrice(Number(event.target.value));
   };
 
-  const onClick = (event) => {
-    setProduct(event.target.innerText);
+  const insertPriceHandler = (event) => {
+    event.preventDefault();
+    setMessage((prev) => [inputPrice, ...prev]);
+    setAccumulatedPrice(accumulatedPrice + inputPrice);
+    setInputPrice("");
+  };
+
+  const selectProductHandler = (event) => {
+    setMessage((prev) => [event.target.innerText, ...prev]);
+  };
+
+  const returnPrice = () => {
+    setAccumulatedPrice(0);
+    setMessage([]);
   };
 
   return (
     <div className="vendingmachine-wrapper">
       <div className="product-wrapper">
         {data.map((v) => (
-          <Product key={v.id} name={v.name} price={v.price} onClick={onClick} />
+          <Product
+            key={v.id}
+            name={v.name}
+            price={v.price}
+            accumulatedPrice={accumulatedPrice}
+            onClick={selectProductHandler}
+          />
         ))}
       </div>
       <div className="vendingmachine-input-wrapper">
+        <CurrentPrice accumulatedPrice={accumulatedPrice} />
         <InputValue
-          onSubmit={onSubmit}
-          onChange={onChangeValue}
-          value={value}
+          onSubmit={insertPriceHandler}
+          onChange={writePriceHandler}
+          value={inputPrice || ""}
         />
-        <ReturnValue />
-        <MessageView message={message} text={text} />
+        <ReturnButton onClick={returnPrice} />
+        <MessageView message={message} />
       </div>
     </div>
   );
