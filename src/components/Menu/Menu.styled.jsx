@@ -5,17 +5,23 @@ const StyledMenu = styled.div`
   height: 90px;
   margin: 15px;
   text-align: center;
+`;
 
-  div {
-    border: 2px solid green;
-    height: 40px;
-    line-height: 40px;
-    padding: 10px;
-  }
+const StyledMenuTitle = styled.div`
+  border: ${({ price, inputMoney }) => (price > inputMoney ? "2px solid black" : "2px solid red")};
 
-  p {
-    margin-top: 10px;
+  height: 40px;
+  line-height: 40px;
+  padding: 10px;
+
+  &:hover {
+    background-color: #ff8e14;
+    cursor: pointer;
   }
 `;
 
-export { StyledMenu };
+const StyledMenuPrice = styled.p`
+  margin-top: 10px;
+`;
+
+export { StyledMenu, StyledMenuTitle, StyledMenuPrice };

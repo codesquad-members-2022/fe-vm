@@ -25,7 +25,7 @@ const VendingMachineButton = styled.button`
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
   border-radius: 6px;
 
-  p {
+  a {
     font-size: 18px;
     text-align: center;
     color: #ffffff;
@@ -47,7 +47,7 @@ const WalletButton = styled.button`
   box-shadow: 0px 1px 30px rgba(224, 224, 224, 0.3);
   border-radius: 6px;
 
-  p {
+  a {
     font-size: 18px;
     text-align: center;
     color: #ffffff;

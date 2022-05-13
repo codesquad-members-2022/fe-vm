@@ -1,14 +1,37 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyledInformation, InputPrice, ChangeButton, ActionLog } from "./Information.styled";
+import { MoneyContext, LogContext } from "../../App.js";
 
 function Information() {
+  const { inputMoney, setInputMoney } = useContext(MoneyContext);
+  const { logs, setLogs } = useContext(LogContext);
+
+  const getMoney = (e) => {
+    if (e.key === "Enter") {
+      setInputMoney(+e.target.value);
+      addInsertLog();
+    }
+  };
+
+  const addInsertLog = () => {
+    // TODO: inputMoney state 가 하나씩 밀리는 것 해결
+    const newLog = { idx: logs.length + 1, type: "insert", data: inputMoney + "원이 투입됨" };
+    setLogs([...logs, newLog]);
+  };
+
   return (
     <StyledInformation>
-      <InputPrice placeholder="0"></InputPrice>
+      <InputPrice onKeyPress={getMoney} placeholder="0"></InputPrice>
       <ChangeButton>
         <p>반환</p>
       </ChangeButton>
-      <ActionLog></ActionLog>
+      <ActionLog>
+        <ul>
+          {logs.map(({ idx, data }) => (
+            <li key={idx}>{data}</li>
+          ))}
+        </ul>
+      </ActionLog>
     </StyledInformation>
   );
 }
