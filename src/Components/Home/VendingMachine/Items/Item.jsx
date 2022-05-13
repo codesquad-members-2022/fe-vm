@@ -2,6 +2,7 @@ import { useContext, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 
+import { takingOutTime, BUY } from 'Components/Common/constant';
 import {
 	MoneyContext,
 	ShowedMoneyContext,
@@ -23,7 +24,6 @@ const Item = ({ item }) => {
 	const { setShowedMoney } = useContext(ShowedMoneyContext);
 	const { money, setMoney } = useContext(MoneyContext);
 	const messagesDispatch = useContext(MessagesDispatchContext);
-	const debounceTime = 2000;
 	const difference = money - price;
 	const isSelectable = difference >= 0 && count;
 
@@ -32,7 +32,7 @@ const Item = ({ item }) => {
 		setMoney(difference);
 		setShowedMoney(difference);
 		setIsTakingOut(false);
-		messagesDispatch({ type: 'BUY', contents: name });
+		messagesDispatch({ type: BUY, contents: name });
 
 		targetItem.count -= 1;
 	}, [
@@ -47,7 +47,7 @@ const Item = ({ item }) => {
 	]);
 
 	const debouncedHandleClick = useMemo(
-		() => debounce(handleClick, debounceTime),
+		() => debounce(handleClick, takingOutTime),
 		[handleClick]
 	);
 

@@ -1,22 +1,8 @@
-import { useCallback, useEffect } from 'react';
+import { UNIT } from 'Components/Common/constant';
 
 const getPriceType = (price, isUnit = false) => {
-	const unit = isUnit ? '원' : '';
+	const unit = isUnit ? UNIT : '';
 	return price.toLocaleString('ko-KR') + unit;
-};
-
-const useDebounce = (func, delay, deps) => {
-	const callback = useCallback(func, [func, deps]);
-
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			callback();
-		}, delay);
-
-		return () => {
-			clearTimeout(timer);
-		};
-	}, [callback, delay]);
 };
 
 const getPresentTime = () => {
@@ -30,4 +16,4 @@ const getPresentTime = () => {
 	return `${hours}:${minutes}:${seconds}`;
 };
 
-export { getPriceType, useDebounce, getPresentTime };
+export { getPriceType, getPresentTime };

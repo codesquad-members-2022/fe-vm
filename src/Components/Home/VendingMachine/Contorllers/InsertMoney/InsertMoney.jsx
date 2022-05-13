@@ -1,13 +1,22 @@
 import { useContext } from 'react';
 
 import {
+	insertMoneyTime,
+	autoWithdrawTime,
+	emptyMoney,
+	MINUS,
+	PLUS,
+	UNIT,
+} from 'Components/Common/constant';
+import {
 	CoinsContext,
 	MoneyContext,
 	ShowedMoneyContext,
 	IsTakingOutContext,
 	MessagesDispatchContext,
 } from 'Components/Contexts';
-import { getPriceType, useDebounce } from 'Util/util';
+import { getPriceType } from 'Util/util';
+import useDebounce from 'Util/hooks';
 import { spendMoney, withdrawMoney } from 'Components/Common/controlMoney';
 import {
 	InsertMoneyDiv,
@@ -16,9 +25,6 @@ import {
 } from './InsertMoney.styled';
 
 const InsertMoney = () => {
-	const unit = '원';
-	const debounceInsertTime = 1000;
-	const autoWithdrawTime = 5000;
 	const { coins, coinsSum } = useContext(CoinsContext);
 	const { showedMoney, setShowedMoney } = useContext(ShowedMoneyContext);
 	const { money, setMoney } = useContext(MoneyContext);
@@ -26,38 +32,45 @@ const InsertMoney = () => {
 	const messagesDispatch = useContext(MessagesDispatchContext);
 
 	const handleInput = ({ target: { value } }) => {
-		const regexNumber = /^[0-9]+$|^$/;
+		const numberFilter = /^[0-9]+$|^$/;
 		const valueNumber = Number(value.replaceAll(',', ''));
-
-		if (regexNumber.test(valueNumber)) setShowedMoney(valueNumber);
+		if (numberFilter.test(valueNumber)) setShowedMoney(valueNumber);
 	};
 
-	const handleClick = () => !isTakingOut && setShowedMoney(0);
+	const handleClick = () => !isTakingOut && setShowedMoney(emptyMoney);
+
+	const getCalculatingOptions = (difference) => {
+		const isSpending = difference >= 0;
+		const calculatingOptions = {
+			calculateMoney: isSpending ? spendMoney : withdrawMoney,
+			calculatingType: isSpending ? MINUS : PLUS,
+		};
+		return calculatingOptions;
+	};
 
 	const checkShowedMoney = () => {
 		const difference = showedMoney - money;
 		const isMoneyInWallet = coinsSum >= difference;
+		const { calculateMoney, calculatingType } =
+			getCalculatingOptions(difference);
 
 		if (!isMoneyInWallet) {
 			setShowedMoney(money);
 			return;
 		}
 
-		const { calculatedMoney, changedCoins } =
-			difference >= 0
-				? spendMoney(coins, difference)
-				: withdrawMoney(coins, difference);
+		const { calculatedMoney, changedCoins } = calculateMoney(coins, difference);
 		const totalMoney = money + calculatedMoney;
 
 		setMoney(totalMoney);
 		setShowedMoney(totalMoney);
 		messagesDispatch({
-			type: difference >= 0 ? 'MINUS' : 'PLUS',
+			type: calculatingType,
 			contents: changedCoins,
 		});
 	};
 
-	useDebounce(checkShowedMoney, debounceInsertTime);
+	useDebounce(checkShowedMoney, insertMoneyTime);
 	useDebounce(handleClick, autoWithdrawTime);
 
 	return (
@@ -72,7 +85,7 @@ const InsertMoney = () => {
 					disabled={isTakingOut}
 					isTakingOut={isTakingOut}
 				/>
-				{unit}
+				{UNIT}
 			</InsertMoneyDiv>
 			<WithdrawDiv onClick={handleClick} isTakingOut={isTakingOut}>
 				반납

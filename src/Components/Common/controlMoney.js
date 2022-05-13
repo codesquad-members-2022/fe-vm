@@ -2,10 +2,6 @@ const spendMoney = (coins, difference) => {
 	const coinsInWallet = [...coins]; // 복사 방식 변경 필요!
 	const changedCoins = {};
 
-	let totalCount = coinsInWallet.reduce((pre, post) => {
-		return pre + post.count;
-	}, 0);
-
 	const getTargetMoneyId = (array, targetId = array.length - 1) => {
 		if (targetId < 0) return targetId;
 
@@ -15,11 +11,12 @@ const spendMoney = (coins, difference) => {
 		return id;
 	};
 
+	let totalCount = coinsInWallet.reduce((pre, post) => pre + post.count, 0);
 	let targetMoneyId = getTargetMoneyId(coinsInWallet);
 	let remainedPrice = difference;
 
 	while (remainedPrice > 0 && totalCount && targetMoneyId >= 0) {
-		const targetMoney = coinsInWallet[targetMoneyId];
+		const targetMoney = coinsInWallet[targetMoneyId]; // like { id: 0, price: 10, count: 103 }
 		const targetPrice = targetMoney.price;
 
 		if (remainedPrice >= targetPrice) {

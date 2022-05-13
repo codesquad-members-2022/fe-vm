@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 
 import { IsTakingOutContext } from 'Components/Contexts';
+import { TAKINGOUT, lineCount } from 'Components/Common/constant';
 import itemsApi from 'Service/itemsApi';
 import Item from './Item';
 import {
@@ -20,9 +21,11 @@ const Items = () => {
 		setItems(itemsData);
 	};
 
-	const getList = (array) => {
-		const list = array.map((item) => <Item key={item.id} item={item} />);
-		if (list.length % 2) list.push(<ItemDiv key={array.length} empty={true} />);
+	const getList = (itemsArray) => {
+		const list = itemsArray.map((item) => <Item key={item.id} item={item} />);
+		if (list.length % lineCount) {
+			list.push(<ItemDiv key={itemsArray.length} empty={true} />);
+		}
 		return list;
 	};
 
@@ -36,7 +39,7 @@ const Items = () => {
 		<ItemsWrapper>
 			<TakingOutDiv isTakingOut={isTakingOut}>
 				<div>
-					상품이 나오는 중
+					{TAKINGOUT}
 					<Loading>
 						<div />
 					</Loading>
