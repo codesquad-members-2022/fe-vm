@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { StocksProvider } from "./contextProviders/StockProvider";
+import { ProductsInfoProvider } from "./contextProviders/ProductsInfoProvider";
 import Layout from "./pages/Layout";
 import Main from "./pages/Main";
 import StockManager from "./pages/StockManager";
 
 const App = () => (
-  <StocksProvider>
+  <ProductsInfoProvider>
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -15,7 +15,7 @@ const App = () => (
         </Route>
       </Routes>
     </Router>
-  </StocksProvider>
+  </ProductsInfoProvider>
 );
 
 export default App;

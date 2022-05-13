@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { fetchData } from "../fetcher";
+import { request } from "../fetcher";
 
 export const Balance = createContext();
 
@@ -9,7 +9,7 @@ export const BalanceProvider = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      const initialWallet = await fetchData("wallet");
+      const initialWallet = await request.getData("wallet");
       setWallet(initialWallet);
     })();
   }, []);
@@ -17,13 +17,14 @@ export const BalanceProvider = ({ children }) => {
   const updateBalance = (newWallet, newInputSum) => {
     setWallet(newWallet);
     setInputSum(newInputSum);
+    request.patchData("wallet", "", newWallet);
   };
 
   return (
     <Balance.Provider
       value={{
-        wallet,
         inputSum,
+        wallet,
         setInputSum,
         updateBalance
       }}
