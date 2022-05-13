@@ -2,13 +2,18 @@ import React, { useContext } from 'react';
 
 import WalletItem from '../components/WalletItem';
 import { MoneyContext } from '../context/MoneyProvider';
+import { PriceContext } from '../context/PriceProvider';
 
 export default function Wallet() {
   const { moneyState, decreaseMoney } = useContext(MoneyContext);
+  const { setInputPrice, updatePrice, remainMoney, setRemainMoney } =
+    useContext(PriceContext);
 
   const handleClickWon = (won) => {
     decreaseMoney(won);
-    // Todo : store의 setPrice(won)
+    setInputPrice(won);
+    updatePrice(won);
+    setRemainMoney(remainMoney + won);
   };
 
   return (

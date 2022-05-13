@@ -1,5 +1,3 @@
-import React from 'react';
-
 const items = [
   { title: '콜라', price: 500 },
   { title: '사이다', price: 1000 },

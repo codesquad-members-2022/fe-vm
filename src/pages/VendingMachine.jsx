@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 
 import items from '../store/store';
@@ -6,12 +6,18 @@ import Button from '../components/Button';
 import AvailableButton from '../components/AvailableButton';
 import Input from '../components/Input';
 import ProgressBoard from '../components/ProgressBoard';
+import { PriceContext } from '../context/PriceProvider';
 
 export default function VendingMachine() {
-  const [inputPrice, setPrice] = useState(0);
+  const {
+    inputPrice,
+    setInputPrice,
+    progressMsg,
+    setProgressMsg,
+    remainMoney,
+    setRemainMoney,
+  } = useContext(PriceContext);
   const [content, setContent] = useState(0);
-  const [progressMsg, setProgressMsg] = useState([]);
-  const [remainMoney, setRemainMoney] = useState(null);
 
   const handleChangeInput = ({ currentTarget }) => {
     setContent(currentTarget.textContent);
@@ -30,7 +36,7 @@ export default function VendingMachine() {
 
     // Todo : 지갑에 요금의 개수가 없거나 지갑 전체 요금보다 큰 경우 예외처리
     const currentPrice = Number(content);
-    setPrice(currentPrice);
+    setInputPrice(currentPrice);
     setRemainMoney(remainMoney + currentPrice);
     setProgressMsg([...progressMsg, `${currentPrice}원이 투입되었습니다.`]);
   };
@@ -49,6 +55,7 @@ export default function VendingMachine() {
   const handleClickReturnRemain = () => {
     setProgressMsg([...progressMsg, `잔돈 ${remainMoney}원이 반환됩니다.`]);
   };
+
   return (
     <StyledContainer>
       <StyledItems>
