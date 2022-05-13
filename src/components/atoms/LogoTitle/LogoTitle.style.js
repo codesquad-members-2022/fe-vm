@@ -5,6 +5,7 @@ const WhiteTextShadow = css`
 `;
 
 const StyledTitle = styled.h1`
+  display: inline;
   color: ${({ theme: { colors } }) => colors.purple};
   font-size: ${({ theme: { fontSize } }) => fontSize.logo};
   font-family: 'CherryBomb';
