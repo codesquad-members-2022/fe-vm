@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { VMProvider } from '@/Provider/VMProvider';
 import Home from '@/routes/Home';
 import Wallet from '@/routes/Wallet';
+import { Flexbox } from '@/utils/style';
 
 const Router = () => {
   return (
@@ -47,10 +48,8 @@ const Container = styled.div`
 const NavBar = styled.nav``;
 
 const TabList = styled.ul`
+  ${Flexbox};
   height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin-bottom: 20px;
 `;
 
@@ -63,12 +62,12 @@ const Tab = styled.li`
 const StyledSpan = styled.span`
   height: 100%;
   padding: 8px;
-  border: 1px solid #000;
-  transition: all 250ms;
+  border: 1px solid ${({ theme }) => theme.colors.black};
+  transition: all 400ms;
 
   &.active {
-    background-color: #000;
-    color: #fff;
+    background-color: ${({ theme }) => theme.colors.black};
+    color: ${({ theme }) => theme.colors.white};
   }
 `;
 

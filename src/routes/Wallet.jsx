@@ -2,6 +2,7 @@ import React, { useContext, memo } from 'react';
 import styled, { css } from 'styled-components';
 
 import { ACTION, VMContext } from '@/Provider/VMProvider';
+import { Flexbox } from '@/utils/style';
 
 const Wallet = () => {
   const {
@@ -53,17 +54,20 @@ const Coin = memo(({ amount, count, dispatch, index }) => {
   return (
     <CoinLayer>
       <Amount>
-        <InsertButton onClick={onClickInsertButton}>{amount}원</InsertButton>
+        <InsertButton as="button" onClick={onClickInsertButton}>
+          {amount}원
+        </InsertButton>
       </Amount>
       <Count>{count}개</Count>
-      <IncrementButton onClick={onClickIncrementButton}>+</IncrementButton>
+      <IncrementButton as="button" onClick={onClickIncrementButton}>
+        +
+      </IncrementButton>
     </CoinLayer>
   );
 });
 
 const WalletLayout = styled.main`
-  display: flex;
-  justify-content: center;
+  ${Flexbox};
 `;
 
 const WalletLayer = styled.div``;
@@ -71,17 +75,14 @@ const WalletLayer = styled.div``;
 const CoinList = styled.ol``;
 
 const Balance = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${Flexbox};
   padding: 10px;
-  border: 1px solid #000;
+  border: 1px solid ${({ theme }) => theme.colors.black};
   margin: 20px auto 0;
 `;
 
 const CoinLayer = styled.li`
-  display: flex;
-  justify-content: center;
+  ${Flexbox};
   min-width: 200px;
   & + & {
     margin-top: 20px;
@@ -93,45 +94,41 @@ const Amount = styled.div`
 `;
 
 const Count = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${Flexbox};
   padding: 10px;
   min-width: 35px;
   height: 35px;
-  border: 1px solid black;
+  border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 999px;
   margin-left: 10px;
 `;
 
 const buttonCommonStyle = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #000;
-  font-size: 16px;
+  border: 1px solid ${({ theme }) => theme.colors.black};
+  font-size: ${({ theme }) => theme.fontSize.base};
   cursor: pointer;
-  transition: all 200ms;
+  transition: all 400ms;
+  height: 35px;
 
   &:hover {
-    background-color: #0002;
+    background-color: ${({ theme }) => theme.colors.lightBlack};
   }
 
   &:active {
-    background-color: #0001;
+    background-color: ${({ theme }) => theme.colors.darkBlack};
   }
 `;
 
 const InsertButton = styled.button`
-  ${buttonCommonStyle}
+  ${Flexbox};
+  ${buttonCommonStyle};
   width: 100px;
-  height: 35px;
 `;
 
 const IncrementButton = styled.button`
-  ${buttonCommonStyle}
+  ${Flexbox};
+  ${buttonCommonStyle};
   width: 35px;
-  height: 35px;
   border-radius: 999px;
   margin-left: 4px;
 `;

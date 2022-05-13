@@ -53,7 +53,8 @@ const ActionLogLayer = styled.li`
 `;
 
 const Message = styled.p`
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  line-height: 1.2;
 `;
 
 export default ActionLogs;

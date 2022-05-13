@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 
 import { ACTION } from '@/Provider/VMProvider';
+import { Flexbox } from '@/utils/style';
 
 const Product = memo(({ name, price, stock, index, purchasable, dispatch }) => {
   const outOfStock = stock === 0;
@@ -18,7 +19,7 @@ const Product = memo(({ name, price, stock, index, purchasable, dispatch }) => {
   };
 
   return (
-    <ProductLayer onClick={onClick} purchasable={purchasable} outOfStock={outOfStock}>
+    <ProductLayer onClick={onClick} purchasable={purchasable} outOfStock={outOfStock} dir="column">
       <Name>{name}</Name>
       <Price>{price.toLocaleString()}원</Price>
       <Stock>
@@ -31,43 +32,40 @@ const Product = memo(({ name, price, stock, index, purchasable, dispatch }) => {
 });
 
 const disabled = css`
-  border: 2px solid #ee4646;
-  background-color: #fdb6b6;
+  border: 2px solid ${({ theme }) => theme.colors.red};
+  background-color: ${({ theme }) => theme.colors.primaryRed};
   cursor: not-allowed;
 
   &:hover {
-    background-color: #fdb6b688;
+    background-color: ${({ theme }) => theme.colors.lightRed};
   }
 
   &:active {
-    background-color: #fdb6b666;
+    background-color: ${({ theme }) => theme.colors.darkRed};
   }
 `;
 
 const highlight = css`
-  border-color: #ff9810;
-  background-color: #ff981055;
+  border-color: ${({ theme }) => theme.colors.orange};
+  background-color: ${({ theme }) => theme.colors.primaryOrange};
 
   &:hover {
-    background-color: #ff981033;
+    background-color: ${({ theme }) => theme.colors.lightOrange};
   }
 
   &:active {
-    background-color: #ff981022;
+    background-color: ${({ theme }) => theme.colors.darkOrange};
   }
 `;
 
 const ProductLayer = styled.span`
+  ${Flexbox};
+  background-color: ${({ theme }) => theme.colors.primaryBlack};
+  border: 2px solid ${({ theme }) => theme.colors.black};
+  border-radius: 8px;
   position: relative;
   padding: 4px;
-  border: 2px solid #000;
-  border-radius: 8px;
   user-select: none;
-  background-color: #0003;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   cursor: pointer;
   transition: background-color 400ms;
   width: 120px;
@@ -75,11 +73,11 @@ const ProductLayer = styled.span`
   overflow: hidden;
 
   &:hover {
-    background-color: #0002;
+    background-color: ${({ theme }) => theme.colors.lightBlack};
   }
 
   &:active {
-    background-color: #0004;
+    background-color: ${({ theme }) => theme.colors.darkBlack};
   }
 
   ${({ purchasable }) => purchasable && highlight};
@@ -88,7 +86,7 @@ const ProductLayer = styled.span`
 
 const Name = styled.header`
   width: 100%;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
   text-align: center;
   flex-grow: 1;
 `;
@@ -98,13 +96,11 @@ const Price = styled.footer`
 `;
 
 const Stock = styled.span`
+  ${Flexbox};
   position: absolute;
   top: -5px;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 50px;
   font-weight: bold;
   color: inherit;
@@ -121,14 +117,12 @@ const Stock = styled.span`
 `;
 
 const DisabledMark = styled.span`
+  ${Flexbox};
+  color: ${({ theme }) => theme.colors.white};
   position: absolute;
   bottom: 40px;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSize.xl};
   font-weight: bold;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 150%;
   height: 30%;
   background-color: #ff233d;
