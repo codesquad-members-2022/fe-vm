@@ -1,4 +1,5 @@
-import { useOutletContext } from "react-router-dom";
+import { useContext } from "react";
+import { WalletContext } from "../home/Home";
 import {
     WalletContainer,
     WalletItemContainer,
@@ -7,7 +8,7 @@ import {
 } from "./Wallet.Style";
 
 function Wallet() {
-    const { wallet } = useOutletContext();
+    const { wallet } = useContext(WalletContext);
     const totalAmount = wallet.reduce(
         (acc, money) => acc + money.unit * money.count,
         0

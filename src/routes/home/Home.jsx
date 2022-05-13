@@ -1,10 +1,13 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
 import dataOfwallet from "../../data/wallet";
 import { HomeContainer, TabNav, TabButton } from "./Home.style";
 
 const VM = "vm";
 const WALLET = "wallet";
+
+export const WalletContext = React.createContext();
+export const VendingMachineContext = React.createContext();
 
 function Home() {
     const { pathname } = useLocation();
@@ -44,16 +47,18 @@ function Home() {
                 </TabButton>
             </TabNav>
             {pathname === "/" && <h1>버튼을 클릭하세요</h1>}
-            <Outlet
-                context={{
-                    wallet,
-                    updateWallet,
-                    record,
-                    addRecord,
-                    moneyInVendingMachine,
-                    putMoneyIntoVendingMachine,
-                }}
-            />
+            <WalletContext.Provider value={{ wallet, updateWallet }}>
+                <VendingMachineContext.Provider
+                    value={{
+                        record,
+                        addRecord,
+                        moneyInVendingMachine,
+                        putMoneyIntoVendingMachine,
+                    }}
+                >
+                    <Outlet />
+                </VendingMachineContext.Provider>
+            </WalletContext.Provider>
         </HomeContainer>
     );
 }
