@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
 import { useNavigate } from 'react-router-dom';
+import { color } from '../style/variables';
 
 function Header() {
   const navigate = useNavigate();
@@ -46,9 +48,9 @@ const StyledNav = styled.nav`
 `;
 
 const MainBtn = styled.button`
-  border: 2px solid black;
-  background-color: ${({ clicked }) => (clicked ? 'black' : '')};
-  color: ${({ clicked }) => (clicked ? 'white' : 'black')};
+  border: 2px solid ${color.black};
+  background-color: ${({ clicked }) => (clicked ? color.black : '')};
+  color: ${({ clicked }) => (clicked ? color.white : color.black)};
 `;
 
 export default Header;
