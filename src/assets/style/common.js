@@ -35,8 +35,29 @@ const RightCenter = css`
   align-items: center;
 `;
 
+const CenterBetween = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const CenterAround = css`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+const CenterEvenly = css`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
 const Flex = {
   center: Center,
+  centerBetween: CenterBetween,
+  centerAround: CenterAround,
+  centerEvenly: CenterEvenly,
   leftCenter: LeftCenter,
   rightCenter: RightCenter,
 };
