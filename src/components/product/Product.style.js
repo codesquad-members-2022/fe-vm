@@ -11,9 +11,7 @@ const ProductsContainer = styled.ul`
 const ProductContainer = styled.li`
     width: 100px;
     height: 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    ${({ theme }) => theme.flexLayoutMixin("column", "flex-start", "center")};
     cursor: pointer;
 `;
 
@@ -23,9 +21,7 @@ const ProductNameWrapper = styled(RoundBorder)`
     padding: 10px;
     border: ${(props) =>
         props.choosable ? "2px solid red" : "1px solid black"};
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${({ theme }) => theme.flexLayoutMixin("row", "center", "center")};
 `;
 
 const ProductName = styled.p`

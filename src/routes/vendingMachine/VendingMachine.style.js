@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { RoundBorder } from "../../GlobalStyle";
 
 const VendingMachineContainer = styled(RoundBorder)`
-    display: flex;
+    ${({ theme }) => theme.flexLayoutMixin()};
     padding: 30px;
     width: 900px;
     height: 600px;
@@ -10,8 +10,7 @@ const VendingMachineContainer = styled(RoundBorder)`
 `;
 
 const UserInterfaceContainer = styled.div`
-    display: flex;
-    flex-direction: column;
+    ${({ theme }) => theme.flexLayoutMixin("column")};
     gap: 20px;
 `;
 
