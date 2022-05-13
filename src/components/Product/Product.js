@@ -1,3 +1,4 @@
+import "./Product.css";
 const Product = ({ name, price, onClick, accumulatedPrice }) => {
   return (
     <div className="product-info">
