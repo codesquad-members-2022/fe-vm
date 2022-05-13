@@ -2,6 +2,23 @@ import styled from "styled-components";
 
 import { FONT } from "../../constants/fonts";
 import Text from "../../Text";
+import VmWalletContextStore from "../../stores/VmWalletStore";
+import { useContext } from "react";
+
+const ReturnBtn = () => {
+  const VmWalletInfo = useContext(VmWalletContextStore);
+
+  const onReturnClick = () => {
+    if (VmWalletInfo.isInsertCoin) {
+      // VmWalletInfo.currMoney;
+    }
+  };
+  return (
+    <ReturnBtnWrap>
+      <Text font={FONT.LARGE_BOLD}>반환</Text>
+    </ReturnBtnWrap>
+  );
+};
 
 const ReturnBtnWrap = styled.div`
   padding-top: 3%;
@@ -12,14 +29,7 @@ const ReturnBtnWrap = styled.div`
   border: 9px solid black;
   text-align: center;
   background-color: white;
+  cursor: pointer;
 `;
-
-const ReturnBtn = () => {
-  return (
-    <ReturnBtnWrap>
-      <Text font={FONT.LARGE_BOLD}>반환</Text>
-    </ReturnBtnWrap>
-  );
-};
 
 export default ReturnBtn;

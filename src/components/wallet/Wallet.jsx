@@ -1,16 +1,20 @@
 import styled from "styled-components";
 
 import colors from "../../constants/colors";
-import money from "../../constants/money";
 import MoneyInfo from "./MoneyInfo";
 import TotalAmount from "./TotalAmount";
+import VmWalletContextStore from "../../stores/VmWalletStore";
+import { useContext } from "react";
 
 const Wallet = () => {
+  const VmWalletInfo = useContext(VmWalletContextStore);
+
   return (
     <WalletWrap>
       <MoneyWrap>
-        {money.map((money, idx) => {
-          return <MoneyInfo money={money} key={idx} />;
+        {VmWalletInfo.moneyInfo.map((money, idx) => {
+          console.log("re-rendering wallet");
+          return <MoneyInfo money={money} number={idx} key={idx} />;
         })}
       </MoneyWrap>
       <TotalAmount />

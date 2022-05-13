@@ -1,4 +1,4 @@
-const money = [
+const Money = [
   {
     type: 10,
     amount: 2,
@@ -29,4 +29,4 @@ const money = [
   },
 ];
 
-export default money;
+export default Money;

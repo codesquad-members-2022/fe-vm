@@ -18,7 +18,7 @@ const Info = () => {
     <InfoWrap>
       <InputCoin />
       <ReturnBtn />
-      <LogMessage messages={messages} />
+      <LogMessage />
     </InfoWrap>
   );
 };

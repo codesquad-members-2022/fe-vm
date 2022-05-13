@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 import { FONT } from "../../constants/fonts";
 import Text from "../../Text";
+import VmWalletContextStore from "../../stores/VmWalletStore";
+import { useContext } from "react";
 
 const LogMessageWrap = styled.div`
   display: flex;
@@ -16,10 +18,12 @@ const LogMessageWrap = styled.div`
   padding-top: 4%;
 `;
 
-const LogMessage = ({ messages }) => {
+const LogMessage = () => {
+  const VmWalletInfo = useContext(VmWalletContextStore);
+
   return (
     <LogMessageWrap>
-      {messages.map((message, idx) => {
+      {VmWalletInfo.logMessage.map((message, idx) => {
         return (
           <Text key={message + idx} font={FONT.MEDIUM_BOLD}>
             {message}

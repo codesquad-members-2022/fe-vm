@@ -3,6 +3,16 @@ import styled from "styled-components";
 import products from "../../mock/products";
 import Product from "./Product";
 
+const Products = () => {
+  return (
+    <ProductsWrap>
+      {products.map((product, idx) => {
+        return <Product key={idx} product={product} />;
+      })}
+    </ProductsWrap>
+  );
+};
+
 const ProductsWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -13,15 +23,5 @@ const ProductsWrap = styled.div`
   align-items: center;
   background-color: #7093df;
 `;
-
-const Products = () => {
-  return (
-    <ProductsWrap>
-      {products.map((product, idx) => {
-        return <Product key={idx} product={product} />;
-      })}
-    </ProductsWrap>
-  );
-};
 
 export default Products;
