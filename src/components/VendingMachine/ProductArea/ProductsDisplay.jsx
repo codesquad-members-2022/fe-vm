@@ -5,7 +5,6 @@ import { ProductsInfo } from "../../../contextProviders/ProductsInfoProvider";
 
 const ProductsDisplay = () => {
   const { productsInfo } = useContext(ProductsInfo);
-  console.log(productsInfo);
   return (
     productsInfo && (
       <DisplayLayout>
