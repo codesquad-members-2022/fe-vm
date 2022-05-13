@@ -4,7 +4,7 @@ import { StyledWallet, WalletDetail, TotalAmout, CoinPrice, CoinCount } from "./
 import { addComma } from "utils";
 
 function Wallet() {
-  const getTotalAmout = (wallet) => {
+  const getTotalAmout = () => {
     const totalAmout = walletItem.reduce(function (acc, cur) {
       return acc + cur.price * cur.quantity;
     }, 0);
@@ -22,7 +22,7 @@ function Wallet() {
           </>
         ))}
       </WalletDetail>
-      <TotalAmout>{addComma(getTotalAmout(walletItem))}원</TotalAmout>
+      <TotalAmout>{addComma(getTotalAmout())}원</TotalAmout>
     </StyledWallet>
   );
 }
