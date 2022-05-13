@@ -2,16 +2,30 @@ import { createGlobalStyle } from 'styled-components';
 import { reset } from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
-
 ${reset};
 
-* {
-  font-family: 'Bungee', cursive;
+html {
+  font-family: 'Bungee', sans-serif;
 }
 
-html {
-  font-family: 'Bungee', cursive;
+::-webkit-scrollbar {
+  width: 15px;
+}
+::-webkit-scrollbar-track {
+  background-color: ${({ theme: { greyScale } }) => greyScale.primaryGrey};
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: ${({ theme: { greyScale } }) => greyScale.white};
+  border-radius: 30px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: ${({ theme: { color } }) => color.yellow};
+}
+
+body {
+  background-color: ${({ theme: { greyScale } }) => greyScale.background};
 }
 
 button,

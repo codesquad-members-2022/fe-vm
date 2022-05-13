@@ -9,7 +9,7 @@ const greyScale = {
 
 const color = {
   yellow: '#F4FF77',
-  blue: '#2B73FF',
+  blue: '#255BE4',
   orange: '#FC6815',
   red: '#ED5151',
   green: '#36D21D',
@@ -18,7 +18,8 @@ const color = {
 };
 
 const fontSize = {
-  xLarge: '50px',
+  display: '40px',
+  xLarge: '32px',
   large: '24px',
   medium: '20px',
   small: '16px',
@@ -27,7 +28,8 @@ const fontSize = {
 
 const activeNavStyle = {
   backgroundColor: greyScale.white,
-  borderRadius: '10px',
+  borderRadius: '20px',
+  boxShadow: `0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.1)`,
 };
 
 export const theme = {
