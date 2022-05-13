@@ -9,7 +9,7 @@ const NotFound = () => {
       <h1 className="px-4 py-1 text-4xl font-medium rounded-xl starbucks">Not Found Page</h1>
       <button
         onClick={() => navigate(-1)}
-        className="starbucks-btn border-2 px-3 py-1 rounded-xl text-[22px] font-medium"
+        className="btn btn--starbucks border-2 px-3 py-1 text-[22px] font-medium"
       >
         뒤로가기
       </button>

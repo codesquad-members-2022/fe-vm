@@ -1,31 +1,27 @@
-import beverage from "data/beverage";
 import React, { useState } from "react";
-
-const BeverageItem = ({ image, name, price }) => {
-  return (
-    <div>
-      <img src={image} alt={name} />
-      <div>{name}</div>
-      <div>{price}</div>
-    </div>
-  );
-};
+import beverage from "data/beverage";
+import ProductItem from "components/VendingMachine/ProductItem";
+import ProductTab from "components/VendingMachine/ProductTab";
+import VMInfo from "components/VendingMachine/VMInfo";
 
 const VendingMachine = () => {
   const [beverageState, setBeverageState] = useState(beverage);
   return (
-    <div className="flex my-10 border border-black">
-      <div className="flex flex-wrap gap-4 p-4 border border-black basis-3/5">
-        {beverageState.map(({ id, ...state }) => (
-          <BeverageItem key={id} {...state} />
-        ))}
+    <div className="text-lg shadow-lg shadow-gray rounded-b-2xl">
+      <div className="p-4 text-2xl font-medium text-center text-white rounded-t-2xl bg-starbucks border-starbucks-dark">
+        쥬의 음료 자판기
       </div>
-      <div className="flex flex-col gap-4 p-4 border border-black basis-2/5">
-        <div className="flex">
-          <input className="text-right" value={500} /> 원
+      <div className="flex">
+        {/* TODO ProductStand */}
+        <div className="flex flex-col">
+          <ProductTab />
+          <div className="grid grid-flow-row grid-cols-4 gap-5 p-4 border-black">
+            {beverageState.map(({ id, ...state }) => (
+              <ProductItem key={id} {...state} />
+            ))}
+          </div>
         </div>
-        <button>반환버튼</button>
-        <div>인포창</div>
+        <VMInfo />
       </div>
     </div>
   );
