@@ -4,6 +4,11 @@ import { reset } from 'styled-reset';
 const GlobalStyle = createGlobalStyle`
 ${reset};
 
+* {
+  font-family: 'Bungee', sans-serif;
+  box-sizing: border-box;
+}
+
 html {
   font-family: 'Bungee', sans-serif;
 }
