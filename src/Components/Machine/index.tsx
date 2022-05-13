@@ -3,7 +3,7 @@ import ItemList from '@/Components/Machine/ItemList';
 import InfoList from '@/Components/Machine/InfoList';
 
 const MachineWrapper = styled.section`
-  display: flex;
+  ${({ theme }) => theme.mixins.flexBox('row', 'stretch', 'start')};
 `;
 
 export default function Machine(): JSX.Element {

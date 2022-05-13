@@ -4,10 +4,7 @@ import ReturnMoney from '@/Components/Machine/ReturnMoney';
 import BoardMessage from '@/Components/Machine/BoardMessage';
 
 const InfoListWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  ${({ theme }) => theme.mixins.flexBox('column', 'center', 'space-between')};
   width: 30%;
   background-color: ${({ theme }) => theme.colors.ultramarine};
   border-radius: 0 20px 20px 0;

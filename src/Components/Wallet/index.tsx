@@ -19,9 +19,7 @@ const WalletGridWrapper = styled.section<TStyledView>`
 `;
 
 const WalletSumComponent = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${({ theme }) => theme.mixins.flexBox()};
   border-radius: 8px;
   border: 2px solid ${({ theme }) => theme.colors.ultramarine};
 `;

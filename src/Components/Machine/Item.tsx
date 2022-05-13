@@ -13,10 +13,7 @@ interface TStyledView {
 }
 
 const ItemWrapper = styled.div<TStyledView>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  ${({ theme }) => theme.mixins.flexBox('column')};
   background-color: ${props => {
     if (props.item.count === 0) {
       return css`
