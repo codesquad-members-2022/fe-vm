@@ -21,11 +21,6 @@ export default function MoneyProvider({ children }) {
     const targetMoney = moneyState.find(({ won }) => won === targetWon);
     const filteredMoney = moneyState.filter(({ won }) => won !== targetWon);
 
-    if (targetMoney.num < 1) {
-      window.alert('돈이 부족합니다.');
-      return;
-    }
-
     setMoneyState(
       [
         ...filteredMoney,

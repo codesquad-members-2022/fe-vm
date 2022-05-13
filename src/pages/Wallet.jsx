@@ -9,7 +9,12 @@ export default function Wallet() {
   const { setInputPrice, updatePrice, remainMoney, setRemainMoney } =
     useContext(PriceContext);
 
-  const handleClickWon = (won) => {
+  const handleClickWon = (won, num) => {
+    if (num < 1) {
+      window.alert('돈이 부족합니다.');
+      return;
+    }
+
     decreaseMoney(won);
     setInputPrice(won);
     updatePrice(won);
@@ -25,7 +30,7 @@ export default function Wallet() {
             icon={`${won}원 `}
             won={won}
             num={num}
-            onClick={() => handleClickWon(won)}
+            onClick={() => handleClickWon(won, num)}
           />
         ))}
       </ul>
