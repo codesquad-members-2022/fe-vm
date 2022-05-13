@@ -7,6 +7,13 @@ const StyledButton = styled.button`
   border-color: ${({ theme: { colors } }) => colors.black};
 
   ${({ styles }) => styles}
+
+  &:disabled {
+    cursor: default;
+    background-color: ${({ theme: { colors } }) => colors.gray};
+    &:hover {
+    }
+  }
 `;
 
 export default StyledButton;

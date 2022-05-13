@@ -5,7 +5,7 @@ const productButtonStyle = css`
   ${({ theme: { fontStyles } }) => fontStyles.buttons.small};
   border: ${({ theme: { borders } }) => borders.normal};
 
-  &:hover {
+  &:hover:not([disabled]) {
     ${({ theme: { colors, fontWeights } }) => `
     background-color: ${colors.darkblue};
     color: ${colors.white};

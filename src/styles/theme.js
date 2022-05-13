@@ -4,6 +4,7 @@ const colors = {
   red: "#fe001a",
   darkblue: "#006ba8",
   green: "#008000",
+  gray: "#999",
 };
 
 const whitespace = {
