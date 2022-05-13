@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Item from '@/Components/Wallet/Item';
-import { useWalletState, useWalletDispatch } from '@/Context/WalletContext';
+import { useWalletState } from '@/Context/WalletContext';
 
 interface TStyledView {
   children: JSX.Element | JSX.Element[];
@@ -26,24 +26,11 @@ const WalletSumComponent = styled.div`
 
 export default function Wallet(): JSX.Element {
   const walletState = useWalletState();
-  const walletDispatch = useWalletDispatch();
-
-  const increaseUnitCount = (unit: number, count: number) =>
-    walletDispatch({ type: 'INCREASE_WALLET_UNIT', unit, count });
-
-  const decreaseUnitCount = (unit: number, count: number) =>
-    walletDispatch({ type: 'DECREASE_WALLET_UNIT', unit, count });
 
   let sum = 0;
 
   return (
     <>
-      <button onClick={() => increaseUnitCount(10, 1)}>
-        Unit Increase Count Button
-      </button>
-      <button onClick={() => decreaseUnitCount(10, 1)}>
-        Unit Decrease Count Button
-      </button>
       <WalletGridWrapper>
         <>
           {walletState.map(wallet => {
