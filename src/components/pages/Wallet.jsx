@@ -32,7 +32,7 @@ const WalletContainer = styled.div`
 
 const CashUnits = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 50%);
+  grid-template-columns: repeat(2, calc(50% - 8px));
   gap: 16px;
   padding: 64px 72px;
   border-radius: 24px;

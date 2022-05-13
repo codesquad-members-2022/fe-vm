@@ -45,9 +45,8 @@ const CashUnit = ({ id, unit, count, order }) => {
 
 const Unit = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  gap: 80px;
   height: 80px;
   border-radius: 16px;
   background: ${COLORS.WHITE};
