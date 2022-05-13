@@ -17,12 +17,22 @@ export const ProductsGrid = styled.ul`
 export const ProductCard = styled.div`
   width: 100%;
   height: 100px;
-  border: 2px solid ${({ type, theme: { color } }) => decideBorderColor(type, color)};
+  border: 2px solid
+    ${({ type, theme: { color } }) => {
+      const borderColorType = {
+        drink: color.orange,
+        snack: color.mint,
+      };
+      return borderColorType[type];
+    }};
   background-color: ${({ canBuy, isSelect, theme: { color } }) => {
     if (isSelect) {
       return color.pink;
     }
-    return canBuy && color.lemon;
+    if (canBuy) {
+      return color.blue;
+    }
+    return color.white;
   }};
   display: flex;
   flex-direction: column;
@@ -37,14 +47,3 @@ export const MangementForm = styled.div`
   border: 1px solid black;
   margin-bottom: 8px;
 `;
-
-const decideBorderColor = (type, color) => {
-  switch (type) {
-    case 'drink':
-      return color.orange;
-    case 'snack':
-      return color.mint;
-    default:
-      return 'black';
-  }
-};

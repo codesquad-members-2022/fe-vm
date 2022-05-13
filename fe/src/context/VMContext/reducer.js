@@ -30,7 +30,7 @@ export const vmReducer = (state, action) => {
         ...state,
         products: action.payload,
       };
-    case ADD_TARGET_PRODUCT: // 선택된 제품만 찾아서 변경
+    case ADD_TARGET_PRODUCT:
       return {
         ...state,
         products: setNewTargetProduct(state.products, action.payload),

@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
-import { setKoreanLocaleMoney } from 'utils';
+import { changeNumberToKoreanLocaleMoney } from 'utils';
 import * as S from './style';
 
 function InsertMoneyForm({
@@ -17,7 +17,7 @@ function InsertMoneyForm({
           <input
             type="text"
             name="insertMoney"
-            value={setKoreanLocaleMoney(insertMoney)}
+            value={changeNumberToKoreanLocaleMoney(insertMoney)}
             onChange={onChangeInsertMoney}
             placeholder="투입할 금액을 입력하세요."
           />
@@ -25,7 +25,7 @@ function InsertMoneyForm({
         </div>
         <Button variant="contained">주문하기</Button>
       </S.InsertMoneyFormBox>
-      <div>{setKoreanLocaleMoney(totalBalance)}원</div>
+      <div>{changeNumberToKoreanLocaleMoney(totalBalance)}원</div>
       <ul>
         <h4>log list</h4>
       </ul>

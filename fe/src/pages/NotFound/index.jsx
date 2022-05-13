@@ -1,10 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE } from 'constant/route';
+import { Button } from '@mui/material';
 
 function NotFound(props) {
-  return <div>NotFound</div>;
+  const navigate = useNavigate();
+  const backToMain = () => {
+    navigate(ROUTE.HOME);
+  };
+  return (
+    <div>
+      NotFound
+      <Button variant="contained" onClick={backToMain}>
+        홈으로 돌아가기
+      </Button>
+    </div>
+  );
 }
-
-NotFound.propTypes = {};
 
 export default NotFound;

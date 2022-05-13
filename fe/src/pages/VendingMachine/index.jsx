@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Products from 'components/Products';
 import { useVMContext } from 'context/VMContext';
 import InsertMoneyForm from './InsertMoneyForm';
@@ -39,9 +39,7 @@ function VendingMachine() {
   }, []);
 
   const isPriceUnderInsertMoney = useCallback(
-    targetPrice => {
-      return targetPrice <= insertMoney;
-    },
+    targetPrice => targetPrice <= insertMoney,
     [insertMoney],
   );
 
@@ -63,7 +61,6 @@ export default VendingMachine;
 const findClosestUnit = (existUnits, submitOnlyNumber) => {
   return existUnits.reduce((acc, { unit }) => {
     const substractAbs = Math.abs(submitOnlyNumber - acc);
-    console.log('substractAbs :>> ', substractAbs);
     if (substractAbs < acc) {
       return acc;
     }

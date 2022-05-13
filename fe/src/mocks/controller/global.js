@@ -5,9 +5,9 @@ export function getRestUnit(units, balance) {
     .reduce(
       // eslint-disable-next-line no-shadow
       ({ rest, newUnits }, cur) => {
-        const taretCount = Math.floor(rest / cur.unit);
+        const targetCount = Math.floor(rest / cur.unit);
         const newRest = rest % cur.unit;
-        return { rest: newRest, newUnits: [{ ...cur, count: taretCount }, ...newUnits] };
+        return { rest: newRest, newUnits: [{ ...cur, count: targetCount }, ...newUnits] };
       },
       { rest: balance, newUnits: [] },
     );

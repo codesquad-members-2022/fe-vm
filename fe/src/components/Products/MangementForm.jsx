@@ -1,7 +1,7 @@
 /* eslint-disable react/require-default-props */
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { setKoreanLocaleMoney } from 'utils';
+import { changeNumberToKoreanLocaleMoney } from 'utils';
 import { Button } from '@mui/material';
 import * as S from './style';
 
@@ -15,7 +15,7 @@ function MangementForm({ targetProduct, fetchAddTargetProduct, fetchSubstractTar
   return (
     <S.MangementForm>
       <h5>{productName}</h5>
-      <span>{setKoreanLocaleMoney(price)}원</span>
+      <span>{changeNumberToKoreanLocaleMoney(price)}원</span>
       <Button variant="contained" onClick={() => fetchAddTargetProduct(id)}>
         +
       </Button>

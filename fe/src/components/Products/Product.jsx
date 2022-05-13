@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { setKoreanLocaleMoney } from 'utils';
+import { changeNumberToKoreanLocaleMoney } from 'utils';
 import * as S from './style';
 
 function Product({ productInfo, isSelect, isPriceUnderInsertMoney, handleSelectProduct }) {
@@ -13,7 +13,7 @@ function Product({ productInfo, isSelect, isPriceUnderInsertMoney, handleSelectP
       onClick={() => handleSelectProduct(productInfo)}
     >
       <h5>{productName}</h5>
-      <span>{setKoreanLocaleMoney(price)}원</span>
+      <span>{changeNumberToKoreanLocaleMoney(price)}원</span>
       <span>{ea}개</span>
     </S.ProductCard>
   );
