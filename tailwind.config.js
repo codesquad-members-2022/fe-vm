@@ -1,14 +1,21 @@
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    colors: {
+      starbucks: "#00704A",
+      "starbucks-light": "#14ae5c",
+      "starbucks-dark": "#015236",
+      transparent: "transparent",
+      black: "#000",
+      white: "#fff",
+      "gray-dark": "#273444",
+      gray: "#8492a6",
+      "gray-light": "#d3dce6",
+    },
     fontFamily: {
       main: ["Noto Sans KR", "sans-serif"],
     },
-    extend: {
-      width: {
-        100: "1000px",
-      },
-    },
+    extend: {},
   },
   variants: {},
   plugins: [],

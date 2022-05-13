@@ -19,3 +19,13 @@
 		@apply font-main;
 	 }
 }
+
+@layer components{
+	.starbucks-btn{
+		@apply text-black font-medium bg-white border-starbucks-dark border-2 rounded shadow-md shadow-gray hover:bg-starbucks hover:text-white active:bg-starbucks-dark focus:ring
+	}
+}
+
+@layer utilities{
+	
+}

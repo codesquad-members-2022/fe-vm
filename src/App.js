@@ -1,5 +1,6 @@
+import HeaderNav from "components/Nav/HeaderNav";
 import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 const moneyUnit = {
   money: [
@@ -43,20 +44,10 @@ const moneyUnit = {
 };
 
 const App = () => {
-  const [money, setMoney] = useState(moneyUnit);
-  const MoneyContext = React.createContext(money);
-
   return (
-    <div className="my-3 mx-auto max-w-7xl">
-      <nav className="flex justify-center">
-        <Link to="/" className="p-6 bg-slate-200 hover:bg-blue-200">
-          자판기
-        </Link>
-        <Link to="/wallet" className="p-6 bg-slate-200 hover:bg-blue-200">
-          지갑
-        </Link>
-      </nav>
-      <Outlet context={[money, setMoney]} />
+    <div className="max-w-5xl mx-auto my-10">
+      <HeaderNav />
+      <Outlet />
     </div>
   );
 };

@@ -14,13 +14,13 @@ const BeverageItem = ({ image, name, price }) => {
 const VendingMachine = () => {
   const [beverageState, setBeverageState] = useState(beverage);
   return (
-    <div className="border border-black flex  my-4">
-      <div className="border border-black p-4 flex basis-3/5 flex-wrap gap-4">
+    <div className="flex my-10 border border-black">
+      <div className="flex flex-wrap gap-4 p-4 border border-black basis-3/5">
         {beverageState.map(({ id, ...state }) => (
           <BeverageItem key={id} {...state} />
         ))}
       </div>
-      <div className="border border-black p-4 flex basis-2/5 flex-col gap-4">
+      <div className="flex flex-col gap-4 p-4 border border-black basis-2/5">
         <div className="flex">
           <input className="text-right" value={500} /> 원
         </div>
