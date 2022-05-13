@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { changeNumToLocalMoney } from '../../../Utils/utils';
 import {
   Color,
   FontSize,
@@ -6,10 +7,21 @@ import {
   Radius10,
 } from '../../../Assets/Common.style';
 
-export default function PayInput() {
+export default function PayInput({ setPayMoney, input }) {
+  const payMoneyHandler = () => {
+    const formatNum = input.current.value.replace(/[^0-9]|,/g, ''); // 숫자 아닐때 공백처리
+    setPayMoney(formatNum);
+    input.current.value = changeNumToLocalMoney(formatNum);
+  };
+
   return (
     <InputBox>
-      <input type="number" placeholder="0" />
+      <input
+        type="text"
+        placeholder="0"
+        onChange={payMoneyHandler}
+        ref={input}
+      />
       <span>원</span>
     </InputBox>
   );
@@ -21,6 +33,7 @@ const InputBox = styled.div`
   height: 60px;
   padding: 0 10px;
   ${Radius10}
+  font-size: ${FontSize.MEDIUM};
   background: ${Color.BACKGROUND};
 
   input {
@@ -28,7 +41,6 @@ const InputBox = styled.div`
     height: 100%;
     padding: 0 10px;
     text-align: right;
-    font-size: ${FontSize.MEDIUM};
 
     &::placeholder {
       color: ${Color.GRAY};
