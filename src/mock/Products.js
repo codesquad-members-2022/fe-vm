@@ -1,4 +1,4 @@
-const productsList = [
+const PRODUCTS_LIST = [
   { id: 1, name: '코카콜라 ❤️', price: 1000, stock: 10 },
   { id: 2, name: '코카콜라 제로 ', price: 1500, stock: 5 },
   { id: 3, name: '칠성사이다 ✨', price: 1000, stock: 10 },
@@ -17,4 +17,4 @@ const productsList = [
   { id: 16, name: '갈아만든 배 🍐', price: 850, stock: 13 },
 ];
 
-export default productsList;
+export default PRODUCTS_LIST;
