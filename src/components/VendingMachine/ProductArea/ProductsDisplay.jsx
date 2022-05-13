@@ -5,12 +5,15 @@ import { ProductsInfo } from "../../../contextProviders/ProductsInfoProvider";
 
 const ProductsDisplay = () => {
   const { productsInfo } = useContext(ProductsInfo);
+  console.log(productsInfo);
   return (
-    <DisplayLayout>
-      {productsInfo?.map((productInfo, idx) => (
-        <Product key={productInfo.id} productInfo={productInfo} productIdx={idx} />
-      ))}
-    </DisplayLayout>
+    productsInfo && (
+      <DisplayLayout>
+        {productsInfo.map((productInfo, idx) => (
+          <Product key={productInfo.id} productInfo={productInfo} productIdx={idx} />
+        ))}
+      </DisplayLayout>
+    )
   );
 };
 
