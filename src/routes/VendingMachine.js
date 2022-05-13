@@ -51,7 +51,7 @@ const VendingMachine = () => {
         <InputValue
           onSubmit={insertPriceHandler}
           onChange={writePriceHandler}
-          value={inputPrice}
+          value={inputPrice || ""}
         />
         <ReturnButton onClick={returnPrice} />
         <MessageView message={message} />
