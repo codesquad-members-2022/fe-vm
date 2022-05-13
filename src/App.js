@@ -19,12 +19,14 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 export const MoneyContext = React.createContext();
+export const LogContext = React.createContext();
 
 function App() {
   const [inputMoney, setInputMoney] = useState(0);
+  const [logs, setLogs] = useState([{ idx: 1, type: "init", data: "~ this is vending machine ~" }]);
 
   return (
-    <>
+    <LogContext.Provider value={{ logs, setLogs }}>
       <MoneyContext.Provider value={{ inputMoney, setInputMoney }}>
         <GlobalStyles />
         <Routes>
@@ -36,7 +38,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </MoneyContext.Provider>
-    </>
+    </LogContext.Provider>
   );
 }
 

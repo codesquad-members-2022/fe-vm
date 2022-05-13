@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { MenuBox, Information } from "components";
 import { StyledVendingMachine } from "./VendingMachine.styled";
 
