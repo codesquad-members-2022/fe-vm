@@ -4,15 +4,10 @@ import { Button } from '@mui/material';
 import { changeNumberToKoreanLocaleMoney } from 'utils';
 import * as S from './style';
 
-function InsertMoneyForm({
-  totalBalance,
-  insertMoney,
-  onChangeInsertMoney,
-  handleSubmitInsertMoney,
-}) {
+function InsertMoneyForm({ totalBalance, insertMoney, onChangeInsertMoney, handleReturnChanges }) {
   return (
     <S.InsertMoneyFormContainer>
-      <S.InsertMoneyFormBox onSubmit={handleSubmitInsertMoney}>
+      <S.InsertMoneyFormBox onSubmit={handleReturnChanges}>
         <div>
           <input
             type="text"
@@ -23,7 +18,7 @@ function InsertMoneyForm({
           />
           <span>원</span>
         </div>
-        <Button variant="contained">주문하기</Button>
+        <Button variant="contained">잔돈반환하기</Button>
       </S.InsertMoneyFormBox>
       <div>{changeNumberToKoreanLocaleMoney(totalBalance)}원</div>
       <ul>
@@ -37,7 +32,7 @@ InsertMoneyForm.propTypes = {
   totalBalance: PropTypes.number.isRequired,
   insertMoney: PropTypes.number.isRequired,
   onChangeInsertMoney: PropTypes.func.isRequired,
-  handleSubmitInsertMoney: PropTypes.func.isRequired,
+  handleReturnChanges: PropTypes.func.isRequired,
 };
 
 export default memo(InsertMoneyForm);

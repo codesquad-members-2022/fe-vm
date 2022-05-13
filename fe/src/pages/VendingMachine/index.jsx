@@ -1,20 +1,28 @@
 import React, { useCallback, useState } from 'react';
 import Products from 'components/Products';
 import { useVMContext } from 'context/VMContext';
+import { orderProduct } from 'context/VMContext/action';
 import InsertMoneyForm from './InsertMoneyForm';
 import * as S from './style';
 
 function VendingMachine() {
-  const { totalBalance, changesUnits } = useVMContext();
+  const { totalBalance, changesUnits, dispatch } = useVMContext();
   // FIXME: input defualt value 0일 때 에러 수정 -> 0123, 1230이런식으로 0이 안없어짐
   const [insertMoney, setInsertMoney] = useState(0);
 
-  const handleSubmitInsertMoney = useCallback(
+  const handleOrderProduct = useCallback(
+    productId => {
+      orderProduct(dispatch, productId);
+    },
+    [insertMoney],
+  );
+
+  const handleReturnChanges = useCallback(
     event => {
       event.preventDefault();
       const submitInsertMoney = event.target.insertMoney.value;
       const submitOnlyNumber = Number(submitInsertMoney.replaceAll(',', ''));
-      const existUnits = changesUnits.filter(unit => unit.count !== 0);
+      const existUnits = checkRestUnits(changesUnits);
       if (!existUnits) {
         alert('잔돈이 없어요');
       }
@@ -45,12 +53,16 @@ function VendingMachine() {
 
   return (
     <S.Container>
-      <Products isManger={false} isPriceUnderInsertMoney={isPriceUnderInsertMoney} />
+      <Products
+        isManger={false}
+        isPriceUnderInsertMoney={isPriceUnderInsertMoney}
+        handleOrderProduct={handleOrderProduct}
+      />
       <InsertMoneyForm
         totalBalance={totalBalance}
         insertMoney={insertMoney}
         onChangeInsertMoney={onChangeInsertMoney}
-        handleSubmitInsertMoney={handleSubmitInsertMoney}
+        handleReturnChanges={handleReturnChanges}
       />
     </S.Container>
   );
@@ -71,4 +83,9 @@ const findClosestUnit = (existUnits, submitOnlyNumber) => {
 const findTargetUnit = (existUnits, submitOnlyNumber) => {
   const targetUnit = existUnits.find(({ unit }) => unit === submitOnlyNumber);
   return targetUnit?.unit;
+};
+
+const checkRestUnits = units => {
+  const existUnits = units.filter(unit => unit.count !== 0);
+  return existUnits;
 };

@@ -6,7 +6,7 @@ import MangementForm from './MangementForm';
 import Product from './Product';
 import * as S from './style';
 
-function Products({ isManger, isPriceUnderInsertMoney }) {
+function Products({ isManger, isPriceUnderInsertMoney, handleOrderProduct }) {
   const { products, dispatch } = useVMContext();
   const [targetProduct, setTargetProduct] = useState(null);
 
@@ -65,6 +65,7 @@ function Products({ isManger, isPriceUnderInsertMoney }) {
             isSelect={targetProduct?.id === product.id} // TODO: 변수로 빼기
             isPriceUnderInsertMoney={isPriceUnderInsertMoney}
             handleSelectProduct={handleSelectProduct}
+            handleOrderProduct={handleOrderProduct}
           />
         ))}
       </S.ProductsGrid>
@@ -75,6 +76,7 @@ function Products({ isManger, isPriceUnderInsertMoney }) {
 Products.propTypes = {
   isManger: PropTypes.bool.isRequired,
   isPriceUnderInsertMoney: PropTypes.func.isRequired,
+  handleOrderProduct: PropTypes.func.isRequired,
 };
 
 export default memo(Products);

@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 export function getRestUnit(units, balance) {
   const { newUnits } = units
     .sort((prev, cur) => cur.unit - prev.unit)
@@ -12,4 +11,9 @@ export function getRestUnit(units, balance) {
       { rest: balance, newUnits: [] },
     );
   return { changesUnits: newUnits, totalBalance: balance };
+}
+
+// TODO: 잔고관리하는 로직 추가
+export function orderProduct(productId, products) {
+  console.log('productId', productId);
 }

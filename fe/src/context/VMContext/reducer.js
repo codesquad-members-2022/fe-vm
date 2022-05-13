@@ -3,6 +3,7 @@ import {
   ADD_TARGET_PRODUCT,
   GET_BALANCE,
   GET_PRODUCTS,
+  ORDER_PRODUCT,
   SUBSTRACT_TARGET_BALANCE,
   SUBSTRACT_TARGET_PRODUCT,
 } from './type';
@@ -29,6 +30,11 @@ export const vmReducer = (state, action) => {
       return {
         ...state,
         products: action.payload,
+      };
+    case ORDER_PRODUCT:
+      return {
+        ...state,
+        products: setNewTargetProduct(state.products, action.payload),
       };
     case ADD_TARGET_PRODUCT:
       return {

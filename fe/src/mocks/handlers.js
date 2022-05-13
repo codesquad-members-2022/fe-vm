@@ -1,7 +1,7 @@
 import { API, API_ROOT_URL } from 'constant/route';
 import { rest } from 'msw';
 import { defaultChangeUnits, defaultBalance } from './balance';
-import { getRestUnit } from './controller/global';
+import { getRestUnit, orderProduct } from './controller/global';
 import {
   addTargetProdcut,
   addTargetUnit,
@@ -17,6 +17,16 @@ const Global = [
   rest.get(API_ROOT_URL + API.GET_PRODUCTS, (req, res, ctx) => {
     const { products } = globalProductsObj;
     return res(ctx.status(200), ctx.json(products));
+  }),
+  rest.patch(API_ROOT_URL + API.PATCH_ORDER_PRODUCT, (req, res, ctx) => {
+    const { products } = globalProductsObj;
+    const productId = req.url.searchParams.get('id');
+    const [targetProduct, error] = updateProduct(products, productId, substractTargetProdcut);
+    if (error.isError) {
+      return res(ctx.status(406), ctx.json({ errorMessage: error.msg }));
+    }
+    orderProduct(productId, products);
+    return res(ctx.status(200), ctx.json(targetProduct));
   }),
 ];
 

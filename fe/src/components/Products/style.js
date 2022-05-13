@@ -15,8 +15,12 @@ export const ProductsGrid = styled.ul`
 `;
 
 export const ProductCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
   width: 100%;
-  height: 100px;
+  height: 120px;
   border: 2px solid
     ${({ type, theme: { color } }) => {
       const borderColorType = {
@@ -25,20 +29,12 @@ export const ProductCard = styled.div`
       };
       return borderColorType[type];
     }};
-  background-color: ${({ canBuy, isSelect, theme: { color } }) => {
-    if (isSelect) {
-      return color.pink;
-    }
+  background-color: ${({ canBuy, theme: { color } }) => {
     if (canBuy) {
       return color.blue;
     }
     return color.white;
   }};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
 `;
 
 export const MangementForm = styled.div`

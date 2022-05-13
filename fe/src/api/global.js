@@ -8,6 +8,15 @@ const globalApi = {
       method: 'get',
     });
   },
+  orderProduct(id) {
+    return instance({
+      url: API.PATCH_ORDER_PRODUCT,
+      method: 'patch',
+      params: {
+        id,
+      },
+    });
+  },
 };
 
 export default globalApi;

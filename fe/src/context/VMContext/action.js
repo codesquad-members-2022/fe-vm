@@ -5,6 +5,7 @@ import {
   ADD_TARGET_PRODUCT,
   GET_BALANCE,
   GET_PRODUCTS,
+  ORDER_PRODUCT,
   SUBSTRACT_TARGET_BALANCE,
   SUBSTRACT_TARGET_PRODUCT,
 } from './type';
@@ -12,6 +13,11 @@ import {
 export const getProducts = async dispatch => {
   const response = await globalApi.getProducts();
   dispatch({ type: GET_PRODUCTS, payload: response.data });
+};
+
+export const orderProduct = async (dispatch, id) => {
+  const response = await globalApi.orderProduct(id);
+  dispatch({ type: ORDER_PRODUCT, payload: response.data });
 };
 
 export const addTargetProduct = async (dispatch, id) => {
