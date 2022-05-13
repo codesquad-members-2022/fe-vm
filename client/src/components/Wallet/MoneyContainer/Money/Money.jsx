@@ -3,16 +3,11 @@ import styled from "styled-components";
 import MoneyAmount from "./MoneyAmount";
 import MoneyUnit from "./MoneyUnit";
 
-export default function Money({ unit, amount, total, setTotal }) {
+export default function Money({ unit, amount }) {
   return (
     <StyledMoney>
       <MoneyUnit unit={unit}></MoneyUnit>
-      <MoneyAmount
-        amount={amount}
-        unit={unit}
-        total={total}
-        setTotal={setTotal}
-      ></MoneyAmount>
+      <MoneyAmount amount={amount} unit={unit}></MoneyAmount>
     </StyledMoney>
   );
 }
