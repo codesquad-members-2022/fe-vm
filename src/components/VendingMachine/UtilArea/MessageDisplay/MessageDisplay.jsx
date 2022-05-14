@@ -1,14 +1,15 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { Records } from "../../../ContextProvider";
+import { Records } from "../../../../contextProviders/RecordsProvider";
+import { v4 as uuidv4 } from "uuid";
 
 const MessageDisplay = () => {
   const { records } = useContext(Records);
 
   return (
     <MessageWrapper>
-      {records.map((record, i) => (
-        <div key={i}>{record}</div>
+      {records.map((record) => (
+        <div key={uuidv4()}>{record}</div>
       ))}
     </MessageWrapper>
   );
@@ -22,6 +23,7 @@ const MessageWrapper = styled.div`
   border-radius: 10px;
   box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.3);
   background-color: ${({ theme }) => theme.colors.white};
+  overflow: hidden;
 
   div {
     margin: 10px;
@@ -34,6 +36,7 @@ const MessageWrapper = styled.div`
 
   div:hover {
     white-space: normal;
+    color: ${({ theme }) => theme.colors.red};
   }
 `;
 

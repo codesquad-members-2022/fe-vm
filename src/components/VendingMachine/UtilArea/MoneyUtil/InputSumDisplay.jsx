@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
-import { InputSum, Records } from "../../../ContextProvider";
+import { Balance } from "../../../../contextProviders/BalanceProvider";
+import { Records } from "../../../../contextProviders/RecordsProvider";
 import styled from "styled-components";
-import { activityType } from "../../../convention";
+import { activityType } from "../../../../convention";
 
 const InputSumDisplay = () => {
-  const { inputSum, setInputSum } = useContext(InputSum);
+  const { inputSum, setInputSum } = useContext(Balance);
   const { updateRecord } = useContext(Records);
   const [tempInputSum, setTempInputSum] = useState("");
 

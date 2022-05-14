@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Nav from "./Nav";
-import { whaleImgSrc } from "../../styles/icons";
+import icons from "../../styles/icons";
 
 const Header = () => {
   return (
@@ -31,7 +31,7 @@ const Logo = styled.span`
   width: 80px;
   height: 80px;
   margin: 0 60px;
-  background: url(${whaleImgSrc}) no-repeat center;
+  background: url(${icons.WHALE}) no-repeat center;
   background-size: cover;
   filter: invert(100%);
 `;

@@ -1,15 +1,18 @@
 import { useContext } from "react";
-import { InputSum, Records } from "../../../ContextProvider";
+import { Balance } from "../../../contextProviders/BalanceProvider";
+import { Records } from "../../../contextProviders/RecordsProvider";
+import { ProductsInfo } from "../../../contextProviders/ProductsInfoProvider";
 import { activityType } from "../../../convention";
 import styled, { css } from "styled-components";
 import Button from "../../common/Button";
 
-const Product = ({ productInfo, stock, changeStock }) => {
-  const { inputSum, setInputSum } = useContext(InputSum);
+const Product = ({ productInfo, productIdx }) => {
+  const { inputSum, setInputSum } = useContext(Balance);
   const { updateRecord } = useContext(Records);
+  const { updateProductInfo } = useContext(ProductsInfo);
 
   const handleClick = () => {
-    if (!stock) {
+    if (!productInfo.stock) {
       updateRecord(activityType.OUT_OF_STOCK, productInfo.name);
     } else if (inputSum < productInfo.price) {
       updateRecord(activityType.LACK_OF_MONEY);
@@ -20,12 +23,14 @@ const Product = ({ productInfo, stock, changeStock }) => {
   };
 
   const purchaseProduct = () => {
-    changeStock(productInfo.id, stock - 1);
+    const newProductInfo = { ...productInfo };
+    newProductInfo.stock--;
+    updateProductInfo(productInfo.id, productIdx, newProductInfo);
     setInputSum(inputSum - productInfo.price);
   };
 
   const decidePurchaseBtnStyles = () => {
-    if (!stock) {
+    if (!productInfo.stock) {
       return outOfStockButtonStyle;
     }
     if (productInfo.price > inputSum) {
@@ -35,12 +40,12 @@ const Product = ({ productInfo, stock, changeStock }) => {
   };
 
   const decidePurchaseBtnContent = () => {
-    return stock ? productInfo.price.toLocaleString() : "Sold out";
+    return productInfo.stock ? productInfo.price.toLocaleString() : "Sold out";
   };
 
   return (
     <ProductWrapper>
-      <ProductImageWrapper stock={stock}>
+      <ProductImageWrapper stock={productInfo.stock}>
         <img src={productInfo.imgSrc} alt={productInfo.name} />
       </ProductImageWrapper>
       <ProductStand>
