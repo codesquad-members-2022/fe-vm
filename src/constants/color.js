@@ -1,0 +1,14 @@
+const COLOR = {
+  BLACK: '#000000',
+  DARK_GREY: '#3F3F3F',
+  GREY: '#999999',
+  LIGHT_GREY: '#BCBCBC',
+  OFF_WHITE: '#F4F4F4',
+  WHITE: '#FFFFFF',
+  DARK_BLUE: '#1E3062',
+  BLUE: '#2B448C',
+  LIGHT_BLUE: '#C8CDDC',
+  RED: '#B11811',
+};
+
+export default COLOR;
