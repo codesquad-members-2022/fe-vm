@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Noto Sans KR", sans-serif;
+    src: url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+  }
+
+  body {
+    @apply font-main bg-gray-white;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply text-center border-2 rounded-lg shadow-md shadow-gray;
+  }
+
+  .btn--starbucks {
+    @apply font-medium text-black border-starbucks-dark hover:bg-starbucks hover:text-white active:bg-starbucks-dark active:text-white focus:ring;
+  }
+
+  .tab--starbucks {
+    @apply btn btn--starbucks w-[100px] py-2;
+  }
+}
+
+@layer utilities {
+}
