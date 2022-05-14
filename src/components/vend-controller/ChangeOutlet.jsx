@@ -1,9 +1,9 @@
-import { Button } from "./Button";
+import { Button } from "components";
 
 function ChangeOutlet() {
   return (
     <Button color="black" size="large">
-      change
+      CHANGE
     </Button>
   );
 }

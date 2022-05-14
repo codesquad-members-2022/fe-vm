@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { InsertCoinContext } from "context";
 import styled from "styled-components";
 
 const StyledInsertCoin = styled.input`
@@ -16,7 +18,15 @@ const StyledInsertCoin = styled.input`
 `;
 
 function InsertCoin() {
-  return <StyledInsertCoin type="number" min="0" placeholder="INSERT COIN" />;
+  const { insertCoin } = useContext(InsertCoinContext);
+  return (
+    <StyledInsertCoin
+      defaultValue={insertCoin}
+      type="number"
+      min="0"
+      placeholder="INSERT COIN"
+    ></StyledInsertCoin>
+  );
 }
 
 export { InsertCoin };
