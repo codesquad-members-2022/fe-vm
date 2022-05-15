@@ -106,3 +106,4 @@ dist
 # conf
 .prettierignore
 .idea/
+deployScript.js

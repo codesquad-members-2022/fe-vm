@@ -1,19 +1,73 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { VMContext } from '@/Provider/VMProvider';
+import { ACTION, VMContext } from '@/Provider/VMProvider';
+import { Flexbox } from '@/utils/style';
+
+const InputController = ({ className }) => {
+  const [isSubmitted, setIsSubmitted] = useState(true);
+  const {
+    state: { totalInputAmount },
+    dispatch,
+  } = useContext(VMContext);
+
+  const onClickInputAmount = () => {
+    setIsSubmitted(false);
+  };
+
+  return (
+    <InputControllerLayout className={className} dir="column" jc="space-around" ai="unset">
+      <InputLayer>
+        {isSubmitted ? (
+          <InputAmount onClick={onClickInputAmount}>
+            {totalInputAmount.toLocaleString()}
+          </InputAmount>
+        ) : (
+          <InputForm dispatch={dispatch} setIsSubmitted={setIsSubmitted} />
+        )}
+        <span>원</span>
+      </InputLayer>
+      <ReturnButton>반환</ReturnButton>
+    </InputControllerLayout>
+  );
+};
+
+const InputForm = ({ dispatch, setIsSubmitted }) => {
+  const inputRef = useRef(null);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const inputValue = Number(inputRef.current.value);
+
+    setIsSubmitted(true);
+
+    dispatch({
+      type: ACTION.INSERT_MONEY_BY_TYPING,
+      payload: {
+        amount: inputValue,
+      },
+    });
+  };
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  return (
+    <InputFormLayout onSubmit={onSubmit}>
+      <Input ref={inputRef} min={0} max={50000} />
+    </InputFormLayout>
+  );
+};
 
 const InputControllerLayout = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${Flexbox};
   width: 99%;
-  justify-content: space-around;
 `;
 
 const InputLayer = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 20px;
+  ${Flexbox};
+  font-size: ${({ theme }) => theme.fontSize.xl};
   height: 30px;
 `;
 
@@ -22,12 +76,12 @@ const InputFormLayout = styled.form`
 `;
 
 const Input = styled.input.attrs({ type: 'number', placeholder: '0' })`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSize.xl};
   width: 100%;
   height: 100%;
   text-align: right;
   padding: 0 5px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.black};
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
@@ -38,82 +92,37 @@ const Input = styled.input.attrs({ type: 'number', placeholder: '0' })`
 `;
 
 const InputAmount = styled.div`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSize.xl};
   width: 100%;
   text-align: right;
   padding: 4px;
-  border: 1px solid black;
+  border: 1px solid ${({ theme }) => theme.colors.black};
   cursor: pointer;
   transition: background-color 200ms;
 
   &:hover {
-    background-color: #00000022;
+    background-color: ${({ theme }) => theme.colors.darkBlack};
   }
 
   &:active {
-    background-color: #00000011;
+    background-color: ${({ theme }) => theme.colors.lightBlack};
   }
 `;
 
 const ReturnButton = styled.button.attrs({ type: 'button' })`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSize.xl};
   padding: 5px;
-  border: 1px solid black;
+  border: 1px solid ${({ theme }) => theme.colors.black};
   cursor: pointer;
   transition: background-color 200ms;
 
   &:hover {
-    background-color: #00000022;
+    background-color: ${({ theme }) => theme.colors.darkBlack};
   }
 
   &:active {
-    background-color: #00000011;
+    background-color: ${({ theme }) => theme.colors.lightBlack};
   }
 `;
-
-const InputController = ({ className }) => {
-  const [submitted, setSubmitted] = useState(true);
-  const { state, dispatch } = useContext(VMContext);
-
-  const onClickInputAmount = () => {
-    setSubmitted(false);
-  };
-
-  return (
-    <InputControllerLayout className={className}>
-      <InputLayer>
-        {submitted ? (
-          <InputAmount onClick={onClickInputAmount}>{state.inputAmount}</InputAmount>
-        ) : (
-          <InputForm dispatch={dispatch} setSubmitted={setSubmitted} />
-        )}
-        <span>원</span>
-      </InputLayer>
-      <ReturnButton>반환</ReturnButton>
-    </InputControllerLayout>
-  );
-};
-
-const InputForm = ({ dispatch, setSubmitted }) => {
-  const inputRef = useRef(null);
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-
-    // TODO: 투입금액 업데이트
-    // TODO: 로그 업데이트
-  };
-
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
-
-  return (
-    <InputFormLayout onSubmit={onSubmit}>
-      <Input ref={inputRef} />
-    </InputFormLayout>
-  );
-};
 
 export default InputController;

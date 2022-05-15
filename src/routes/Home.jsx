@@ -5,6 +5,18 @@ import ActionLogs from '@/components/ActionLogs';
 import Display from '@/components/Display';
 import InputController from '@/components/InputController';
 
+const Home = () => {
+  return (
+    <HomeLayout>
+      <HomeLayer>
+        <Display className={DISPLAY} />
+        <InputController className={INPUT_CONTROLLER} />
+        <ActionLogs className={ACTION_LOGS} />
+      </HomeLayer>
+    </HomeLayout>
+  );
+};
+
 const DISPLAY = 'vm-display';
 const INPUT_CONTROLLER = 'vm-input-controller';
 const ACTION_LOGS = 'vm-action-logs';
@@ -12,7 +24,7 @@ const DISPLAY_WIDTH = 720;
 
 const HomeLayout = styled.main`
   width: 1080px;
-  border: 1px solid black;
+  border: 1px solid ${({ theme }) => theme.colors.black};
 `;
 
 const HomeLayer = styled.div`
@@ -28,27 +40,15 @@ const HomeLayer = styled.div`
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    grid-gap: 20px;
+    grid-gap: 15px;
     overflow-y: auto;
   }
 
   .${ACTION_LOGS} {
     margin-right: 4px;
-    border: 1px solid #000;
+    border: 1px solid ${({ theme }) => theme.colors.black};
     overflow-y: hidden;
   }
 `;
-
-const Home = () => {
-  return (
-    <HomeLayout>
-      <HomeLayer>
-        <Display className={DISPLAY} />
-        <InputController className={INPUT_CONTROLLER} />
-        <ActionLogs className={ACTION_LOGS} />
-      </HomeLayer>
-    </HomeLayout>
-  );
-};
 
 export default Home;

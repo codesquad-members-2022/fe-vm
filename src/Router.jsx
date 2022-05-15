@@ -5,43 +5,11 @@ import styled from 'styled-components';
 import { VMProvider } from '@/Provider/VMProvider';
 import Home from '@/routes/Home';
 import Wallet from '@/routes/Wallet';
-
-const Container = styled.div`
-  width: 1080px;
-  margin: 30px auto;
-`;
-
-const NavBar = styled.nav``;
-
-const TabList = styled.ul`
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-const Tab = styled.li`
-  & + & {
-    margin-left: 8px;
-  }
-`;
-
-const StyledSpan = styled.span`
-  height: 100%;
-  padding: 8px;
-  border: 1px solid #000;
-  transition: all 250ms;
-
-  &.active {
-    background-color: #000;
-    color: #fff;
-  }
-`;
+import { Flexbox } from '@/utils/style';
 
 const Router = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={BASE_URL}>
       <Container>
         <NavBar>
           <TabList>
@@ -71,5 +39,36 @@ const Router = () => {
     </BrowserRouter>
   );
 };
+
+const Container = styled.div`
+  width: 1080px;
+  margin: 30px auto;
+`;
+
+const NavBar = styled.nav``;
+
+const TabList = styled.ul`
+  ${Flexbox};
+  height: 50px;
+  margin-bottom: 20px;
+`;
+
+const Tab = styled.li`
+  & + & {
+    margin-left: 8px;
+  }
+`;
+
+const StyledSpan = styled.span`
+  height: 100%;
+  padding: 8px;
+  border: 1px solid ${({ theme }) => theme.colors.black};
+  transition: all 400ms;
+
+  &.active {
+    background-color: ${({ theme }) => theme.colors.black};
+    color: ${({ theme }) => theme.colors.white};
+  }
+`;
 
 export default Router;
