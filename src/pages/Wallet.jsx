@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 
+import { parseMoneyFormat } from 'common/utils';
 import MoneyBoxes from 'components/Wallet/MoneyBoxes';
 import COLORS from 'constants/colors';
 import { MoneyContext } from 'context/MoneyProvider';
@@ -16,7 +17,7 @@ const Wallet = () => {
   return (
     <WalletLayout>
       <MoneyBoxes moneyData={walletMoney} />
-      <TotalPrice>{totalMoney}원</TotalPrice>
+      <TotalPrice>{parseMoneyFormat(totalMoney)}</TotalPrice>
     </WalletLayout>
   );
 };

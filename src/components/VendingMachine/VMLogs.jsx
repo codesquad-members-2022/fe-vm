@@ -1,17 +1,18 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 
+import { parseMoneyFormat } from 'common/utils';
 import COLORS from 'constants/colors';
 import { LogContext } from 'context/LogProvider';
 
 const parseVmLog = ({ type, data }) => {
   switch (type) {
     case 'insert':
-      return `${data}원 이 투입됐음.`;
+      return `${parseMoneyFormat(data)} 이 투입됐음.`;
     case 'select':
       return `${data} 이(가) 선택됨`;
     case 'return':
-      return `잔돈 ${data}원 반환`;
+      return `잔돈 ${parseMoneyFormat(data)} 반환`;
     default:
       return '잘못된 로그';
   }

@@ -1,27 +1,30 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 
+import { parseMoneyFormat } from 'common/utils';
 import COLORS from 'constants/colors';
 import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
+import createHoverCss from 'styles/createHoverCss';
 
 const MoneyBox = ({ money: { amount, count } }) => {
   const [, setLogs] = useContext(LogContext);
-  const { walletMoney, setWalletMoney, inputMoney, setInputMoney } =
-    useContext(MoneyContext);
+  const { insertMoneyByClick } = useContext(MoneyContext);
 
   const isActive = count !== 0;
+  const hoverCss = createHoverCss({
+    bgColor: {
+      base: isActive ? COLORS.MAIN_BG : COLORS.WHITE,
+      hover: COLORS.GREY,
+    },
+    textColor: {
+      base: COLORS.BLACK,
+      hover: COLORS.WHITE,
+    },
+  });
 
   const handleClickMoneyAmount = () => {
-    if (count === 0) return;
-    const newMoney = walletMoney.map((oMoney) => {
-      if (amount === oMoney.amount) {
-        return { ...oMoney, count: count - 1 };
-      }
-      return oMoney;
-    });
-    setInputMoney(inputMoney + amount);
-    setWalletMoney(newMoney);
+    insertMoneyByClick(count, amount);
     setLogs({
       type: 'insert',
       data: amount,
@@ -30,8 +33,12 @@ const MoneyBox = ({ money: { amount, count } }) => {
 
   return (
     <Wrapper>
-      <MoneyAmount isActive={isActive} onClick={handleClickMoneyAmount}>
-        {amount}원
+      <MoneyAmount
+        isActive={isActive}
+        onClick={handleClickMoneyAmount}
+        hoverCss={hoverCss}
+      >
+        {parseMoneyFormat(amount)}
       </MoneyAmount>
       <MoneyCount>{count}개</MoneyCount>
     </Wrapper>
@@ -54,21 +61,12 @@ const BorderBox = styled.div`
 `;
 
 const MoneyAmount = styled(BorderBox)`
-  background-color: ${({ isActive }) =>
-    isActive ? COLORS.MAIN_BG : COLORS.WHITE};
-  ${({ isActive }) => {
-    if (isActive) {
-      return `
-            transition: all 0.2s;
-            cursor: pointer;
-            &:hover {
-                background-color: ${COLORS.GREY};
-                color: ${COLORS.WHITE};
-            }
-        `;
-    }
-    return '';
-  }}
+  ${({ isActive, hoverCss }) =>
+    isActive &&
+    `
+      cursor: pointer;
+      ${hoverCss}
+    `}
 `;
 
 const MoneyCount = styled(BorderBox)``;

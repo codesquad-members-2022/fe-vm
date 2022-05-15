@@ -1,18 +1,41 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 
+import { parseMoneyFormat } from 'common/utils';
 import COLORS from 'constants/colors';
 import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
 
-const VMItem = ({ item: { name, price } }) => {
+const defaultStyle = `
+  border: 3px solid ${COLORS.GREY};
+`;
+const soldOutStyle = `
+  background-color: ${COLORS.MAIN_BG};
+  color: ${COLORS.GREY}
+`;
+const activeStyle = `
+  border: 3px solid ${COLORS.RED};
+  cursor: pointer;
+`;
+
+const VMItem = ({ item: { id, name, amount, count }, onClickActiveItem }) => {
   const { inputMoney, setInputMoney } = useContext(MoneyContext);
   const [, insertLog] = useContext(LogContext);
-  const isActive = inputMoney >= price;
+  const isSoldOut = count === 0;
+  const isActive = inputMoney >= amount && !isSoldOut;
+  let itemStatus = '';
+  if (isSoldOut) {
+    itemStatus = 'soldout';
+  } else if (isActive) {
+    itemStatus = 'active';
+  } else {
+    itemStatus = 'none';
+  }
 
   const handleClickActiveItem = () => {
     if (!isActive) return;
-    setInputMoney(inputMoney - price);
+    onClickActiveItem(id);
+    setInputMoney(inputMoney - amount);
     insertLog({
       type: 'select',
       data: name,
@@ -22,11 +45,11 @@ const VMItem = ({ item: { name, price } }) => {
   return (
     <li>
       <ItemWrapper>
-        <ItemNameBox isActive={isActive} onClick={handleClickActiveItem}>
+        <ItemNameBox status={itemStatus} onClick={handleClickActiveItem}>
           <span>{name}</span>
         </ItemNameBox>
         <ItemPriceBox>
-          <span>{price}원</span>
+          <span>{parseMoneyFormat(amount)}</span>
         </ItemPriceBox>
       </ItemWrapper>
     </li>
@@ -47,8 +70,16 @@ const ItemNameBox = styled.div`
   justify-content: center;
   width: 6rem;
   height: 5rem;
-  border: 3px solid ${({ isActive }) => (isActive ? COLORS.RED : COLORS.GREY)};
-  cursor: ${({ isActive }) => (isActive ? 'pointer' : 'default')};
+  ${({ status }) => {
+    switch (status) {
+      case 'active':
+        return activeStyle;
+      case 'soldout':
+        return soldOutStyle;
+      default:
+        return defaultStyle;
+    }
+  }}
 `;
 
 const ItemPriceBox = styled.div`

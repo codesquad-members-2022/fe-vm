@@ -12,6 +12,7 @@
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.3.4",
+    "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -53,6 +54,14 @@
             [
               "context",
               "./src/context/"
+            ],
+            [
+              "hooks",
+              "./src/hooks/"
+            ],
+            [
+              "styles",
+              "./src/styles/"
             ]
           ],
           "extensions": [
@@ -83,7 +92,9 @@
       "implicit-arrow-linebreak": "off",
       "no-confusing-arrow": "off",
       "operator-linebreak": "off",
-      "object-curly-newline": "off"
+      "object-curly-newline": "off",
+      "import/prefer-default-export": "off",
+      "no-plusplus": "off"
     }
   },
   "browserslist": {

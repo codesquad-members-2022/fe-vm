@@ -1,16 +1,20 @@
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
 
+import { parseMoneyFormat } from 'common/utils';
 import VMInputBox from 'components/VendingMachine/VMInputBox';
 import COLORS from 'constants/colors';
 import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
+import createHoverCss from 'styles/createHoverCss';
 
 const VMInputMoney = () => {
-  const { inputMoney, setInputMoney } = useContext(MoneyContext);
+  const { inputMoney, insertInputMoney } = useContext(MoneyContext);
   const [, insertLog] = useContext(LogContext);
   const [isInputSelected, setIsInputSelected] = useState(false);
-
+  const hoverCss = createHoverCss({
+    bgColor: { base: COLORS.WHITE, hover: COLORS.MAIN_BG },
+  });
   const handleClickTextBox = () => {
     setIsInputSelected(true);
   };
@@ -22,12 +26,11 @@ const VMInputMoney = () => {
       setIsInputSelected(false);
       return;
     }
-    // newMoney 알고리즘
-    setInputMoney(+newMoney);
+    const newInsertMoney = insertInputMoney(+newMoney);
     setIsInputSelected(false);
     insertLog({
       type: 'insert',
-      data: newMoney - inputMoney,
+      data: newInsertMoney - inputMoney,
     });
   };
 
@@ -39,7 +42,9 @@ const VMInputMoney = () => {
           updateInputMoney={updateInputMoney}
         />
       ) : (
-        <TextBox onClick={handleClickTextBox}>{inputMoney} 원</TextBox>
+        <TextBox onClick={handleClickTextBox} hoverCss={hoverCss}>
+          <span>{parseMoneyFormat(inputMoney)}</span>
+        </TextBox>
       )}
     </VMInputMoneyWrapper>
   );
@@ -49,10 +54,18 @@ const VMInputMoneyWrapper = styled.div`
   display: flex;
   justify-content: right;
   align-items: center;
-  padding: 0px 10px;
   border: 3px solid ${COLORS.GREY};
 `;
 
-const TextBox = styled.span``;
+const TextBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+  padding: 0px 10px;
+  cursor: pointer;
+  ${({ hoverCss }) => hoverCss};
+`;
 
 export default VMInputMoney;
