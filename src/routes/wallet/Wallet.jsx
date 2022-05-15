@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { WalletContext } from "../home/Home";
+import { useWallet } from "../../context/WalletContext";
 import {
     WalletContainer,
     WalletItemContainer,
@@ -8,7 +7,7 @@ import {
 } from "./Wallet.Style";
 
 function Wallet() {
-    const { wallet } = useContext(WalletContext);
+    const { wallet } = useWallet();
     const totalAmount = wallet.reduce(
         (acc, money) => acc + money.unit * money.count,
         0

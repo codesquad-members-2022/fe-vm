@@ -1,7 +1,6 @@
-import { useContext } from "react";
-import { WalletContext } from "../../routes/home/Home";
 import { SlotContainer, Slot } from "./MoneySlot.style";
 import { useVendingMachine } from "../../context/VendingMachineContext";
+import { useWallet } from "../../context/WalletContext";
 
 const getMoneyFromWallet = (input, wallet) => {
     const differenceBetweenInputAndWalletMoney = wallet.map((money) => {
@@ -18,7 +17,7 @@ const getMoneyFromWallet = (input, wallet) => {
 };
 
 function MoneySlot() {
-    const { wallet, updateWallet } = useContext(WalletContext);
+    const { wallet, updateWallet } = useWallet();
     const { addRecord, putMoneyIntoVendingMachine } = useVendingMachine();
 
     const putMoney = (event) => {
