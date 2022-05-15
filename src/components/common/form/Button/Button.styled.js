@@ -11,8 +11,6 @@ const StyledButton = styled.button`
   &:disabled {
     cursor: default;
     background-color: ${({ theme: { colors } }) => colors.gray};
-    &:hover {
-    }
   }
 `;
 
