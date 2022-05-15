@@ -7,7 +7,7 @@ export const useWalletContext = () => useContext(WalletContext);
 function WalletProvider({ children }) {
     const [wallet, setWallet] = useState(dataOfwallet);
     const updateWallet = (newWallet) => {
-        setWallet(newWallet);
+        setWallet([...newWallet]);
     };
 
     const totalAmount = useMemo(

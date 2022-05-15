@@ -9,8 +9,6 @@ import {
 
 function Products() {
     const { totalMoneyInVendingMachine } = useVendingMachineContext();
-    console.log("자판기에 들어있는 금액");
-    console.log(totalMoneyInVendingMachine);
 
     return (
         <ProductsContainer>
