@@ -41,8 +41,8 @@ const StyeldLink = styled(Link)`
   width: 136px;
   padding: 12px 0;
   ${({ theme }) => theme.fontStyles.xLargeBold};
-  ${props =>
-    props.focus === props.id &&
+  ${({ focus, id }) =>
+    focus === id &&
     css`
       background: ${({ theme }) => theme.colors.blue};
       color: ${({ theme }) => theme.colors.white};

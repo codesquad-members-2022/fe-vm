@@ -1,24 +1,24 @@
-import styled from 'styled-components';
-import walletInfo from 'mock/Wallet';
-import setLocalString from 'utils/setLocalString';
+import { useContext } from 'react';
+import { MoneyContext } from 'context/MoneyContext';
 
-const Money = ({ info }) => {
-  return (
-    <MoneyWrapper>
-      <span>{setLocalString(info.count)}원</span>
-      <button>{info.amount}개</button>
-    </MoneyWrapper>
-  );
-};
+import styled from 'styled-components';
+import setLocalString from 'utils/setLocalString';
+import calculateTotalMoney from 'utils/calculateTotalMoney';
+
+import Money from './Money';
 
 export default function Wallet() {
-  const moneyInfo = walletInfo.map((money, index) => <Money key={index} info={money} />);
-  const totalMoney = walletInfo.reduce((acc, cur) => acc + cur.count * cur.amount, 0);
+  const { walletMoneyData } = useContext(MoneyContext);
+
+  const setMoneyComponents = walletMoneyData.map((money, index) => {
+    return <Money key={index} info={money} />;
+  });
+  const totalMoney = calculateTotalMoney(walletMoneyData);
 
   return (
     <WalletContainer>
       <TotalAmount>총 금액: {setLocalString(totalMoney)}원</TotalAmount>
-      <WalletWrapper> {moneyInfo}</WalletWrapper>
+      <WalletWrapper>{setMoneyComponents}</WalletWrapper>
     </WalletContainer>
   );
 }
@@ -50,23 +50,4 @@ const WalletWrapper = styled.div`
   padding: 12px;
   border-radius: 8px;
   background: ${({ theme }) => theme.colors.white};
-`;
-
-const MoneyWrapper = styled.div`
-  display: flex;
-  border: 1px solid transparent;
-
-  span {
-    padding: 8px;
-    width: 70%;
-    background: ${({ theme }) => theme.colors.gray4};
-    ${({ theme }) => theme.fontStyles.smallBold};
-  }
-
-  button {
-    width: 30%;
-    padding: 8px 4px;
-    background: ${({ theme }) => theme.colors.orange};
-    ${({ theme }) => theme.fontStyles.smallRegular};
-  }
 `;
