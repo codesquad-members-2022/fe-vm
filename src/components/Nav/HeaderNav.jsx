@@ -7,7 +7,6 @@ const HeaderNav = () => {
   const styledFocusing = (url) => {
     return url === path && "bg-starbucks text-white";
   };
-
   return (
     <nav className="flex items-center justify-center gap-4 my-10 text-xl">
       <Link to="/" className={`${styledFocusing("/")} tab--starbucks`}>
