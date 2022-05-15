@@ -1,20 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import styled from "styled-components";
+import WalletProvider, { WalletContext } from "../contexts/walletContext";
+import { HeightSort } from "../style/Globalstyles";
 import Currency from "./Currency";
 import TotalMoney from "./TotalMoney";
-import styled from "styled-components";
-import { HeightSort } from "../style/Globalstyles";
-
 function Wallet() {
+  const walletMoney = useContext(WalletContext);
+  const money = walletMoney.value.walletMoney;
+  const sum = walletMoney.sum;
   return (
     <WalletWrap>
-      <Currency></Currency>
-      <Currency></Currency>
-      <Currency></Currency>
-      <Currency></Currency>
-      <Currency></Currency>
-      <Currency></Currency>
-      <Currency></Currency>
-      <TotalMoney></TotalMoney>
+      {money.map((currency, idx) => (
+        <Currency
+          key={idx}
+          money={currency.title}
+          amount={currency.amount}
+        ></Currency>
+      ))}
+      <TotalMoney sum={sum}></TotalMoney>
     </WalletWrap>
   );
 }

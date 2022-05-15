@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { CenterSort, HeightSort } from "../style/Globalstyles";
-function Currency() {
+import { WalletContext } from "../contexts/walletContext";
+import { decreaseAmount } from "../util/util";
+function Currency({ money, amount }) {
+  const { walletMoney, setWalletMoney } = useContext(WalletContext).value;
   return (
     <CurrencyWrap>
-      <Money>1000원</Money>
-      <Amount>2개</Amount>
+      <Money
+        onClick={() => {
+          decreaseAmount(walletMoney, amount, setWalletMoney, money);
+        }}
+      >
+        {money.toLocaleString()}원
+      </Money>
+      <Amount>{amount}개</Amount>
     </CurrencyWrap>
   );
 }
