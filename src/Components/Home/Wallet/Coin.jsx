@@ -8,7 +8,7 @@ import {
 
 import { getPriceType } from 'Util/util';
 import { MINUS } from 'Components/Common/constant';
-import { CoinDiv, CoinCountDiv, CoinPriceDiv } from './Wallet.styled';
+import { CoinDiv, CoinCountBtn, CoinPriceDiv } from './Wallet.styled';
 
 const Coin = ({ coin }) => {
 	const { id, price, count } = coin;
@@ -33,7 +33,9 @@ const Coin = ({ coin }) => {
 	return (
 		<CoinDiv>
 			<CoinPriceDiv>{getPriceType(price, true)}</CoinPriceDiv>
-			<CoinCountDiv onClick={handleClickCount}>{count}개</CoinCountDiv>
+			<CoinCountBtn disabled={!count} onClick={handleClickCount} count={count}>
+				{count}개
+			</CoinCountBtn>
 		</CoinDiv>
 	);
 };

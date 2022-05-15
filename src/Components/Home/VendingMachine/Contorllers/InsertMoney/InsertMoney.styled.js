@@ -25,18 +25,17 @@ const InsertMoneyValue = styled.input`
 	`}
 `;
 
-const BtnsDiv = styled.div`
+const ControllerBtnsDiv = styled.div`
 	display: flex;
 	justify-content: space-between;
-	> div {
-		flex-basis: 50%;
-	}
 `;
 
-const BtnDiv = styled.div`
+const ControllerBtn = styled.button`
 	${({ theme: { colors }, isTakingOut, color }) => css`
+		flex-basis: 50%;
 		cursor: ${!isTakingOut ? 'pointer' : 'not-allowed'};
-		height: 20px;
+		font-size: 18px;
+		font-family: 'IBM Plex Sans KR', sans-serif;
 		margin: 15px;
 		border-radius: 20px;
 		border: 2px solid ${colors.black};
@@ -71,4 +70,4 @@ const BtnDiv = styled.div`
 	`}
 `;
 
-export { InsertMoneyDiv, InsertMoneyValue, BtnsDiv, BtnDiv };
+export { InsertMoneyDiv, InsertMoneyValue, ControllerBtnsDiv, ControllerBtn };

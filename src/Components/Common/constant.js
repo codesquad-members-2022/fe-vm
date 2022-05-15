@@ -11,6 +11,7 @@ const GREEN = 'green';
 const LIGHTGREEN = 'lightGreen';
 const RED = 'red';
 const LIGHTRED = 'lightRed';
+const ENTER = 'Enter';
 const lineCount = 2;
 const takingOutTime = 2000;
 const insertMoneyTime = 1000;
@@ -29,6 +30,7 @@ export {
 	PLUS,
 	MINUS,
 	BUY,
+	ENTER,
 	UNIT,
 	INSERT,
 	WITHDRAW,

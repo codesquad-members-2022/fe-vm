@@ -14,16 +14,20 @@ const items = [
 	{ id: 12, name: '딸기맛 우유', price: 5010, count: 2 },
 	{ id: 13, name: '탄산수', price: 50000, count: 12 },
 	{ id: 14, name: '도미노 피자', price: 10200, count: 2 },
+	{ id: 14, name: '피자헛', price: 10200, count: 2 },
+	{ id: 14, name: '탄산수 레몬맛', price: 10200, count: 2 },
+	{ id: 14, name: '갈비찜', price: 10200, count: 2 },
+	{ id: 14, name: '아이폰', price: 1200, count: 2 },
 ];
 
 const coins = [
 	{ id: 0, price: 10, count: 103 },
-	{ id: 1, price: 50, count: 103 },
+	{ id: 1, price: 50, count: 789 },
 	{ id: 2, price: 100, count: 109 },
-	{ id: 3, price: 500, count: 101 },
-	{ id: 4, price: 1000, count: 1000 },
+	{ id: 3, price: 500, count: 244 },
+	{ id: 4, price: 1000, count: 100 },
 	{ id: 5, price: 5000, count: 32 },
-	{ id: 6, price: 10000, count: 187 },
+	{ id: 6, price: 10000, count: 1007 },
 ];
 
 export { items, coins };

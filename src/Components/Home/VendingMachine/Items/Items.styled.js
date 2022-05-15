@@ -14,15 +14,20 @@ const ItemsDiv = styled.div`
 	flex: 1 1 0;
 	width: 400px;
 	height: 100%;
+	overflow: scroll;
 	${({ theme: { colors } }) => css`
 		border-radius: 20px;
 		border: 2px solid ${colors.black};
 	`}
 `;
 
-const ItemDiv = styled.div`
+const ItemDiv = styled.button`
 	align-content: flex-start;
-	flex-basis: 35%;
+	flex-basis: 40%;
+	font-size: 18px;
+	line-height: 110%;
+	font-family: 'IBM Plex Sans KR', sans-serif;
+	font-weight: 500;
 	margin: 10px;
 	padding: 10px;
 

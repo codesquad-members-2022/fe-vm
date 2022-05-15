@@ -25,28 +25,34 @@ const CoinDiv = styled.div`
 	:not(:last-child) {
 		margin-bottom: 2px;
 	}
-	> div {
-		width: 90px;
-		height: 70px;
-		line-height: 70px;
-		border-radius: 20px;
-		margin: 5px;
-	}
 `;
 
 const CoinPriceDiv = styled.div`
 	${({ theme: { colors } }) => css`
+		box-sizing: border-box;
 		border: 2px solid ${colors.black};
+		width: 100px;
+		height: 75px;
+		line-height: 70px;
+		border-radius: 20px;
+		margin: 5px;
+		font-size: 20px;
 	`}
 `;
 
-const CoinCountDiv = styled.div`
-	${({ theme: { colors } }) => css`
+const CoinCountBtn = styled.button`
+	${({ theme: { colors }, count }) => css`
+		border-radius: 20px;
+		width: 100px;
+		height: 75px;
+		margin: 5px;
 		cursor: pointer;
-		border: solid 2px ${colors.green};
-		color: ${colors.green};
+		border: solid 2px ${count ? colors.green : colors.red};
+		color: ${count ? colors.green : colors.red};
+		font-size: 20px;
+		font-family: 'IBM Plex Sans KR', sans-serif;
 		:hover {
-			background-color: ${colors.green};
+			background-color: ${count ? colors.green : colors.red};
 			color: ${colors.white};
 		}
 	`}
@@ -58,9 +64,9 @@ const CoinsSumDiv = styled.div`
 		background-color: ${colors.yellow};
 		border: 2px solid ${colors.black};
 		border-radius: 20px;
-		width: 180px;
-		height: 180px;
-		line-height: 180px;
+		width: 190px;
+		height: 190px;
+		line-height: 190px;
 		margin-top: 5px;
 	`}
 `;
@@ -71,8 +77,8 @@ const WalletMessagesDiv = styled.div`
 		border: 2px solid ${colors.black};
 		box-sizing: border-box;
 		border-radius: 20px;
-		width: 180px;
-		height: 180px;
+		width: 190px;
+		height: 190px;
 		padding: 10px;
 		margin-top: 20px;
 		overflow: scroll;
@@ -88,7 +94,7 @@ const WalletMessageDiv = styled.div`
 export {
 	WalletDiv,
 	CoinDiv,
-	CoinCountDiv,
+	CoinCountBtn,
 	CoinPriceDiv,
 	CoinsSumDiv,
 	WalletMessagesDiv,

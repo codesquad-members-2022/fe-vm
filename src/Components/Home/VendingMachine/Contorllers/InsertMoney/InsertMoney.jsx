@@ -5,6 +5,7 @@ import {
 	MINUS,
 	PLUS,
 	UNIT,
+	ENTER,
 } from 'Components/Common/constant';
 import {
 	CoinsContext,
@@ -16,7 +17,7 @@ import { getPriceType } from 'Util/util';
 import useDebounce from 'Util/hooks';
 import { spendMoney, withdrawMoney } from 'Components/Common/controlMoney';
 import { InsertMoneyDiv, InsertMoneyValue } from './InsertMoney.styled';
-import Btns from './Btns';
+import ControllerBtns from './ControllerBtns';
 
 const InsertMoney = () => {
 	const { coins, coinsSum } = useContext(CoinsContext);
@@ -34,8 +35,10 @@ const InsertMoney = () => {
 		return calculatingOptions;
 	};
 
-	const calculateAndReportMoney = (isEmpty) => {
-		const diffWithInsert = isEmpty ? -money : showedMoney - money;
+	const calculateAndReportMoney = (isZero) => {
+		if (isZero && !showedMoney) return;
+
+		const diffWithInsert = isZero ? -money : showedMoney - money;
 		const isMoneyInWallet = coinsSum >= diffWithInsert; // is inserted money much larger than wallet
 		const { calculateMoney, calculatingType } =
 			getCalculatingOptions(diffWithInsert);
@@ -65,17 +68,12 @@ const InsertMoney = () => {
 		if (numberFilter.test(valueNumber)) setShowedMoney(valueNumber);
 	};
 
-	const withdrawAll = (isEmpty) => {
-		if (isTakingOut || !showedMoney) return;
-		calculateAndReportMoney(isEmpty);
-	};
-
 	const handleKeyUp = ({ key }) => {
-		const isEnterKey = key === 'Enter';
+		const isEnterKey = key === ENTER;
 		if (isEnterKey) calculateAndReportMoney();
 	};
 
-	useDebounce(withdrawAll, autoWithdrawTime);
+	useDebounce(() => calculateAndReportMoney(true), autoWithdrawTime);
 
 	return (
 		<>
@@ -92,7 +90,10 @@ const InsertMoney = () => {
 				/>
 				{UNIT}
 			</InsertMoneyDiv>
-			<Btns isTakingOut={isTakingOut} withdrawAll={withdrawAll} />
+			<ControllerBtns
+				isTakingOut={isTakingOut}
+				calculateAndReportMoney={calculateAndReportMoney}
+			/>
 		</>
 	);
 };
