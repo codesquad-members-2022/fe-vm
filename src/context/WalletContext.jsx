@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import dataOfwallet from "../data/wallet";
 
 const WalletContext = React.createContext();
-export const useWallet = () => useContext(WalletContext);
+export const useWalletContext = () => useContext(WalletContext);
 
 function WalletProvider({ children }) {
     const [wallet, setWallet] = useState(dataOfwallet);

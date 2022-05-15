@@ -1,9 +1,9 @@
-import { useVendingMachine } from "../../context/VendingMachineContext";
+import { useVendingMachineContext } from "../../context/VendingMachineContext";
 import { ProductsContainer } from "./Product.style";
 import Product from "./Product";
 
 function Products() {
-    const { moneyInVendingMachine } = useVendingMachine();
+    const { moneyInVendingMachine } = useVendingMachineContext();
     const totalMoneyInVendingMachine = Object.keys(
         moneyInVendingMachine
     ).reduce(

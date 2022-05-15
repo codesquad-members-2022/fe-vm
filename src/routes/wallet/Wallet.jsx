@@ -1,4 +1,4 @@
-import { useWallet } from "../../context/WalletContext";
+import { useWalletContext } from "../../context/WalletContext";
 import {
     WalletContainer,
     WalletItemContainer,
@@ -7,7 +7,7 @@ import {
 } from "./Wallet.Style";
 
 function Wallet() {
-    const { wallet } = useWallet();
+    const { wallet } = useWalletContext();
     const totalAmount = wallet.reduce(
         (acc, money) => acc + money.unit * money.count,
         0

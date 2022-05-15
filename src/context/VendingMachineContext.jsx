@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 
 const VendingMachineContext = React.createContext();
-export const useVendingMachine = () => useContext(VendingMachineContext);
+export const useVendingMachineContext = () => useContext(VendingMachineContext);
 
 function VendingMachineProvider({ children }) {
     const [record, setRecord] = useState([]);
