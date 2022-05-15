@@ -3,15 +3,21 @@ import styled, {css} from 'styled-components';
 
 import {UserAccount} from '../Store';
 
-export const Products = ({title, price}) => {
-  const {userMoney} = useContext(UserAccount);
+export const Product = ({title, price}) => {
+  const {userMoney, buyProduct} = useContext(UserAccount);
 
   return (
     <ProductWrapper
       insertedMoney={userMoney.insertedMoney}
       productPrice={price}
     >
-      <Product>{title}</Product>
+      <ProductThumbnail
+        onClick={() => {
+          buyProduct(price);
+        }}
+      >
+        {title}
+      </ProductThumbnail>
       <PriceTag>{price}</PriceTag>
     </ProductWrapper>
   );
@@ -32,7 +38,7 @@ const ProductWrapper = styled.li`
   }}
 `;
 
-const Product = styled.div`
+const ProductThumbnail = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

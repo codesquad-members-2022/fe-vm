@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {Products} from './Products';
+import {Product} from './Product';
 
 export const ProductList = ({ProductsData}) => {
   return (
@@ -11,7 +11,7 @@ export const ProductList = ({ProductsData}) => {
 
 const createProducts = ProductsList => {
   return ProductsList.map(productData => (
-    <Products
+    <Product
       key={productData.id}
       title={productData.title}
       price={productData.price}

@@ -1,5 +1,5 @@
 export {InsertButton} from './InsertButton';
-export {Products} from './Products';
+export {Product} from './Product';
 export {UiChangeBtn} from './UiChange';
 export {VendingMachineInterface} from './VendingMachineInterface';
 export {ProductList} from './ProductList';

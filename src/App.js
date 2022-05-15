@@ -20,8 +20,8 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />}>
               <Route index element={<VendingMachine />} />
-              <Route path="/vendingMachine" element={<VendingMachine />} />
-              <Route path="/wallet/*" element={<Wallet />} />
+              <Route path="vendingMachine" element={<VendingMachine />} />
+              <Route path="wallet" element={<Wallet />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
