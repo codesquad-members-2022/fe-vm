@@ -1,29 +1,40 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ROUTE } from 'constant/route';
 import { Tab, Tabs } from '@mui/material';
 import * as S from './style';
 
-// FIXME: 새로 고침했을 때 URL과 상관없이 활성화탭이 0번으로 되는 버그
 function GlobalNavigation() {
-  const [value, setValue] = useState(0);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const [activeTabIndex, setActiveTabIndex] = useState(currentTab);
+
+  const handleActiveTab = (event, newValue) => {
+    setActiveTabIndex(newValue);
   };
 
   return (
     <S.Navigation>
       <Tabs
-        value={value}
-        onChange={handleChange}
+        value={activeTabIndex}
+        onChange={handleActiveTab}
         indicatorColor="primary"
         textColor="primary"
         centered
       >
-        <Tab label="상품 주문" to="/" component={Link} />
-        <Tab label="재고 관리" to="/mangement" component={Link} />
+        <Tab label="상품 주문" to={ROUTE.HOME} component={Link} />
+        <Tab label="재고 관리" to={ROUTE.MANGEMENT} component={Link} />
       </Tabs>
     </S.Navigation>
   );
 }
 
 export default GlobalNavigation;
+
+const ROUTER_INDEX = {
+  [ROUTE.HOME]: 0,
+  [ROUTE.MANGEMENT]: 1,
+};
+
+const currentTab = () => {
+  const path = window.location.pathname;
+  return ROUTER_INDEX[path];
+};

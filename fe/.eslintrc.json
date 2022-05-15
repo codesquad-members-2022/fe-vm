@@ -9,7 +9,8 @@
   "ignorePatterns": ["node_modules/"],
   "rules": {
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
-    "no-console": "warn"
+    "no-console": "warn",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   },
   "settings": {
     "import/resolver": {

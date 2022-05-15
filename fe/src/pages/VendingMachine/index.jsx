@@ -1,37 +1,28 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { Context as VMcontext } from 'context/VMcontext';
+import React, { useCallback, useState } from 'react';
 import Products from 'components/Products';
+import { useVMContext } from 'context/VMContext';
+import { orderProduct } from 'context/VMContext/action';
 import InsertMoneyForm from './InsertMoneyForm';
 import * as S from './style';
 
-const findClosestUnit = (existUnits, submitOnlyNumber) => {
-  return existUnits.reduce((acc, { unit }) => {
-    const substractAbs = Math.abs(submitOnlyNumber - acc);
-    console.log('substractAbs :>> ', substractAbs);
-    if (substractAbs < acc) {
-      return acc;
-    }
-    return unit;
-  }, 0);
-};
-
-const findTargetUnit = (existUnits, submitOnlyNumber) => {
-  const targetUnit = existUnits.find(({ unit }) => unit === submitOnlyNumber);
-  return targetUnit?.unit;
-};
-
-function VendingMachine(props) {
-  const { VMstate, VMdispatch } = useContext(VMcontext);
-  const { totalBalance, changesUnits } = VMstate;
+function VendingMachine() {
+  const { totalBalance, changesUnits, dispatch } = useVMContext();
   // FIXME: input defualt value 0일 때 에러 수정 -> 0123, 1230이런식으로 0이 안없어짐
   const [insertMoney, setInsertMoney] = useState(0);
 
-  const handleSubmitInsertMoney = useCallback(
+  const handleOrderProduct = useCallback(
+    productId => {
+      orderProduct(dispatch, productId);
+    },
+    [insertMoney],
+  );
+
+  const handleReturnChanges = useCallback(
     event => {
       event.preventDefault();
       const submitInsertMoney = event.target.insertMoney.value;
       const submitOnlyNumber = Number(submitInsertMoney.replaceAll(',', ''));
-      const existUnits = changesUnits.filter(unit => unit.count !== 0);
+      const existUnits = checkRestUnits(changesUnits);
       if (!existUnits) {
         alert('잔돈이 없어요');
       }
@@ -56,23 +47,45 @@ function VendingMachine(props) {
   }, []);
 
   const isPriceUnderInsertMoney = useCallback(
-    targetPrice => {
-      return targetPrice <= insertMoney;
-    },
+    targetPrice => targetPrice <= insertMoney,
     [insertMoney],
   );
 
   return (
     <S.Container>
-      <Products isPriceUnderInsertMoney={isPriceUnderInsertMoney} />
+      <Products
+        isManger={false}
+        isPriceUnderInsertMoney={isPriceUnderInsertMoney}
+        handleOrderProduct={handleOrderProduct}
+      />
       <InsertMoneyForm
         totalBalance={totalBalance}
         insertMoney={insertMoney}
         onChangeInsertMoney={onChangeInsertMoney}
-        handleSubmitInsertMoney={handleSubmitInsertMoney}
+        handleReturnChanges={handleReturnChanges}
       />
     </S.Container>
   );
 }
 
 export default VendingMachine;
+
+const findClosestUnit = (existUnits, submitOnlyNumber) => {
+  return existUnits.reduce((acc, { unit }) => {
+    const substractAbs = Math.abs(submitOnlyNumber - acc);
+    if (substractAbs < acc) {
+      return acc;
+    }
+    return unit;
+  }, 0);
+};
+
+const findTargetUnit = (existUnits, submitOnlyNumber) => {
+  const targetUnit = existUnits.find(({ unit }) => unit === submitOnlyNumber);
+  return targetUnit?.unit;
+};
+
+const checkRestUnits = units => {
+  const existUnits = units.filter(unit => unit.count !== 0);
+  return existUnits;
+};

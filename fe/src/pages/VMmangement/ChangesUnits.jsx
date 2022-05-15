@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
-import { setKoreanLocaleMoney } from 'utils';
+import { changeNumberToKoreanLocaleMoney } from 'utils';
 import * as S from './style';
 
-function ChangesUnits({ totalBalance, changesUnits }) {
+function ChangesUnits({
+  totalBalance,
+  changesUnits,
+  fetchAddTargetBalance,
+  fetchSubstractTargetBalance,
+}) {
   return (
     <S.ChangesUnitsContainer>
-      <div>{setKoreanLocaleMoney(totalBalance)}원</div>
+      <div>{changeNumberToKoreanLocaleMoney(totalBalance)}원</div>
       {changesUnits.map(({ id, unit, count }) => (
         <li key={id}>
           <Button variant="contained">{unit}</Button>
           <div>{count}</div>
+          <Button variant="contained" onClick={() => fetchAddTargetBalance(id)}>
+            +
+          </Button>
+          <Button variant="contained" onClick={() => fetchSubstractTargetBalance(id)}>
+            -
+          </Button>
         </li>
       ))}
     </S.ChangesUnitsContainer>
@@ -27,6 +38,8 @@ ChangesUnits.propTypes = {
       count: PropTypes.number.isRequired,
     }),
   ).isRequired,
+  fetchAddTargetBalance: PropTypes.func.isRequired,
+  fetchSubstractTargetBalance: PropTypes.func.isRequired,
 };
 
-export default ChangesUnits;
+export default memo(ChangesUnits);

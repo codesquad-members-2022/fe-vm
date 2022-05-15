@@ -1,16 +1,40 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import ChangesUnits from 'pages/VMmangement/ChangesUnits';
-import { Context as VMcontext } from 'context/VMcontext';
 import Products from 'components/Products';
+import { useVMContext } from 'context/VMContext';
+import { getBalance, addTargetBalance, substractTargetBalance } from 'context/VMContext/action';
 import * as S from './style';
 
 function VMmangement() {
-  const { VMstate, VMdispatch } = useContext(VMcontext);
-  const { totalBalance, changesUnits } = VMstate;
+  const { totalBalance, changesUnits, dispatch } = useVMContext();
+
+  const fetchAddTargetBalance = useCallback(
+    id => {
+      addTargetBalance(dispatch, id);
+    },
+    [dispatch],
+  );
+
+  const fetchSubstractTargetBalance = useCallback(
+    id => {
+      substractTargetBalance(dispatch, id);
+    },
+    [dispatch],
+  );
+
+  useEffect(() => {
+    getBalance(dispatch);
+  }, [dispatch]);
+
   return (
     <S.Container>
-      <Products isPriceUnderInsertMoney={() => {}} />
-      <ChangesUnits totalBalance={totalBalance} changesUnits={changesUnits} />
+      <Products isManger isPriceUnderInsertMoney={() => {}} handleOrderProduct={() => {}} />
+      <ChangesUnits
+        totalBalance={totalBalance}
+        changesUnits={changesUnits}
+        fetchAddTargetBalance={fetchAddTargetBalance}
+        fetchSubstractTargetBalance={fetchSubstractTargetBalance}
+      />
     </S.Container>
   );
 }
