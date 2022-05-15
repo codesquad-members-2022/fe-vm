@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import ItemList from './ItemList';
-import InfoList from '@/Machine/InfoList';
+import ItemList from '@/Components/Machine/ItemList';
+import InfoList from '@/Components/Machine/InfoList';
 
 const MachineWrapper = styled.section`
-  display: flex;
-  height: 700px;
+  ${({ theme }) => theme.mixins.flexBox('row', 'stretch', 'start')};
 `;
 
 export default function Machine(): JSX.Element {

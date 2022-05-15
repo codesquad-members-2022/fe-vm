@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Header from '../Header';
+import Header from '@/Components/Header';
 
 // test('["자판기", "지갑"]', () => {
 //   render(<Header texts={['자판기', '지갑']} />);

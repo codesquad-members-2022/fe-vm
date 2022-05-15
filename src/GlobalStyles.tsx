@@ -15,6 +15,12 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     margin: 0 auto;
   }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 `;
 
 export default GlobalStyle;
