@@ -1,18 +1,24 @@
 import Button from "components/common/form/Button/Button";
+import constants from "mockData/constants";
 
 import { productButtonStyle, ProductLi } from "./ProductItem.styled";
 
-const ProductItem = ({ productsData }) => {
-  return productsData.map((product) => (
-    <ProductLi key={product.id}>
+const { SOLDOUT_MESSAGE } = constants;
+
+const ProductItem = ({ productData }) => {
+  const { name, isInStock, price } = productData;
+
+  return (
+    <ProductLi>
       <Button
-        data={product}
+        data={{ name }}
         styles={productButtonStyle}
         className="product-button"
+        isDisabled={!isInStock}
       />
-      <p className="product-price">{product.price}</p>
+      <p className="product-price">{(isInStock && price) || SOLDOUT_MESSAGE}</p>
     </ProductLi>
-  ));
+  );
 };
 
 export default ProductItem;

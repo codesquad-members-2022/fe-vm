@@ -8,7 +8,9 @@ const ProductList = () => {
 
   return (
     <ProductUl>
-      <ProductItem productsData={productsData} />
+      {productsData.map((product) => (
+        <ProductItem productData={product} key={product.id} />
+      ))}
     </ProductUl>
   );
 };
