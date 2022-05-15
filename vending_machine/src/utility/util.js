@@ -11,3 +11,6 @@ export async function fetchData(url) {
     throw new Error(error);
   }
 }
+
+export const changeKoreanLocalMoney = (number) =>
+  `${Number(number).toLocaleString('ko-KR')}`;

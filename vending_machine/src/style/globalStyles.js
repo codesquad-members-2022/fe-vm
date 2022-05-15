@@ -1,15 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
-import reset from 'reset-css';
+import normalize from './normalize.css';
 
 const GlobalStyle = createGlobalStyle`
-    ${reset}; 
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+    ${normalize}; 
     * {
-      font-family: 'Noto Sans KR', sans-serif;
-      line-height: 1.4;
-    }
-
-    body {
-      background-color: #eee;
+    font-family: 'Nanum Pen Script', cursive;
     }
 
     button{
@@ -18,7 +14,6 @@ const GlobalStyle = createGlobalStyle`
       margin: 0 auto;
       border: none;
     }
-
 `;
 
 export default GlobalStyle;

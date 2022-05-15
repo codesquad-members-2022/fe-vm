@@ -1,66 +1,74 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React, { useReducer, useState } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Home from './pages/Home';
-import Wallet from './pages/Wallet';
-import NotFound from './pages/NotFound';
-
 import Header from './components/Header';
-import { fetchData } from './utility/util';
+import Main from './components/Main';
+import { changeKoreanLocalMoney } from './utility/util';
 
 export const TotalMoneyContext = React.createContext();
 export const ProgressContext = React.createContext();
 
+const reducer = (state, { type, data }) => {
+  let newState = [];
+
+  switch (type) {
+    case 'ADD_MONEY':
+      newState = [...state, `${data}원 투입`];
+      break;
+    case 'RETURN_MONEY':
+      newState = [...state, `${data}원 반환`];
+      break;
+    case 'SELECT_DRINK':
+      newState = [...state, `${data} 선택`];
+      break;
+
+    default:
+      return state;
+  }
+
+  return newState;
+};
+
 const App = () => {
-  const [drinkData, setDrinkData] = useState([]);
-  const [progressBox, setProgressBox] = useState([]);
   const [totalMoney, setTotalMoney] = useState(0);
+  const [progressBox, dispatch] = useReducer(reducer, []);
 
-  useEffect(() => {
-    const drinkUrl = `${process.env.PUBLIC_URL}data/drink.json`;
-
-    getDrinkData(drinkUrl, setDrinkData);
-  }, []);
-
-  const getDrinkData = async (url, setData) => {
-    const response = await fetchData(url);
-
-    setData(response.drink);
+  const addMoneyMessage = (inputMoney) => {
+    dispatch({
+      type: 'ADD_MONEY',
+      data: changeKoreanLocalMoney(inputMoney),
+    });
   };
 
-  const addMoneyMessage = (value) => {
-    setProgressBox([...progressBox, `${value}원이 투입 되었습니다`]);
-  };
-
-  const returnMoneyMessage = (value) => {
-    setProgressBox([...progressBox, `잔돈 ${value}원이 반환 되었습니다`]);
+  const returnMoneyMessage = (totalMoney) => {
+    dispatch({
+      type: 'RETURN_MONEY',
+      data: changeKoreanLocalMoney(totalMoney),
+    });
   };
 
   const selectedDrinkMessage = (drinkName) => {
-    setProgressBox([...progressBox, `${drinkName}가 선택 되었습니다`]);
+    dispatch({
+      type: 'SELECT_DRINK',
+      data: drinkName,
+    });
+  };
+
+  const progressContextValue = {
+    progressBox,
+    addMoneyMessage,
+    returnMoneyMessage,
+    selectedDrinkMessage,
   };
 
   return (
-    <TotalMoneyContext.Provider value={{ totalMoney, setTotalMoney }}>
-      <ProgressContext.Provider
-        value={{
-          progressBox,
-          addMoneyMessage,
-          returnMoneyMessage,
-          selectedDrinkMessage,
-        }}
-      >
+    <TotalMoneyContext.Provider value={[totalMoney, setTotalMoney]}>
+      <ProgressContext.Provider value={progressContextValue}>
         <BrowserRouter>
           <StyledApp>
             <Header />
-            <StyledMain>
-              <Routes>
-                <Route path="/" element={<Home drinkData={drinkData} />} />
-                <Route path="/wallet" element={<Wallet />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </StyledMain>
+            <Main />
           </StyledApp>
         </BrowserRouter>
       </ProgressContext.Provider>
@@ -72,11 +80,6 @@ const StyledApp = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   text-align: center;
-`;
-
-const StyledMain = styled.main`
-  display: flex;
-  margin-top: 20px;
 `;
 
 export default App;

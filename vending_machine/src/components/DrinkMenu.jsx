@@ -1,66 +1,79 @@
-import React, { useContext } from 'react';
-import styled from 'styled-components';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { ProgressContext, TotalMoneyContext } from '../App';
+import DrinkItem from './DrinkItem';
+import { fetchData } from '../utility/util';
 
-const DrinkMenu = ({ drinkData }) => {
+const DrinkMenu = () => {
+  const [drinkData, setDrinkData] = useState([]);
   const { selectedDrinkMessage } = useContext(ProgressContext);
+  const [totalMoney, setTotalMoney] = useContext(TotalMoneyContext);
 
-  const { totalMoney, setTotalMoney } = useContext(TotalMoneyContext);
+  useEffect(() => {
+    const drinkUrl = `${process.env.PUBLIC_URL}/data/drink.json`;
 
-  const selectDrink = (idx) => {
-    if (totalMoney < drinkData[idx].price) return;
-    selectedDrinkMessage(drinkData[idx].name);
-    setTotalMoney(totalMoney - drinkData[idx].price);
+    getDrinkData(drinkUrl, setDrinkData);
+  }, []);
+
+  const getDrinkData = async (url, setData) => {
+    const response = await fetchData(url);
+
+    setData(response.drink);
+  };
+
+  const selectDrink = (id) => {
+    const selectedItem = drinkData.find((data) => data.id === id);
+    if (totalMoney < selectedItem.price) return;
+
+    selectedDrinkMessage(selectedItem.name);
+    setTotalMoney(totalMoney - selectedItem.price);
+    minusQuantity(selectedItem);
+  };
+
+  const minusQuantity = ({ id, name, quantity, price }) => {
+    setDrinkData(
+      drinkData.map((data) =>
+        data.id !== id
+          ? data
+          : {
+              id: id,
+              name: name,
+              quantity: (quantity -= 1),
+              price: price,
+            }
+      )
+    );
   };
 
   return (
     <>
-      {drinkData.map(({ id, name, quantity, price }, idx) =>
+      {drinkData.map(({ id, price, quantity, name }) =>
         quantity ? (
-          <DrinkMenuItem
+          <DrinkItem
             key={id}
+            id={id}
             price={price}
+            quantity={quantity}
+            name={name}
             totalMoney={totalMoney}
             soldOut={false}
-          >
-            <DrinkNameBtn onClick={() => selectDrink(idx)}>{name}</DrinkNameBtn>
-            <DrinkPrice>{price}</DrinkPrice>
-          </DrinkMenuItem>
+            onClick={selectDrink}
+          />
         ) : (
-          <DrinkMenuItem
+          <DrinkItem
             key={id}
+            id={id}
             price={Number.POSITIVE_INFINITY}
+            quantity={quantity}
+            name={name}
             totalMoney={totalMoney}
             soldOut={true}
-          >
-            <DrinkNameBtn>{name} 품절</DrinkNameBtn>
-            <DrinkPrice>X</DrinkPrice>
-          </DrinkMenuItem>
+            onClick={() => {}}
+          />
         )
       )}
     </>
   );
 };
-
-const DrinkMenuItem = styled.li`
-  width: 25%;
-  border: ${({ price, totalMoney }) =>
-    price > totalMoney ? '2px solid black' : '2px solid blue'};
-
-  background-color: ${({ soldOut }) => (soldOut ? 'red' : '')};
-  margin: 15px;
-`;
-
-const DrinkNameBtn = styled.button`
-  width: 100%;
-  padding: 10px;
-  font-weight: bold;
-`;
-
-const DrinkPrice = styled.span`
-  display: block;
-  margin-bottom: 10px;
-`;
 
 export default DrinkMenu;
