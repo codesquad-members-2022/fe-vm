@@ -3,7 +3,7 @@ import reset from 'styled-reset';
 
 const GlobalStyles = createGlobalStyle`
   ${reset}
-
+  
   html,
   body,
   div,
@@ -113,7 +113,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html {
-    font: 400 15px/1.4 'Noto Sans KR', sans-serif;
+    font: 400 18px/1.4 'Do Hyeon', sans-serif;
   }
 
   body {

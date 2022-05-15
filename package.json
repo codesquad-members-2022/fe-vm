@@ -2,10 +2,12 @@
   "name": "vending-machine",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://jindonyy.github.io/fe-vm/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
+    "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
@@ -27,7 +29,9 @@
       "prettier"
     ],
     "rules": {
-      "import/no-unresolved": 0
+      "import/no-unresolved": 0,
+      "import/prefer-default-export": 0,
+      "react/no-array-index-key": 0
     }
   },
   "browserslist": {

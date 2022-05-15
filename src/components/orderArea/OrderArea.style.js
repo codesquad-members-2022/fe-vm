@@ -2,9 +2,23 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   width: 45%;
-  padding: 20px;
+  padding: 40px 30px;
   border-left: 2px solid #333;
 `;
 
-// eslint-disable-next-line import/prefer-default-export
-export { Container };
+const BtnWrap = styled.div`
+  display: flex;
+  justify-content: right;
+  gap: 15px;
+  margin: 30px 0 50px;
+`;
+
+const ReturnBtn = styled.button`
+  width: 65px;
+  line-height: 65px;
+  border-radius: 50%;
+  background: #c7366d;
+  color: #fff;
+`;
+
+export { Container, BtnWrap, ReturnBtn };

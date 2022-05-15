@@ -4,11 +4,11 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 15px;
+  row-gap: 30px;
+  column-gap: 15px;
   width: 55%;
   height: fit-content;
-  padding: 20px;
+  padding: 40px 30px;
 `;
 
-// eslint-disable-next-line import/prefer-default-export
 export { Container };

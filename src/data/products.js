@@ -9,12 +9,12 @@ const productData = [
     id: 2,
     detail: '🍎🍎',
     price: 2000,
-    quantity: 4
+    quantity: 0
   },
   {
     id: 3,
     detail: '🍒',
-    price: 2000,
+    price: 2300,
     quantity: 3
   },
   {
@@ -32,7 +32,7 @@ const productData = [
   {
     id: 6,
     detail: '🍉',
-    price: 5000,
+    price: 7500,
     quantity: 2
   },
   {
@@ -57,7 +57,7 @@ const productData = [
     id: 10,
     detail: '🥭',
     price: 4500,
-    quantity: 0
+    quantity: 2
   },
   {
     id: 11,
@@ -69,7 +69,7 @@ const productData = [
     id: 12,
     detail: '🍌',
     price: 1000,
-    quantity: 7
+    quantity: 0
   },
   {
     id: 13,
@@ -80,7 +80,7 @@ const productData = [
   {
     id: 14,
     detail: '🍐',
-    price: 2800,
+    price: 3600,
     quantity: 2
   },
   {
@@ -92,19 +92,19 @@ const productData = [
   {
     id: 16,
     detail: '🥝',
-    price: 1000,
+    price: 2800,
     quantity: 9
   },
   {
     id: 17,
     detail: '🥑',
-    price: 3000,
+    price: 4000,
     quantity: 2
   },
   {
     id: 18,
     detail: '🫐',
-    price: 1500,
+    price: 1560,
     quantity: 10
   },
   {
@@ -116,7 +116,7 @@ const productData = [
   {
     id: 20,
     detail: '🥥',
-    price: 6000,
+    price: 9000,
     quantity: 1
   }
 ];

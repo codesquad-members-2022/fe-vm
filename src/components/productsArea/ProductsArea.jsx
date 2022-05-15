@@ -1,15 +1,24 @@
 import React, { useContext } from 'react';
-import { VendingMachineContext } from 'pages/VendingMachine';
 import { Container } from 'components/productsArea/ProductsArea.style';
+import { ProductsContext, FinalPayContext } from 'pages/VendingMachine';
 import Product from 'components/productsArea/Product';
 
 export default function ProductsArea() {
-  const productsData = useContext(VendingMachineContext);
+  const [productsState] = useContext(ProductsContext);
+  const [finalPay] = useContext(FinalPayContext);
+
+  const canBuyProduct = price => (finalPay ? price <= finalPay : true);
 
   return (
     <Container>
-      {productsData.map(({ id, detail, price }) => (
-        <Product key={id} detail={detail} price={price} />
+      {productsState.map(({ id, detail, price, quantity }) => (
+        <Product
+          key={id}
+          detail={detail}
+          price={price}
+          quantity={quantity}
+          disabled={!canBuyProduct(price) || quantity <= 0}
+        />
       ))}
     </Container>
   );
