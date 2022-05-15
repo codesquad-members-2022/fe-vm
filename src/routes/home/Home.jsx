@@ -2,17 +2,15 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import React, { useState } from "react";
 import dataOfwallet from "../../data/wallet";
 import { HomeContainer, TabNav, TabButton } from "./Home.style";
+import VendingMachineProvider from "../../context/VendingMachineContext";
 
 const VM = "vm";
 const WALLET = "wallet";
 
 export const WalletContext = React.createContext();
-export const VendingMachineContext = React.createContext();
 
 function Home() {
     const { pathname } = useLocation();
-    const [record, setRecord] = useState([]);
-    const [moneyInVendingMachine, setMoneyInVendingMachine] = useState({});
     const [wallet, setWallet] = useState(dataOfwallet);
 
     const currentTab = (() => {
@@ -28,16 +26,6 @@ function Home() {
             }
         }
     })();
-
-    const addRecord = (newRecord) => {
-        setRecord([...record, newRecord]);
-    };
-    const putMoneyIntoVendingMachine = (money) => {
-        moneyInVendingMachine[money] = moneyInVendingMachine[money]
-            ? moneyInVendingMachine[money] + 1
-            : 1;
-        setMoneyInVendingMachine(moneyInVendingMachine);
-    };
     const updateWallet = (newWallet) => {
         setWallet(newWallet);
     };
@@ -54,16 +42,9 @@ function Home() {
             </TabNav>
             {pathname === "/" && <h1>버튼을 클릭하세요</h1>}
             <WalletContext.Provider value={{ wallet, updateWallet }}>
-                <VendingMachineContext.Provider
-                    value={{
-                        record,
-                        addRecord,
-                        moneyInVendingMachine,
-                        putMoneyIntoVendingMachine,
-                    }}
-                >
+                <VendingMachineProvider>
                     <Outlet />
-                </VendingMachineContext.Provider>
+                </VendingMachineProvider>
             </WalletContext.Provider>
         </HomeContainer>
     );

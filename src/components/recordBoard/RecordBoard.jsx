@@ -1,10 +1,9 @@
 import { v4 as uuid } from "uuid";
-import { useContext } from "react";
-import { VendingMachineContext } from "../../routes/home/Home";
+import { useVendingMachine } from "../../context/VendingMachineContext";
 import { RecordContainer } from "./RecordBoard.style";
 
 function RecordBoard() {
-    const { record } = useContext(VendingMachineContext);
+    const { record } = useVendingMachine();
 
     return (
         <RecordContainer>
