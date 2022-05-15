@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useMemo } from "react";
 
 const VendingMachineContext = React.createContext();
 export const useVendingMachineContext = () => useContext(VendingMachineContext);
@@ -15,13 +15,23 @@ function VendingMachineProvider({ children }) {
         moneyInVendingMachine[money] = moneyInVendingMachine[money]
             ? moneyInVendingMachine[money] + 1
             : 1;
-        setMoneyInVendingMachine(moneyInVendingMachine);
+        setMoneyInVendingMachine({ ...moneyInVendingMachine });
     };
+
+    const totalMoneyInVendingMachine = useMemo(
+        () =>
+            Object.keys(moneyInVendingMachine).reduce(
+                (acc, unit) => acc + moneyInVendingMachine[unit] * Number(unit),
+                0
+            ),
+        [moneyInVendingMachine]
+    );
 
     const vendingMachineProps = {
         record,
         addRecord,
         moneyInVendingMachine,
+        totalMoneyInVendingMachine,
         putMoneyIntoVendingMachine,
     };
 

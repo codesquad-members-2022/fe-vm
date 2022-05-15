@@ -7,11 +7,7 @@ import {
 } from "./Wallet.Style";
 
 function Wallet() {
-    const { wallet } = useWalletContext();
-    const totalAmount = wallet.reduce(
-        (acc, money) => acc + money.unit * money.count,
-        0
-    );
+    const { wallet, totalAmount } = useWalletContext();
 
     return (
         <WalletContainer>

@@ -1,19 +1,31 @@
+import { ProductsContainer } from "./Products.style";
+import dataOfProducts from "../../data/products";
 import { useVendingMachineContext } from "../../context/VendingMachineContext";
-import { ProductsContainer } from "./Product.style";
-import Product from "./Product";
+import {
+    ProductContainer,
+    ProductNameWrapper,
+    ProductName,
+} from "./Products.style";
 
 function Products() {
-    const { moneyInVendingMachine } = useVendingMachineContext();
-    const totalMoneyInVendingMachine = Object.keys(
-        moneyInVendingMachine
-    ).reduce(
-        (acc, unit) => acc + moneyInVendingMachine[unit] * Number(unit),
-        0
-    );
+    const { totalMoneyInVendingMachine } = useVendingMachineContext();
+    console.log("자판기에 들어있는 금액");
+    console.log(totalMoneyInVendingMachine);
 
     return (
         <ProductsContainer>
-            <Product totalMoneyInVendingMachine={totalMoneyInVendingMachine} />
+            {dataOfProducts.map((product) => (
+                <ProductContainer key={product.id}>
+                    <ProductNameWrapper
+                        choosable={
+                            totalMoneyInVendingMachine >= Number(product.price)
+                        }
+                    >
+                        <ProductName>{product.name}</ProductName>
+                    </ProductNameWrapper>
+                    <p>{product.price}</p>
+                </ProductContainer>
+            ))}
         </ProductsContainer>
     );
 }

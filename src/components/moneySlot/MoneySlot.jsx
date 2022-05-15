@@ -18,7 +18,8 @@ const getMoneyFromWallet = (input, wallet) => {
 
 function MoneySlot() {
     const { wallet, updateWallet } = useWalletContext();
-    const { addRecord, putMoneyIntoVendingMachine } = useVendingMachineContext();
+    const { addRecord, putMoneyIntoVendingMachine } =
+        useVendingMachineContext();
 
     const putMoney = (event) => {
         if (event.key !== "Enter") {

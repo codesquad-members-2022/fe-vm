@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useMemo } from "react";
 import dataOfwallet from "../data/wallet";
 
 const WalletContext = React.createContext();
@@ -10,7 +10,12 @@ function WalletProvider({ children }) {
         setWallet(newWallet);
     };
 
-    const walletProps = { wallet, updateWallet };
+    const totalAmount = useMemo(
+        () => wallet.reduce((acc, money) => acc + money.unit * money.count, 0),
+        [wallet]
+    );
+
+    const walletProps = { wallet, updateWallet, totalAmount };
 
     return (
         <WalletContext.Provider value={walletProps}>

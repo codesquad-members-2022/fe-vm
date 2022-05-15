@@ -8,20 +8,7 @@ const WALLET = "wallet";
 
 function Home() {
     const { pathname } = useLocation();
-
-    const currentTab = (() => {
-        switch (pathname.slice(1)) {
-            case VM: {
-                return VM;
-            }
-            case WALLET: {
-                return WALLET;
-            }
-            default: {
-                return null;
-            }
-        }
-    })();
+    const currentTab = pathname.slice(1) || null;
 
     return (
         <HomeContainer>
