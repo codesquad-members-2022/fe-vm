@@ -16,25 +16,19 @@ const BlockBackground = styled(FlexBox)`
   cursor: pointer;
 `;
 
-const getCategoryColor = categoryId => {
-  switch (categoryId) {
-    case 1:
-      return theme.color.green;
-    case 2:
-      return theme.color.purple;
-    case 3:
-      return theme.color.pink;
-    case 'money':
-      return theme.color.blue;
-  }
+const categoryObj = {
+  tea: theme.color.green,
+  juice: theme.color.purple,
+  ade: theme.color.pink,
+  money: theme.color.blue,
 };
 
 const InnerColor = styled(FlexBox)`
   width: 110px;
   height: 70px;
   font-size: ${({ theme: { fontSize }, isMoney }) => (isMoney ? fontSize.xLarge : fontSize.medium)};
-  background-color: ${({ theme: { greyScale }, categoryId }) =>
-    categoryId ? getCategoryColor(categoryId) : greyScale.soldOut};
+  background-color: ${({ theme: { greyScale }, category }) =>
+    category ? categoryObj[category] : greyScale.soldOut};
   border-radius: 10px;
   color: ${({ theme: { greyScale } }) => greyScale.white};
   padding: 5px;
