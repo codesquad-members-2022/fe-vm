@@ -7,13 +7,9 @@ export default function Home(): JSX.Element {
   const [tab, toggleTab] = useState('자판기');
   const texts = ['자판기', '지갑'];
 
-  const handleTab = (text: string) => {
-    toggleTab(text);
-  };
-
   return (
     <>
-      <Header texts={texts} tab={tab} handleTab={handleTab} />
+      <Header texts={texts} tab={tab} toggleTab={toggleTab} />
       {tab === '자판기' ? <Machine /> : <Wallet />}
     </>
   );

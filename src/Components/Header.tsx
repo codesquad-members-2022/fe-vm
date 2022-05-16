@@ -8,7 +8,7 @@ interface TStyledView {
 interface HeaderProps {
   tab: string;
   texts: string[];
-  handleTab: Function;
+  toggleTab: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const HeaderWrapper = styled.header`
@@ -50,7 +50,7 @@ const Button = styled.button<TStyledView>`
 export default function Header({
   tab,
   texts,
-  handleTab,
+  toggleTab,
 }: HeaderProps): JSX.Element {
   const [tab1, tab2] = texts;
   const [active, setActive] = useState(true);
@@ -58,7 +58,7 @@ export default function Header({
   const handleTabClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (tab === e.currentTarget.name) return;
     setActive(!active);
-    handleTab(e.currentTarget.name);
+    toggleTab(e.currentTarget.name);
   };
 
   return (
