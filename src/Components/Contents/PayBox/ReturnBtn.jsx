@@ -1,5 +1,5 @@
 import { FontSize } from '../../../Assets/Common.style';
-import Btn from '../../Button';
+import Btn from '../../Btn';
 
 export default function ReturnBtn() {
   return (

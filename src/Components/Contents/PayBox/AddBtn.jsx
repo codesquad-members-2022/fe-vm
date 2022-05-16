@@ -1,6 +1,6 @@
 import { FontSize } from '../../../Assets/Common.style';
 import { changeNumToLocalMoney, getMessage } from '../../../Utils/utils';
-import Btn from '../../Button';
+import Btn from '../../Btn';
 
 export default function AddBtn({ payTotal, payMoney, input, message }) {
   const addBtnClickHandler = (e) => {
