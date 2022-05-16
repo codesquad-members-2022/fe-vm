@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { useNavigate } from 'react-router-dom';
-import { color } from '../style/variables';
+import Button from './Button';
 
-function Header() {
+const Header = () => {
   const navigate = useNavigate();
   const [isClickedVM, setIsClickedVM] = useState(true);
   const [isClickedWallet, setIsClickedWallet] = useState(false);
@@ -19,38 +19,29 @@ function Header() {
   };
 
   return (
-    <StyledNav>
-      <MainBtn
+    <StyledGnb>
+      <Button
+        content={'자판기'}
+        disabled={isClickedVM}
         onClick={() => {
           changePage('/');
           changeColor(isClickedVM);
         }}
-        clicked={isClickedVM}
-      >
-        자판기
-      </MainBtn>
-
-      <MainBtn
+      />{' '}
+      <Button
+        content={'지갑'}
+        disabled={isClickedWallet}
         onClick={() => {
           changePage('/wallet');
           changeColor(isClickedWallet);
         }}
-        clicked={isClickedWallet}
-      >
-        지갑
-      </MainBtn>
-    </StyledNav>
+      />
+    </StyledGnb>
   );
-}
+};
 
-const StyledNav = styled.nav`
+const StyledGnb = styled.nav`
   margin-top: 20px;
-`;
-
-const MainBtn = styled.button`
-  border: 2px solid ${color.black};
-  background-color: ${({ clicked }) => (clicked ? color.black : '')};
-  color: ${({ clicked }) => (clicked ? color.white : color.black)};
 `;
 
 export default Header;
