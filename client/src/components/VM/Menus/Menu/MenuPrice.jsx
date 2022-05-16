@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { InputContext } from "../../../../store/InputStore";
+import { InputContext } from "store/InputStore";
 
 export default function MenuPrice({ price }) {
   const context = useContext(InputContext);

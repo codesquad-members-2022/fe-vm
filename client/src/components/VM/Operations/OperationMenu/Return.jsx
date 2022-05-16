@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { InputContext } from "../../../../store/InputStore";
-import { MessageContext } from "../../../../store/MessageStore";
+import { InputContext } from "store/InputStore";
+import { MessageContext } from "store/MessageStore";
 
 export default function Return() {
   const inputContext = useContext(InputContext);

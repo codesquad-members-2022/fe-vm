@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 import moneyDB from "../moneyDB.json";
-import { calculateTotal } from "../utils/util";
+import { calculateTotal } from "utils/util";
 
 export const WalletContext = createContext();
 

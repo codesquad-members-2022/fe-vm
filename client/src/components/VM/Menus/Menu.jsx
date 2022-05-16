@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
 import MenuImage from "./Menu/MenuImage";
 import MenuPrice from "./Menu/MenuPrice";
-import { InputContext } from "../../../store/InputStore";
-import { MessageContext } from "../../../store/MessageStore";
+import { InputContext } from "store/InputStore";
+import { MessageContext } from "store/MessageStore";
 
 export default function Menu({ name, price, imageURL }) {
   const context = useContext(InputContext);

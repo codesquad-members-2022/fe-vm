@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { WalletContext } from "../../../store/WalletStore";
+import { WalletContext } from "store/WalletStore";
 
 export default function Total() {
   const walletContext = useContext(WalletContext);

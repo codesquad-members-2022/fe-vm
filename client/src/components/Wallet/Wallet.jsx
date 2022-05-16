@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import MoneyContainer from "./MoneyContainer/MoneyContainer";
 import Total from "./Total/Total";
-import { calculateTotal } from "../../utils/util";
-import { WalletContext } from "../../store/WalletStore";
+import { calculateTotal } from "utils/util";
+import { WalletContext } from "store/WalletStore";
 
 export default function Wallet() {
   const walletContext = useContext(WalletContext);

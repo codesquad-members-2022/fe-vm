@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { InputContext } from "../../../../store/InputStore";
-import { MessageContext } from "../../../../store/MessageStore";
-import { WalletContext } from "../../../../store/WalletStore";
+import { InputContext } from "store/InputStore";
+import { MessageContext } from "store/MessageStore";
+import { WalletContext } from "store/WalletStore";
 
 export default function MoneyAmount({ amount, unit }) {
   const inputContext = useContext(InputContext);
