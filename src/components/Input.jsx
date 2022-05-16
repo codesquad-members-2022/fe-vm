@@ -1,44 +1,24 @@
-import React, { useState } from 'react';
+/* eslint-disable react/require-default-props */
+import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import Button from './Button';
 
-function Input() {
-  const [price, setPrice] = useState(0);
-  const [content, setContent] = useState(0);
-
-  const handleChangeInput = ({ currentTarget }) => {
-    setContent(currentTarget.textContent);
-  };
-
-  const handleClickSave = () => {
-    if (Number.isNaN(Number(content))) {
-      window.alert('숫자만 입력 가능합니다.');
-      return;
-    }
-
-    if (Number(content) < 10) {
-      window.alert('10원 이상 추가해야합니다.');
-      return;
-    }
-
-    // Todo : 지갑에 요금의 개수가 없거나 지갑 전체 요금보다 큰 경우 예외처리
-    setPrice(content);
-  };
-
+export default function Input({ price, onChangeInput, onClickSave }) {
   return (
     <>
       <StyledInputContainer>
         <StyledInput
           contentEditable="true"
-          onInput={handleChangeInput}
+          onInput={onChangeInput}
           placeholder="0원"
           suppressContentEditableWarning
         >
           {price > 0 && `${price}원`}
         </StyledInput>
       </StyledInputContainer>
-      <Button icon="추가" onClick={handleClickSave} />
+      <Button icon="추가" onClick={onClickSave} />
     </>
   );
 }
@@ -67,4 +47,8 @@ const StyledInput = styled.div`
   }
 `;
 
-export default Input;
+Input.propTypes = {
+  price: PropTypes.number,
+  onChangeInput: PropTypes.func,
+  onClickSave: PropTypes.func,
+};
