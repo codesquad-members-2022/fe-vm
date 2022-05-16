@@ -4,20 +4,24 @@ import VendingMachine from "./routes/vendingMachine/VendingMachine";
 import Wallet from "./routes/wallet/Wallet";
 import NotFound from "./routes/NotFound";
 import { GlobalStyle } from "./GlobalStyle";
+import { ThemeProvider } from "styled-components";
+import theme from "./theme";
 
 function App() {
     return (
         <>
             <GlobalStyle />
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Home />}>
-                        <Route path="vm" element={<VendingMachine />} />
-                        <Route path="wallet" element={<Wallet />} />
-                    </Route>
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </BrowserRouter>
+            <ThemeProvider theme={theme}>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<Home />}>
+                            <Route path="vm" element={<VendingMachine />} />
+                            <Route path="wallet" element={<Wallet />} />
+                        </Route>
+                        <Route path="*" element={<NotFound />} />
+                    </Routes>
+                </BrowserRouter>
+            </ThemeProvider>
         </>
     );
 }

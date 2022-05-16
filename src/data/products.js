@@ -1,4 +1,6 @@
-const products = [
+import { v4 as uuid } from "uuid";
+
+const dataOfproducts = [
     { name: "콜라", price: 500 },
     { name: "사이다", price: 1000 },
     { name: "환타 파인애플 맛", price: 400 },
@@ -19,6 +21,6 @@ const products = [
     { name: "칸쵸", price: 1300 },
     { name: "보리차", price: 1500 },
     { name: "솔의눈", price: 800 },
-];
+].map((product) => ({ ...product, id: uuid() }));
 
-export default products;
+export default dataOfproducts;

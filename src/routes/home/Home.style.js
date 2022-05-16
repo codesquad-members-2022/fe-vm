@@ -2,16 +2,13 @@ import styled from "styled-components";
 
 const HomeContainer = styled.main`
     width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    min-height: 100vh;
+    ${({ theme }) => theme.flexLayoutMixin("column", "center", "center")};
     gap: 30px;
 `;
 
 const TabNav = styled.nav`
-    display: flex;
+    ${({ theme }) => theme.flexLayoutMixin()};
     gap: 20px;
 `;
 

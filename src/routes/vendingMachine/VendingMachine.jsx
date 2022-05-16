@@ -1,4 +1,3 @@
-import { useOutletContext } from "react-router-dom";
 import MoneySlot from "../../components/moneySlot/MoneySlot";
 import Products from "../../components/product/Products";
 import RecordBoard from "../../components/recordBoard/RecordBoard";
@@ -9,27 +8,13 @@ import {
 } from "./VendingMachine.style";
 
 function VendingMachine() {
-    const {
-        wallet,
-        updateWallet,
-        record,
-        addRecord,
-        moneyInVendingMachine,
-        putMoneyIntoVendingMachine,
-    } = useOutletContext();
-
     return (
         <VendingMachineContainer>
-            <Products moneyInVendingMachine={moneyInVendingMachine} />
+            <Products />
             <UserInterfaceContainer>
-                <MoneySlot
-                    addRecord={addRecord}
-                    wallet={wallet}
-                    updateWallet={updateWallet}
-                    putMoneyIntoVendingMachine={putMoneyIntoVendingMachine}
-                />
+                <MoneySlot />
                 <ChangesButton>반환</ChangesButton>
-                <RecordBoard record={record} />
+                <RecordBoard />
             </UserInterfaceContainer>
         </VendingMachineContainer>
     );

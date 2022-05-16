@@ -2,8 +2,7 @@ import styled from "styled-components";
 import { RoundBorder } from "../../GlobalStyle";
 
 const WalletContainer = styled(RoundBorder)`
-    display: flex;
-    flex-direction: column;
+    ${({ theme }) => theme.flexLayoutMixin("column")};
     padding: 30px;
     width: 300px;
     height: 600px;
@@ -11,7 +10,7 @@ const WalletContainer = styled(RoundBorder)`
 `;
 
 const WalletItemContainer = styled.div`
-    display: flex;
+    ${({ theme }) => theme.flexLayoutMixin()};
     width: 100%;
     height: 50px;
     gap: 20px;

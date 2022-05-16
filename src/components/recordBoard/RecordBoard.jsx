@@ -1,7 +1,10 @@
 import { v4 as uuid } from "uuid";
+import { useVendingMachineContext } from "../../context/VendingMachineContext";
 import { RecordContainer } from "./RecordBoard.style";
 
-function RecordBoard({ record }) {
+function RecordBoard() {
+    const { record } = useVendingMachineContext();
+
     return (
         <RecordContainer>
             {record.map((r) => (

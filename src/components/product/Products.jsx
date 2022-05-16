@@ -1,17 +1,29 @@
-import { ProductsContainer } from "./Product.style";
-import Product from "./Product";
+import { ProductsContainer } from "./Products.style";
+import dataOfProducts from "../../data/products";
+import { useVendingMachineContext } from "../../context/VendingMachineContext";
+import {
+    ProductContainer,
+    ProductNameWrapper,
+    ProductName,
+} from "./Products.style";
 
-function Products({ moneyInVendingMachine }) {
-    const totalMoneyInVendingMachine = Object.keys(
-        moneyInVendingMachine
-    ).reduce(
-        (acc, unit) => acc + moneyInVendingMachine[unit] * Number(unit),
-        0
-    );
+function Products() {
+    const { totalMoneyInVendingMachine } = useVendingMachineContext();
 
     return (
         <ProductsContainer>
-            <Product moneyInVendingMachine={totalMoneyInVendingMachine} />
+            {dataOfProducts.map((product) => (
+                <ProductContainer key={product.id}>
+                    <ProductNameWrapper
+                        choosable={
+                            totalMoneyInVendingMachine >= Number(product.price)
+                        }
+                    >
+                        <ProductName>{product.name}</ProductName>
+                    </ProductNameWrapper>
+                    <p>{product.price}</p>
+                </ProductContainer>
+            ))}
         </ProductsContainer>
     );
 }
