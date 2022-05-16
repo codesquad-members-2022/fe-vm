@@ -21,57 +21,39 @@ const DrinkMenu = () => {
     setData(response.drink);
   };
 
-  const selectDrink = (id) => {
+  const selectDrink = (id) => () => {
     const selectedItem = drinkData.find((data) => data.id === id);
-    if (totalMoney < selectedItem.price) return;
+
+    if (totalMoney < selectedItem.price || !selectedItem.quantity) return;
 
     selectedDrinkMessage(selectedItem.name);
     setTotalMoney(totalMoney - selectedItem.price);
     minusQuantity(selectedItem);
   };
 
-  const minusQuantity = ({ id, name, quantity, price }) => {
+  const minusQuantity = ({ id, quantity }) => {
     setDrinkData(
       drinkData.map((data) =>
-        data.id !== id
-          ? data
-          : {
-              id: id,
-              name: name,
-              quantity: (quantity -= 1),
-              price: price,
-            }
+        data.id !== id ? data : { ...data, quantity: (quantity -= 1) }
       )
     );
   };
 
   return (
     <>
-      {drinkData.map(({ id, price, quantity, name }) =>
-        quantity ? (
-          <DrinkItem
-            key={id}
-            id={id}
-            price={price}
-            quantity={quantity}
-            name={name}
-            totalMoney={totalMoney}
-            soldOut={false}
-            onClick={selectDrink}
-          />
-        ) : (
-          <DrinkItem
-            key={id}
-            id={id}
-            price={Number.POSITIVE_INFINITY}
-            quantity={quantity}
-            name={name}
-            totalMoney={totalMoney}
-            soldOut={true}
-            onClick={() => {}}
-          />
-        )
-      )}
+      {drinkData.map(({ id, price, quantity, name }) => {
+        const drinkInfo = {
+          id: id,
+          price: price,
+          quantity: quantity,
+          name: name,
+          totalMoney: totalMoney,
+          soldOut: quantity ? false : true,
+          onClick: selectDrink,
+        };
+
+        return <DrinkItem key={id} drinkInfo={drinkInfo} />;
+      })}
     </>
   );
 };
