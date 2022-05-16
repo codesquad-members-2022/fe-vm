@@ -9,9 +9,9 @@ export default function PriceProvider({ children }) {
   const [progressMsg, setProgressMsg] = useState([]);
   const [remainMoney, setRemainMoney] = useState(0);
 
-  const updatePrice = (won) => {
-    setInputPrice(won);
-    setProgressMsg([...progressMsg, `${won}원이 투입되었습니다.`]);
+  const updatePrice = (currentMoney) => {
+    setInputPrice(currentMoney);
+    setProgressMsg([...progressMsg, `${currentMoney}원이 투입되었습니다.`]);
   };
 
   const value = useMemo(

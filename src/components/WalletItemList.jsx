@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 
 import WalletItem from './WalletItem';
 
-export default function WalletItemList({ moneyInfo, onClickWon }) {
+export default function WalletItemList({ moneyInfo, onClickMoney }) {
   return (
     <ul>
-      {moneyInfo.map(({ won, num }) => (
+      {moneyInfo.map(({ money, num }) => (
         <WalletItem
-          key={`money-${won}`}
-          icon={`${won}원 `}
-          won={won}
+          key={`money-${money}`}
+          icon={`${money}원 `}
+          money={money}
           num={num}
-          onClick={() => onClickWon(won, num)}
+          onClick={() => onClickMoney(money, num)}
         />
       ))}
     </ul>
@@ -23,5 +23,5 @@ export default function WalletItemList({ moneyInfo, onClickWon }) {
 
 WalletItemList.propTypes = {
   moneyInfo: PropTypes.array.isRequired,
-  onClickWon: PropTypes.func,
+  onClickMoney: PropTypes.func,
 };

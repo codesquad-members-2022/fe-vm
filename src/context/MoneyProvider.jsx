@@ -5,27 +5,29 @@ import PropTypes from 'prop-types';
 export const MoneyContext = React.createContext();
 
 export default function MoneyProvider({ children }) {
-  const money = [
-    { won: 10, num: 0 },
-    { won: 50, num: 1 },
-    { won: 100, num: 5 },
-    { won: 500, num: 5 },
-    { won: 1000, num: 2 },
-    { won: 5000, num: 2 },
-    { won: 10000, num: 1 },
+  const moneyInfo = [
+    { money: 10, num: 0 },
+    { money: 50, num: 1 },
+    { money: 100, num: 5 },
+    { money: 500, num: 5 },
+    { money: 1000, num: 2 },
+    { money: 5000, num: 2 },
+    { money: 10000, num: 1 },
   ];
 
-  const [moneyState, setMoneyState] = useState(money);
+  const [moneyState, setMoneyState] = useState(moneyInfo);
 
-  const decreaseMoney = (targetWon) => {
-    const targetMoney = moneyState.find(({ won }) => won === targetWon);
-    const filteredMoney = moneyState.filter(({ won }) => won !== targetWon);
+  const decreaseMoney = (currentMoney) => {
+    const targetMoney = moneyState.find(({ money }) => money === currentMoney);
+    const filteredMoney = moneyState.filter(
+      ({ money }) => money !== currentMoney
+    );
 
     setMoneyState(
       [
         ...filteredMoney,
-        { won: targetMoney.won, num: targetMoney.num - 1 },
-      ].sort((aMoney, bMoney) => aMoney.won - bMoney.won)
+        { money: targetMoney.money, num: targetMoney.num - 1 },
+      ].sort((aMoney, bMoney) => aMoney.money - bMoney.money)
     );
   };
 

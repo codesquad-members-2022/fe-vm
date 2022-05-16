@@ -10,21 +10,21 @@ export default function Wallet() {
   const { setInputPrice, updatePrice, remainMoney, setRemainMoney } =
     useContext(PriceContext);
 
-  const handleClickWon = (won, num) => {
+  const handleClickMoney = (currentMoney, num) => {
     if (num < 1) {
       window.alert('돈이 부족합니다.');
       return;
     }
 
-    decreaseMoney(won);
-    setInputPrice(won);
-    updatePrice(won);
-    setRemainMoney(remainMoney + won);
+    decreaseMoney(currentMoney);
+    setInputPrice(currentMoney);
+    updatePrice(currentMoney);
+    setRemainMoney(remainMoney + currentMoney);
   };
 
   return (
     <>
-      <WalletItemList moneyInfo={moneyState} onClickWon={handleClickWon} />
+      <WalletItemList moneyInfo={moneyState} onClickMoney={handleClickMoney} />
       <TotalMoney moneyInfo={moneyState} />
     </>
   );

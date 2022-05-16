@@ -12,7 +12,7 @@ export default function TotalMoney({ moneyInfo }) {
   };
 
   const toatlPrice = moneyInfo
-    .map(({ won, num }) => won * num)
+    .map(({ money, num }) => money * num)
     .reduce((aMoney, bMoney) => aMoney + bMoney);
 
   const totalPriveWithUnitNotation = `${toatlPrice}`
