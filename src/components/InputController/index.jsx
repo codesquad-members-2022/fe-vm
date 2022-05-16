@@ -15,6 +15,12 @@ const InputController = ({ className }) => {
     setIsSubmitted(false);
   };
 
+  const onClickReturnButton = () => {
+    dispatch({
+      type: ACTION.RETURN_CHANGE,
+    });
+  };
+
   return (
     <InputControllerLayout className={className} dir="column" jc="space-around" ai="unset">
       <InputLayer>
@@ -27,7 +33,7 @@ const InputController = ({ className }) => {
         )}
         <span>원</span>
       </InputLayer>
-      <ReturnButton>반환</ReturnButton>
+      <ReturnButton onClick={onClickReturnButton}>반환</ReturnButton>
     </InputControllerLayout>
   );
 };

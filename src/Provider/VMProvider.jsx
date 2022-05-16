@@ -15,6 +15,7 @@ const ACTION = {
   INSERT_COIN: 'INSERT_COIN',
   INCREMENT_COIN: 'INCREMENT_COIN',
   SELECT_PRODUCT: 'SELECT_PRODUCT',
+  RETURN_CHANGE: 'RETURN_CHANGE',
 };
 
 const reducer = (state, action) => {
@@ -140,6 +141,42 @@ const reducer = (state, action) => {
         products: newProducts,
         logs: newLogs,
         totalInputAmount: newTotalInputAmount,
+      };
+    }
+
+    case ACTION.RETURN_CHANGE: {
+      const { balance, coins, logs, totalInputAmount } = state;
+      if (totalInputAmount === 0) {
+        return state;
+      }
+
+      const newBalance = balance + totalInputAmount;
+      const newLogs = [
+        ...logs,
+        { id: logs.length.toString(), message: `잔돈 ${totalInputAmount.toLocaleString()}원 반환` },
+      ];
+      const newCoins = [...coins];
+
+      let remain = totalInputAmount;
+      for (let i = newCoins.length - 1; i >= 0; i--) {
+        const { amount, count } = newCoins[i];
+        if (amount > remain) {
+          continue;
+        }
+
+        const newCount = count + Math.floor(remain / amount);
+        newCoins[i] = { ...newCoins[i], count: newCount };
+        remain %= amount;
+        console.log(`%c[${amount}]: ${newCount - count}개 충전`, 'color: #fe2;');
+      }
+      console.log(`----------`);
+
+      return {
+        ...state,
+        coins: newCoins,
+        logs: newLogs,
+        totalInputAmount: 0,
+        balance: newBalance,
       };
     }
 
