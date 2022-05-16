@@ -1,13 +1,13 @@
 import React, { createContext, useReducer, useMemo } from 'react';
 
-import { products, coins, logs, totalInputAmount, balance } from '@/mock/storage';
+import { products, coins } from '@/mock/storage';
 
 const initialState = {
   products,
-  logs,
-  totalInputAmount,
-  balance,
   coins,
+  logs: [],
+  totalInputAmount: 0,
+  balance: coins.reduce((acc, { amount, count }) => acc + amount * count, 0),
 };
 
 const ACTION = {
@@ -30,6 +30,7 @@ const reducer = (state, action) => {
       }
 
       let surplus = requestedInputAmount;
+
       for (let i = newCoins.length - 1; i >= 0; i--) {
         if (surplus === 0) {
           break;
@@ -42,16 +43,19 @@ const reducer = (state, action) => {
         const newCount = count - realRequiredCount;
         surplus -= realRequiredCount * amount;
         newCoins[i] = { ...newCoins[i], count: newCount };
+
         console.log(`%c[${amount}]: ${realRequiredCount}개 사용`, 'color: #fe2;');
       }
       console.log(`----------`);
       const realInputAmount = requestedInputAmount - surplus;
 
-      const newLogs = [...logs];
-      newLogs.push({
-        id: newLogs.length,
-        message: `${realInputAmount.toLocaleString()}원이 투입됐습니다.`,
-      });
+      const newLogs = [
+        ...logs,
+        {
+          id: logs.length.toString(),
+          message: `${realInputAmount.toLocaleString()}원이 투입됐습니다.`,
+        },
+      ];
 
       const newTotalInputAmount = totalInputAmount + realInputAmount;
 
@@ -70,8 +74,10 @@ const reducer = (state, action) => {
       const { amount, count, index } = action.payload;
       const { logs, totalInputAmount, coins, balance } = state;
 
-      const newLogs = [...logs];
-      newLogs.push({ id: newLogs.length, message: `${amount.toLocaleString()}원이 투입됐습니다.` });
+      const newLogs = [
+        ...logs,
+        { id: logs.length.toString(), message: `${amount.toLocaleString()}원이 투입됐습니다.` },
+      ];
 
       const newCoins = [...coins];
       newCoins[index] = { ...newCoins[index] };
@@ -119,11 +125,13 @@ const reducer = (state, action) => {
       const newProducts = [...products];
       newProducts[index] = { ...newProducts[index], stock: newStock };
 
-      const newLogs = [...logs];
-      newLogs.push({
-        id: newLogs.length,
-        message: `${name}이(가) 선택됨`,
-      });
+      const newLogs = [
+        ...logs,
+        {
+          id: logs.length.toString(),
+          message: `${name}이(가) 선택됨`,
+        },
+      ];
 
       const newTotalInputAmount = totalInputAmount - price;
 
