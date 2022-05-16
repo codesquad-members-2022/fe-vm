@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
 
 import { ProgressContext } from '../App';
@@ -6,14 +6,13 @@ import { color, fontSize } from '../style/variables';
 import { changeKoreanLocalMoney } from '../utility/util';
 
 const InputForm = ({ totalMoney, setTotalMoney }) => {
-  const [inputValue, setInputValue] = useState(0);
   const inputTag = useRef();
 
   const { addMoneyMessage } = useContext(ProgressContext);
 
   const changeTotalMoney = (e) => {
     e.preventDefault();
-    setInputValue(0);
+    const inputValue = inputTag.current.value;
     setTotalMoney(Number(totalMoney) + Number(inputValue));
     addMoneyMessage(Number(inputValue));
     inputTag.current.value = '';
@@ -21,7 +20,6 @@ const InputForm = ({ totalMoney, setTotalMoney }) => {
 
   const changeValue = () => {
     const onlyNumber = inputTag.current.value.replace(/[^0-9]/g, '');
-    setInputValue(onlyNumber);
     inputTag.current.value = changeKoreanLocalMoney(onlyNumber);
   };
 
