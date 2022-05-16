@@ -6,10 +6,12 @@ const MENU = {
   menu1: {
     title: 'Vending Machine',
     value: 'vending-machine',
+    path: '/',
   },
   menu2: {
     title: 'Wallet',
     value: 'wallet',
+    path: '/wallet',
   },
 };
 

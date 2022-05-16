@@ -16,7 +16,7 @@ export default function Header({ menu }) {
     <HEADER>
       <TabMenu className={active}>
         <Link
-          to={`/${menu.menu1.value}`}
+          to={menu.menu1.path}
           onClick={tabClickHandler.bind(null, menu.menu1.value)}
         >
           <EnTitle
@@ -28,7 +28,7 @@ export default function Header({ menu }) {
         </Link>
         <ToggleIcon />
         <Link
-          to={`/${menu.menu2.value}`}
+          to={menu.menu2.path}
           onClick={tabClickHandler.bind(null, menu.menu2.value)}
         >
           <EnTitle
