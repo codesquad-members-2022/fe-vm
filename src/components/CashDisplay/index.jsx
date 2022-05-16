@@ -3,7 +3,7 @@ import React from 'react';
 
 import * as S from './CashDisplay.style';
 
-const CashDisplay = ({ isBalance, small }) => {
+const CashDisplay = ({ isBalance, small, balance = 0 }) => {
   return (
     <>
       {isBalance ? (
@@ -11,7 +11,7 @@ const CashDisplay = ({ isBalance, small }) => {
           <S.MonetaryUnit isBalance={isBalance} small={small}>
             $
           </S.MonetaryUnit>
-          <S.Balance small={small}>100</S.Balance>
+          <S.Balance small={small}>{balance}</S.Balance>
         </S.DisplayBox>
       ) : (
         <S.DisplayBox>
@@ -26,6 +26,7 @@ const CashDisplay = ({ isBalance, small }) => {
 CashDisplay.propTypes = {
   isBalance: PropTypes.bool,
   small: PropTypes.bool,
+  balance: PropTypes.number,
 };
 
 export default CashDisplay;
