@@ -7,9 +7,10 @@ import { decreaseAmount } from "../util/util";
 
 function Product({ title, price, amount }) {
   const { beverage, setBeverage } = useContext(ProductContext);
-
+  const isSoldOut = amount !== 0;
   return (
     <ProductWrap
+      isSoldOut={isSoldOut}
       onClick={() => {
         decreaseAmount(beverage, amount, setBeverage, title);
       }}
@@ -22,7 +23,8 @@ function Product({ title, price, amount }) {
   );
 }
 const ProductWrap = styled.div`
-  border: 2px solid black;
+  border: ${(props) =>
+    props.isSoldOut ? `1px solid #000000` : `6px solid #f00`};
   flex-direction: column;
   ${HeightSort}
 `;

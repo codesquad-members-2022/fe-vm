@@ -10,6 +10,7 @@ const theme = {
     darkGray: `${darken(0.1, "#495057")}`,
     white: "#ffffff",
     red: "#f00",
+    black: "#000000",
   },
 };
 
