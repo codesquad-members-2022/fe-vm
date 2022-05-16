@@ -1,6 +1,19 @@
 import { NavLink } from "react-router-dom";
 
-import Wrapper from "./NavItem.styled";
+import Wrapper, { CLASS_NAME } from "./NavItem.styled";
+
+const getClassName = (isCurrentPath) => {
+  const { ACTIVE, LINK } = CLASS_NAME;
+  return isCurrentPath ? `${ACTIVE} ${LINK}` : LINK;
+};
+
+const handleClickNavLink = (e) => {
+  if (!e.target.classList.contains(CLASS_NAME.ACTIVE)) {
+    return;
+  }
+
+  e.preventDefault();
+};
 
 const NavItem = ({ menuItem }) => {
   const { menuName, path } = menuItem;
@@ -9,7 +22,8 @@ const NavItem = ({ menuItem }) => {
     <Wrapper>
       <NavLink
         to={path}
-        className={({ isActive }) => (isActive ? "current-path link" : "link")}
+        className={({ isActive }) => getClassName(isActive)}
+        onClick={handleClickNavLink}
       >
         {menuName}
       </NavLink>
