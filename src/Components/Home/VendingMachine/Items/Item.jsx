@@ -20,15 +20,14 @@ const Item = ({ item }) => {
 	const targetItem = item;
 	const { name, price, count } = targetItem;
 	const { setIsTakingOut } = useContext(IsTakingOutContext);
-	const { money, setMoney, setShowedMoney } = useContext(MoneyContext);
+	const { money, setMoneyStates } = useContext(MoneyContext);
 	const messagesDispatch = useContext(MessagesDispatchContext);
 	const difference = money - price;
 	const isSelectable = difference >= 0 && count;
 
 	const handleClick = useCallback(() => {
 		if (!isSelectable) return;
-		setMoney(difference);
-		setShowedMoney(difference);
+		setMoneyStates(difference);
 		setIsTakingOut(false);
 		messagesDispatch({ type: BUY, contents: name });
 
@@ -37,8 +36,7 @@ const Item = ({ item }) => {
 		difference,
 		isSelectable,
 		targetItem,
-		setMoney,
-		setShowedMoney,
+		setMoneyStates,
 		setIsTakingOut,
 		messagesDispatch,
 		name,

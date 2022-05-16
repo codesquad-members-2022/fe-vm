@@ -8,7 +8,7 @@ import {
 	WalletMessagesDiv,
 	WalletMessageDiv,
 } from './Wallet.styled';
-import Coin from './Coin';
+import Coin from './Coin/Coin';
 
 const Wallet = () => {
 	const { coins, coinsSum } = useContext(CoinsContext);

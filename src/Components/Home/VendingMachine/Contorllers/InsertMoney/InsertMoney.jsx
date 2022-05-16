@@ -20,8 +20,8 @@ import { InsertMoneyDiv, InsertMoneyValue } from './InsertMoney.styled';
 import ControllerBtns from './ControllerBtns';
 
 const InsertMoney = () => {
-	const { coins, coinsSum } = useContext(CoinsContext);
-	const { money, setMoney, showedMoney, setShowedMoney } =
+	const { coins, coinsSum, setCoins } = useContext(CoinsContext);
+	const { money, setMoneyStates, showedMoney, setShowedMoney } =
 		useContext(MoneyContext);
 	const { isTakingOut } = useContext(IsTakingOutContext);
 	const messagesDispatch = useContext(MessagesDispatchContext);
@@ -48,14 +48,14 @@ const InsertMoney = () => {
 			return;
 		}
 
-		const { calculatedMoney, changedCoins } = calculateMoney(
+		const { calculatedMoney, changedCoins, newCoins } = calculateMoney(
 			coins,
 			diffWithInsert
 		);
 		const totalMoney = money + calculatedMoney;
 
-		setMoney(totalMoney);
-		setShowedMoney(totalMoney);
+		setMoneyStates(totalMoney);
+		setCoins(newCoins);
 		messagesDispatch({
 			type: calculatingType,
 			contents: changedCoins,

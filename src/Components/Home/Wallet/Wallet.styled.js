@@ -19,45 +19,6 @@ const WalletDiv = styled.div`
 	`}
 `;
 
-const CoinDiv = styled.div`
-	display: flex;
-	justify-content: center;
-	:not(:last-child) {
-		margin-bottom: 2px;
-	}
-`;
-
-const CoinPriceDiv = styled.div`
-	${({ theme: { colors } }) => css`
-		box-sizing: border-box;
-		border: 2px solid ${colors.black};
-		width: 100px;
-		height: 75px;
-		line-height: 70px;
-		border-radius: 20px;
-		margin: 5px;
-		font-size: 20px;
-	`}
-`;
-
-const CoinCountBtn = styled.button`
-	${({ theme: { colors }, count }) => css`
-		border-radius: 20px;
-		width: 100px;
-		height: 75px;
-		margin: 5px;
-		cursor: pointer;
-		border: solid 2px ${count ? colors.green : colors.red};
-		color: ${count ? colors.green : colors.red};
-		font-size: 20px;
-		font-family: 'IBM Plex Sans KR', sans-serif;
-		:hover {
-			background-color: ${count ? colors.green : colors.red};
-			color: ${colors.white};
-		}
-	`}
-`;
-
 const CoinsSumDiv = styled.div`
 	${({ theme: { colors } }) => css`
 		box-sizing: border-box;
@@ -91,12 +52,4 @@ const WalletMessageDiv = styled.div`
 	font-size: 15px;
 `;
 
-export {
-	WalletDiv,
-	CoinDiv,
-	CoinCountBtn,
-	CoinPriceDiv,
-	CoinsSumDiv,
-	WalletMessagesDiv,
-	WalletMessageDiv,
-};
+export { WalletDiv, CoinsSumDiv, WalletMessagesDiv, WalletMessageDiv };

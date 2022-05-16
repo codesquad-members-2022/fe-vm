@@ -14,10 +14,10 @@ const items = [
 	{ id: 12, name: '딸기맛 우유', price: 5010, count: 2 },
 	{ id: 13, name: '탄산수', price: 50000, count: 12 },
 	{ id: 14, name: '도미노 피자', price: 10200, count: 2 },
-	{ id: 14, name: '피자헛', price: 10200, count: 2 },
-	{ id: 14, name: '탄산수 레몬맛', price: 10200, count: 2 },
-	{ id: 14, name: '갈비찜', price: 10200, count: 2 },
-	{ id: 14, name: '아이폰', price: 1200, count: 2 },
+	{ id: 15, name: '피자헛', price: 10200, count: 2 },
+	{ id: 16, name: '탄산수 레몬맛', price: 10200, count: 2 },
+	{ id: 17, name: '갈비찜', price: 10200, count: 2 },
+	{ id: 18, name: '아이폰', price: 1200, count: 2 },
 ];
 
 const coins = [

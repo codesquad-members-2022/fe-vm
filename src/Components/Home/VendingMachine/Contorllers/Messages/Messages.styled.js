@@ -3,18 +3,16 @@ import styled, { css } from 'styled-components';
 const MessagesWrapper = styled.div``;
 
 const MessagesDiv = styled.div`
-	${({ theme: { colors } }) => css`
-		margin: 15px;
-		border-radius: 20px;
-		border: 2px solid ${colors.black};
+	${({ theme: { colors, distance, height, getBorder } }) => css`
+		${getBorder('main', 'black', 'main')};
+		margin: ${distance.small};
 		background-color: ${colors.yellow};
+		height: ${height.messages};
+		padding: ${distance.large};
+		overflow: scroll;
+		flex-grow: 1;
+		text-align: left;
 	`}
-
-	height: 80px;
-	overflow: scroll;
-	padding: 20px;
-	flex-grow: 1;
-	text-align: left;
 `;
 
 const MessageDiv = styled.div`

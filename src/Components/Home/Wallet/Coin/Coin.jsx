@@ -8,12 +8,12 @@ import {
 
 import { getPriceType } from 'Util/util';
 import { MINUS } from 'Components/Common/constant';
-import { CoinDiv, CoinCountBtn, CoinPriceDiv } from './Wallet.styled';
+import { CoinDiv, CoinCountBtn, CoinPriceDiv } from './Coin.styled';
 
 const Coin = ({ coin }) => {
 	const { id, price, count } = coin;
 	const { coins, setCoins } = useContext(CoinsContext);
-	const { money, setMoney, setShowedMoney } = useContext(MoneyContext);
+	const { money, setMoneyStates } = useContext(MoneyContext);
 	const messagesDispatch = useContext(MessagesDispatchContext);
 
 	const handleClickCount = () => {
@@ -21,8 +21,7 @@ const Coin = ({ coin }) => {
 		const newCoins = [...coins];
 		newCoins[id].count -= 1;
 
-		setMoney(totalMoney);
-		setShowedMoney(totalMoney);
+		setMoneyStates(totalMoney);
 		setCoins(newCoins);
 		messagesDispatch({
 			type: MINUS,
