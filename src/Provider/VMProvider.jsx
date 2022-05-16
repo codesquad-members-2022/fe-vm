@@ -8,6 +8,7 @@ const initialState = {
   logs: [],
   totalInputAmount: 0,
   balance: coins.reduce((acc, { amount, count }) => acc + amount * count, 0),
+  timer: {},
 };
 
 const ACTION = {
@@ -17,6 +18,8 @@ const ACTION = {
   SELECT_PRODUCT: 'SELECT_PRODUCT',
   RETURN_CHANGE: 'RETURN_CHANGE',
   DELETE_ALL_LOGS: 'DELETE_ALL_LOGS',
+  SET_TIMER: 'SET_TIMER',
+  CLEAR_TIMER: 'CLEAR_TIMER',
 };
 
 const reducer = (state, action) => {
@@ -72,6 +75,7 @@ const reducer = (state, action) => {
       };
     }
 
+    // TODO: amount
     case ACTION.INSERT_COIN: {
       const { amount, count, index } = action.payload;
       const { logs, totalInputAmount, coins, balance } = state;
@@ -115,6 +119,7 @@ const reducer = (state, action) => {
       };
     }
 
+    // TODO: name
     case ACTION.SELECT_PRODUCT: {
       const { name, price, stock, index } = action.payload;
       const { totalInputAmount, products, logs } = state;
@@ -145,6 +150,7 @@ const reducer = (state, action) => {
       };
     }
 
+    // TODO: totalInputAmount
     case ACTION.RETURN_CHANGE: {
       const { balance, coins, logs, totalInputAmount } = state;
       if (totalInputAmount === 0) {
@@ -186,6 +192,29 @@ const reducer = (state, action) => {
         ...state,
         logs: [],
       };
+    }
+
+    case ACTION.SET_TIMER: {
+      const { key, delay, callback } = action.payload;
+      const { timer } = state;
+
+      if (Object.hasOwn(timer, key)) {
+        clearTimeout(timer[key]);
+      }
+
+      timer[key] = setTimeout(callback, delay * 1000);
+      return state;
+    }
+
+    case ACTION.CLEAR_TIMER: {
+      const { key } = action.payload;
+      const { timer } = state;
+
+      if (Object.hasOwn(timer, key)) {
+        clearTimeout(timer[key]);
+      }
+
+      return state;
     }
 
     default: {
