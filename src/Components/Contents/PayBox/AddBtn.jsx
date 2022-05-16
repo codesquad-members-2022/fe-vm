@@ -1,17 +1,28 @@
+import { useContext } from 'react';
 import { FontSize } from '../../../Assets/Common.style';
-import { changeNumToLocalMoney, getMessage } from '../../../Utils/utils';
+import { contentsContext } from '../../MainContents';
+import { payContext } from '../VendingMachine';
+import {
+  changeNumToLocalMoney,
+  getMessage,
+  replaceNotNumToSpace,
+} from '../../../Utils/utils';
 import Btn from '../../Btn';
 
-export default function AddBtn({ payTotal, payMoney, input, message }) {
+export default function AddBtn() {
+  const { payTotal, setPayTotal, printMessages, setPrintMessages } =
+    useContext(contentsContext);
+  const { payMoney, setPayMoney } = useContext(payContext);
+
   const addBtnClickHandler = (e) => {
     e.preventDefault();
-    input.current.value = '';
-    if (isNaN(payMoney)) return;
-    const updateTotal = payTotal.value + Number(payMoney);
-    const addMessage = getMessage('투입', changeNumToLocalMoney(payMoney));
+    const formatNum = replaceNotNumToSpace(payMoney);
+    const updateTotal = payTotal + Number(formatNum);
+    const addMessage = getMessage('투입', changeNumToLocalMoney(formatNum));
 
-    payTotal.set(updateTotal);
-    message.set([...message.value, addMessage]);
+    setPayMoney(0);
+    setPayTotal(updateTotal);
+    setPrintMessages([...printMessages, addMessage]);
   };
 
   return (

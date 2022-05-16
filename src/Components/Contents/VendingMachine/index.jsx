@@ -1,21 +1,22 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import DATA from './data';
 import { ContentBox } from '../style';
 import ProductList from './ProductList';
 import MachineRight from './MachineRight';
-import { useState } from 'react';
+import { createContext } from 'react';
 
-export default function VendingMachine({ payTotal, message }) {
+export const payContext = createContext(0);
+
+export default function VendingMachine() {
   const [payMoney, setPayMoney] = useState(0);
   return (
-    <MachineContents>
-      <ProductList products={DATA} payTotal={payTotal} message={message} />
-      <MachineRight
-        payTotal={payTotal}
-        payMoney={{ value: payMoney, set: setPayMoney }}
-        message={message}
-      />
-    </MachineContents>
+    <payContext.Provider value={{ payMoney, setPayMoney }}>
+      <MachineContents>
+        <ProductList products={DATA} />
+        <MachineRight />
+      </MachineContents>
+    </payContext.Provider>
   );
 }
 

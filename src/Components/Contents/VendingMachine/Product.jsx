@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 import { getMessage } from '../../../Utils/utils';
+import { contentsContext } from '../../MainContents';
 import {
   Absolute,
   Color,
@@ -13,28 +15,25 @@ import {
 } from '../../../Assets/Common.style';
 import soldOutIcon from '../../../Assets/Images/sold-out.svg';
 
-export default function Product({ products, payTotal, message }) {
+export default function Product({ products }) {
   const items = products.map((product) => (
-    <Item
-      key={product.id}
-      product={product}
-      payTotal={payTotal}
-      message={message}
-    />
+    <Item key={product.id} product={product} />
   ));
   return items;
 }
 
-function Item({ product, payTotal, message }) {
+function Item({ product }) {
+  const { payTotal, setPayTotal } = useContext(contentsContext);
+  const { printMessages, setPrintMessages } = useContext(contentsContext);
   const isSoldOut = !product.stock;
-  const isActive = payTotal.value >= product.price;
+  const isActive = payTotal >= product.price;
 
   const buyProductHandler = () => {
     const addMessage = getMessage('구입', product.title);
-    const updateTotal = payTotal.value - product.price;
+    const updateTotal = payTotal - product.price;
 
-    payTotal.set(updateTotal);
-    message.set([...message.value, addMessage]);
+    setPayTotal(updateTotal);
+    setPrintMessages([...printMessages, addMessage]);
     product.stock -= 1;
   };
 

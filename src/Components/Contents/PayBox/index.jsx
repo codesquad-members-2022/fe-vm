@@ -4,21 +4,14 @@ import AddBtn from './AddBtn';
 import PayInput from './Input';
 import PayTotal from './Total';
 import ReturnBtn from './ReturnBtn';
-import { useRef } from 'react';
 
-export default function PayBox({ payTotal, payMoney, message }) {
-  const input = useRef(null);
+export default function PayBox() {
   return (
     <>
-      <PayTotal value={payTotal.value} />
+      <PayTotal />
       <Flex>
-        <PayInput setPayMoney={payMoney.set} input={input} />
-        <AddBtn
-          payTotal={payTotal}
-          payMoney={payMoney.value}
-          input={input}
-          message={message}
-        />
+        <PayInput />
+        <AddBtn />
       </Flex>
       <ReturnBtn />
     </>

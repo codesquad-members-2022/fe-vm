@@ -1,9 +1,12 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 import { Color, FontSize, Radius10 } from '../../Assets/Common.style';
 import EnTitle from '../EnTitle';
+import { contentsContext } from '../MainContents';
 
-export default function MessageBox({ message }) {
-  const printMessages = message.map((msg, idx) => {
+export default function MessageBox() {
+  const { printMessages } = useContext(contentsContext);
+  const messagesText = printMessages.map((msg, idx) => {
     return <p key={idx}>{msg}</p>;
   });
 
@@ -16,7 +19,7 @@ export default function MessageBox({ message }) {
         color={Color.WHITE}
       />
       <TextBox>
-        <Text>{printMessages}</Text>
+        <Text>{messagesText}</Text>
       </TextBox>
     </MassegeContent>
   );

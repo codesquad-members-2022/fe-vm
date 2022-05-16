@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Components/Header';
-import Main from './Page';
+import MainContents from './Components/MainContents';
 
 const MENU = {
   menu1: {
@@ -19,7 +19,7 @@ function App() {
   return (
     <>
       <Header menu={MENU} />
-      <Main />
+      <MainContents />
     </>
   );
 }
