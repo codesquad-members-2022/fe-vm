@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import { memo, useContext } from "react";
 
 import Button from "components/common/form/Button/Button";
-import { MoneyContext } from "pages/Layout/Layout";
+import { SetMoneyContext } from "contexts/moneyContext";
 
 import { MoneyLi, moneyButtonStyle } from "./MoneyItem.styled";
 
@@ -9,8 +9,8 @@ const Count = ({ data }) => {
   return <p className="count">{data}</p>;
 };
 
-const MoneyItem = ({ onClick }) => {
-  const { money, count } = useContext(MoneyContext);
+const MoneyItem = ({ money, count }) => {
+  const decreaseCashCount = useContext(SetMoneyContext);
 
   return (
     <MoneyLi>
@@ -19,11 +19,11 @@ const MoneyItem = ({ onClick }) => {
         data={{ name: money }}
         styles={moneyButtonStyle}
         isDisabled={!count}
-        onClick={onClick}
+        onClick={() => decreaseCashCount(money)}
       />
       <Count data={count} />
     </MoneyLi>
   );
 };
 
-export default MoneyItem;
+export default memo(MoneyItem);
