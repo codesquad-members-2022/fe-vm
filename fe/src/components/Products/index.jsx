@@ -6,7 +6,7 @@ import MangementForm from './MangementForm';
 import Product from './Product';
 import * as S from './style';
 
-function Products({ isManger, isPriceUnderInsertMoney, handleOrderProduct }) {
+function Products({ isManger, isPriceUnderInputMoney, handleOrderProduct }) {
   const { products, dispatch } = useVMContext();
   const [targetProduct, setTargetProduct] = useState(null);
 
@@ -63,7 +63,7 @@ function Products({ isManger, isPriceUnderInsertMoney, handleOrderProduct }) {
             key={product.id}
             productInfo={product}
             isSelect={targetProduct?.id === product.id} // TODO: 변수로 빼기
-            isPriceUnderInsertMoney={isPriceUnderInsertMoney}
+            isPriceUnderInputMoney={isPriceUnderInputMoney}
             handleSelectProduct={handleSelectProduct}
             handleOrderProduct={handleOrderProduct}
           />
@@ -75,7 +75,7 @@ function Products({ isManger, isPriceUnderInsertMoney, handleOrderProduct }) {
 
 Products.propTypes = {
   isManger: PropTypes.bool.isRequired,
-  isPriceUnderInsertMoney: PropTypes.func.isRequired,
+  isPriceUnderInputMoney: PropTypes.func.isRequired,
   handleOrderProduct: PropTypes.func.isRequired,
 };
 

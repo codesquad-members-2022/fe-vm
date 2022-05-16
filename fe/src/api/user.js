@@ -1,7 +1,7 @@
 import { API } from 'constant/route';
 import instance from './core';
 
-const globalApi = {
+const userApi = {
   getProducts() {
     return instance({
       url: API.GET_PRODUCTS,
@@ -19,4 +19,4 @@ const globalApi = {
   },
 };
 
-export default globalApi;
+export default userApi;

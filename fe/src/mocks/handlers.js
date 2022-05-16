@@ -1,6 +1,6 @@
 import { API, API_ROOT_URL } from 'constant/route';
 import { rest } from 'msw';
-import { defaultChangeUnits, defaultBalance } from './balance';
+import { managerChangeUnits, managerBalance } from './manager';
 import { getRestUnit, orderProduct } from './controller/global';
 import {
   addTargetProdcut,
@@ -9,11 +9,14 @@ import {
   subStractTargetUnit,
 } from './controller/manager';
 import randomProducts from './products/randomProducts';
+import { userBalance, userChangeUnits } from './user';
 
-const globalBalanceObj = getRestUnit(defaultChangeUnits, defaultBalance);
+const mangerBalanceObj = getRestUnit(managerChangeUnits, managerBalance);
 const globalProductsObj = { products: randomProducts };
 
-const Global = [
+const userBalanceObj = getRestUnit(userChangeUnits, userBalance);
+
+const Users = [
   rest.get(API_ROOT_URL + API.GET_PRODUCTS, (req, res, ctx) => {
     const { products } = globalProductsObj;
     return res(ctx.status(200), ctx.json(products));
@@ -28,24 +31,28 @@ const Global = [
     orderProduct(productId, products);
     return res(ctx.status(200), ctx.json(targetProduct));
   }),
+  rest.get(API_ROOT_URL + API.GET_BALANCE, (req, res, ctx) => {
+    const { changesUnits, totalBalance } = userBalanceObj;
+    return res(ctx.status(200), ctx.json({ changesUnits, totalBalance }));
+  }),
 ];
 
 const Mangers = [
-  rest.get(API_ROOT_URL + API.GET_BALANCE, (req, res, ctx) => {
-    const { changesUnits, totalBalance } = globalBalanceObj;
-    return res(ctx.status(200), ctx.json({ changesUnits, totalBalance }));
-  }),
+  // rest.get(API_ROOT_URL + API.GET_BALANCE, (req, res, ctx) => {
+  //   const { changesUnits, totalBalance } = mangerBalanceObj;
+  //   return res(ctx.status(200), ctx.json({ changesUnits, totalBalance }));
+  // }),
   rest.patch(API_ROOT_URL + API.PATCH_ADD_BALANCE, (req, res, ctx) => {
     const unitId = Number(req.url.searchParams.get('id'));
-    const { changesUnits, totalBalance } = globalBalanceObj;
-    const [newChangeUnits, newTotalBalance] = addTargetUnit(changesUnits, totalBalance, unitId);
-    setGlobalBalanceObj(newChangeUnits, newTotalBalance);
-    return res(ctx.status(200), ctx.json({ newChangeUnits, newTotalBalance }));
+    const { changesUnits, totalBalance } = mangerBalanceObj;
+    const [newChangesUnits, newTotalBalance] = addTargetUnit(changesUnits, totalBalance, unitId);
+    setManagerBalanceObj(newChangesUnits, newTotalBalance);
+    return res(ctx.status(200), ctx.json({ newChangesUnits, newTotalBalance }));
   }),
   rest.patch(API_ROOT_URL + API.PATCH_SUBSTRACT_BALANCE, (req, res, ctx) => {
     const unitId = Number(req.url.searchParams.get('id'));
-    const { changesUnits, totalBalance } = globalBalanceObj;
-    const [newChangeUnits, newTotalBalance, error] = subStractTargetUnit(
+    const { changesUnits, totalBalance } = mangerBalanceObj;
+    const [newChangesUnits, newTotalBalance, error] = subStractTargetUnit(
       changesUnits,
       totalBalance,
       unitId,
@@ -53,8 +60,8 @@ const Mangers = [
     if (error.isError) {
       return res(ctx.status(406), ctx.json({ errorMessage: error.msg }));
     }
-    setGlobalBalanceObj(newChangeUnits, newTotalBalance);
-    return res(ctx.status(200), ctx.json({ newChangeUnits, newTotalBalance }));
+    setManagerBalanceObj(newChangesUnits, newTotalBalance);
+    return res(ctx.status(200), ctx.json({ newChangesUnits, newTotalBalance }));
   }),
   rest.patch(API_ROOT_URL + API.PATCH_ADD_PRODUCT, (req, res, ctx) => {
     const { products } = globalProductsObj;
@@ -76,7 +83,7 @@ const Mangers = [
   }),
 ];
 
-const handlers = [...Global, ...Mangers];
+const handlers = [...Mangers, ...Users];
 
 export default handlers;
 
@@ -84,9 +91,9 @@ function setGlobalProducts(products) {
   globalProductsObj.products = products;
 }
 
-function setGlobalBalanceObj(units, balance) {
-  globalBalanceObj.changesUnits = units;
-  globalBalanceObj.totalBalance = balance;
+function setManagerBalanceObj(units, balance) {
+  mangerBalanceObj.changesUnits = units;
+  mangerBalanceObj.totalBalance = balance;
 }
 
 function updateProduct(products, productId, callback) {

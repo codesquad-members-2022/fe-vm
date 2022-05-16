@@ -7,7 +7,7 @@ import * as S from './style';
 function Product({
   productInfo,
   isSelect,
-  isPriceUnderInsertMoney,
+  isPriceUnderInputMoney,
   handleSelectProduct,
   handleOrderProduct,
 }) {
@@ -15,7 +15,7 @@ function Product({
   return (
     <S.ProductCard
       type={type}
-      canBuy={isPriceUnderInsertMoney(price)}
+      canBuy={isPriceUnderInputMoney(price)}
       onClick={() => handleSelectProduct(productInfo)}
     >
       <h5>{productName}</h5>
@@ -39,7 +39,7 @@ Product.propTypes = {
     ea: PropTypes.number.isRequired,
   }).isRequired,
   isSelect: PropTypes.bool.isRequired,
-  isPriceUnderInsertMoney: PropTypes.func.isRequired,
+  isPriceUnderInputMoney: PropTypes.func.isRequired,
   handleSelectProduct: PropTypes.func.isRequired,
   handleOrderProduct: PropTypes.func.isRequired,
 };

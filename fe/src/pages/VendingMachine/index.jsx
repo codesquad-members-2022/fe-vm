@@ -1,88 +1,162 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Products from 'components/Products';
 import { useVMContext } from 'context/VMContext';
-import { orderProduct } from 'context/VMContext/action';
-import InsertMoneyForm from './InsertMoneyForm';
+import { getBalance, insertChanges, orderProduct, returnChanges } from 'context/VMContext/action';
+import InputMoneyForm from './InputMoneyForm';
+import InsertChangesForm from './InsertChangesForm';
 import * as S from './style';
 
 function VendingMachine() {
-  const { totalBalance, changesUnits, dispatch } = useVMContext();
+  const { totalBalance, changesUnits, prevInputChanges, dispatch } = useVMContext();
   // FIXME: input defualt value 0일 때 에러 수정 -> 0123, 1230이런식으로 0이 안없어짐
-  const [insertMoney, setInsertMoney] = useState(0);
+  const [inputmoney, setInputMoney] = useState(0);
+
+  const resetInputMoneny = () => setInputMoney(0);
 
   const handleOrderProduct = useCallback(
     productId => {
       orderProduct(dispatch, productId);
     },
-    [insertMoney],
+    [inputmoney],
   );
 
-  const handleReturnChanges = useCallback(
+  const handleSubmitInputMoney = useCallback(
     event => {
+      // reducer로 옮기기
       event.preventDefault();
-      const submitInsertMoney = event.target.insertMoney.value;
-      const submitOnlyNumber = Number(submitInsertMoney.replaceAll(',', ''));
-      const existUnits = checkRestUnits(changesUnits);
-      if (!existUnits) {
-        alert('잔돈이 없어요');
+      if (totalBalance <= 0) {
+        alert('잔고가 없어요');
+        return;
       }
-      const targetUnit = findTargetUnit(existUnits, submitOnlyNumber);
-      console.log('targetUnit :>> ', targetUnit);
-      if (!targetUnit) {
-        const closestUnit = findClosestUnit(existUnits, submitOnlyNumber);
-        if (!closestUnit) {
-          alert('가까운 돈도 없어요');
-        }
-        console.log('target :>> ', closestUnit);
+      const submitInputMoney = event.target.inputMoney.value;
+      const [error, closestUnit, submitOnlyNumber] = adjustingWithExistUnit(
+        changesUnits,
+        submitInputMoney,
+      );
+      if (error.isError) {
+        alert(error.msg);
+        return;
       }
-      // TODO: 가까운 잔고 단위가 없거나 현재 돈보다 입력 값이 크면 사용자 에러
+      const { unit, id } = closestUnit;
+      console.log(
+        `입력한 ${submitOnlyNumber}이 소유하고 있는 잔돈 중 가장 가까운 금액인 ${unit}으로 변경되었습니다.`,
+      );
+      resetInputMoneny();
+      insertChanges(dispatch, id);
     },
     [changesUnits],
   );
 
-  const onChangeInsertMoney = useCallback(({ target }) => {
+  const onChangeInputMoney = useCallback(({ target }) => {
     const { value } = target;
     const onlyNumber = Number(value.replace(/[^0-9]/g, ''));
-    setInsertMoney(onlyNumber);
+    setInputMoney(onlyNumber);
   }, []);
 
-  const isPriceUnderInsertMoney = useCallback(
-    targetPrice => targetPrice <= insertMoney,
-    [insertMoney],
+  const isPriceUnderInputMoney = useCallback(
+    targetPrice => targetPrice <= inputmoney,
+    [inputmoney],
   );
+
+  const insertChangeIntoInputMoney = useCallback(
+    unitId => {
+      resetInputMoneny();
+      insertChanges(dispatch, unitId);
+    },
+    [dispatch],
+  );
+
+  const handleClickReturnChanges = useCallback(() => {
+    resetInputMoneny();
+    returnChanges(dispatch);
+  }, [dispatch]);
+
+  const getSumInsertMoney = units => {
+    setInputMoney(prev => units.reduce((acc, cur) => acc + cur, prev));
+  };
+
+  useEffect(() => {
+    getBalance(dispatch);
+  }, [dispatch]);
+
+  useEffect(() => {
+    getSumInsertMoney(prevInputChanges);
+  }, [prevInputChanges]);
 
   return (
     <S.Container>
       <Products
         isManger={false}
-        isPriceUnderInsertMoney={isPriceUnderInsertMoney}
+        isPriceUnderInputMoney={isPriceUnderInputMoney}
         handleOrderProduct={handleOrderProduct}
       />
-      <InsertMoneyForm
-        totalBalance={totalBalance}
-        insertMoney={insertMoney}
-        onChangeInsertMoney={onChangeInsertMoney}
-        handleReturnChanges={handleReturnChanges}
-      />
+      <S.InputContanier>
+        <InputMoneyForm
+          inputmoney={inputmoney}
+          onChangeInputMoney={onChangeInputMoney}
+          handleSubmitInputMoney={handleSubmitInputMoney}
+          handleClickReturnChanges={handleClickReturnChanges}
+        />
+        <InsertChangesForm
+          totalBalance={totalBalance}
+          changesUnits={changesUnits}
+          insertChangeIntoInputMoney={insertChangeIntoInputMoney}
+        />
+        <ul>log list</ul>
+      </S.InputContanier>
     </S.Container>
   );
 }
 
 export default VendingMachine;
 
-const findClosestUnit = (existUnits, submitOnlyNumber) => {
-  return existUnits.reduce((acc, { unit }) => {
-    const substractAbs = Math.abs(submitOnlyNumber - acc);
-    if (substractAbs < acc) {
-      return acc;
-    }
-    return unit;
-  }, 0);
+// 사용자 소지하고 있는 잔고에 가장 가까운 단위로 변환
+const adjustingWithExistUnit = (existsUnits, submitNumber) => {
+  const error = {
+    isError: false,
+    msg: '',
+  };
+  const submitOnlyNumber = Number(submitNumber.replaceAll(',', ''));
+  if (submitOnlyNumber === 0) {
+    error.isError = true;
+    error.msg = '입력한 금액이 없어요.';
+    return [error];
+  }
+  const existUnits = checkRestUnits(existsUnits);
+  if (existUnits.length === 0) {
+    error.isError = true;
+    error.msg = '잔돈이 없어요.';
+    return [error];
+  }
+  const targetUnit = findTargetUnit(existUnits, submitOnlyNumber);
+  if (targetUnit) {
+    return [error, targetUnit, submitOnlyNumber];
+  }
+  const closestUnit = findClosestUnit(existUnits, submitOnlyNumber);
+  if (!closestUnit) {
+    error.isError = true;
+    error.msg = '투입한 금액에 근접한 잔고가 없어요.';
+    return [error];
+  }
+  return [error, closestUnit, submitOnlyNumber];
 };
 
-const findTargetUnit = (existUnits, submitOnlyNumber) => {
-  const targetUnit = existUnits.find(({ unit }) => unit === submitOnlyNumber);
-  return targetUnit?.unit;
+const findClosestUnit = (existUnits, submitNumber) => {
+  const closestUnit = existUnits.reduce((acc, cur) => {
+    if (isAccBiggerThanCurrentWithAbs(submitNumber, acc.unit, cur.unit)) {
+      return cur;
+    }
+    return acc;
+  });
+  return closestUnit;
+};
+
+const isAccBiggerThanCurrentWithAbs = (submitNumber, acc, cur) =>
+  Math.abs(submitNumber - acc) > Math.abs(submitNumber - cur);
+
+const findTargetUnit = (existUnits, submitNumber) => {
+  const targetUnit = existUnits.find(({ unit }) => unit === submitNumber);
+  return targetUnit;
 };
 
 const checkRestUnits = units => {

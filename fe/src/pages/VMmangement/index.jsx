@@ -28,7 +28,7 @@ function VMmangement() {
 
   return (
     <S.Container>
-      <Products isManger isPriceUnderInsertMoney={() => {}} handleOrderProduct={() => {}} />
+      <Products isManger isPriceUnderInputMoney={() => {}} handleOrderProduct={() => {}} />
       <ChangesUnits
         totalBalance={totalBalance}
         changesUnits={changesUnits}
