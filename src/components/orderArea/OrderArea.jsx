@@ -5,7 +5,7 @@ import { FinalPayContext } from 'pages/VendingMachine';
 import MoneySlot from 'components/orderArea/MoneySlot';
 import PutBtn from 'components/orderArea/PutBtn';
 import History from 'components/orderArea/History';
-import ProductHoll from 'components/orderArea/ProductHoll';
+import ProductHole from 'components/orderArea/ProductHole';
 
 const TIME_TO_PUT_OUT_PRODUCT = 2000;
 const TIME_TO_SELCT_PRODUCT = 5000;
@@ -67,7 +67,7 @@ export default function OrderArea() {
         <ReturnBtn>반환</ReturnBtn>
       </BtnWrap>
       <History historyList={historyList} />
-      <ProductHoll />
+      <ProductHole />
     </Container>
   );
 }
