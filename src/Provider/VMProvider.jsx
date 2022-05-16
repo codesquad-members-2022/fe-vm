@@ -16,6 +16,7 @@ const ACTION = {
   INCREMENT_COIN: 'INCREMENT_COIN',
   SELECT_PRODUCT: 'SELECT_PRODUCT',
   RETURN_CHANGE: 'RETURN_CHANGE',
+  DELETE_ALL_LOGS: 'DELETE_ALL_LOGS',
 };
 
 const reducer = (state, action) => {
@@ -177,6 +178,13 @@ const reducer = (state, action) => {
         logs: newLogs,
         totalInputAmount: 0,
         balance: newBalance,
+      };
+    }
+
+    case ACTION.DELETE_ALL_LOGS: {
+      return {
+        ...state,
+        logs: [],
       };
     }
 
