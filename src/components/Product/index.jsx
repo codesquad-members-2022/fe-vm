@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
-import styled, { css } from 'styled-components';
+import React, { memo, useState } from 'react';
+import styled, { css, keyframes } from 'styled-components';
 
 import { RETURN_CHANGE_DELAY, SELECT_PRODUCT_THROTTLE_DELAY } from '@/constants/timer';
 import { ACTION } from '@/Provider/VMProvider';
@@ -9,6 +9,7 @@ import { throttle } from '@/utils/timer';
 const Product = memo(({ name, price, stock, index, purchasable, dispatch, isActive }) => {
   const outOfStock = stock === 0;
   const maxNumOfDisplay = 99;
+  const [isSelected, setIsSelected] = useState(false);
 
   const onClick = throttle(() => {
     dispatch({
@@ -17,6 +18,7 @@ const Product = memo(({ name, price, stock, index, purchasable, dispatch, isActi
     });
 
     isActive.current = false;
+    setIsSelected(false);
   }, SELECT_PRODUCT_THROTTLE_DELAY * 1000);
 
   const onClickProduct = (event) => {
@@ -24,12 +26,13 @@ const Product = memo(({ name, price, stock, index, purchasable, dispatch, isActi
       return;
     }
 
-    if (stock === 0) {
+    if (outOfStock || !purchasable) {
       isActive.current = false;
       return;
     }
 
     isActive.current = true;
+    setIsSelected(true);
     onClick(event);
 
     dispatch({
@@ -58,6 +61,7 @@ const Product = memo(({ name, price, stock, index, purchasable, dispatch, isActi
         <span>{stock > maxNumOfDisplay && '+'}</span>
       </Stock>
       {outOfStock && <DisabledMark>Out Of Stock</DisabledMark>}
+      {isSelected && <ProgressBox />}
     </ProductLayer>
   );
 });
@@ -129,7 +133,6 @@ const Price = styled.footer`
 const Stock = styled.span`
   ${Flexbox};
   position: absolute;
-  top: -5px;
   width: 100%;
   height: 100%;
   font-size: 50px;
@@ -158,6 +161,26 @@ const DisabledMark = styled.span`
   height: 30%;
   background-color: #ff233d;
   transform: rotate(-30deg);
+`;
+
+const progress = keyframes`
+  0% {
+    transform: translate3d(0, 100%, 0);
+  }
+  
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+`;
+
+const ProgressBox = styled.div`
+  position: absolute;
+  background-color: #93ff3c;
+  width: 100%;
+  height: 100%;
+  transform: translate3d(0, 100%, 0);
+  opacity: 0.5;
+  animation: ${progress} ${SELECT_PRODUCT_THROTTLE_DELAY}s ease-in-out;
 `;
 
 export default Product;
