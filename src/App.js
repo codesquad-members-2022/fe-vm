@@ -2,7 +2,6 @@ import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import styled from 'styled-components';
 
-import {UserAccountContext} from './Store';
 import {Home, VendingMachine, Wallet, NotFound} from './Pages';
 
 const AppWrapper = styled.div`
@@ -16,16 +15,14 @@ const App = () => {
   return (
     <BrowserRouter>
       <AppWrapper>
-        <UserAccountContext>
-          <Routes>
-            <Route path="/" element={<Home />}>
-              <Route index element={<VendingMachine />} />
-              <Route path="vendingMachine" element={<VendingMachine />} />
-              <Route path="wallet" element={<Wallet />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </UserAccountContext>
+        <Routes>
+          <Route path="/" element={<Home />}>
+            <Route index element={<VendingMachine />} />
+            <Route path="vendingMachine" element={<VendingMachine />} />
+            <Route path="wallet" element={<Wallet />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </AppWrapper>
     </BrowserRouter>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {useAccount} from '../Hooks/Account';
 
@@ -29,25 +29,36 @@ const accountReducer = (state, action) => {
   }
 };
 
-export const UserAccountContext = props => {
-  const {insertMoney, refundMoney, buyProduct, userMoney} = useAccount(
-    {
-      currentMoney: 36450,
-      insertedMoney: 0,
-    },
-    accountReducer,
-  );
+export const UserAccountContext = ({children, currentPage}) => {
+  // const {insertMoney, refundMoney, buyProduct, userMoney} = useAccount(
+  //   {
+  //     currentMoney: 36450,
+  //     insertedMoney: 0,
+  //     history: [],
+  //   },
+  //   accountReducer,
+  // );
 
+  const [account, setAccount] = useState({
+    currentMoney: 36450,
+    insertedMoney: 0,
+    history: [],
+  });
+
+  useEffect(() => {
+    console.log('바뀜');
+  }, [currentPage]);
   return (
     <UserAccount.Provider
       value={{
-        insertMoney,
-        refundMoney,
-        buyProduct,
-        userMoney,
+        // insertMoney,
+        // refundMoney,
+        // buyProduct,
+        // userMoney,
+        account,
       }}
     >
-      {props.children}
+      {children}
     </UserAccount.Provider>
   );
 };
