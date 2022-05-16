@@ -21,6 +21,25 @@ export default function Wallet() {
     setRemainMoney(remainMoney + won);
   };
 
+  const addUnitNotation = (element, index, array) => {
+    const unitPosition = 3;
+    const isHighestDigit = index + 1 === array.length;
+    const hasUnitNotation = (index + 1) % unitPosition === 0 && !isHighestDigit;
+
+    return hasUnitNotation ? `,${element}` : element;
+  };
+
+  const toatlPrice = moneyState
+    .map(({ won, num }) => won * num)
+    .reduce((aMoney, bMoney) => aMoney + bMoney);
+
+  const totalPriveWithUnitNotation = `${toatlPrice}`
+    .split('')
+    .reverse()
+    .map((element, index, array) => addUnitNotation(element, index, array))
+    .reverse()
+    .join('');
+
   return (
     <>
       <ul>
@@ -34,21 +53,7 @@ export default function Wallet() {
           />
         ))}
       </ul>
-      <span>
-        {`${`${moneyState
-          .map(({ won, num }) => won * num)
-          .reduce((aMoney, bMoney) => aMoney + bMoney)}`
-          .split('')
-          .reverse()
-          .map((element, index, array) => {
-            if ((index + 1) % 3 === 0 && index + 1 < array.length) {
-              return `,${element}`;
-            }
-            return element;
-          })
-          .reverse()
-          .join('')}원`}
-      </span>
+      <span>{`${totalPriveWithUnitNotation}`}</span>
     </>
   );
 }
