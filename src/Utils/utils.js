@@ -14,7 +14,7 @@ export function getMessage(type, value) {
       valueMessage = `상품(${value})을 `;
       break;
     default:
-      return;
+      throw new Error('message type error');
   }
 
   return `${valueMessage + TYPE_MESSAGE}`;
