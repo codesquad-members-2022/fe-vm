@@ -8,7 +8,7 @@ const Display = ({ className }) => {
     state: { products, totalInputAmount },
     dispatch,
   } = useContext(VMContext);
-  const isActive = useRef(false);
+  const isInProcess = useRef(false);
 
   return (
     <div className={className}>
@@ -21,7 +21,7 @@ const Display = ({ className }) => {
           index={index}
           dispatch={dispatch}
           purchasable={totalInputAmount >= price}
-          isActive={isActive}
+          isInProcess={isInProcess}
         />
       ))}
     </div>

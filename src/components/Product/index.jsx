@@ -6,7 +6,7 @@ import { ACTION } from '@/Provider/VMProvider';
 import { Flexbox } from '@/utils/style';
 import { throttle } from '@/utils/timer';
 
-const Product = memo(({ name, price, stock, index, purchasable, dispatch, isActive }) => {
+const Product = memo(({ name, price, stock, index, purchasable, dispatch, isInProcess }) => {
   const outOfStock = stock === 0;
   const maxNumOfDisplay = 99;
   const [isSelected, setIsSelected] = useState(false);
@@ -17,21 +17,21 @@ const Product = memo(({ name, price, stock, index, purchasable, dispatch, isActi
       payload: { name, price, stock, index },
     });
 
-    isActive.current = false;
+    isInProcess.current = false;
     setIsSelected(false);
   }, SELECT_PRODUCT_THROTTLE_DELAY * 1000);
 
   const onClickProduct = (event) => {
-    if (isActive.current === true) {
+    if (isInProcess.current === true) {
       return;
     }
 
     if (outOfStock || !purchasable) {
-      isActive.current = false;
+      isInProcess.current = false;
       return;
     }
 
-    isActive.current = true;
+    isInProcess.current = true;
     setIsSelected(true);
     onClick(event);
 
