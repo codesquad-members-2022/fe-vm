@@ -1,28 +1,42 @@
 import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 
-import { RETURN_CHANGE_DELAY } from '@/constants/timer';
+import { RETURN_CHANGE_DELAY, SELECT_PRODUCT_THROTTLE_DELAY } from '@/constants/timer';
 import { ACTION } from '@/Provider/VMProvider';
 import { Flexbox } from '@/utils/style';
+import { throttle } from '@/utils/timer';
 
-const Product = memo(({ name, price, stock, index, purchasable, dispatch }) => {
+const Product = memo(({ name, price, stock, index, purchasable, dispatch, isActive }) => {
   const outOfStock = stock === 0;
   const maxNumOfDisplay = 99;
-  const onClick = () => {
-    if (stock === 0) {
-      return;
-    }
 
+  const onClick = throttle(() => {
     dispatch({
       type: ACTION.SELECT_PRODUCT,
       payload: { name, price, stock, index },
     });
 
+    isActive.current = false;
+  }, SELECT_PRODUCT_THROTTLE_DELAY * 1000);
+
+  const onClickProduct = (event) => {
+    if (isActive.current === true) {
+      return;
+    }
+
+    if (stock === 0) {
+      isActive.current = false;
+      return;
+    }
+
+    isActive.current = true;
+    onClick(event);
+
     dispatch({
       type: ACTION.SET_TIMER,
       payload: {
         key: 'returnChange',
-        delay: RETURN_CHANGE_DELAY,
+        delay: RETURN_CHANGE_DELAY + SELECT_PRODUCT_THROTTLE_DELAY,
         callback: () => {
           dispatch({ type: ACTION.RETURN_CHANGE });
         },
@@ -31,7 +45,12 @@ const Product = memo(({ name, price, stock, index, purchasable, dispatch }) => {
   };
 
   return (
-    <ProductLayer onClick={onClick} purchasable={purchasable} outOfStock={outOfStock} dir="column">
+    <ProductLayer
+      onClick={onClickProduct}
+      purchasable={purchasable}
+      outOfStock={outOfStock}
+      dir="column"
+    >
       <Name>{name}</Name>
       <Price>{price.toLocaleString()}원</Price>
       <Stock>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 
 import Product from '@/components/Product';
 import { VMContext } from '@/Provider/VMProvider';
@@ -8,6 +8,7 @@ const Display = ({ className }) => {
     state: { products, totalInputAmount },
     dispatch,
   } = useContext(VMContext);
+  const isActive = useRef(false);
 
   return (
     <div className={className}>
@@ -20,6 +21,7 @@ const Display = ({ className }) => {
           index={index}
           dispatch={dispatch}
           purchasable={totalInputAmount >= price}
+          isActive={isActive}
         />
       ))}
     </div>
