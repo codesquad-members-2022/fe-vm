@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import Item from '@/Components/Machine/Item';
 
 import { IItem, useItemState } from '@/Context/ItemContext';
-import { useWalletDispatch } from '@/Context/WalletContext';
-import { useMachineState, useMachineDispatch } from '@/Context/MachineContext';
+import { useMessageDispatch } from '@/Context/MessageContext';
+import { usePriceState } from '@/Context/PriceContext';
 
 const ItemListerWrapper = styled.article`
   display: grid;
@@ -11,7 +11,6 @@ const ItemListerWrapper = styled.article`
   padding: 20px;
   grid-gap: 20px;
   width: 70%;
-  height: 100%;
   border: 5px solid ${({ theme }) => theme.colors.ultramarine};
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 20px 0 0 20px;
@@ -19,16 +18,11 @@ const ItemListerWrapper = styled.article`
 
 export default function ItemList(): JSX.Element {
   const itemState = useItemState();
-  const machineState = useMachineState();
-  const machineDispatch = useMachineDispatch();
-  const walletDispatch = useWalletDispatch();
-
-  const machinePriceAmount = machineState.reduce((prev, cur) => {
-    return (prev += cur.unit);
-  }, 0);
+  const priceState = usePriceState();
+  const messageDispatch = useMessageDispatch();
 
   const availablePurchaseItem = (price: number, count: number) => {
-    return count && machinePriceAmount > price ? true : false;
+    return count && priceState > price ? true : false;
   };
 
   const handleImageClick = (item: IItem, available: boolean) => {
@@ -42,7 +36,7 @@ export default function ItemList(): JSX.Element {
     }
 
     // MachineMessage Update
-    machineDispatch({
+    messageDispatch({
       type: 'INSERT_MESSAGE',
       unit: 0,
       message: `${item.text}가 선택 됨`,
