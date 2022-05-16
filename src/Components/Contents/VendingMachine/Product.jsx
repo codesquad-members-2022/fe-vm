@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { getMessage } from '../../../Utils/utils';
 import {
@@ -27,8 +26,8 @@ export default function Product({ products, payTotal, message }) {
 }
 
 function Item({ product, payTotal, message }) {
-  const [isSoldOut, setIsSoldOut] = useState(!product.stock);
-  const [isActive, setIsActive] = useState(payTotal.value >= product.price);
+  const isSoldOut = !product.stock;
+  const isActive = payTotal.value >= product.price;
 
   const buyProductHandler = () => {
     const MESSAGE = getMessage('구입', product.title);
@@ -38,14 +37,6 @@ function Item({ product, payTotal, message }) {
     message.set([...message.value, MESSAGE]);
     product.stock -= 1;
   };
-
-  useEffect(() => {
-    setIsActive(payTotal.value >= product.price);
-  }, [payTotal.value]);
-
-  useEffect(() => {
-    setIsSoldOut(!product.stock);
-  }, [product.stock]);
 
   return (
     <ProductItem
