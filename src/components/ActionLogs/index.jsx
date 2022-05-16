@@ -10,7 +10,7 @@ const ActionLogs = ({ className }) => {
   } = useContext(VMContext);
   const actionLogsRef = useRef(null);
   const contextMenuWrapperRef = useRef(null);
-  const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
+  const [isContextMenuActive, setIsContextMenuActive] = useState(false);
   const [points, setPoints] = useState({ x: 30, y: 30 });
 
   const onContextMenu = (event) => {
@@ -26,7 +26,7 @@ const ActionLogs = ({ className }) => {
     }
 
     setPoints({ x: offsetX, y: offsetY });
-    setIsContextMenuOpen(true);
+    setIsContextMenuActive(true);
   };
 
   useEffect(() => {
@@ -35,11 +35,11 @@ const ActionLogs = ({ className }) => {
     }
 
     actionLogsRef.current.scrollTop = actionLogsRef.current.scrollHeight;
-  });
+  }, [logs]);
 
   useEffect(() => {
     const onClick = () => {
-      setIsContextMenuOpen(false);
+      setIsContextMenuActive(false);
     };
 
     window.addEventListener('click', onClick);
@@ -54,7 +54,7 @@ const ActionLogs = ({ className }) => {
         ))}
       </ActionLogsLayer>
       <ContextMenuWrapper ref={contextMenuWrapperRef}>
-        {isContextMenuOpen && <ContextMenu dispatch={dispatch} top={points.y} left={points.x} />}
+        {isContextMenuActive && <ContextMenu dispatch={dispatch} top={points.y} left={points.x} />}
       </ContextMenuWrapper>
     </ActionLogsLayout>
   );
@@ -91,12 +91,12 @@ const ActionLogsLayout = styled.div`
 `;
 
 const ActionLogsLayer = styled.ol`
-  pointer-events: none;
   overflow-y: auto;
   height: 100%;
 `;
 
 const ActionLogLayer = styled.li`
+  pointer-events: none;
   & + & {
     margin-top: 10px;
   }
