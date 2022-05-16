@@ -10,7 +10,7 @@ import Money from './Money';
 export default function Wallet() {
   const { walletMoneyData } = useContext(MoneyContext);
 
-  const setMoneyComponents = walletMoneyData.map((money, index) => {
+  const moneyComponents = walletMoneyData.map((money, index) => {
     return <Money key={index} info={money} />;
   });
   const totalMoney = calculateTotalMoney(walletMoneyData);
@@ -18,7 +18,7 @@ export default function Wallet() {
   return (
     <WalletContainer>
       <TotalAmount>총 금액: {setLocalString(totalMoney)}원</TotalAmount>
-      <WalletWrapper>{setMoneyComponents}</WalletWrapper>
+      <WalletWrapper>{moneyComponents}</WalletWrapper>
     </WalletContainer>
   );
 }

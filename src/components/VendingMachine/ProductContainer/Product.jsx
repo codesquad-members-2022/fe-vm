@@ -13,7 +13,7 @@ export default function Product({ info, totalMoney }) {
     if (totalMoney === 0) {
       setIsAvailable(false);
     }
-  }, [totalMoney, info.price, isAvailable]);
+  }, [totalMoney, info.price]);
 
   return (
     <ProductWrapper>
