@@ -47,7 +47,6 @@ const HomeLayer = styled.div`
   .${ACTION_LOGS} {
     margin-right: 4px;
     border: 1px solid ${({ theme }) => theme.colors.black};
-    overflow-y: hidden;
   }
 `;
 
