@@ -8,10 +8,10 @@ export default function AddBtn({ payTotal, payMoney, input, message }) {
     input.current.value = '';
     if (isNaN(payMoney)) return;
     const updateTotal = payTotal.value + Number(payMoney);
-    const MESSAGE = getMessage('투입', changeNumToLocalMoney(payMoney));
+    const addMessage = getMessage('투입', changeNumToLocalMoney(payMoney));
 
     payTotal.set(updateTotal);
-    message.set([...message.value, MESSAGE]);
+    message.set([...message.value, addMessage]);
   };
 
   return (

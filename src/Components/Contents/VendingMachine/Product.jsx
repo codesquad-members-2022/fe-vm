@@ -30,11 +30,11 @@ function Item({ product, payTotal, message }) {
   const isActive = payTotal.value >= product.price;
 
   const buyProductHandler = () => {
-    const MESSAGE = getMessage('구입', product.title);
+    const addMessage = getMessage('구입', product.title);
     const updateTotal = payTotal.value - product.price;
 
     payTotal.set(updateTotal);
-    message.set([...message.value, MESSAGE]);
+    message.set([...message.value, addMessage]);
     product.stock -= 1;
   };
 
