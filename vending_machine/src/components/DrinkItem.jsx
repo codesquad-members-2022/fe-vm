@@ -5,23 +5,14 @@ import { color } from '../style/variables';
 import { changeKoreanLocalMoney } from '../utility/util';
 
 const DrinkItem = ({
-  id,
-  price,
-  name,
-  quantity,
-  totalMoney,
-  soldOut,
-  onClick,
+  drinkInfo: { id, price, name, quantity, totalMoney, soldOut, onClick },
 }) => {
   return (
-    <DrinkMenuItem
-      key={id}
-      price={price}
-      totalMoney={totalMoney}
-      soldOut={soldOut}
-    >
-      <DrinkNameBtn onClick={() => onClick(id)}>{name}</DrinkNameBtn>
-      <DrinkInfo>{changeKoreanLocalMoney(price)}</DrinkInfo>
+    <DrinkMenuItem price={price} totalMoney={totalMoney} soldOut={soldOut}>
+      <DrinkNameBtn onClick={onClick(id)}>{name}</DrinkNameBtn>
+      <DrinkInfo>
+        {+quantity ? changeKoreanLocalMoney(price) : '품절'}
+      </DrinkInfo>
       <DrinkInfo>{quantity}</DrinkInfo>
     </DrinkMenuItem>
   );
