@@ -4,13 +4,10 @@ import styled, {css} from 'styled-components';
 import {UserAccount} from '../Store';
 
 export const Product = ({title, price}) => {
-  const {userMoney, buyProduct} = useContext(UserAccount);
+  const {account} = useContext(UserAccount);
 
   return (
-    <ProductWrapper
-      insertedMoney={userMoney.insertedMoney}
-      productPrice={price}
-    >
+    <ProductWrapper insertedMoney={account.insertedMoney} productPrice={price}>
       <ProductThumbnail
         onClick={() => {
           buyProduct(price);

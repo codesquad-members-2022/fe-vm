@@ -12,7 +12,7 @@ export const useAccount = (initial, reducer) => {
   };
 
   const buyProduct = productPrice => {
-    dispatchUserMoney({type: 'buy', incomeMoney: productPrice});
+    dispatchUserMoney({type: 'buy', incomeMoney: productPrice, quantity: 1});
   };
 
   return {insertMoney, refundMoney, buyProduct, userMoney};

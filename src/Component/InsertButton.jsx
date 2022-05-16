@@ -20,7 +20,7 @@ const handleMoneyButton = (unit, currentMoney, insertMoney) => {
 
 export const InsertButton = ({insertBtnData}) => {
   const {
-    userMoney: {currentMoney},
+    account: {currentMoney},
     insertMoney,
   } = useContext(UserAccount);
   const insertBtnList = divideCurrentMoney(insertBtnData, currentMoney);

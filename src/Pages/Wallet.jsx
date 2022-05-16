@@ -6,12 +6,12 @@ import {UserAccount} from '../Store';
 import {InsertButton} from '../Component';
 
 export const Wallet = () => {
-  const {userMoney} = useContext(UserAccount);
-
+  const {account} = useContext(UserAccount);
+  console.log(account);
   return (
     <WalletWrapper>
       <InsertButton insertBtnData={MONEY_BUTTON_DATA} />
-      <TotalMoney>{userMoney.currentMoney}</TotalMoney>
+      <TotalMoney>{account.currentMoney}</TotalMoney>
     </WalletWrapper>
   );
 };
