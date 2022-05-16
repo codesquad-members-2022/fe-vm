@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { useWalletDispatch } from '@/Context/WalletContext';
-import { useMachineDispatch } from '@/Context/MachineContext';
+import { useMessageDispatch } from '@/Context/MessageContext';
 
 interface TStyledView {
   uuid?: number;
@@ -30,13 +30,13 @@ const ItemComponent = styled.div<TStyledView>`
 
 export default function Item({ unit, count }: ItemType): JSX.Element {
   const walletDispatch = useWalletDispatch();
-  const machineDispatch = useMachineDispatch();
+  const messageDispatch = useMessageDispatch();
 
   const decreaseUnitCount = (unit: number, count: number) =>
     walletDispatch({ type: 'DECREASE_WALLET_UNIT', unit, count });
 
   const notifyUnitMessage = (unit: number, message: string) => {
-    machineDispatch({ type: 'INSERT_MESSAGE', unit, message });
+    messageDispatch({ type: 'INSERT_MESSAGE', unit, message });
   };
 
   const handleUnitClick = (unit: number, count: number) => {
