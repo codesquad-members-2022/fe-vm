@@ -50,6 +50,10 @@ a,
 button {
   cursor: pointer;
 }
+
+li {
+  list-style: none;
+}
 `;
 
 export default GlobalStyle;

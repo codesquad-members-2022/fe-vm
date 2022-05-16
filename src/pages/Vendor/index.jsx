@@ -11,14 +11,16 @@ const Vendor = () => {
       <S.VendorWrapper>
         <CashDisplay isBalance small />
         <S.ProductGrid>
-          {mockData.map(item => (
-            <ItemBlock
-              key={item.id}
-              name={item.name}
-              price={item.price}
-              stock={item.stock}
-              categoryId={item.categoryId}
-            />
+          {mockData.map(({ id, name, price, stock, category, categoryId }) => (
+            <li key={id}>
+              <ItemBlock
+                name={name}
+                price={price}
+                stock={stock}
+                category={category}
+                categoryId={categoryId}
+              />
+            </li>
           ))}
         </S.ProductGrid>
         <S.SideWrapper>

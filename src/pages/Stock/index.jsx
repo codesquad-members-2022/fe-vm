@@ -10,21 +10,25 @@ const Stock = () => {
     <>
       <S.VendorWrapper>
         <S.ProductGrid>
-          {mockData.map(item => (
-            <ItemBlock
-              key={item.id}
-              name={item.name}
-              price={item.price}
-              stock={item.stock}
-              categoryId={item.categoryId}
-            />
+          {mockData.map(({ id, name, price, stock, category, categoryId }) => (
+            <li key={id}>
+              <ItemBlock
+                name={name}
+                price={price}
+                stock={stock}
+                category={category}
+                categoryId={categoryId}
+              />
+            </li>
           ))}
         </S.ProductGrid>
         <S.SideWrapper>
           <Title>MY STOCK</Title>
           <S.Logger isStock>
-            {mockData.map(item => (
-              <Log key={item.id}>{`${item.name} : ${item.stock}`}</Log>
+            {mockData.map(({ id, name, stock }) => (
+              <li key={id}>
+                <Log>{`${name} : ${stock}`}</Log>
+              </li>
             ))}
           </S.Logger>
         </S.SideWrapper>

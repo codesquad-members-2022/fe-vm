@@ -19,8 +19,10 @@ const Wallet = () => {
       <S.MoneyWrapper>
         <SubTitle>ADD MONEY</SubTitle>
         <S.MoneyItemWrapper>
-          {moneyData.map(money => (
-            <ItemBlock isMoney key={money.id} unit={money.unit} count={money.count} />
+          {moneyData.map(({ id, unit, count }) => (
+            <li key={id}>
+              <ItemBlock isMoney unit={unit} count={count} />
+            </li>
           ))}
         </S.MoneyItemWrapper>
       </S.MoneyWrapper>
