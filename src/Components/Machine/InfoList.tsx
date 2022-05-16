@@ -4,6 +4,9 @@ import ReturnMoney from '@/Components/Machine/ReturnMoney';
 import BoardMessage from '@/Components/Machine/BoardMessage';
 
 const InfoListWrapper = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 20px;
   ${({ theme }) => theme.mixins.flexBox('column', 'center', 'space-between')};
   width: 30%;
   background-color: ${({ theme }) => theme.colors.ultramarine};
