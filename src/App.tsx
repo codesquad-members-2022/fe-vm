@@ -8,8 +8,9 @@ import Home from '@/Page/Home';
 import MyPage from '@/Page/MyPage';
 
 import { WalletContextProvider } from '@/Context/WalletContext';
-import { MachineContextProvider } from './Context/MachineContext';
+import { MessageContextProvider } from './Context/MessageContext';
 import { itemContextProvider } from '@/Context/ItemContext';
+import { PriceContextProvider } from '@/Context/PriceContext';
 
 interface ProviderProps {
   contexts: Array<React.ElementType | any>;
@@ -31,8 +32,9 @@ export default function App(): JSX.Element {
       <AppProvider
         contexts={[
           WalletContextProvider,
-          MachineContextProvider,
+          MessageContextProvider,
           itemContextProvider,
+          PriceContextProvider,
         ]}
       >
         <ThemeProvider theme={theme}>
