@@ -1,10 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { InputContext } from "../../../../store/InputStore";
+import { MessageContext } from "../../../../store/MessageStore";
 
 export default function Input() {
-  const context = useContext(InputContext);
-  const { input } = context;
+  const inputContext = useContext(InputContext);
+  const { input } = inputContext;
+  const messageContext = useContext(MessageContext);
+  const { message, setMessage } = messageContext;
+
   return (
     <StyledInput>
       <span>{input}</span>원

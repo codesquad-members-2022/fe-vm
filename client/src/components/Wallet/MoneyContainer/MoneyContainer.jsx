@@ -1,16 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { WalletContext } from "../../../store/WalletStore";
 import Money from "./Money/Money";
 
-export default function MoneyContainer({ keys, moneyDB, total, setTotal }) {
+export default function MoneyContainer({ keys }) {
+  const walletContext = useContext(WalletContext);
+  const { wallet } = walletContext;
+
   const moneyList = keys.map((key, index) => (
-    <Money
-      key={index}
-      unit={key}
-      amount={moneyDB[key]}
-      total={total}
-      setTotal={setTotal}
-    />
+    <Money key={index} unit={key} amount={wallet[key]} />
   ));
 
   return <StyledMoneyContainer>{moneyList}</StyledMoneyContainer>;

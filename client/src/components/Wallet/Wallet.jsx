@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import MoneyContainer from "./MoneyContainer/MoneyContainer";
 import Total from "./Total/Total";
 import { calculateTotal } from "../../utils/util";
-import axios from "axios";
+import { WalletContext } from "../../store/WalletStore";
 
 export default function Wallet() {
-  const keys = Object.keys(moneyDB);
-  const [total, setTotal] = useState(calculateTotal(keys, moneyDB));
+  const walletContext = useContext(WalletContext);
+  const { wallet, setTotal } = walletContext;
+
+  const keys = Object.keys(wallet);
+
+  useEffect(() => {
+    setTotal(calculateTotal(keys, wallet));
+  }, [wallet]);
 
   return (
     <StyledWallet>
-      <MoneyContainer
-        keys={keys}
-        moneyDB={moneyDB}
-        total={total}
-        setTotal={setTotal}
-      />
-      <Total total={total} />
+      <MoneyContainer keys={keys} />
+      <Total />
     </StyledWallet>
   );
 }
@@ -31,13 +32,3 @@ const StyledWallet = styled.article`
   margin: auto;
   padding: 20px;
 `;
-
-const moneyDB = {
-  10: 0,
-  50: 3,
-  100: 8,
-  500: 3,
-  1000: 4,
-  5000: 1,
-  10000: 1,
-};

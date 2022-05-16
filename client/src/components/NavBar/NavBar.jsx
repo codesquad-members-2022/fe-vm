@@ -1,37 +1,61 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import NavButtonVM from "./Buttons/NavButtonVM";
-import NavButtonWallet from "./Buttons/NavButtonWallet";
-import SelectedNavButtonVM from "./Buttons/SelectedNavButtonVM";
-import SelectedNavButtonWallet from "./Buttons/SelectedNavButtonWallet";
+import { WalletContext } from "../../store/WalletStore";
+import NavBarButton from "./Buttons/NavBarButton";
+import SelectedNavBarButton from "./Buttons/SelectedNavBarButton";
 
 export default function NavBar() {
-  // const [isSelected, setIsSelected] = useState(0)
+  //새로고침 할 때 url 주소에 따라 상태 다르게 설정
   const [isSelected, setIsSelected] = useState(
-    () => JSON.parse(window.localStorage.getItem("isSelected")) || 0
+    checkLocationPath("/", "/wallet")
   );
-  const selectVM = () => setIsSelected(0);
-  const selectWallet = () => setIsSelected(1);
+  const selectVM = () => setIsSelected(false);
+  const selectWallet = () => setIsSelected(true);
 
-  useEffect(() => {
-    window.localStorage.setItem("isSelected", JSON.stringify(isSelected));
-  }, [isSelected]);
+  //뒤로가기나 앞으로가기가 발생했을 때 해당 주소에 따라 isSelected 값 설정
+  window.addEventListener("popstate", () => {
+    setIsSelected(checkLocationPath("/", "/wallet"));
+  });
+
+  const walletContext = useContext(WalletContext);
+  const { total } = walletContext;
 
   return (
     <StyledNavBar>
       {!isSelected ? (
         <>
-          <SelectedNavButtonVM selectVM={selectVM} />
-          <NavButtonWallet selectWallet={selectWallet} />
+          <SelectedNavBarButton
+            clickHandler={selectVM}
+            link="/"
+            text="자판기"
+          ></SelectedNavBarButton>
+          <NavBarButton
+            clickHandler={selectWallet}
+            link="/wallet"
+            text={`지갑(${total})`}
+          ></NavBarButton>
         </>
       ) : (
         <>
-          <NavButtonVM selectVM={selectVM} />
-          <SelectedNavButtonWallet selectWallet={selectWallet} />
+          <NavBarButton
+            clickHandler={selectVM}
+            link="/"
+            text="자판기"
+          ></NavBarButton>
+          <SelectedNavBarButton
+            clickHandler={selectWallet}
+            link="/wallet"
+            text={`지갑(${total})`}
+          ></SelectedNavBarButton>
         </>
       )}
     </StyledNavBar>
   );
+}
+
+function checkLocationPath(getFalsePath, getTruePath) {
+  if (window.location.pathname === getFalsePath) return false;
+  else if (window.location.pathname === getTruePath) return true;
 }
 
 const StyledNavBar = styled.nav`
@@ -41,22 +65,4 @@ const StyledNavBar = styled.nav`
   margin: 50px auto;
   justify-contents: center;
   align-items: center;
-`;
-
-export const StyledNavButton = styled.button`
-  width: 150px;
-  height: 70px;
-  border: 1px solid black;
-  font-size: 25px;
-  font-weight: bold;
-`;
-
-export const StlyedSelectedNavButton = styled.button`
-  width: 150px;
-  height: 70px;
-  border: 1px solid black;
-  font-size: 25px;
-  font-weight: bold;
-  background-color: gray;
-  color: white;
 `;
