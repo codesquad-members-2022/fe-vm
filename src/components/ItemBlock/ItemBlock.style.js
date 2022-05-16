@@ -13,7 +13,12 @@ const BlockBackground = styled(FlexBox)`
   background-color: ${({ theme: { greyScale } }) => greyScale.primaryGrey};
   padding: 10px;
   user-select: none;
-  cursor: pointer;
+  cursor: ${({ count }) => (count ? 'pointer' : 'not-allowed')};
+  transition: all 250ms ease-in;
+
+  :active {
+    box-shadow: none;
+  }
 `;
 
 const categoryObj = {

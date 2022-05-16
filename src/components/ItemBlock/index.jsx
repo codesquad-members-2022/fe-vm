@@ -7,12 +7,12 @@ const ItemBlock = ({ isMoney, unit, count, name, price, stock, category }) => {
   return (
     <>
       {isMoney ? (
-        <S.BlockBackground>
+        <S.BlockBackground count={count}>
           <S.InnerText>{count}</S.InnerText>
           <S.InnerColor isMoney category={count && 'money'}>{`$${unit}`}</S.InnerColor>
         </S.BlockBackground>
       ) : (
-        <S.BlockBackground>
+        <S.BlockBackground count={stock}>
           <S.InnerColor category={stock && category}>{name?.toUpperCase()}</S.InnerColor>
           <S.InnerText>{stock ? `$${price}` : 'SOLD OUT'}</S.InnerText>
         </S.BlockBackground>
