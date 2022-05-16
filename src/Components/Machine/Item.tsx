@@ -4,7 +4,7 @@ import { IItem } from '@/Context/ItemContext';
 interface PropsType {
   item: IItem;
   available: boolean;
-  handleImageClick: Function;
+  handleImageClick: (item: IItem, available: boolean) => void;
 }
 
 interface TStyledView {
