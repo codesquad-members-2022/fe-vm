@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 
+import { RETURN_CHANGE_DELAY } from '@/constants/timer';
 import { ACTION } from '@/Provider/VMProvider';
 import { Flexbox } from '@/utils/style';
 
@@ -15,6 +16,17 @@ const Product = memo(({ name, price, stock, index, purchasable, dispatch }) => {
     dispatch({
       type: ACTION.SELECT_PRODUCT,
       payload: { name, price, stock, index },
+    });
+
+    dispatch({
+      type: ACTION.SET_TIMER,
+      payload: {
+        key: 'returnChange',
+        delay: RETURN_CHANGE_DELAY,
+        callback: () => {
+          dispatch({ type: ACTION.RETURN_CHANGE });
+        },
+      },
     });
   };
 

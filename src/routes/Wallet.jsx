@@ -1,6 +1,7 @@
 import React, { useContext, memo } from 'react';
 import styled, { css } from 'styled-components';
 
+import { RETURN_CHANGE_DELAY } from '@/constants/timer';
 import { ACTION, VMContext } from '@/Provider/VMProvider';
 import { Flexbox } from '@/utils/style';
 
@@ -36,6 +37,17 @@ const Coin = memo(({ amount, count, dispatch, index }) => {
         amount,
         count,
         index,
+      },
+    });
+
+    dispatch({
+      type: ACTION.SET_TIMER,
+      payload: {
+        key: 'returnChange',
+        delay: RETURN_CHANGE_DELAY,
+        callback: () => {
+          dispatch({ type: ACTION.RETURN_CHANGE });
+        },
       },
     });
   };

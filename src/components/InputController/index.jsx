@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
+import { RETURN_CHANGE_DELAY } from '@/constants/timer';
 import { ACTION, VMContext } from '@/Provider/VMProvider';
 import { Flexbox } from '@/utils/style';
 
@@ -18,6 +19,13 @@ const InputController = ({ className }) => {
   const onClickReturnButton = () => {
     dispatch({
       type: ACTION.RETURN_CHANGE,
+    });
+
+    dispatch({
+      type: ACTION.CLEAR_TIMER,
+      payload: {
+        key: 'returnChange',
+      },
     });
   };
 
@@ -51,6 +59,17 @@ const InputForm = ({ dispatch, setIsSubmitted }) => {
       type: ACTION.INSERT_MONEY_BY_TYPING,
       payload: {
         amount: inputValue,
+      },
+    });
+
+    dispatch({
+      type: ACTION.SET_TIMER,
+      payload: {
+        key: 'returnChange',
+        delay: RETURN_CHANGE_DELAY,
+        callback: () => {
+          dispatch({ type: ACTION.RETURN_CHANGE });
+        },
       },
     });
   };
