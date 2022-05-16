@@ -1,17 +1,15 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Items from './Items/Items';
 import Controllers from './Contorllers/Controllers';
 
 const VendingMachineDiv = styled.div`
-	${({ theme: colors }) => css`
-		display: flex;
-		justify-content: space-between;
-		background-color: ${colors.yellow};
-		margin: 0 auto;
-		margin-top: 40px;
-		width: 800px;
-		border-radius: 10px;
-	`}
+	display: flex;
+	justify-content: space-between;
+	margin: 0 auto;
+	margin-top: 40px;
+	width: 900px;
+	height: 710px;
+	border-radius: 20px;
 `;
 
 const VendingMachine = () => {

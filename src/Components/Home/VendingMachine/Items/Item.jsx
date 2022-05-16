@@ -2,31 +2,57 @@ import { useContext, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 
-import CoinsContext from 'Components/Home/CoinsContext';
+import { takingOutTime, BUY } from 'Components/Common/constant';
+import {
+	MoneyContext,
+	IsTakingOutContext,
+	MessagesDispatchContext,
+} from 'Components/Contexts';
 import { getPriceType } from 'Util/util';
-import { ItemDiv, ItemNameDiv, ItmePriceDiv } from './Items.styled';
+import {
+	ItemDiv,
+	ItemNameDiv,
+	ItmePriceDiv,
+	ItemWrapper,
+} from './Items.styled';
 
 const Item = ({ item }) => {
 	const targetItem = item;
-	const { name, price } = targetItem;
-	const { money, setShowedMoney, setMoney } = useContext(CoinsContext);
-	const debounceTime = 2000;
+	const { name, price, count } = targetItem;
+	const { setIsTakingOut } = useContext(IsTakingOutContext);
+	const { money, setMoney, setShowedMoney } = useContext(MoneyContext);
+	const messagesDispatch = useContext(MessagesDispatchContext);
 	const difference = money - price;
-	const isSelectable = difference >= 0;
+	const isSelectable = difference >= 0 && count;
 
 	const handleClick = useCallback(() => {
 		if (!isSelectable) return;
-
-		setShowedMoney(difference);
 		setMoney(difference);
+		setShowedMoney(difference);
+		setIsTakingOut(false);
+		messagesDispatch({ type: BUY, contents: name });
 
 		targetItem.count -= 1;
-	}, [difference, isSelectable, setMoney, setShowedMoney]);
+	}, [
+		difference,
+		isSelectable,
+		targetItem,
+		setMoney,
+		setShowedMoney,
+		setIsTakingOut,
+		messagesDispatch,
+		name,
+	]);
 
 	const debouncedHandleClick = useMemo(
-		() => debounce(handleClick, debounceTime),
+		() => debounce(handleClick, takingOutTime),
 		[handleClick]
 	);
+
+	const handleClickTakingOut = () => {
+		if (!isSelectable) return;
+		setIsTakingOut(true);
+	};
 
 	return (
 		<ItemDiv
@@ -34,8 +60,10 @@ const Item = ({ item }) => {
 			isSelectable={isSelectable}
 			count={targetItem.count}
 		>
-			<ItemNameDiv>{name}</ItemNameDiv>
-			<ItmePriceDiv>{getPriceType(price, true)}</ItmePriceDiv>
+			<ItemWrapper onClick={handleClickTakingOut}>
+				<ItemNameDiv>{name}</ItemNameDiv>
+				<ItmePriceDiv>{getPriceType(price, true)}</ItmePriceDiv>
+			</ItemWrapper>
 		</ItemDiv>
 	);
 };

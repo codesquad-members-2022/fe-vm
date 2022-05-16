@@ -5,11 +5,13 @@ const Normalize = createGlobalStyle`
 		css`
 			color: ${colors.black};
 		`}
+
   .App {
     width: 1000px;
     margin: 0 auto;
     padding: 20px;
     font-family: 'IBM Plex Sans KR', sans-serif;
+    font-weight: 500;
   }
 `;
 

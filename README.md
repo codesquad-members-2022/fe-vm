@@ -15,6 +15,7 @@
 - docs : 문서 수정
 - chore : 빌드 업무 수정, 패키지 매니저 수정
 
-## 📕 STORY
+## 📕 LINK
 
-https://jinjeonimum.notion.site/STORY-f911b395158e43ae98a2a7c5204ed06b
+- STORY : https://jinjeonimum.notion.site/STORY-f911b395158e43ae98a2a7c5204ed06b
+- DEMO : https://jinjeon.github.io

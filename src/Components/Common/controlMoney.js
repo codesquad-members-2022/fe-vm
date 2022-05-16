@@ -1,29 +1,6 @@
-import { useCallback, useEffect } from 'react';
-
-const getPriceType = (price, isUnit = false) => {
-	const unit = isUnit ? '원' : '';
-	return price.toLocaleString('ko-KR') + unit;
-};
-
-const useDebounce = (func, delay, deps) => {
-	const callback = useCallback(func, [func, deps]);
-
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			callback();
-		}, delay);
-
-		return () => {
-			clearTimeout(timer);
-		};
-	}, [callback, delay]);
-};
-
 const spendMoney = (coins, difference) => {
 	const coinsInWallet = [...coins]; // 복사 방식 변경 필요!
-	let totalCount = coinsInWallet.reduce((pre, post) => {
-		return pre + post.count;
-	}, 0);
+	const changedCoins = {};
 
 	const getTargetMoneyId = (array, targetId = array.length - 1) => {
 		if (targetId < 0) return targetId;
@@ -34,16 +11,20 @@ const spendMoney = (coins, difference) => {
 		return id;
 	};
 
+	let totalCount = coinsInWallet.reduce((pre, post) => pre + post.count, 0);
 	let targetMoneyId = getTargetMoneyId(coinsInWallet);
 	let remainedPrice = difference;
 
 	while (remainedPrice > 0 && totalCount && targetMoneyId >= 0) {
-		const targetMoney = coinsInWallet[targetMoneyId];
+		const targetMoney = coinsInWallet[targetMoneyId]; // like { id: 0, price: 10, count: 103 }
 		const targetPrice = targetMoney.price;
 
 		if (remainedPrice >= targetPrice) {
 			remainedPrice -= targetPrice;
 			targetMoney.count -= 1;
+			changedCoins[targetPrice] = changedCoins[targetPrice]
+				? changedCoins[targetPrice] + 1
+				: 1;
 			totalCount -= 1;
 		} else {
 			targetMoneyId -= 1;
@@ -56,11 +37,13 @@ const spendMoney = (coins, difference) => {
 
 	const calculatedMoney = difference - remainedPrice;
 
-	return { calculatedMoney, coinsInWallet };
+	// changedCoins is like {10: -3, 1000: -2, 10000: -23}
+	return { calculatedMoney, changedCoins };
 };
 
 const withdrawMoney = (coins, difference) => {
 	const coinsInWallet = [...coins]; // 복사 방식 변경 필요!
+	const changedCoins = {};
 
 	let targetMoneyId = coinsInWallet[coinsInWallet.length - 1].id;
 	let remainedPrice = Math.abs(difference);
@@ -72,6 +55,9 @@ const withdrawMoney = (coins, difference) => {
 		if (remainedPrice >= targetPrice) {
 			remainedPrice -= targetPrice;
 			targetMoney.count += 1;
+			changedCoins[targetPrice] = changedCoins[targetPrice]
+				? changedCoins[targetPrice] + 1
+				: 1;
 		} else {
 			targetMoneyId -= 1;
 		}
@@ -79,7 +65,8 @@ const withdrawMoney = (coins, difference) => {
 
 	const calculatedMoney = difference + remainedPrice;
 
-	return { calculatedMoney, coinsInWallet };
+	// changedCoins is likes {10: 3, 100: 3, 500: 1, 1000: 3, 5000: 1, 10000: 20}
+	return { calculatedMoney, changedCoins };
 };
 
-export { getPriceType, useDebounce, spendMoney, withdrawMoney };
+export { spendMoney, withdrawMoney };

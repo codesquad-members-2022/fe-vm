@@ -1,5 +1,10 @@
 import styled, { css } from 'styled-components';
 
+const ItemsWrapper = styled.div`
+	position: relative;
+	flex-basis: 50%;
+`;
+
 const ItemsDiv = styled.div`
 	display: flex;
 	justify-content: space-evenly;
@@ -7,15 +12,22 @@ const ItemsDiv = styled.div`
 	padding: 10px;
 	margin: 10px;
 	flex: 1 1 0;
+	width: 400px;
+	height: 100%;
+	overflow: scroll;
 	${({ theme: { colors } }) => css`
-		border-radius: 10px;
+		border-radius: 20px;
 		border: 2px solid ${colors.black};
 	`}
 `;
 
-const ItemDiv = styled.div`
+const ItemDiv = styled.button`
 	align-content: flex-start;
-	flex-basis: 35%;
+	flex-basis: 40%;
+	font-size: 18px;
+	line-height: 110%;
+	font-family: 'IBM Plex Sans KR', sans-serif;
+	font-weight: 500;
 	margin: 10px;
 	padding: 10px;
 
@@ -23,24 +35,31 @@ const ItemDiv = styled.div`
 		!empty &&
 		css`
 			border: 2px solid ${colors.black};
-			border-radius: 10px;
+			border-radius: 20px;
 		`};
 
 	${({ theme: { colors }, isSelectable }) =>
 		isSelectable &&
 		css`
-			background-color: ${colors.green};
-			color: ${colors.white};
-			border: none;
+			border: 2px solid ${colors.green};
+			color: ${colors.green};
 			cursor: pointer;
+			:hover {
+				background-color: ${colors.green};
+				color: ${colors.white};
+			}
 		`}
+
 	${({ theme: { colors }, count }) =>
 		count === 0 &&
 		css`
-			color: ${colors.red};
-			border: 2px solid ${colors.red};
-			background-color: white;
 			cursor: not-allowed;
+			border: ${colors.red} 2px solid;
+			color: ${colors.red};
+			:hover {
+				color: ${colors.white};
+				background-color: ${colors.red};
+			}
 		`}
 `;
 
@@ -52,4 +71,67 @@ const ItmePriceDiv = styled.div`
 	padding: 2px;
 `;
 
-export { ItemsDiv, ItemDiv, ItemNameDiv, ItmePriceDiv };
+const ItemWrapper = styled.div``;
+
+const TakingOutDiv = styled.div`
+	${({ theme: { colors } }) => css`
+		position: absolute;
+		width: 400px;
+		height: 100%;
+		opacity: 70%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		color: ${colors.yellow};
+		font-size: 25px;
+		padding: 10px;
+		margin: 10px;
+		border: solid 2px ${colors.black};
+		border-radius: 20px;
+		background-color: ${colors.black};
+	}
+	`}
+
+	${({ isTakingOut }) =>
+		!isTakingOut &&
+		css`
+			visibility: hidden;
+		`}
+`;
+
+const Loading = styled.div`
+	${({ theme: { colors } }) => css`
+		position: relative;
+		margin-top: 20px;
+
+		div {
+			margin: 0 auto;
+			border: 10px solid orange;
+			border-radius: 50%;
+			border-color: ${colors.yellow} transparent transparent transparent;
+			width: 50px;
+			height: 50px;
+			animation: spinning 1s infinite;
+		}
+
+		@keyframes spinning {
+			from {
+				transform: rotate(0);
+			}
+			to {
+				transform: rotate(360deg);
+			}
+		}
+	`}
+`;
+
+export {
+	ItemsWrapper,
+	ItemsDiv,
+	ItemDiv,
+	ItemNameDiv,
+	ItmePriceDiv,
+	ItemWrapper,
+	TakingOutDiv,
+	Loading,
+};

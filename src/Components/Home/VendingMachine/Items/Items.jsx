@@ -1,30 +1,44 @@
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
 
-import itemsApi from 'Service/itemsApi';
+import { IsTakingOutContext, ItemsContext } from 'Components/Contexts';
+import { TAKINGOUT, lineCount } from 'Components/Common/constant';
 import Item from './Item';
-import { ItemsDiv, ItemDiv } from './Items.styled';
+import {
+	ItemsWrapper,
+	ItemsDiv,
+	ItemDiv,
+	TakingOutDiv,
+	Loading,
+} from './Items.styled';
 
 const Items = () => {
-	const [items, setItems] = useState([]);
+	const { items } = useContext(ItemsContext);
+	const { isTakingOut } = useContext(IsTakingOutContext);
 
-	const fetchItems = async () => {
-		const itemsData = await itemsApi.getItems();
-		setItems(itemsData);
-	};
+	const getList = (itemsArray) => {
+		const list = itemsArray.map((item) => <Item key={item.id} item={item} />);
 
-	const getList = (array) => {
-		const list = array.map((item) => <Item key={item.id} item={item} />);
-		if (list.length % 2) list.push(<ItemDiv key={array.length} empty={true} />);
+		if (list.length % lineCount) {
+			list.push(<ItemDiv key={itemsArray.length} empty={true} />);
+		}
 		return list;
 	};
 
 	const list = items.length ? getList(items) : null;
 
-	useEffect(() => {
-		fetchItems();
-	}, []);
-
-	return <ItemsDiv>{list}</ItemsDiv>;
+	return (
+		<ItemsWrapper>
+			<TakingOutDiv isTakingOut={isTakingOut}>
+				<div>
+					{TAKINGOUT}
+					<Loading>
+						<div />
+					</Loading>
+				</div>
+			</TakingOutDiv>
+			<ItemsDiv>{list}</ItemsDiv>
+		</ItemsWrapper>
+	);
 };
 
 export default Items;

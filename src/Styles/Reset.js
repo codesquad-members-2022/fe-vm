@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 const Reset = createGlobalStyle`
   /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -59,10 +59,16 @@ const Reset = createGlobalStyle`
 
   /* reset */
 
-  button{
+  button {
     border: 0;
     padding: 0;
     background-color: transparent;
+  }
+
+  a {
+    :link { color: inherit; text-decoration: none;}
+    :visited { color: inherit; text-decoration: none;}
+    :hover { color: inherit; text-decoration: none;}
   }
 `;
 

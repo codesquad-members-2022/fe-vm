@@ -8,7 +8,7 @@ const NotFoundDiv = styled.div`
 		font-family: 'IBM Plex Sans KR', sans-serif;
 		color: ${colors.white};
 		background-color: ${colors.green};
-		border-radius: 50px;
+		border-radius: 20px;
 		margin: 50px;
 		padding: 50px;
 	`}
