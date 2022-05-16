@@ -9,16 +9,14 @@ import { delay } from 'utils';
 export const MoneyContext = React.createContext();
 export const ErrorContext = React.createContext();
 
-const defaultMoney = 0;
-const defaultErrorMsg = '';
-
 function App() {
-  const [curMoney, setMoney] = useState(defaultMoney);
-  const [errorMsg, setErrorMsg] = useState(defaultErrorMsg);
+  const [curMoney, setMoney] = useState(0);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [coins, setCoins] = useState(undefined);
 
   return (
     <ErrorContext.Provider value={{ showErrorMsg }}>
-      <MoneyContext.Provider value={{ curMoney, setMoney }}>
+      <MoneyContext.Provider value={{ curMoney, setMoney, coins, setCoins }}>
         <BrowserRouter>
           <Nav>
             <Link to="/">자판기</Link>

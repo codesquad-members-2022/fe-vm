@@ -1,8 +1,8 @@
 import { getRandomNumber } from 'utils';
 
-const UNITS_MONEY = [10, 50, 100, 500, 1000, 5000, 10000];
-const COINS = UNITS_MONEY.map((x) => ({
-  AMOUNT: x,
+const UNITS_MONEY = [10000, 5000, 1000, 500, 100, 50, 10];
+const COINS = UNITS_MONEY.map((unit) => ({
+  AMOUNT: unit,
   CNT: getRandomNumber({ min: 0, max: 10 }),
 }));
 
