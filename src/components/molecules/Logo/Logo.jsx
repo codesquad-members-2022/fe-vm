@@ -16,7 +16,7 @@ const LogoTitleContents = {
 
 const Logo = ({ type, ...props }) => {
   return (
-    <StyledLogo type={type} flexType={'centerAround'}>
+    <StyledLogo type={type} flexType="centerAround">
       {!LogoImageIsFlipped[type] && <LogoImage isFlipped={LogoImageIsFlipped[type]} />}
       <LogoTitle contents={LogoTitleContents[type]} />
       {LogoImageIsFlipped[type] && <LogoImage isFlipped={LogoImageIsFlipped[type]} />}

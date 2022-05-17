@@ -6,9 +6,9 @@ import { StyledProductBox } from './ProductBox.style';
 
 const ProductBox = ({ icon, cost, ...props }) => {
   return (
-    <StyledProductBox flexType={'centerAround'} borderType={'rounded'}>
-      <Label flexType={'center'} sizeType={'medium'} fontType={'logo'} borderType={'none'} children={icon}></Label>
-      <Button sizeType={'thin'} borderType={'rounded'} colorType={'active'} children={cost}></Button>
+    <StyledProductBox flexType="centerAround" borderType="rounded">
+      <Label flexType="center" sizeType="medium" fontType="logo" borderType="none" children={icon}></Label>
+      <Button sizeType="thin" borderType="rounded" colorType="active" children={cost}></Button>
     </StyledProductBox>
   );
 };

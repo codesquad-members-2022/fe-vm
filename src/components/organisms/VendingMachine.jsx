@@ -7,8 +7,8 @@ import mockData from 'components/organisms/ProductMockData';
 
 const VendingMachine = ({ title, ...props }) => {
   return (
-    <StyledVM flexType={'center'}>
-      <ProductWrapper flexType={'center'}>
+    <StyledVM flexType="center">
+      <ProductWrapper flexType="center">
         {mockData.map((v, i) => {
           return <ProductBox key={v.name} icon={v.icon} cost={v.cost} />;
         })}

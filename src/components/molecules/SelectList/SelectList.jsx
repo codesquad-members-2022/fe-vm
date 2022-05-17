@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'components/atoms/Icon/Icon';
 import { StyledSelectList, StyledSelectTitle } from './SelectList.style';
-import Label from 'components/atoms/Label/Label';
 
 const SelectList = ({ title, ...props }) => {
   return (
-    <StyledSelectList flexType={'centerBetween'} borderType={'rounded'}>
-      <Icon iconName={'caretDown'}></Icon>
+    <StyledSelectList flexType="centerBetween" borderType="rounded">
+      <Icon iconName="caretDown"></Icon>
       <StyledSelectTitle>Select</StyledSelectTitle>
     </StyledSelectList>
   );
