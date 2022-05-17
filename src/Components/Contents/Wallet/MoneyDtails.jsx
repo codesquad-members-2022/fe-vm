@@ -19,7 +19,21 @@ export default function MoneyDtails() {
 }
 
 function Money() {
-  const { myMoneyDetails } = useContext(myMoneyContext);
+  const { myMoneyDetails, setMyMoneyDetails } = useContext(myMoneyContext);
+
+  const payMoney = (moneyInfo) => {
+    const updateMoney = {
+      type: moneyInfo.type,
+      value: moneyInfo.value,
+      count: moneyInfo.count - 1,
+    };
+    const updateMoneyDetails = myMoneyDetails.map((money) => {
+      return money.value === moneyInfo.value ? updateMoney : money;
+    });
+
+    setMyMoneyDetails(updateMoneyDetails);
+  };
+
   const moneyTags = myMoneyDetails.map((moneyInfo) => {
     return (
       <MoneyBox key={moneyInfo.value} moneyType={moneyInfo.type}>
@@ -27,6 +41,7 @@ function Money() {
           type="button"
           moneyType={moneyInfo.type}
           disabled={!moneyInfo.count}
+          onClick={payMoney.bind(null, moneyInfo)}
         >
           {changeNumToLocalMoney(moneyInfo.value)}
         </MoneyButton>
