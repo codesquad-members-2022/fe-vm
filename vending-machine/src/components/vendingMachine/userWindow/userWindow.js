@@ -10,13 +10,13 @@ import {
 import { useContext } from 'react';
 import { InputMoneyContext, LogContext, PaybackTimerContext, ProgressContext } from '../vendingMachine';
 import { LogMonitor } from '../userWindowLogMonitor/logMonitor';
+import { PAYBACK_TIME } from '../../../common/constants';
 
 export function UserWindow() {
   const { inputMoney, setInputMoney } = useContext(InputMoneyContext);
   const { setLogList } = useContext(LogContext);
   const { inProgress } = useContext(ProgressContext);
   const { paybackTimer, setPaybackTimer } = useContext(PaybackTimerContext);
-  const PAYBACK_TIME = 4000;
 
   function handleKeyPress(e) {
     if (inProgress) return;
