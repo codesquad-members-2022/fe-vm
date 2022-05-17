@@ -29,7 +29,7 @@ function itemReducer(state: ItemState, action: ItemAction): ItemState {
   }
 }
 
-export function itemContextProvider({
+export function ItemContextProvider({
   children,
 }: {
   children: React.ReactNode;
