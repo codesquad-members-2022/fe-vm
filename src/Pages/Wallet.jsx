@@ -1,17 +1,52 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
+import {useAccount} from '../Hooks/Account';
 import styled from 'styled-components';
 
 import {MONEY_BUTTON_DATA} from '../mocks/MoneyButtonData';
 import {UserAccount} from '../Store';
 import {InsertButton} from '../Component';
 
+const accountReducer = (state, action) => {
+  switch (action.type) {
+    case 'insert':
+      return {
+        currentMoney: state.currentMoney - action.incomeMoney,
+        insertedMoney: state.insertedMoney + action.incomeMoney,
+      };
+
+    case 'refund':
+      return {
+        currentMoney: state.currentMoney + state.insertedMoney,
+        insertedMoney: 0,
+      };
+
+    case 'buy':
+      return {
+        currentMoney: state.currentMoney,
+        insertedMoney: state.insertedMoney - action.incomeMoney,
+      };
+
+    default:
+      throw new Error(`잘못된 액션 입력입니다. ${action.type}`);
+  }
+};
+
 export const Wallet = () => {
-  const {account} = useContext(UserAccount);
-  console.log(account);
+  const {account, sinkedAccount} = useContext(UserAccount);
+  const {insertMoney, userMoney} = useAccount(account, accountReducer);
+
+  useEffect(() => {
+    sinkedAccount(userMoney);
+  }, [userMoney]);
+
   return (
     <WalletWrapper>
-      <InsertButton insertBtnData={MONEY_BUTTON_DATA} />
-      <TotalMoney>{account.currentMoney}</TotalMoney>
+      <InsertButton
+        handleMoneyBtn={insertMoney}
+        insertBtnData={MONEY_BUTTON_DATA}
+        walletState={userMoney}
+      />
+      <TotalMoney>{userMoney.currentMoney}</TotalMoney>
     </WalletWrapper>
   );
 };

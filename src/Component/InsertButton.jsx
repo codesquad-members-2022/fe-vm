@@ -1,8 +1,6 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
 
-import {UserAccount} from '../Store';
-
 const divideCurrentMoney = (moneyList, money) => {
   moneyList.forEach(v => {
     v.count = parseInt(money / v.unit);
@@ -11,25 +9,25 @@ const divideCurrentMoney = (moneyList, money) => {
   return moneyList;
 };
 
-const handleMoneyButton = (unit, currentMoney, insertMoney) => {
+const handleMoneyButton = (unit, currentMoney, insertMoney) => () => {
   if (currentMoney < unit) {
     return;
   }
   insertMoney(unit);
 };
 
-export const InsertButton = ({insertBtnData}) => {
-  const {
-    account: {currentMoney},
-    insertMoney,
-  } = useContext(UserAccount);
+export const InsertButton = ({
+  insertBtnData,
+  handleMoneyBtn,
+  walletState: {currentMoney},
+}) => {
   const insertBtnList = divideCurrentMoney(insertBtnData, currentMoney);
 
   return insertBtnList.map(({unit, id, count}) => (
     <InsertBtnWrapper>
       <MoneyBtn
         key={id}
-        onClick={() => handleMoneyButton(unit, currentMoney, insertMoney)}
+        onClick={handleMoneyButton(unit, currentMoney, handleMoneyBtn)}
       >
         {unit + '원'}
       </MoneyBtn>

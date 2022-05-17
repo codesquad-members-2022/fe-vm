@@ -24,10 +24,7 @@ export const VendingMachineInterface = () => {
 
   return (
     <VM_Wrapper>
-      <VM_MoneyInput
-        onChange={sudoInputEvent}
-        value={userMoney.insertedMoney}
-      />
+      <VM_MoneyInput onChange={sudoInputEvent} value={account.insertedMoney} />
       <VM_RefundBtn>잔액 반환</VM_RefundBtn>
       <VM_History></VM_History>
     </VM_Wrapper>
