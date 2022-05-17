@@ -17,8 +17,7 @@ function Product({ title, price, amount }) {
     >
       <ProductImage src={canSrc}></ProductImage>
       <ProductTitle>{title}</ProductTitle>
-      <ProductPrice>{price.toLocaleString()}원</ProductPrice>
-      {amount}
+      <ProductPrice>{price.toLocaleString("ko-KR")}원</ProductPrice>
     </ProductWrap>
   );
 }

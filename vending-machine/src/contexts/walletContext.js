@@ -4,7 +4,8 @@ import { wallet } from "../datas/wallet";
 export const WalletContext = createContext(wallet);
 function WalletProvider({ children }) {
   const [walletMoney, setWalletMoney] = useState(wallet);
-  const moneyInfo = { walletMoney, setWalletMoney };
+  const [inputMoney, setInputMoney] = useState(0);
+  const moneyInfo = { walletMoney, setWalletMoney, inputMoney, setInputMoney };
   const sum = walletMoney.reduce(
     (pre, cur) => pre + Number(cur.title) * Number(cur.amount),
     0

@@ -4,12 +4,19 @@ import { CenterSort, HeightSort } from "../style/Globalstyles";
 import { WalletContext } from "../contexts/walletContext";
 import { decreaseAmount } from "../util/util";
 function Currency({ money, amount }) {
-  const { walletMoney, setWalletMoney } = useContext(WalletContext).value;
+  const { walletMoney, setWalletMoney, inputMoney, setInputMoney } =
+    useContext(WalletContext).value;
+  function calculateInput(money, amount) {
+    if (amount > 0) {
+      setInputMoney(inputMoney + money);
+    }
+  }
   return (
     <CurrencyWrap>
       <Money
         onClick={() => {
           decreaseAmount(walletMoney, amount, setWalletMoney, money);
+          calculateInput(money, amount);
         }}
       >
         {money.toLocaleString()}원
