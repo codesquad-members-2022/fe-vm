@@ -16,9 +16,4 @@ const SubTitle = styled.h1`
   padding: 30px;
 `;
 
-const Log = styled.p`
-  font-size: ${({ theme: { fontSize } }) => fontSize.small};
-  padding: 5px;
-`;
-
-export { itemStyle, Title, SubTitle, Log };
+export { itemStyle, Title, SubTitle };
