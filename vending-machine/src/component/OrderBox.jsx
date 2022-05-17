@@ -4,17 +4,7 @@ import insertIcon from "../asset/insert.png";
 import logo from "../asset/codesquad.png";
 import VendingMachineDisplay from "./VendingMachineDisplay";
 
-import { useState } from "react";
-import ModalPortal from "../Portal";
-import Modal from "../page/InsertModal";
-
 function OrderBox() {
-    const [modalOn, setModalOn] = useState(false);
-
-    function handleModal() {
-        setModalOn(!modalOn);
-    }
-
     function handleReturnBtn() {
         console.log("return");
     }
@@ -28,8 +18,7 @@ function OrderBox() {
             <VendingMachineDisplay />
             <VendingMachineBtnBox>
                 <ReturnBtn onClick={handleReturnBtn} />
-                <InsertBtn onClick={handleModal} />
-                <ModalPortal>{modalOn && <Modal onClose={handleModal} />}</ModalPortal>
+                <InsertBtn onClick={handleInsertBtn} />
             </VendingMachineBtnBox>
         </OrderContainer>
     );
