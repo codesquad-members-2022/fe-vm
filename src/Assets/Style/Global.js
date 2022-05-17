@@ -4,11 +4,17 @@ import { F_center, Color } from './Common';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
+  html{
+    font-size: 10px;
+  }
   body{
-    font-size: 14px;
     font-family: 'Noto Sans KR', sans-serif;
     background-color: ${Color.backGroundGray};
   }
+  button{
+    cursor: pointer;
+    outline: none;
+};
 
   #root{
     ${F_center}
