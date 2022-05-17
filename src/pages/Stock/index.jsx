@@ -1,16 +1,17 @@
 import React from 'react';
 
 import ItemBlock from '@/components/ItemBlock';
-import mockData from '@/mock/product';
+import UserLog from '@/components/UserLog';
+import productData from '@/mocks/product';
 import * as S from '@/pages/Vendor/Vendor.style';
-import { Title, Log } from '@/styles/common';
+import { Title } from '@/styles/common';
 
 const Stock = () => {
   return (
     <>
       <S.VendorWrapper>
         <S.ProductGrid>
-          {mockData.map(({ id, name, price, stock, category, categoryId }) => (
+          {productData.map(({ id, name, price, stock, category, categoryId }) => (
             <li key={id}>
               <ItemBlock
                 name={name}
@@ -24,13 +25,7 @@ const Stock = () => {
         </S.ProductGrid>
         <S.SideWrapper>
           <Title>MY STOCK</Title>
-          <S.Logger isStock>
-            {mockData.map(({ id, name, stock }) => (
-              <li key={id}>
-                <Log>{`${name} : ${stock}`}</Log>
-              </li>
-            ))}
-          </S.Logger>
+          <UserLog isStock></UserLog>
         </S.SideWrapper>
       </S.VendorWrapper>
     </>
