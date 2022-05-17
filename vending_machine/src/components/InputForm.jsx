@@ -3,7 +3,10 @@ import styled from 'styled-components';
 
 import { ProgressContext } from '../App';
 import { color, fontSize } from '../style/variables';
-import { changeKoreanLocalMoney } from '../utility/util';
+import {
+  changeKoreanLocalMoney,
+  changeStrMoneyToNumMoney,
+} from '../utility/util';
 
 const InputForm = ({ totalMoney, setTotalMoney }) => {
   const inputTag = useRef();
@@ -12,9 +15,9 @@ const InputForm = ({ totalMoney, setTotalMoney }) => {
 
   const changeTotalMoney = (e) => {
     e.preventDefault();
-    const inputValue = inputTag.current.value;
-    setTotalMoney(Number(totalMoney) + Number(inputValue));
-    addMoneyMessage(Number(inputValue));
+    const inputValue = +changeStrMoneyToNumMoney(inputTag.current.value);
+    setTotalMoney(+totalMoney + inputValue);
+    addMoneyMessage(inputValue);
     inputTag.current.value = '';
   };
 
