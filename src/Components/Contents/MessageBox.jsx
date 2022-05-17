@@ -4,7 +4,7 @@ import { Color, FontSize, Radius10 } from '../../Assets/Common.style';
 import EnTitle from '../EnTitle';
 import { contentsContext } from '../MainContents';
 
-export default function MessageBox() {
+export default function MessageBox({ page }) {
   const { printMessages } = useContext(contentsContext);
   const messagesText = printMessages.map((msg, idx) => {
     return <p key={idx}>{msg}</p>;
@@ -18,7 +18,7 @@ export default function MessageBox() {
         size={FontSize.LARGE}
         color={Color.WHITE}
       />
-      <TextBox>
+      <TextBox page={page}>
         <Text>{messagesText}</Text>
       </TextBox>
     </MassegeContent>
@@ -30,7 +30,7 @@ const MassegeContent = styled.div`
 `;
 
 const TextBox = styled.div`
-  height: 320px;
+  height: ${({ page }) => (page === 'wallet' ? `296px` : '320px')};
   ${Radius10}
   margin-top: 10px;
   padding: 30px;
