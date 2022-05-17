@@ -1,13 +1,13 @@
 import { useContext } from 'react';
-import styled from 'styled-components';
-import Message from './Message';
+import Message from 'components/Message';
+import { myContext } from 'components/App';
 import {
-  FlexCenter,
-  CalculatorText,
-  boxShadowBorderRadi,
-  ButtonCommon,
-} from '../styled-components/util';
-import { myContext } from './App';
+  Container,
+  PriceInfo,
+  Price,
+  Change,
+  MessageList,
+} from 'components/Calculator.Styled';
 
 const Calculator = ({ messageInfo, handleClickChange }) => {
   const { inputMoney } = useContext(myContext);
@@ -29,45 +29,5 @@ const Calculator = ({ messageInfo, handleClickChange }) => {
     </Container>
   );
 };
-
-const Container = styled(FlexCenter)`
-  flex-direction: column;
-  width: 60%;
-  padding: ${({ theme }) => theme.padding.large};
-`;
-
-const PriceInfo = styled.div`
-  width: 90%;
-  height: 6rem;
-  text-align: right;
-  ${boxShadowBorderRadi}
-`;
-
-const Price = styled(CalculatorText)`
-  margin-right: ${({ theme }) => theme.margin.large};
-  cursor: default;
-`;
-
-const Change = styled(CalculatorText)`
-  display: block;
-  width: 90%;
-  height: 6rem;
-  margin-top: ${({ theme }) => theme.margin.xLarge};
-  padding: 0;
-  ${boxShadowBorderRadi}
-  ${ButtonCommon}
-  
-  &:hover {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
-  }
-`;
-
-const MessageList = styled.ul`
-  width: 90%;
-  height: 45rem;
-  margin-top: ${({ theme }) => theme.margin.xLarge};
-  overflow-y: auto;
-  ${boxShadowBorderRadi}
-`;
 
 export default Calculator;

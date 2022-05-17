@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { GNBList, GNBLink } from 'components/GNB.Styled';
 
 const GNB_TEXT = ['자판기', '지갑'];
 const GNB_LINK = ['/fe-vm/', '/fe-vm/wallet'];
@@ -29,20 +28,5 @@ const GNB = () => {
     </GNBList>
   );
 };
-
-const GNBList = styled.ul`
-  display: flex;
-  font-size: ${({ theme }) => theme.fontSize.large};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  .active {
-    border-bottom: solid
-      ${({ theme }) => [theme.borderSize.small, theme.color.black]};
-  }
-`;
-
-const GNBLink = styled(Link)`
-  display: block;
-  padding: ${({ theme }) => theme.padding.medium};
-`;
 
 export default GNB;
