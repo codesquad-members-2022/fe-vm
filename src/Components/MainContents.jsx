@@ -9,14 +9,13 @@ export const contentsContext = createContext();
 export const myMoneyContext = createContext();
 
 export default function MainContents() {
-  const initMyMoney = moneyData.reduce(
-    (prev, next) => prev + next.value * next.count,
-    0,
-  );
   const [payTotal, setPayTotal] = useState(0);
   const [printMessages, setPrintMessages] = useState([]);
   const [myMoneyDetails, setMyMoneyDetails] = useState(moneyData);
-  const [myMoneyTotal, setMyMoneyTotal] = useState(initMyMoney);
+  const myMoneyTotal = myMoneyDetails.reduce(
+    (prev, next) => prev + next.value * next.count,
+    0,
+  );
 
   return (
     <contentsContext.Provider
@@ -27,7 +26,6 @@ export default function MainContents() {
           myMoneyDetails,
           setMyMoneyDetails,
           myMoneyTotal,
-          setMyMoneyTotal,
         }}
       >
         <Routes path="/">
