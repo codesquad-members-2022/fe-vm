@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { messageContext } from "../contexts/messageContext";
+import { WalletContext } from "../contexts/walletContext";
 
 function ReturnBtn() {
+  const setInputMoneySum = useContext(WalletContext).value.setInputMoneySum;
+  const setMessage = useContext(messageContext).setMessage;
+  function returnInputMoney() {
+    setInputMoneySum(0);
+  }
   return (
     <ReturnBtnWrap>
-      <ReturnMoneyBtn>반환</ReturnMoneyBtn>
+      <ReturnMoneyBtn
+        onClick={() => {
+          returnInputMoney();
+        }}
+      >
+        반환
+      </ReturnMoneyBtn>
     </ReturnBtnWrap>
   );
 }
