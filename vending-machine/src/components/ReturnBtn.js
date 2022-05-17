@@ -5,15 +5,23 @@ import { WalletContext } from "../contexts/walletContext";
 
 function ReturnBtn() {
   const setInputMoneySum = useContext(WalletContext).value.setInputMoneySum;
+  const inputMoneySum = useContext(WalletContext).value.inputMoneySum;
+  const sum = useContext(WalletContext).sum;
+  const setSum = useContext(WalletContext).setSum;
   const setMessage = useContext(messageContext).setMessage;
   function returnInputMoney() {
+    setSum(sum + inputMoneySum);
     setInputMoneySum(0);
+  }
+  function makeReturnMessage() {
+    setMessage(`잔돈이 반환됨`);
   }
   return (
     <ReturnBtnWrap>
       <ReturnMoneyBtn
         onClick={() => {
           returnInputMoney();
+          makeReturnMessage();
         }}
       >
         반환

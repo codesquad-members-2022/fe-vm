@@ -7,6 +7,8 @@ import { messageContext } from "../contexts/messageContext";
 function Currency({ money, amount }) {
   const { walletMoney, setWalletMoney, inputMoneySum, setInputMoneySum } =
     useContext(WalletContext).value;
+  const sum = useContext(WalletContext).sum;
+  const setSum = useContext(WalletContext).setSum;
   const setMessage = useContext(messageContext).setMessage;
 
   function makeInputMessage(money) {
@@ -16,6 +18,7 @@ function Currency({ money, amount }) {
   function calculateInput(money, amount) {
     if (amount > 0) {
       setInputMoneySum(inputMoneySum + money);
+      setSum(sum - money);
       const message = makeInputMessage(money);
       setMessage(message);
     }
