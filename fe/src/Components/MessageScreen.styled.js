@@ -8,12 +8,12 @@ export const ScreenContainer = styled.div`
   box-shadow: 0px 0px 20px 1px rgb(200, 200, 200);
 `;
 
-export const Screen = styled.div`
+export const Screen = styled.ul`
   padding: 20px;
   box-shadow: 0px 0px 20px 1px rgb(200, 200, 200);
 `;
 
-export const Message = styled.div`
+export const Message = styled.li`
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 10px;
