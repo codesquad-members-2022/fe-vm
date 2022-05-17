@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 function VendingMachineDisplay() {
-    // 총액=0 ? 판매중 : 총액
     return <DisplayText>판매중...</DisplayText>;
 }
 

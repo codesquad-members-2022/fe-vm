@@ -1,6 +1,6 @@
 import { Reset } from "styled-reset";
-import styled, { ThemeProvider } from "styled-components";
-import { BrowserRouter, Routes, Route, Link, Outlet } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./page/Layout";
 import VendingMachine from "./page/VendingMachine";
 import Wallet from "./page/Wallet";

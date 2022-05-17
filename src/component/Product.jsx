@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import * as uiConst from "../constant/uiConstant";
 
-//TODO: 현재 총액을 context로 받아와서 price와 비교 후 cursor랑 backgroundcolor 변경
-
 function Product({ name, price, quantity }) {
     return (
         <ProductBox>
