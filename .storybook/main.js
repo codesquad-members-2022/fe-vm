@@ -21,6 +21,7 @@ module.exports = {
       '@constants': path.resolve(__dirname, '../src/constants'),
       '@data': path.resolve(__dirname, '../src/data'),
       '@lib': path.resolve(__dirname, '../src/lib'),
+      '@assets': path.resolve(__dirname, '../src/assets'),
     };
     return config;
   },
