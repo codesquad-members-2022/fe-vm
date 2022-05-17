@@ -18,6 +18,12 @@ const activeStyle = `
   cursor: pointer;
 `;
 
+const vmItemStyleMap = {
+  soldout: soldOutStyle,
+  active: activeStyle,
+  default: defaultStyle,
+};
+
 const VMItem = ({ item: { id, name, amount, count }, onClickActiveItem }) => {
   const { inputMoney, setInputMoney } = useContext(MoneyContext);
   const [, insertLog] = useContext(LogContext);
@@ -29,7 +35,7 @@ const VMItem = ({ item: { id, name, amount, count }, onClickActiveItem }) => {
   } else if (isActive) {
     itemStatus = 'active';
   } else {
-    itemStatus = 'none';
+    itemStatus = 'default';
   }
 
   const handleClickActiveItem = () => {
@@ -70,16 +76,7 @@ const ItemNameBox = styled.div`
   justify-content: center;
   width: 6rem;
   height: 5rem;
-  ${({ status }) => {
-    switch (status) {
-      case 'active':
-        return activeStyle;
-      case 'soldout':
-        return soldOutStyle;
-      default:
-        return defaultStyle;
-    }
-  }}
+  ${({ status }) => vmItemStyleMap(status)}
 `;
 
 const ItemPriceBox = styled.div`
