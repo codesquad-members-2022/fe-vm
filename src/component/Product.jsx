@@ -20,11 +20,11 @@ const ProductBox = styled.button`
     align-items: center;
 `;
 
-const ProductName = styled.div`
+const ProductName = styled.span`
     font-size: ${({ theme }) => theme.fontSizes.xxl};
 `;
 
-const ProductPrice = styled.div`
+const ProductPrice = styled.span`
     font-size: ${({ theme }) => theme.fontSizes.medium};
 `;
 
