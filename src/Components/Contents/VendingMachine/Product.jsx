@@ -23,8 +23,8 @@ export default function Product({ products }) {
 }
 
 function Item({ product }) {
-  const { payTotal, setPayTotal } = useContext(contentsContext);
-  const { printMessages, setPrintMessages } = useContext(contentsContext);
+  const { payTotal, setPayTotal, printMessages, setPrintMessages } =
+    useContext(contentsContext);
   const isSoldOut = !product.stock;
   const isActive = payTotal >= product.price;
 
