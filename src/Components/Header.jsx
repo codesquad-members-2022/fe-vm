@@ -1,44 +1,37 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import EnTitle from './EnTitle';
-import ToggleIcon from './ToggleIcon';
-import { Color, FontSize, F_Center } from '../Assets/Common.style';
+import {
+  Absolute,
+  Color,
+  FontSize,
+  F_Center,
+  Relative,
+} from '../Assets/Common.style';
 
 export default function Header({ menu }) {
-  const [active, setActive] = useState('vending-machine');
-
-  const tabClickHandler = (menu) => {
-    setActive(menu);
-  };
+  const NavLinks = menu.map((nav) => {
+    return (
+      <NavLink
+        key={nav.value}
+        to={nav.path}
+        className={({ isActive }) =>
+          'nav-link ' + nav.value + (isActive ? ' active' : '')
+        }
+      >
+        <EnTitle
+          title={nav.title}
+          tag="h2"
+          size={FontSize.DISPLAY}
+          color={Color.BLACK}
+        />
+      </NavLink>
+    );
+  });
 
   return (
     <HEADER>
-      <TabMenu className={active}>
-        <Link
-          to={menu.menu1.path}
-          onClick={tabClickHandler.bind(null, menu.menu1.value)}
-        >
-          <EnTitle
-            title={menu.menu1.title}
-            tag="h2"
-            size={FontSize.DISPLAY}
-            color={Color.BLACK}
-          />
-        </Link>
-        <ToggleIcon />
-        <Link
-          to={menu.menu2.path}
-          onClick={tabClickHandler.bind(null, menu.menu2.value)}
-        >
-          <EnTitle
-            title={menu.menu2.title}
-            tag="h2"
-            size={FontSize.DISPLAY}
-            color={Color.BLACK}
-          />
-        </Link>
-      </TabMenu>
+      <TabMenu>{NavLinks}</TabMenu>
     </HEADER>
   );
 }
@@ -51,14 +44,32 @@ const TabMenu = styled.nav`
   ${F_Center}
 
   .nav-link {
-    min-width: 200px;
-  }
+    border-bottom: 5px solid ${Color.GRAY};
+    ${Relative}
+    width: 100%;
+    text-align: center;
+    padding-bottom: 10px;
 
-  &.vending-machine .toggle-circle {
-    left: 5px;
-  }
+    &::after {
+      content: '';
+      ${Absolute}
+      width: 100%;
+      bottom: -5px;
+      height: 5px;
+      background: ${Color.ORANGE[200]};
+      transition: 0.3s ease-out;
+    }
 
-  &.wallet .toggle-circle {
-    left: 65px;
+    &.vending-machine::after {
+      left: 100%;
+    }
+
+    &.wallet::after {
+      left: -100%;
+    }
+
+    &.active::after {
+      left: 0;
+    }
   }
 `;
