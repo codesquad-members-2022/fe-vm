@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import PropTypes from 'prop-types';
 
 function MoneyUnit({ coin, insertMoney, setInsertMoney }) {
@@ -30,7 +29,7 @@ function MoneyUnit({ coin, insertMoney, setInsertMoney }) {
       >
         {coin.unit}
       </button>
-      <span>{coin.count}</span>
+      <span>{`X ${coin.count}`}</span>
     </li>
   );
 }

@@ -1,8 +1,10 @@
-import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import { MoneyContext } from 'components/atoms/Context/MoneyContext';
 import MoneyUnit from 'components/atoms/MoneyUnit/MoneyUnit';
 import StyledMoneyBox from './MoneyBox.style';
 
-function MoneyBox({ insertMoney, setInsertMoney }) {
+function MoneyBox() {
+  const { insertMoney, setInsertMoney } = useContext(MoneyContext);
   return (
     <StyledMoneyBox>
       {insertMoney.map(coin => {
@@ -18,10 +20,5 @@ function MoneyBox({ insertMoney, setInsertMoney }) {
     </StyledMoneyBox>
   );
 }
-
-MoneyBox.propTypes = {
-  insertMoney: PropTypes.arrayOf(PropTypes.objectOf),
-  setInsertMoney: PropTypes.func,
-};
 
 export default MoneyBox;

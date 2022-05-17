@@ -1,10 +1,14 @@
-import { useContext } from 'react';
 import MoneyBox from 'components/molecules/MoneyBox/MoneyBox';
-import { MoneyContext } from 'components/atoms/Context/MoneyContext';
+import TotalMoney from 'components/atoms/TotalMoney/TotalMoney';
+import StyledWallet from './Wallet.style';
 
 function Wallet() {
-  const { insertMoney, setInsertMoney } = useContext(MoneyContext);
-  return <MoneyBox insertMoney={insertMoney} setInsertMoney={setInsertMoney} />;
+  return (
+    <StyledWallet>
+      <MoneyBox />
+      <TotalMoney />
+    </StyledWallet>
+  );
 }
 
 export default Wallet;
