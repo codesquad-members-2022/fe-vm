@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { ProgressContext, TotalMoneyContext } from '../App';
 import DrinkItem from './DrinkItem';
-import { fetchData } from '../utility/util';
+import { getData } from '../utility/util';
 
 const DrinkMenu = () => {
   const [drinkData, setDrinkData] = useState([]);
@@ -12,14 +12,8 @@ const DrinkMenu = () => {
   useEffect(() => {
     const drinkUrl = `${process.env.PUBLIC_URL}/data/drink.json`;
 
-    getDrinkData(drinkUrl, setDrinkData);
+    getData(drinkUrl, setDrinkData);
   }, []);
-
-  const getDrinkData = async (url, setData) => {
-    const response = await fetchData(url);
-
-    setData(response.drink);
-  };
 
   const selectDrink = (id) => () => {
     const selectedItem = drinkData.find((data) => data.id === id);
