@@ -9,7 +9,6 @@ import MyPage from '@/Page/MyPage';
 
 import { WalletContextProvider } from '@/Context/WalletContext';
 import { MessageContextProvider } from './Context/MessageContext';
-import { itemContextProvider } from '@/Context/ItemContext';
 import { PriceContextProvider } from '@/Context/PriceContext';
 
 interface ProviderProps {
@@ -33,7 +32,6 @@ export default function App(): JSX.Element {
         contexts={[
           WalletContextProvider,
           MessageContextProvider,
-          itemContextProvider,
           PriceContextProvider,
         ]}
       >
