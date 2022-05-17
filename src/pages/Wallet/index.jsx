@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 
 import CashDisplay from '@/components/CashDisplay';
 import ItemBlock from '@/components/ItemBlock';
-import { CashContext } from '@/context/CashProvider';
+import { VendorContext } from '@/context/VendorProvider';
 import { Title, SubTitle } from '@/styles/common';
 
 import * as S from './Wallet.style';
 
 const Wallet = () => {
-  const { cash, setCash, balance, setBalance } = useContext(CashContext);
+  const { cash, setCash, balance, setBalance } = useContext(VendorContext);
 
   const handleItemBlockClick = unit => {
     const selectedUnit = cash.find(m => m.unit === unit);
