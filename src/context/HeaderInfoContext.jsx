@@ -3,13 +3,17 @@ import { useState } from "react";
 import HeaderInfoContextStore from "../stores/headerInfoStore";
 
 const HeaderInfoContext = (props) => {
-  const [headerBtnDisplay, setHeaderBtnDisplay] = useState(true);
+  const [IsHeaderBtnClick, setIsHeaderBtnClick] = useState("");
   const headerInfo = {
-    headerBtnDisplay,
-    setHeaderBtnDisplay,
+    IsHeaderBtnClick,
+    setIsHeaderBtnClick,
   };
 
-  return <HeaderInfoContextStore.Provider value={headerInfo}>{props.children}</HeaderInfoContextStore.Provider>;
+  return (
+    <HeaderInfoContextStore.Provider value={headerInfo}>
+      {props.children}
+    </HeaderInfoContextStore.Provider>
+  );
 };
 
 export default HeaderInfoContext;

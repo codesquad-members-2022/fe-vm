@@ -4,26 +4,30 @@ import colors from "../../constants/colors";
 import Text from "../../Text";
 import { FONT } from "../../constants/fonts";
 import HeaderInfoContextStore from "../../stores/headerInfoStore";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
-const VendingMachineBtn = () => {
+const Button = ({ type }) => {
   const headerInfo = useContext(HeaderInfoContextStore);
-  const onHeaderBtnClick = () => {
-    headerInfo.setHeaderBtnDisplay(true);
+  const [btnDisplay, setBtnDisplay] = useState(true);
+
+  const onBtnClick = () => {
+    headerInfo.setIsHeaderBtnClick(type);
   };
+
+  useEffect(() => {
+    if (type === headerInfo.IsHeaderBtnClick) {
+      setBtnDisplay(true);
+    } else {
+      setBtnDisplay(false);
+    }
+  }, [headerInfo.IsHeaderBtnClick]);
+
   return (
-    <HeaderBtn onClick={onHeaderBtnClick} displays={headerInfo.headerBtnDisplay}>
-      <Text font={FONT.MEDIUM_BOLD}>자판기</Text>
+    <HeaderBtn onClick={onBtnClick} displays={btnDisplay}>
+      <Text font={FONT.MEDIUM_BOLD}>{type}</Text>
     </HeaderBtn>
   );
 };
-
-export const HeaderWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  height: 3.5vh;
-  margin-top: 3.5vh;
-`;
 
 const HeaderBtn = styled.div`
   display: flex;
@@ -38,4 +42,4 @@ const HeaderBtn = styled.div`
   color: ${(props) => (props.displays ? colors.lightWhite : colors.black)};
 `;
 
-export default VendingMachineBtn;
+export default Button;
