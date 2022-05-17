@@ -3,18 +3,16 @@ import { Link } from 'react-router-dom';
 import { ROUTE } from 'constant/route';
 import { Tab, Tabs } from '@mui/material';
 import { useUserContext } from 'context/User';
-import { requestLogin } from 'context/User/action';
+import useModal from 'hooks/useModal';
+import LoginModal from 'components/LoginModal';
 import * as S from './style';
 
 function GlobalNavigation() {
-  const { nickname, userDispatch } = useUserContext();
+  const [isModalOpen, handleOpenModal] = useModal();
+  const { nickname } = useUserContext();
   const [activeTabIndex, setActiveTabIndex] = useState(currentTab);
   const handleActiveTab = (event, newValue) => {
     setActiveTabIndex(newValue);
-  };
-
-  const handleClickLoginButton = () => {
-    requestLogin(userDispatch);
   };
 
   return (
@@ -32,10 +30,11 @@ function GlobalNavigation() {
       {nickname ? (
         <span>{nickname}</span>
       ) : (
-        <button type="button" onClick={handleClickLoginButton}>
+        <button type="button" onClick={handleOpenModal}>
           로그인
         </button>
       )}
+      <LoginModal isModalOpen={isModalOpen} handleOpenModal={handleOpenModal} />
     </S.Navigation>
   );
 }
