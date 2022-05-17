@@ -7,15 +7,19 @@ import { StyledProductBox } from './ProductBox.style';
 const ProductBox = ({ icon, cost, ...props }) => {
   return (
     <StyledProductBox flexType="centerAround" borderType="rounded">
-      <Label flexType="center" sizeType="medium" fontType="logo" borderType="none" children={icon}></Label>
-      <Button sizeType="thin" borderType="rounded" colorType="active" children={cost}></Button>
+      <Label flexType="center" sizeType="medium" fontType="logo" borderType="none">
+        {icon}
+      </Label>
+      <Button sizeType="thin" borderType="rounded" colorType="active">
+        {cost}
+      </Button>
     </StyledProductBox>
   );
 };
 
 ProductBox.defaultProps = {
-  icon: '🍝',
-  cost: '9,000원',
+  icon: '❌',
+  cost: 'Empty',
 };
 
 ProductBox.propTypes = {

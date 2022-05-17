@@ -7,8 +7,12 @@ import Label from 'components/atoms/Label/Label';
 const MoneyBox = ({ unit, count, ...props }) => {
   return (
     <StyledMoneyBox flexType={'centerBetween'}>
-      <Button sizeType="large" borderType="rounded" children={unit}></Button>
-      <Label flexType="center" sizeType="small" fontType="medium" borderType="rounded" children={count}></Label>
+      <Button sizeType="large" borderType="rounded">
+        {unit}
+      </Button>
+      <Label flexType="center" sizeType="small" fontType="medium" borderType="rounded">
+        {count}
+      </Label>
     </StyledMoneyBox>
   );
 };
