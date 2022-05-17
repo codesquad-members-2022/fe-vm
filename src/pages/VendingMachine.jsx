@@ -9,14 +9,8 @@ import ProgressBoard from '../components/ProgressBoard';
 import { PriceContext } from '../context/PriceProvider';
 
 export default function VendingMachine() {
-  const {
-    inputPrice,
-    setInputPrice,
-    progressMsg,
-    setProgressMsg,
-    remainMoney,
-    setRemainMoney,
-  } = useContext(PriceContext);
+  const { inputPrice, progressMsg, remainMoney, updatePrice, insertInput } =
+    useContext(PriceContext);
   const [content, setContent] = useState(0);
 
   const handleChangeInput = ({ currentTarget }) => {
@@ -36,9 +30,10 @@ export default function VendingMachine() {
 
     // Todo : 지갑에 요금의 개수가 없거나 지갑 전체 요금보다 큰 경우 예외처리
     const currentPrice = Number(content);
-    setInputPrice(currentPrice);
-    setRemainMoney(remainMoney + currentPrice);
-    setProgressMsg([...progressMsg, `${currentPrice}원이 투입되었습니다.`]);
+    insertInput({
+      currentMoney: currentPrice,
+      msg: `${currentPrice}원이 투입되었습니다.`,
+    });
   };
 
   const handleSelectItem = (title, price) => {
@@ -48,12 +43,11 @@ export default function VendingMachine() {
       return;
     }
 
-    setRemainMoney(currentRemainMoney);
-    setProgressMsg([...progressMsg, `${title}가 선택되었습니다.`]);
+    updatePrice({ currentMoney: -price, msg: `${title}가 선택되었습니다.` });
   };
 
   const handleClickReturnRemain = () => {
-    setProgressMsg([...progressMsg, `잔돈 ${remainMoney}원이 반환됩니다.`]);
+    updatePrice({ msg: `잔돈 ${remainMoney}원이 반환됩니다.` });
   };
 
   return (

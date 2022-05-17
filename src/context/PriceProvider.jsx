@@ -9,9 +9,20 @@ export default function PriceProvider({ children }) {
   const [progressMsg, setProgressMsg] = useState([]);
   const [remainMoney, setRemainMoney] = useState(0);
 
-  const updatePrice = (currentMoney) => {
+  const updatePrice = ({ currentMoney, msg }) => {
+    setProgressMsg([...progressMsg, msg]);
+
+    if (!currentMoney) {
+      setRemainMoney(0);
+      return;
+    }
+
+    setRemainMoney(remainMoney + currentMoney);
+  };
+
+  const insertInput = ({ currentMoney, msg }) => {
     setInputPrice(currentMoney);
-    setProgressMsg([...progressMsg, `${currentMoney}원이 투입되었습니다.`]);
+    updatePrice({ currentMoney, msg });
   };
 
   const value = useMemo(
@@ -23,6 +34,7 @@ export default function PriceProvider({ children }) {
       remainMoney,
       setRemainMoney,
       updatePrice,
+      insertInput,
     }),
     [
       inputPrice,
@@ -32,6 +44,7 @@ export default function PriceProvider({ children }) {
       remainMoney,
       setRemainMoney,
       updatePrice,
+      insertInput,
     ]
   );
 

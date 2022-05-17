@@ -7,8 +7,7 @@ import { PriceContext } from '../context/PriceProvider';
 
 export default function Wallet() {
   const { moneyState, decreaseMoney } = useContext(MoneyContext);
-  const { setInputPrice, updatePrice, remainMoney, setRemainMoney } =
-    useContext(PriceContext);
+  const { insertInput } = useContext(PriceContext);
 
   const handleClickMoney = (currentMoney, num) => {
     if (num < 1) {
@@ -17,9 +16,7 @@ export default function Wallet() {
     }
 
     decreaseMoney(currentMoney);
-    setInputPrice(currentMoney);
-    updatePrice(currentMoney);
-    setRemainMoney(remainMoney + currentMoney);
+    insertInput({ currentMoney, msg: `${currentMoney}원이 투입되었습니다.` });
   };
 
   return (
