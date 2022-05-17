@@ -10,7 +10,8 @@ const BlockBackground = styled(FlexBox)`
   height: 130px;
   justify-content: space-around;
   flex-direction: column;
-  background-color: ${({ theme: { greyScale } }) => greyScale.primaryGrey};
+  background-color: ${({ theme: { color, greyScale }, count, purchasable }) =>
+    count && purchasable ? color.yellow : greyScale.primaryGrey};
   padding: 10px;
   user-select: none;
   cursor: ${({ count }) => (count ? 'pointer' : 'not-allowed')};

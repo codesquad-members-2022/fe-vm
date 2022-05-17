@@ -3,7 +3,7 @@ import React from 'react';
 
 import * as S from './ItemBlock.style';
 
-const ItemBlock = ({ isMoney, unit, count, name, price, stock, category }) => {
+const ItemBlock = ({ isMoney, unit, count, name, price, stock, category, purchasable }) => {
   return (
     <>
       {isMoney ? (
@@ -12,7 +12,7 @@ const ItemBlock = ({ isMoney, unit, count, name, price, stock, category }) => {
           <S.InnerColor isMoney category={count && 'money'}>{`$${unit}`}</S.InnerColor>
         </S.BlockBackground>
       ) : (
-        <S.BlockBackground count={stock}>
+        <S.BlockBackground count={stock} purchasable={purchasable}>
           <S.InnerColor category={stock && category}>{name?.toUpperCase()}</S.InnerColor>
           <S.InnerText>{stock ? `$${price}` : 'SOLD OUT'}</S.InnerText>
         </S.BlockBackground>
@@ -30,6 +30,7 @@ ItemBlock.propTypes = {
   stock: PropTypes.number,
   category: PropTypes.string,
   categoryId: PropTypes.number,
+  purchasable: PropTypes.bool,
 };
 
 export default ItemBlock;
