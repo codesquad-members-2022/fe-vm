@@ -27,7 +27,7 @@ const StyledTotal = styled.span`
   display: inline-block;
   margin-top: 20px;
   width: 270px;
-  border: 2px solid ${color.grey};
+  border: 2px solid ${color.gray};
   padding: 20px 0;
   font-size: ${fontSize.xl};
 `;
