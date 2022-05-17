@@ -1,13 +1,14 @@
 import { StyledItemContainer, StyledItemName, StyledItemPrice } from './itemBox.styled';
 import { getWonTemplate, delay } from '../../../helper/utils';
 import { useContext, useState, useEffect } from 'react';
-import { InputMoneyContext, LogContext, PaybackContext, ProgressContext } from '../vendingMachine';
+import { InputMoneyContext, LogContext, PaybackTimerContext, ProgressContext } from '../vendingMachine';
 
 export function ItemBox({ item }) {
   const { inputMoney, setInputMoney } = useContext(InputMoneyContext);
   const { setLogList } = useContext(LogContext);
   const { inProgress, setInProgress } = useContext(ProgressContext);
-  const { setPaybackState } = useContext(PaybackContext);
+  const { paybackTimer, setPaybackTimer } = useContext(PaybackTimerContext);
+
   const [boxColor, setBoxColor] = useState('gray');
   const [itemStock, setItemStock] = useState(item.stock);
   const ITEM_DROP_TIME = 2000;
@@ -31,13 +32,37 @@ export function ItemBox({ item }) {
     setItemStock(itemStock - 1);
     printInputMoney();
     logChooseItem();
+    stopPaybackTimer();
 
     // 2초 뒤 아이템 드랍
     delay(ITEM_DROP_TIME).then(() => {
       dropItem();
       setInProgress(false);
-      setPaybackState(true);
+      startPaybackTimer();
     });
+  }
+
+  function startPaybackTimer() {
+    const payback = () => {
+      setTimeout(() => {
+        logPaybackMoney();
+        setInputMoney(0);
+        setPaybackTimer(null);
+      }, 4000);
+    };
+    setPaybackTimer(payback());
+  }
+
+  function stopPaybackTimer() {
+    if (paybackTimer !== null) {
+      setPaybackTimer(timer => clearTimeout(timer));
+    }
+  }
+
+  function logPaybackMoney() {
+    if (inputMoney === 0) return;
+    const log = `잔돈 ${getWonTemplate(inputMoney)} 반환됨.`;
+    setLogList(logList => [...logList, log]);
   }
 
   function logChooseItem() {

@@ -6,32 +6,32 @@ import {
   StyledInputBox,
   StyledRepaymentBtn,
 } from './userWindow.styled';
-import { useContext, useEffect } from 'react';
-import { InputMoneyContext, LogContext, PaybackContext, ProgressContext } from '../vendingMachine';
+import { useContext } from 'react';
+import { InputMoneyContext, LogContext, PaybackTimerContext, ProgressContext } from '../vendingMachine';
 import { LogMonitor } from '../userWindowLogMonitor/logMonitor';
 
 export function UserWindow() {
   const { inputMoney, setInputMoney } = useContext(InputMoneyContext);
   const { setLogList } = useContext(LogContext);
-  const { paybackState, setPaybackState } = useContext(PaybackContext);
   const { inProgress } = useContext(ProgressContext);
+  const { paybackTimer, setPaybackTimer } = useContext(PaybackTimerContext);
   const PAYBACK_TIME = 4000;
 
-  useEffect(() => {
-    if (!paybackState) return;
-    console.log('잔돈 반환용 useEffect');
-    setPaybackState(false);
-
-    const timer = setTimeout(() => {
-      logPaybackMoney();
-      setInputMoney(0);
-    }, PAYBACK_TIME);
-
-    // return () => {
-    //   console.log('clear');
-    //   clearTimeout(timer);
-    // };
-  }, [paybackState]);
+  // useEffect(() => {
+  //   if (!paybackState) return;
+  //   console.log('잔돈 반환용 useEffect');
+  //   setPaybackState(false);
+  //
+  //   const timer = setTimeout(() => {
+  //     logPaybackMoney();
+  //     setInputMoney(0);
+  //   }, PAYBACK_TIME);
+  //
+  //   // return () => {
+  //   //   console.log('clear');
+  //   //   clearTimeout(timer);
+  //   // };
+  // }, [paybackState]);
 
   function handleKeyPress(e) {
     if (inProgress) return;
@@ -54,7 +54,17 @@ export function UserWindow() {
   }
 
   function handleClickRepaymentBtn() {
-    setPaybackState(true);
+    if (paybackTimer !== null) {
+      return;
+    }
+    const payback = () => {
+      setTimeout(() => {
+        logPaybackMoney();
+        setInputMoney(0);
+        setPaybackTimer(null);
+      }, PAYBACK_TIME);
+    };
+    setPaybackTimer(payback());
   }
 
   function logPaybackMoney() {
