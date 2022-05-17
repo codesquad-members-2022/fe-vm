@@ -25,7 +25,7 @@ const StyledMessage = styled.div`
   margin-bottom: 30px;
   width: 270px;
   height: 520px;
-  border: 2px solid ${color.grey};
+  border: 2px solid ${color.gray};
   overflow-y: scroll;
 `;
 

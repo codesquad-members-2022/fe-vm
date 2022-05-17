@@ -24,7 +24,7 @@ const StyledBtn = styled(Button)`
   font-size: ${fontSize.xl};
   width: 270px;
   height: 60px;
-  border: 2px solid ${color.grey};
+  border: 2px solid ${color.gray};
 `;
 
 export default ReturnBtn;
