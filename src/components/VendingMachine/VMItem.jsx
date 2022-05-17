@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useCallback, useContext } from 'react';
 import styled from 'styled-components';
 
 import { parseMoneyFormat } from 'common/utils';
@@ -29,14 +29,11 @@ const VMItem = ({ item: { id, name, amount, count }, onClickActiveItem }) => {
   const [, insertLog] = useContext(LogContext);
   const isSoldOut = count === 0;
   const isActive = inputMoney >= amount && !isSoldOut;
-  let itemStatus = '';
-  if (isSoldOut) {
-    itemStatus = 'soldout';
-  } else if (isActive) {
-    itemStatus = 'active';
-  } else {
-    itemStatus = 'default';
-  }
+
+  const getStatus = useCallback(() => {
+    if (isSoldOut) return 'soldout';
+    return isActive ? 'active' : 'default';
+  }, [isSoldOut, isActive]);
 
   const handleClickActiveItem = () => {
     if (!isActive) return;
@@ -51,7 +48,7 @@ const VMItem = ({ item: { id, name, amount, count }, onClickActiveItem }) => {
   return (
     <li>
       <ItemWrapper>
-        <ItemNameBox status={itemStatus} onClick={handleClickActiveItem}>
+        <ItemNameBox status={getStatus()} onClick={handleClickActiveItem}>
           <span>{name}</span>
         </ItemNameBox>
         <ItemPriceBox>
@@ -76,11 +73,12 @@ const ItemNameBox = styled.div`
   justify-content: center;
   width: 6rem;
   height: 5rem;
-  ${({ status }) => vmItemStyleMap(status)}
+  ${({ status }) => vmItemStyleMap[status]}
 `;
 
 const ItemPriceBox = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 export default VMItem;
