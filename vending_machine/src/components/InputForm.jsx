@@ -13,33 +13,37 @@ const InputForm = ({ totalMoney, setTotalMoney }) => {
 
   const { addMoneyMessage } = useContext(ProgressContext);
 
+  const changeValue = () => {
+    const onlyNumber = +inputTag.current.value.replace(/[^0-9]/g, '');
+    console.log(onlyNumber);
+    inputTag.current.value = changeKoreanLocalMoney(onlyNumber);
+  };
+
   const changeTotalMoney = (e) => {
-    e.preventDefault();
+    if (e.key !== 'Enter') return;
     const inputValue = +changeStrMoneyToNumMoney(inputTag.current.value);
     setTotalMoney(+totalMoney + inputValue);
     addMoneyMessage(inputValue);
     inputTag.current.value = '';
   };
 
-  const changeValue = () => {
-    const onlyNumber = inputTag.current.value.replace(/[^0-9]/g, '');
-    inputTag.current.value = changeKoreanLocalMoney(onlyNumber);
-  };
-
   return (
-    <StyledForm onSubmit={changeTotalMoney}>
-      <StyledInput
-        type="text"
-        placeholder="0"
-        ref={inputTag}
-        onChange={changeValue}
-      />
-      <StyledSpan>원</StyledSpan>
-    </StyledForm>
+    <>
+      <FormContainer>
+        <StyledInput
+          type="text"
+          placeholder="0"
+          ref={inputTag}
+          onKeyPress={changeTotalMoney}
+          onChange={changeValue}
+        />
+        <StyledSpan>원</StyledSpan>
+      </FormContainer>
+    </>
   );
 };
 
-const StyledForm = styled.form`
+const FormContainer = styled.div`
   margin: 0 auto;
   width: 270px;
   height: 60px;
