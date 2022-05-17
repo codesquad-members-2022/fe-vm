@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Layout from 'components/atoms/Layout/Layout';
+import Layout from 'components/organisms/Layout/Layout';
 import VendingMachine from 'routes/VendingMachine/VendingMachine';
 import Wallet from 'routes/Wallet/Wallet';
 import { MoneyProvider } from 'components/atoms/Context/MoneyContext';

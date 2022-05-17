@@ -3,7 +3,7 @@ import LinkNav from 'components/molecules/LinkNav/LinkNav';
 import {
   GlobalStyle,
   StyledWrapper,
-} from 'components/atoms/Layout/Layout.style';
+} from 'components/organisms/Layout/Layout.style';
 
 function Layout() {
   return (
