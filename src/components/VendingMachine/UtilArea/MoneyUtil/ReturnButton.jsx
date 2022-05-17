@@ -26,17 +26,23 @@ const ReturnButton = () => {
   };
 
   const packChange = () => {
-    let remainInputSum = inputSum;
     const change = {};
-    moneyOrder.forEach((moneyType) => {
+    moneyOrder.reduce((remainInputSum, moneyType) => {
       const currMoneyNumber = parseInt(remainInputSum / Number(moneyType));
       change[moneyType] = currMoneyNumber;
-      remainInputSum = remainInputSum % Number(moneyType);
-    });
+      return remainInputSum % Number(moneyType);
+    }, inputSum);
+
     return change;
   };
 
-  return <Button styles={returnButtonStyles} content={"return"} onClick={handleClick} />;
+  return (
+    <Button
+      styles={returnButtonStyles}
+      content={"return"}
+      onClick={handleClick}
+    />
+  );
 };
 
 const returnButtonStyles = css`

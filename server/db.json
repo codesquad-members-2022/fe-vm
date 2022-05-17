@@ -5,7 +5,7 @@
       "name": "product1",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
       "price": 1300,
-      "stock": 3
+      "stock": 2
     },
     {
       "id": 2,
@@ -40,7 +40,7 @@
       "name": "product6",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
       "price": 1500,
-      "stock": 3
+      "stock": 1
     },
     {
       "id": 7,
@@ -54,7 +54,7 @@
       "name": "product8",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
       "price": 1700,
-      "stock": 3
+      "stock": 0
     },
     {
       "id": 9,
@@ -88,11 +88,11 @@
   "wallet": {
     "10": 10,
     "50": 2,
-    "100": 10,
+    "100": 21,
     "500": 4,
-    "1000": 10,
-    "5000": 4,
-    "10000": 1,
+    "1000": 13,
+    "5000": 7,
+    "10000": 4,
     "50000": 0
   }
 }

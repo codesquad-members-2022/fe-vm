@@ -16,9 +16,7 @@ const MessageDisplay = () => {
 };
 
 const MessageWrapper = styled.div`
-  position: absolute;
-  bottom: 50px;
-  width: calc(100% - 50px);
+  width: 100%;
   height: 400px;
   border-radius: 10px;
   box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.3);

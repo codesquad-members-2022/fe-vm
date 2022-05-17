@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import MoneyUtil from "./MoneyUtil/MoneyUtil";
 import MessageDisplay from "./MessageDisplay/MessageDisplay";
+import Outlet from "./Outlet/Outlet";
 
 const UtilArea = () => {
   return (
     <UtilAreaWrapper>
       <MoneyUtil />
       <MessageDisplay />
+      <Outlet />
     </UtilAreaWrapper>
   );
 };

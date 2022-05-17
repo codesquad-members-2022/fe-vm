@@ -8,7 +8,7 @@ const ProductsDisplay = () => {
   return (
     <DisplayLayout>
       {productsInfo?.map((productInfo, idx) => (
-        <Product key={productInfo.id} productInfo={productInfo} productIdx={idx} />
+        <Product key={productInfo.id} productInfo={productInfo} />
       ))}
     </DisplayLayout>
   );

@@ -13,9 +13,13 @@ export const ProductsInfoProvider = ({ children }) => {
     })();
   }, []);
 
-  const updateProductInfo = (productId, productIdx, newInfo) => {
-    const updatedProductsInfo = [...productsInfo];
-    updatedProductsInfo[productIdx] = newInfo;
+  const updateProductInfo = (productId, newInfo) => {
+    const updatedProductsInfo = productsInfo.map((productInfo) => {
+      if (productInfo.id === productId) {
+        return newInfo;
+      }
+      return productInfo;
+    });
     setProductsInfo(updatedProductsInfo);
     request.patchData("productsInfo", productId, newInfo);
   };
@@ -24,7 +28,7 @@ export const ProductsInfoProvider = ({ children }) => {
     <ProductsInfo.Provider
       value={{
         productsInfo,
-        updateProductInfo
+        updateProductInfo,
       }}
     >
       {children}

@@ -26,11 +26,3 @@ const makeRequestMessage = (method, requestBody) => {
     headers: { "Content-type": "application/json; charset=UTF-8" },
   };
 };
-
-const makeRequestMessage = (method, requestBody) => {
-  return {
-    method: method,
-    body: JSON.stringify(requestBody),
-    headers: { "Content-type": "application/json; charset=UTF-8" },
-  };
-};
