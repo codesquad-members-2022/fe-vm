@@ -3,12 +3,21 @@ import styled from "styled-components";
 import { CenterSort, HeightSort } from "../style/Globalstyles";
 import { WalletContext } from "../contexts/walletContext";
 import { decreaseAmount } from "../util/util";
+import { messageContext } from "../contexts/messageContext";
 function Currency({ money, amount }) {
   const { walletMoney, setWalletMoney, inputMoneySum, setInputMoneySum } =
     useContext(WalletContext).value;
+  const setMessage = useContext(messageContext).setMessage;
+
+  function makeInputMessage(money) {
+    return `${money.toLocaleString()}원 투입됨`;
+  }
+
   function calculateInput(money, amount) {
     if (amount > 0) {
       setInputMoneySum(inputMoneySum + money);
+      const message = makeInputMessage(money);
+      setMessage(message);
     }
   }
   return (

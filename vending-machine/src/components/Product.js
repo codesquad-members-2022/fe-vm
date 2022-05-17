@@ -9,10 +9,10 @@ import { decreaseAmount } from "../util/util";
 
 function Product({ title, price, amount }) {
   const { beverage, setBeverage } = useContext(ProductContext);
-  const isSoldOut = amount !== 0;
   const setInputMoney = useContext(WalletContext).value.setInputMoneySum;
   const inputMoney = useContext(WalletContext).value.inputMoneySum;
   const setMessage = useContext(messageContext).setMessage;
+  const isSoldOut = amount !== 0;
   function makeBuyMessage(title) {
     return `${title} 선택됨`;
   }
