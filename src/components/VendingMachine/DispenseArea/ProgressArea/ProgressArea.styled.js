@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const Wrapper = styled.div`
+const Wrapper = styled.ol`
   ${({ theme: { fontSizes, colors, whitespace } }) => css`
     font-size: ${fontSizes.normal};
     background-color: ${colors.black};
@@ -10,6 +10,10 @@ const Wrapper = styled.div`
   height: calc(100% - 10rem);
   max-height: calc(100% - 10rem);
   overflow-y: auto;
+
+  li:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
 `;
 
 export default Wrapper;
