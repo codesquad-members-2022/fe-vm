@@ -3,12 +3,10 @@ import styled from 'styled-components';
 
 import { parseMoneyFormat } from 'common/utils';
 import COLORS from 'constants/colors';
-import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
 import createHoverCss from 'styles/createHoverCss';
 
 const MoneyBox = ({ money: { amount, count } }) => {
-  const [, setLogs] = useContext(LogContext);
   const { insertMoneyByClick } = useContext(MoneyContext);
 
   const isActive = count !== 0;
@@ -25,10 +23,6 @@ const MoneyBox = ({ money: { amount, count } }) => {
 
   const handleClickMoneyAmount = () => {
     insertMoneyByClick(count, amount);
-    setLogs({
-      type: 'insert',
-      data: amount,
-    });
   };
 
   return (

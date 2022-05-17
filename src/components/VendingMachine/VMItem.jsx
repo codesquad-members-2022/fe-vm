@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import { parseMoneyFormat } from 'common/utils';
 import COLORS from 'constants/colors';
-import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
 
 const defaultStyle = `
@@ -25,8 +24,7 @@ const vmItemStyleMap = {
 };
 
 const VMItem = ({ item: { id, name, amount, count }, onClickActiveItem }) => {
-  const { inputMoney, setInputMoney } = useContext(MoneyContext);
-  const [, insertLog] = useContext(LogContext);
+  const { inputMoney, buyVMItem } = useContext(MoneyContext);
   const isSoldOut = count === 0;
   const isActive = inputMoney >= amount && !isSoldOut;
 
@@ -38,11 +36,7 @@ const VMItem = ({ item: { id, name, amount, count }, onClickActiveItem }) => {
   const handleClickActiveItem = () => {
     if (!isActive) return;
     onClickActiveItem(id);
-    setInputMoney(inputMoney - amount);
-    insertLog({
-      type: 'select',
-      data: name,
-    });
+    buyVMItem(amount, name);
   };
 
   return (
