@@ -1,4 +1,4 @@
-import { AlertMessage, SetAlertMessage } from "App";
+import { AlertMessage, SetAlertMessage } from "Context/AlertMessageProvider";
 import { useContext } from "react";
 
 export default function useAlertMessage() {

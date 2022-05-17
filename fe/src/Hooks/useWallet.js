@@ -1,4 +1,4 @@
-import { WalletMoneyContext, SetWalletMoneyContext } from "App";
+import { SetWalletMoneyContext, WalletMoneyContext } from "Context/WalletMoneyProvider";
 import { useContext } from "react";
 
 export default function useWallet() {

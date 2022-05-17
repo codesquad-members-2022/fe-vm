@@ -1,4 +1,4 @@
-import { SetAlertMessage } from "App";
+import { SetAlertMessage } from "Context/AlertMessageProvider";
 import { COIN_LIST, INIT_ALERT_MESSAGE } from "Helper/constant";
 import useInvestment from "Hooks/useInvestment";
 import useWallet from "Hooks/useWallet";

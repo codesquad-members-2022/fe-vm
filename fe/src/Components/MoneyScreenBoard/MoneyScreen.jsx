@@ -1,7 +1,7 @@
-import { InvestmentContext } from 'App';
-import { getWonTemplate } from 'Helper/utils';
-import { useContext } from 'react';
-import { Screen } from './MoneyScreen.styled';
+import { InvestmentContext } from "Context/InvestmentProvider";
+import { getWonTemplate } from "Helper/utils";
+import { useContext } from "react";
+import { Screen } from "./MoneyScreen.styled";
 
 export default function MoneyScreen() {
   const investmentData = useContext(InvestmentContext);

@@ -1,7 +1,7 @@
-import { WalletMoneyContext } from 'App';
-import { getWonTemplate } from 'Helper/utils';
-import { useContext, useEffect, useState } from 'react';
-import { Screen } from './RemainMoney.styled';
+import { WalletMoneyContext } from "Context/WalletMoneyProvider";
+import { getWonTemplate } from "Helper/utils";
+import { useContext, useEffect, useState } from "react";
+import { Screen } from "./RemainMoney.styled";
 
 export default function RemainMoney() {
   const walletMoney = useContext(WalletMoneyContext);

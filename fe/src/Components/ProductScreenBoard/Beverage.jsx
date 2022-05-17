@@ -1,4 +1,4 @@
-import { SetAlertMessage } from "App";
+import { SetAlertMessage } from "Context/AlertMessageProvider";
 import { INIT_ALERT_MESSAGE } from "Helper/constant";
 import useInvestment from "Hooks/useInvestment";
 import { useContext } from "react";

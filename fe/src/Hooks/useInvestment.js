@@ -1,4 +1,4 @@
-import { InvestmentContext, SetInvestmentContext } from "App";
+import { InvestmentContext, SetInvestmentContext } from "Context/InvestmentProvider";
 import { useContext } from "react";
 
 export default function useInvestment() {
