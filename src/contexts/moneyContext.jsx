@@ -1,19 +1,19 @@
 import { createContext, useCallback, useMemo, useState } from "react";
 
 import cash from "mockData/money";
+import constants from "utils/constants";
 
-const INITIAL_MONEY = 0;
-const DECREASE_COUNT = 1;
+const { DECREASE_COUNT } = constants;
 
 export const MoneyContext = createContext({});
 export const SetMoneyContext = createContext(() => {});
 
-export const InsertedMoneyContext = createContext(-1);
+export const InsertedMoneyContext = createContext({});
 export const SetInsertedMoneyContext = createContext(() => {});
 
 const MoneyProvider = ({ children }) => {
   const [cashData, setCashData] = useState(cash);
-  const [insertedMoney, setInsertedMoney] = useState(INITIAL_MONEY);
+  const [insertedMoney, setInsertedMoney] = useState([]);
 
   const decreaseCashCount = useCallback((money) => {
     setCashData((prevCashData) => {
@@ -34,9 +34,10 @@ const MoneyProvider = ({ children }) => {
   );
 
   const insertMoney = useCallback((currentMoney) => {
-    return setInsertedMoney(
-      (prevInsertedMoney) => prevInsertedMoney + currentMoney
-    );
+    return setInsertedMoney((prevInsertedMoney) => [
+      ...prevInsertedMoney,
+      { money: currentMoney, count: DECREASE_COUNT },
+    ]);
   }, []);
 
   const totalInsertedMoney = useMemo(

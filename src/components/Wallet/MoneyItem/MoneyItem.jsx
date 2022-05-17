@@ -6,11 +6,8 @@ import {
   SetMoneyContext,
 } from "contexts/moneyContext";
 import { SetProgressContext } from "contexts/progressContext";
-import insertMoneyHelper from "helper/insertMoneyHelper";
 
 import { MoneyLi, moneyButtonStyle } from "./MoneyItem.styled";
-
-const { getInsertMoneyMessage } = insertMoneyHelper;
 
 const Count = ({ data }) => {
   return <p className="count">{data}</p>;
@@ -23,7 +20,7 @@ const MoneyItem = ({ money, count }) => {
 
   const handleClickMoney = useCallback((curMoney) => {
     decreaseCashCount(curMoney);
-    updateProgress(getInsertMoneyMessage(curMoney));
+    updateProgress("insert", curMoney);
     insertMoney(curMoney);
   }, []);
 

@@ -9,6 +9,8 @@ import { Wrapper, TotalInsertedMoney } from "./TotalInsertedMoney.styled";
 const { TOTAL_INSERTED_MONEY_NAME } = constants;
 const { seperateThousands } = numberUtil;
 
+const INITIAL_MONEY = 0;
+
 const TotalInsertedMoneyArea = () => {
   const { insertedMoney } = useContext(InsertedMoneyContext);
 
@@ -16,7 +18,9 @@ const TotalInsertedMoneyArea = () => {
     <Wrapper>
       {TOTAL_INSERTED_MONEY_NAME}
       <TotalInsertedMoney>
-        {seperateThousands(insertedMoney)}
+        {seperateThousands(
+          insertedMoney.reduce((prev, { money }) => prev + money, INITIAL_MONEY)
+        )}
       </TotalInsertedMoney>
     </Wrapper>
   );

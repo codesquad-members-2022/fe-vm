@@ -1,11 +1,10 @@
 import { useContext, useEffect, useRef } from "react";
 
 import { ProgressContext } from "contexts/progressContext";
+import createKey from "utils/createKey";
 
 import { Wrapper, ProgressList } from "./ProgressArea.styled";
 import ProgressItem from "./ProgressItem";
-
-const createKey = (value, idx) => value + idx;
 
 const ProgressArea = () => {
   const { progress } = useContext(ProgressContext);
@@ -26,11 +25,8 @@ const ProgressArea = () => {
   return (
     <Wrapper>
       <ProgressList ref={progressEndRef}>
-        {progress.map((curProgress, idx) => (
-          <ProgressItem
-            progress={curProgress}
-            key={createKey(curProgress, idx)}
-          />
+        {progress.map((current, idx) => (
+          <ProgressItem progress={current} key={createKey(current, idx)} />
         ))}
       </ProgressList>
     </Wrapper>
