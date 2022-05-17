@@ -2,7 +2,7 @@ import { memo, useContext } from "react";
 
 import Button from "components/common/form/Button/Button";
 import { SetMoneyContext } from "contexts/moneyContext";
-import { SetProcessContext } from "contexts/processContext";
+import { SetProgressContext } from "contexts/progressContext";
 import constants from "mockData/constants";
 
 import { MoneyLi, moneyButtonStyle } from "./MoneyItem.styled";
@@ -17,7 +17,7 @@ const getInsertMoneyMessage = (money) => {
 
 const MoneyItem = ({ money, count }) => {
   const decreaseCashCount = useContext(SetMoneyContext);
-  const updateProcess = useContext(SetProcessContext);
+  const updateProgress = useContext(SetProgressContext);
 
   return (
     <MoneyLi>
@@ -28,7 +28,7 @@ const MoneyItem = ({ money, count }) => {
         isDisabled={!count}
         onClick={() => {
           decreaseCashCount(money);
-          updateProcess(getInsertMoneyMessage(money));
+          updateProgress(getInsertMoneyMessage(money));
         }}
       />
       <Count data={count} />

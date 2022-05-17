@@ -1,6 +1,6 @@
 import Navbar from "components/Navbar/NavBar";
 import MoneyProvider from "contexts/moneyContext";
-import ProcessProvider from "contexts/processContext";
+import ProgressProvider from "contexts/progressContext";
 import { Outlet } from "react-router-dom";
 
 import { Wrap, Main } from "./Layout.styled";
@@ -14,9 +14,9 @@ const Layout = ({ menusData }) => {
 
       <Main>
         <MoneyProvider>
-          <ProcessProvider>
+          <ProgressProvider>
             <Outlet />
-          </ProcessProvider>
+          </ProgressProvider>
         </MoneyProvider>
       </Main>
     </Wrap>
