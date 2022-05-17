@@ -5,15 +5,15 @@ import PropTypes from 'prop-types';
 import Icon, { ICON_NAME } from '@components/atoms/Icon';
 import * as S from '@components/atoms/Select/Select.style';
 
-const Select = ({ defaultValue, setDefaultValue, options }) => {
+const Select = ({ selectValue, setSelectValue, options }) => {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   const iconName = isSelectOpen ? ICON_NAME.SELECT_OPEN : ICON_NAME.SELECT_CLOSE;
-  const selected = value => value === defaultValue;
+  const selected = value => value === selectValue;
 
   const changeValue = event => {
     const selected = event.target.innerText;
-    setDefaultValue(selected);
+    setSelectValue(selected);
   };
 
   const toggleSelect = () => setIsSelectOpen(prevState => !prevState);
@@ -22,7 +22,7 @@ const Select = ({ defaultValue, setDefaultValue, options }) => {
     <>
       <S.SelectContainer>
         <S.SelectBox onClick={toggleSelect}>
-          <S.Value>{defaultValue}</S.Value>
+          <S.Value>{selectValue}</S.Value>
           <Icon iconName={iconName} />
         </S.SelectBox>
         {isSelectOpen && (
@@ -45,8 +45,8 @@ const Select = ({ defaultValue, setDefaultValue, options }) => {
 };
 
 Select.propTypes = {
-  defaultValue: PropTypes.string,
-  setDefaultValue: PropTypes.func,
+  selectValue: PropTypes.string,
+  setSelectValue: PropTypes.func,
   options: PropTypes.array,
 };
 

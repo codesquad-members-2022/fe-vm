@@ -17,11 +17,11 @@ export default {
   component: Select,
   args: {
     options,
-    defaultValue: money.map(item => `${item.unit}원`)[0],
-    setDefaultValue: () => {},
+    selectValue: money.map(item => `${item.unit}원`)[0],
+    setSelectValue: () => {},
   },
   argTypes: {
-    defaultValue: {
+    selectValue: {
       control: {
         type: 'radio',
       },
