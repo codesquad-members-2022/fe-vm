@@ -9,9 +9,42 @@ function ReturnBtn() {
   const sum = useContext(WalletContext).sum;
   const setSum = useContext(WalletContext).setSum;
   const setMessage = useContext(messageContext).setMessage;
-  function returnInputMoney() {
+  const value = useContext(WalletContext).value;
+  const setWalletMoney = useContext(WalletContext).value.setWalletMoney;
+
+  function devideInputMoney(money) {
+    const currencies = [10000, 5000, 1000, 500, 100, 50, 10];
+    const inputMoneyArr = [];
+    let i = 0;
+    while (i < currencies.length) {
+      const currency = currencies[i];
+      if (money >= currency) {
+        inputMoneyArr.push({
+          title: currency,
+          amount: parseInt(money / currency, 10),
+        });
+        money = money - currency * parseInt(money / currency, 10);
+      }
+      i++;
+    }
+    return inputMoneyArr;
+  }
+
+  function returnInputMoney(inputMoneyArr, value) {
     setSum(sum + inputMoneySum);
     setInputMoneySum(0);
+    const newArr = [...value.walletMoney];
+    value.walletMoney.map((currency) => {
+      inputMoneyArr.map((walletCurrency) => {
+        if (currency.title === walletCurrency.title) {
+          newArr[newArr.findIndex((el) => el.title === currency.title)] = {
+            title: currency.title,
+            amount: walletCurrency.amount + currency.amount,
+          };
+        }
+      });
+    });
+    setWalletMoney(newArr);
   }
   function makeReturnMessage() {
     setMessage(`잔돈이 반환됨`);
@@ -20,7 +53,7 @@ function ReturnBtn() {
     <ReturnBtnWrap>
       <ReturnMoneyBtn
         onClick={() => {
-          returnInputMoney();
+          returnInputMoney(devideInputMoney(inputMoneySum), value);
           makeReturnMessage();
         }}
       >

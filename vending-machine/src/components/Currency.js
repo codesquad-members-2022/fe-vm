@@ -10,7 +10,6 @@ function Currency({ money, amount }) {
   const sum = useContext(WalletContext).sum;
   const setSum = useContext(WalletContext).setSum;
   const setMessage = useContext(messageContext).setMessage;
-
   function makeInputMessage(money) {
     return `${money.toLocaleString()}원 투입됨`;
   }
