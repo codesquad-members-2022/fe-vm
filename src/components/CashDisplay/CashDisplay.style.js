@@ -2,18 +2,26 @@ import styled from 'styled-components';
 
 import { itemStyle } from '@/styles/common';
 import FlexBox from '@/styles/FlexBox';
+import { theme } from '@/styles/theme';
+
+const displayBoxObj = {
+  default: theme.greyScale.primaryGrey,
+  warning: theme.color.red,
+  active: theme.color.yellow,
+};
 
 const DisplayBox = styled(FlexBox)`
   ${itemStyle}
   justify-content: space-between;
-  background-color: ${({ theme: { color, greyScale }, isBalance }) =>
-    isBalance ? color.blue : greyScale.primaryGrey};
+  background-color: ${({ theme: { color }, isBalance, inputState }) =>
+    isBalance ? color.blue : displayBoxObj[inputState]};
   width: ${({ small }) => (small ? '140px' : '340px')};
   height: ${({ small }) => (small ? '50px' : '80px')};
   padding: 10px;
   position: ${({ small }) => small && 'absolute'};
   top: -65px;
   right: 0;
+  transition: all 400ms ease;
 `;
 
 const MonetaryUnit = styled.p`
@@ -21,6 +29,8 @@ const MonetaryUnit = styled.p`
   color: ${({ theme: { greyScale }, isBalance }) =>
     isBalance ? greyScale.white : greyScale.black};
 `;
+
+const CashForm = styled.form``;
 
 const CashInput = styled.input`
   width: 250px;
@@ -42,4 +52,4 @@ const Balance = styled.p`
   color: ${({ theme: { greyScale } }) => greyScale.white};
 `;
 
-export { DisplayBox, MonetaryUnit, CashInput, Balance };
+export { DisplayBox, MonetaryUnit, CashForm, CashInput, Balance };
