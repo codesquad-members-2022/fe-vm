@@ -1,11 +1,11 @@
-import { InvestmentContext, SetAlertMessage, SetInvestmentContext } from 'App';
-import { INIT_ALERT_MESSAGE } from 'Helper/constant';
-import { useContext } from 'react';
-import { BeverageContainer, Price, Title } from './Beverage.styled';
+import { SetAlertMessage } from "App";
+import { INIT_ALERT_MESSAGE } from "Helper/constant";
+import useInvestment from "Hooks/useInvestment";
+import { useContext } from "react";
+import { BeverageContainer, Price, Title } from "./Beverage.styled";
 
 export default function Beverage({ title, price }) {
-  const setInvestment = useContext(SetInvestmentContext);
-  const investment = useContext(InvestmentContext);
+  const [investment, setInvestment] = useInvestment();
   const setAlertMessage = useContext(SetAlertMessage);
 
   const investmentPrice = (investment && investment.amount) || 0;

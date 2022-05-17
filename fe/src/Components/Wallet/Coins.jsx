@@ -1,19 +1,13 @@
-import {
-  SetWalletMoneyContext,
-  WalletMoneyContext,
-  InvestmentContext,
-  SetInvestmentContext,
-  SetAlertMessage,
-} from 'App';
-import { INIT_ALERT_MESSAGE } from 'Helper/constant';
-import { useContext } from 'react';
-import { CoinBoxContainer, Count, Money, CoinBox, TotalBox } from './Coins.styled';
+import { SetAlertMessage } from "App";
+import useInvestment from "Hooks/useInvestment";
+import useWallet from "Hooks/useWallet";
+import { INIT_ALERT_MESSAGE } from "Helper/constant";
+import { useContext } from "react";
+import { CoinBoxContainer, Count, Money, CoinBox, TotalBox } from "./Coins.styled";
 
 export default function Coins() {
-  const walletMoney = useContext(WalletMoneyContext);
-  const setWalletMoney = useContext(SetWalletMoneyContext);
-  const investment = useContext(InvestmentContext);
-  const setInvestment = useContext(SetInvestmentContext);
+  const [investment, setInvestment] = useInvestment();
+  const [walletMoney, setWalletMoney] = useWallet();
   const setAlertMessage = useContext(SetAlertMessage);
   const coinBoxs = getCoinBox({ walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage });
 
@@ -34,7 +28,14 @@ const getCoinBox = ({ walletMoney, setWalletMoney, investment, setInvestment, se
   return coinBoxs;
 };
 
-const createCoinBox = ({ wallet, walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage }) => {
+const createCoinBox = ({
+  wallet,
+  walletMoney,
+  setWalletMoney,
+  investment,
+  setInvestment,
+  setAlertMessage,
+}) => {
   const [coin, cnt] = wallet;
   const id = createKeyForNoHasId(coin, cnt);
   return (
@@ -44,7 +45,14 @@ const createCoinBox = ({ wallet, walletMoney, setWalletMoney, investment, setInv
         justify="center"
         align="center"
         onClick={() => {
-          handleCoinClick({ wallet, walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage });
+          handleCoinClick({
+            wallet,
+            walletMoney,
+            setWalletMoney,
+            investment,
+            setInvestment,
+            setAlertMessage,
+          });
         }}
       >
         {coin}
@@ -72,7 +80,14 @@ const calculateTotalMoney = (walletMoneyAmount) => {
   return total;
 };
 
-const handleCoinClick = ({ wallet, walletMoney, investment, setWalletMoney, setInvestment, setAlertMessage }) => {
+const handleCoinClick = ({
+  wallet,
+  walletMoney,
+  investment,
+  setWalletMoney,
+  setInvestment,
+  setAlertMessage,
+}) => {
   const [coin, count] = wallet.map(Number);
 
   if (count === 0) {

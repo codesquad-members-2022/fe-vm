@@ -1,12 +1,11 @@
-import { AlertMessage, SetAlertMessage } from "App";
 import { INIT_ALERT_MESSAGE } from "Helper/constant";
 import { getWonTemplate } from "Helper/utils";
-import { useCallback, useContext, useEffect, useState } from "react";
+import useAlertMessage from "Hooks/useAlertMessage";
+import { useCallback, useEffect, useState } from "react";
 import { Message, Screen, ScreenContainer } from "./MessageScreen.styled";
 
 export default function MessageScreen() {
-  const alertMessage = useContext(AlertMessage);
-  const setAlertMessage = useContext(SetAlertMessage);
+  const [alertMessage, setAlertMessage] = useAlertMessage();
   const [messageList, setMessageList] = useState([]);
 
   const createNewMessageList = useCallback(
@@ -26,7 +25,7 @@ export default function MessageScreen() {
     const newMessageList = createNewMessageList(message);
     setMessageList(newMessageList);
     setAlertMessage(INIT_ALERT_MESSAGE);
-  }, [alertMessage, createNewMessageList]);
+  }, [alertMessage, setAlertMessage, createNewMessageList]);
 
   return (
     <ScreenContainer>
