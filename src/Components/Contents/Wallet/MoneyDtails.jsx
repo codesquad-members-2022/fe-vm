@@ -8,7 +8,7 @@ import {
   Radius10,
 } from '../../../Assets/Common.style';
 import { changeNumToLocalMoney } from '../../../Utils/utils';
-import { myMoneyContext } from '../../MainContents';
+import { contentsContext, myMoneyContext } from '../../MainContents';
 
 export default function MoneyDtails() {
   return (
@@ -19,6 +19,7 @@ export default function MoneyDtails() {
 }
 
 function Money() {
+  const { payTotal, setPayTotal } = useContext(contentsContext);
   const { myMoneyDetails, setMyMoneyDetails } = useContext(myMoneyContext);
 
   const payMoney = (moneyInfo) => {
@@ -31,6 +32,7 @@ function Money() {
       return money.value === moneyInfo.value ? updateMoney : money;
     });
 
+    setPayTotal(payTotal + moneyInfo.value);
     setMyMoneyDetails(updateMoneyDetails);
   };
 
