@@ -9,26 +9,20 @@ import {
 import React from 'react';
 import { myContext } from 'components/App';
 
-const Product = ({ info, index }) => {
+const Product = ({ price, number, name, src, index }) => {
   const { inputMoney, handleClickProduct } = useContext(myContext);
-  console.log(index);
 
   return (
     <ProductItem>
       <Btn
         as="button"
-        active={inputMoney >= info.price && info.number > 0}
-        disable={info.number === 0}
-        onClick={() => {
-          handleClickProduct(info.name, index);
-        }}
+        active={inputMoney >= price && number > 0}
+        disable={number === 0}
+        onClick={handleClickProduct.bind(null, name, index)}
       >
-        <ProductImg
-          src={`${process.env.PUBLIC_URL}${info.src}`}
-          alt={info.name}
-        />
-        <Title as="h3">{info.name}</Title>
-        <Price as="strong">{info.price.toLocaleString()}</Price>
+        <ProductImg src={`${process.env.PUBLIC_URL}${src}`} alt={name} />
+        <Title as="h3">{name}</Title>
+        <Price as="strong">{price.toLocaleString()}</Price>
       </Btn>
     </ProductItem>
   );

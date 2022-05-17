@@ -6,7 +6,14 @@ const Menu = ({ menuInfo }) => {
     <MenuList as="ul">
       {menuInfo &&
         menuInfo.map((info, index) => (
-          <Product info={info} key={info.name} index={index} />
+          <Product
+            price={info.price}
+            number={info.number}
+            name={info.name}
+            src={info.src}
+            key={info.name}
+            index={index}
+          />
         ))}
     </MenuList>
   );

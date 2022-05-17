@@ -9,7 +9,8 @@ const Wallet = ({ walletInfo, totalMoney, handleClickMoney }) => {
           (money, index) =>
             money.unit && (
               <Money
-                money={money}
+                unit={money.unit}
+                number={money.number}
                 key={money.unit}
                 index={index}
                 handleClickMoney={handleClickMoney}

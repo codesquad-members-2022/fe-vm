@@ -221,9 +221,9 @@ const App = () => {
     copy[index] =
       copy[index].number > 0
         ? {
-          ...info[index],
-          number: info[index].number - 1,
-        }
+            ...info[index],
+            number: info[index].number - 1,
+          }
         : { ...info[index] };
     updateTotalMoney(copy, index, str);
 
@@ -234,14 +234,17 @@ const App = () => {
     if (!input.current) handleClickChange();
   }
 
-  function handleClickMoney(money, index) {
-    if (walletInfo[index].number > 0) {
-      setInputMoney(inputMoney + money);
-      setWalletInfo(updateInfo(index, walletInfo, 'wallet'));
-      dispatch({ type: ACTION_TYPE.money, money: money });
-      history.current = history.current.concat(index);
-    }
-  }
+  const handleClickMoney = useCallback(
+    (money, index) => {
+      if (walletInfo[index].number > 0) {
+        setInputMoney(inputMoney + money);
+        setWalletInfo(updateInfo(index, walletInfo, 'wallet'));
+        dispatch({ type: ACTION_TYPE.money, money: money });
+        history.current = history.current.concat(index);
+      }
+    },
+    [inputMoney, walletInfo, updateInfo],
+  );
 
   const handleClickProduct = useCallback(
     (name, index) => {
