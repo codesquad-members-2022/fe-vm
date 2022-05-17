@@ -10,7 +10,6 @@ function Menu({ title, price }) {
   const addMenuLog = () => {
     const newLog = { idx: logs.length + 1, type: "select", data: title + "(이)가 선택됨" };
     setLogs([...logs, newLog]);
-    console.log(logs);
   };
 
   return (
