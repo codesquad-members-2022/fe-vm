@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { WalletContext } from "../contexts/walletContext";
 import { CenterSort, HeightSort } from "../style/Globalstyles";
 function Budget() {
+  const inputMoney = useContext(WalletContext).value.inputMoney;
+
   return (
     <BudgetWrap>
-      <BudgetInput>10000원</BudgetInput>
+      <BudgetInput>{inputMoney.toLocaleString("ko-kr")}원</BudgetInput>
     </BudgetWrap>
   );
 }
