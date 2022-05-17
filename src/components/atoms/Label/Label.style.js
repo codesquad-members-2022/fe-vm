@@ -25,7 +25,7 @@ const Size = {
 
 /* FontType */
 const DefaultFont = css`
-  font-weight: ${({ theme: { fontWeight } }) => fontWeight.display};
+  font-weight: ${({ theme: { fontWeight } }) => fontWeight.bold};
   color: ${({ theme: { colors } }) => colors.black};
 `;
 

@@ -7,7 +7,7 @@ const StyledInput = styled.input`
   padding-right: 10px;
   background-color: ${({ theme: { colors } }) => colors.white};
   font-size: ${({ theme: { fontSize } }) => fontSize.xxLarge};
-  font-weight: ${({ theme: { fontWeight } }) => fontWeight.display};
+  font-weight: ${({ theme: { fontWeight } }) => fontWeight.bold};
   color: ${({ theme: { colors } }) => colors.black};
   text-align: right;
   ${Border.rounded}

@@ -9,9 +9,9 @@ const fontSize = {
 };
 
 const fontWeight = {
-  display: 700,
-  bold: 500,
-  regular: 400,
+  bold: 700,
+  medium: 500,
+  normal: 400,
 };
 
 const colors = {
