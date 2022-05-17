@@ -1,5 +1,11 @@
 import React, { useContext } from "react";
-import { StyledInformation, InputPrice, ChangeButton, ActionLog } from "./Information.styled";
+import {
+  StyledInformation,
+  InputPrice,
+  TotalInputPrice,
+  ChangeButton,
+  ActionLog,
+} from "./Information.styled";
 import { MoneyContext, LogContext } from "../../App.js";
 
 function Information() {
@@ -20,8 +26,8 @@ function Information() {
 
   return (
     <StyledInformation>
-      <InputPrice onKeyPress={getMoney} placeholder={inputMoney}></InputPrice>
-
+      <InputPrice onKeyPress={getMoney} placeholder="금액을 입력하세요"></InputPrice>
+      <TotalInputPrice>총 금액: {inputMoney}</TotalInputPrice>
       <ChangeButton>
         <p>반환</p>
       </ChangeButton>
