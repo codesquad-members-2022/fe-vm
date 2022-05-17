@@ -15,11 +15,11 @@ function Wallet() {
   return (
     <StyledWallet>
       <WalletDetail>
-        {walletItem.map(({ id, price, quantity }) => (
-          <>
-            <CoinPrice key={id}>{addComma(price)}원</CoinPrice>
-            <CoinCount key={id}>{quantity}개</CoinCount>
-          </>
+        {walletItem.map(({ id, price }) => (
+          <CoinPrice key={"coin-price-" + id}>{addComma(price)}원</CoinPrice>
+        ))}
+        {walletItem.map(({ id, quantity }) => (
+          <CoinCount key={"coin-quantity-" + id}>{quantity}개</CoinCount>
         ))}
       </WalletDetail>
       <TotalAmout>{addComma(getTotalAmout())}원</TotalAmout>
