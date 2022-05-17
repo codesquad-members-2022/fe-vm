@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
+import { messageContext } from "../contexts/messageContext";
 import { ProductContext } from "../contexts/productContext";
 import { WalletContext } from "../contexts/walletContext";
 import canSrc from "../img/free-icon-beer-can-95982.png";
@@ -9,11 +10,18 @@ import { decreaseAmount } from "../util/util";
 function Product({ title, price, amount }) {
   const { beverage, setBeverage } = useContext(ProductContext);
   const isSoldOut = amount !== 0;
-  const setInputMoney = useContext(WalletContext).value.setInputMoney;
-  const inputMoney = useContext(WalletContext).value.inputMoney;
-  function decreaseInput(price) {
-    if (price <= inputMoney) {
+  const setInputMoney = useContext(WalletContext).value.setInputMoneySum;
+  const inputMoney = useContext(WalletContext).value.inputMoneySum;
+  const setMessage = useContext(messageContext).setMessage;
+  function makeBuyMessage(title) {
+    return `${title} 선택됨`;
+  }
+
+  function decreaseInput(price, amount, title) {
+    if (price <= inputMoney && amount > 0) {
       setInputMoney(inputMoney - price);
+      const message = makeBuyMessage(title);
+      setMessage(message);
     } else {
       alert("잔액이 부족합니다!");
     }
@@ -23,7 +31,7 @@ function Product({ title, price, amount }) {
       isSoldOut={isSoldOut}
       onClick={() => {
         decreaseAmount(beverage, amount, setBeverage, title);
-        decreaseInput(price);
+        decreaseInput(price, amount, title);
       }}
     >
       <ProductImage src={canSrc}></ProductImage>

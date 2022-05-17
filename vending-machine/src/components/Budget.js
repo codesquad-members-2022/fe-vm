@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { WalletContext } from "../contexts/walletContext";
 import { CenterSort, HeightSort } from "../style/Globalstyles";
 function Budget() {
-  const inputMoney = useContext(WalletContext).value.inputMoney;
+  const inputMoneySum = useContext(WalletContext).value.inputMoneySum;
 
   return (
     <BudgetWrap>
-      <BudgetInput>{inputMoney.toLocaleString("ko-kr")}원</BudgetInput>
+      <BudgetInput>{inputMoneySum.toLocaleString("ko-kr")}원</BudgetInput>
     </BudgetWrap>
   );
 }

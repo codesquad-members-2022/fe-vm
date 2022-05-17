@@ -4,11 +4,11 @@ import { CenterSort, HeightSort } from "../style/Globalstyles";
 import { WalletContext } from "../contexts/walletContext";
 import { decreaseAmount } from "../util/util";
 function Currency({ money, amount }) {
-  const { walletMoney, setWalletMoney, inputMoney, setInputMoney } =
+  const { walletMoney, setWalletMoney, inputMoneySum, setInputMoneySum } =
     useContext(WalletContext).value;
   function calculateInput(money, amount) {
     if (amount > 0) {
-      setInputMoney(inputMoney + money);
+      setInputMoneySum(inputMoneySum + money);
     }
   }
   return (
