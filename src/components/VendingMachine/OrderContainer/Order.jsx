@@ -1,16 +1,23 @@
 import { useContext } from 'react';
+import { LogContext } from 'context/LogContext';
 import { MoneyContext } from 'context/MoneyContext';
 
 import styled from 'styled-components';
 import setLocalString from 'utils/setLocalString';
+import OrderLog from './OrderLog';
 
 export default function UserOrder() {
+  const { machineLog } = useContext(LogContext);
   const { insertMoneyData } = useContext(MoneyContext);
   const totalInsertMoney = insertMoneyData;
 
+  const orderLog = machineLog.map(log => {
+    return <OrderLog key={log.id} log={log}></OrderLog>;
+  });
+
   return (
     <OrderInfo>
-      <OrderList />
+      <OrderList>{orderLog}</OrderList>
       <InputCostInfo>
         <span>투입금액: </span>
         <span>{setLocalString(totalInsertMoney)} 원</span>
@@ -52,12 +59,3 @@ const OrderList = styled.ul`
     display: none; /* Chrome , Safari , Opera */
   }
 `;
-
-// const Order = styled.li`
-//   margin-bottom: 4px;
-//   ${({ theme }) => theme.fontStyles.xSmallRegular};
-
-//   strong {
-//     font-weight: 700;
-//   }
-// `;

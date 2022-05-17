@@ -1,15 +1,18 @@
 import { useContext } from 'react';
+import { LogContext } from 'context/LogContext';
 import { MoneyContext } from 'context/MoneyContext';
 
 import styled, { css } from 'styled-components';
 import setLocalString from 'utils/setLocalString';
 
 const Money = ({ info }) => {
+  const { insertMoneyLog } = useContext(LogContext);
   const { buttonInsertMoney } = useContext(MoneyContext);
 
   const decrease = () => {
     if (info.amount === 0) return;
     buttonInsertMoney(info.unit);
+    insertMoneyLog(info.unit);
   };
 
   return (
