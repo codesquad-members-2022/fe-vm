@@ -33,7 +33,7 @@ const ProductArea = () => {
       setInputSum(inputSum - productInfo.price);
       updateRecord(activityType.PURCHASE, productInfo.name);
       setPurchaseTarget(null);
-    }, 2000);
+    }, 3000);
   };
 
   return (
