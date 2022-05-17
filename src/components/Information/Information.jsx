@@ -3,12 +3,12 @@ import { StyledInformation, InputPrice, ChangeButton, ActionLog } from "./Inform
 import { MoneyContext, LogContext } from "../../App.js";
 
 function Information() {
-  const { setInputMoney } = useContext(MoneyContext);
+  const { inputMoney, setInputMoney } = useContext(MoneyContext);
   const { logs, setLogs } = useContext(LogContext);
 
   const getMoney = (e) => {
     if (e.key === "Enter") {
-      setInputMoney(+e.target.value);
+      setInputMoney(+e.target.value + inputMoney);
       addInsertLog(e.target.value);
     }
   };
@@ -20,7 +20,8 @@ function Information() {
 
   return (
     <StyledInformation>
-      <InputPrice onKeyPress={getMoney} placeholder="0"></InputPrice>
+      <InputPrice onKeyPress={getMoney} placeholder={inputMoney}></InputPrice>
+
       <ChangeButton>
         <p>반환</p>
       </ChangeButton>

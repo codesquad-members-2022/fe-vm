@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { StyledWallet, WalletDetail, TotalAmout, CoinPrice, CoinCount } from "./Wallet.styled";
 import { addComma } from "utils";
-import { LogContext, WalletContext } from "../../App.js";
+import { MoneyContext, LogContext, WalletContext } from "../../App.js";
 
 function Wallet() {
   const { logs, setLogs } = useContext(LogContext);
   const { walletMoney, setWalletMoney } = useContext(WalletContext);
+  const { inputMoney, setInputMoney } = useContext(MoneyContext);
 
   const getTotalAmount = () => {
     const totalAmount = walletMoney.reduce(function (acc, cur) {
@@ -31,6 +32,7 @@ function Wallet() {
 
     setWalletMoney(editedWalletMoney);
     addInsertLog(price);
+    setInputMoney(inputMoney + price);
   };
 
   return (
