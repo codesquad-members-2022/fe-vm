@@ -2,7 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import GlobalStyle from 'styles/GlobalStyle';
 
-import { CashProvider } from 'context';
+import { WalletCashesProvider } from 'context';
 import { PATH } from 'constants';
 import Layout from 'components/layout/Layout';
 import { VendingMachine, Wallet, Admin, NotFound } from 'pages';
@@ -11,7 +11,7 @@ function App() {
   return (
     <div className='App'>
       <GlobalStyle />
-      <CashProvider>
+      <WalletCashesProvider>
         <BrowserRouter>
           <Routes>
             <Route path={URL.INDEX} element={<Layout />}>
@@ -23,7 +23,7 @@ function App() {
             <Route path={PATH.ALL} element={<NotFound />} />
           </Routes>
         </BrowserRouter>
-      </CashProvider>
+      </WalletCashesProvider>
     </div>
   );
 }

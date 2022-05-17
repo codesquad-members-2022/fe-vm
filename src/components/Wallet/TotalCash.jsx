@@ -1,17 +1,17 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 
-import { CashContext } from 'context';
+import { WalletCashesContext } from 'context';
 import { COLORS, TYPOGRAPHY } from 'constants';
 import { formatPrice } from 'util/util';
 
 const TotalCash = () => {
-  const { totalCash } = useContext(CashContext);
+  const { totalCash } = useContext(WalletCashesContext);
 
   return (
     <TotalCashContainer>
       <span>보유 금액</span>
-      <span>{formatPrice(totalCash)}</span>
+      <span>{formatPrice(totalCash)} 원</span>
     </TotalCashContainer>
   );
 };

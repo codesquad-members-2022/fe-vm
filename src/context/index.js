@@ -1,3 +1,3 @@
-import { CashContext, CashProvider } from './CashProvider';
+import { WalletCashesContext, WalletCashesProvider } from './WalletCashesProvider';
 
-export { CashContext, CashProvider };
+export { WalletCashesContext, WalletCashesProvider };

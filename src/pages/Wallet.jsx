@@ -1,21 +1,21 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 
-import { CashContext } from 'context';
+import { WalletCashesContext } from 'context';
 import { COLORS } from 'constants';
 
-import CashUnit from 'components/Wallet/CashUnit';
+import CashCard from 'components/Wallet/CashCard';
 import TotalCash from 'components/Wallet/TotalCash';
 
 const Wallet = () => {
-  const { cash } = useContext(CashContext);
+  console.log('render Wallet');
+  const { cashes } = useContext(WalletCashesContext);
   return (
     <WalletContainer>
       <TotalCash />
-
       <CashUnits>
-        {cash.map(({ id, unit, count, order }) => (
-          <CashUnit key={id} id={id} unit={unit} count={count} order={order} />
+        {cashes.map(cash => (
+          <CashCard key={cash.id} {...cash} />
         ))}
       </CashUnits>
     </WalletContainer>

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { CashContext } from 'context';
+import { WalletCashesContext } from 'context';
 import { COLORS, TYPOGRAPHY } from 'constants';
 import { formatPrice } from 'util/util';
 
@@ -16,7 +16,7 @@ const TabMenu = () => {
   const path = useMatch('/:path')?.params.path;
   const walletMenuId = 2;
 
-  const { totalCash } = useContext(CashContext);
+  const { totalCash } = useContext(WalletCashesContext);
 
   return (
     <nav>
