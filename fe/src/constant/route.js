@@ -6,6 +6,8 @@ export const ROUTE = {
 export const API_ROOT_URL = '/api';
 
 export const API = {
+  LOGIN: '/login',
+  LOGOUT: '/logout',
   GET_PRODUCTS: '/products',
   PATCH_ORDER_PRODUCT: '/product/order',
   PATCH_ADD_PRODUCT: '/product/add',

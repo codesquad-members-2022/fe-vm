@@ -1,24 +1,26 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Products from 'components/Products';
-import { useVMContext } from 'context/VMContext';
-import { getBalance, insertChanges, orderProduct, returnChanges } from 'context/VMContext/action';
+import { useProductContext } from 'context/Product';
+import { useUserContext } from 'context/User';
+import { insertChanges, orderProduct, returnChanges } from 'context/User/action';
+import { getProducts } from 'context/Product/action';
 import InputMoneyForm from './InputMoneyForm';
 import InsertChangesForm from './InsertChangesForm';
 import * as S from './style';
 
 function VendingMachine() {
-  const { totalBalance, changesUnits, prevInputChanges, dispatch } = useVMContext();
+  const { vmDispatch } = useProductContext();
+  const { totalBalance, changesUnits, prevInputChanges, userDispatch } = useUserContext();
   // FIXME: input defualt value 0일 때 에러 수정 -> 0123, 1230이런식으로 0이 안없어짐
   const [inputmoney, setInputMoney] = useState(0);
 
   const resetInputMoneny = () => setInputMoney(0);
 
-  const handleOrderProduct = useCallback(
-    productId => {
-      orderProduct(dispatch, productId);
-    },
-    [inputmoney],
-  );
+  const handleOrderProduct = productId => {
+    orderProduct(vmDispatch, productId, prevInputChanges);
+    resetInputMoneny();
+    getProducts(vmDispatch);
+  };
 
   const handleSubmitInputMoney = useCallback(
     event => {
@@ -42,9 +44,9 @@ function VendingMachine() {
         `입력한 ${submitOnlyNumber}이 소유하고 있는 잔돈 중 가장 가까운 금액인 ${unit}으로 변경되었습니다.`,
       );
       resetInputMoneny();
-      insertChanges(dispatch, id);
+      insertChanges(userDispatch, id);
     },
-    [changesUnits],
+    [changesUnits, totalBalance, userDispatch],
   );
 
   const onChangeInputMoney = useCallback(({ target }) => {
@@ -61,23 +63,19 @@ function VendingMachine() {
   const insertChangeIntoInputMoney = useCallback(
     unitId => {
       resetInputMoneny();
-      insertChanges(dispatch, unitId);
+      insertChanges(userDispatch, unitId);
     },
-    [dispatch],
+    [userDispatch],
   );
 
   const handleClickReturnChanges = useCallback(() => {
     resetInputMoneny();
-    returnChanges(dispatch);
-  }, [dispatch]);
+    returnChanges(userDispatch);
+  }, [userDispatch]);
 
   const getSumInsertMoney = units => {
     setInputMoney(prev => units.reduce((acc, cur) => acc + cur, prev));
   };
-
-  useEffect(() => {
-    getBalance(dispatch);
-  }, [dispatch]);
 
   useEffect(() => {
     getSumInsertMoney(prevInputChanges);

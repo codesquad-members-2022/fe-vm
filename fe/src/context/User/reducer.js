@@ -1,14 +1,12 @@
-import {
-  ADD_TARGET_BALANCE,
-  ADD_TARGET_PRODUCT,
-  GET_BALANCE,
-  GET_PRODUCTS,
-  INSERT_CHANGES,
+const {
+  USER_LOGIN,
+  USER_LOGOUT,
   ORDER_PRODUCT,
+  INSERT_CHANGES,
   RETURN_CHANGES,
+  ADD_TARGET_BALANCE,
   SUBSTRACT_TARGET_BALANCE,
-  SUBSTRACT_TARGET_PRODUCT,
-} from './type';
+} = require('./type');
 
 const CHANGES_UNITS = [
   { id: 10, unit: 10, count: 0 },
@@ -20,26 +18,23 @@ const CHANGES_UNITS = [
   { id: 10000, unit: 10000, count: 0 },
 ];
 
-export const vmInitiState = {
+export const initState = {
+  nickname: null,
   totalBalance: 0,
   changesUnits: CHANGES_UNITS,
   prevInputChanges: [],
-  products: [],
+  isManager: false,
 };
 
-export const vmReducer = (state, action) => {
-  const { type, payload } = action;
+export const reducer = (state, action) => {
+  const { payload, type } = action;
   switch (type) {
-    case GET_PRODUCTS:
-      return {
-        ...state,
-        products: payload,
-      };
-    case ORDER_PRODUCT:
-      return {
-        ...state,
-        products: setNewTargetProduct(state.products, payload),
-      };
+    case USER_LOGIN: {
+      const { nickname, totalBalance, changesUnits, isManager } = payload;
+      return { ...state, nickname, totalBalance, changesUnits, isManager };
+    }
+    case USER_LOGOUT:
+      return { ...state };
     case INSERT_CHANGES: {
       const { changesUnits, prevInputChanges, totalBalance } = state;
       const [newChangesUnits, newPrevInputChanges, newTotalBalance] = updateprevInputChanges(
@@ -62,24 +57,20 @@ export const vmReducer = (state, action) => {
         prevInputChanges,
         totalBalance,
       );
-      return { ...state, totalBalance: newTotalBalance, changesUnits: newChangesUnits };
+      return {
+        ...state,
+        totalBalance: newTotalBalance,
+        changesUnits: newChangesUnits,
+        prevInputChanges: [],
+      };
     }
-    case ADD_TARGET_PRODUCT:
+    case ORDER_PRODUCT: {
+      const { newTotalBalance, newChangesUnits } = payload;
       return {
         ...state,
-        products: setNewTargetProduct(state.products, payload),
-      };
-    case SUBSTRACT_TARGET_PRODUCT:
-      return {
-        ...state,
-        products: setNewTargetProduct(state.products, payload),
-      };
-    case GET_BALANCE: {
-      const { totalBalance, changesUnits } = payload;
-      return {
-        ...state,
-        totalBalance,
-        changesUnits,
+        totalBalance: newTotalBalance,
+        changesUnits: newChangesUnits,
+        prevInputChanges: [],
       };
     }
     case ADD_TARGET_BALANCE: {
@@ -127,14 +118,4 @@ const updateprevInputChanges = (changesUnits, prevInputChanges, totalBalance, un
     return unit;
   });
   return [newChangesUnits, newPrevInputChanges, newTotalBalance];
-};
-
-const setNewTargetProduct = (prevProducts, newTargetProduct) => {
-  const newProducts = prevProducts.map(product => {
-    if (product.id === newTargetProduct.id) {
-      return newTargetProduct;
-    }
-    return product;
-  });
-  return newProducts;
 };

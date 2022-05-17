@@ -2,19 +2,26 @@ import { API } from 'constant/route';
 import instance from './core';
 
 const userApi = {
-  getProducts() {
+  login() {
     return instance({
-      url: API.GET_PRODUCTS,
+      url: API.LOGIN,
       method: 'get',
     });
   },
-  orderProduct(id) {
+  logout() {
+    return instance({
+      url: API.LOGOUT,
+      method: 'get',
+    });
+  },
+  orderProduct(id, inputMoney) {
     return instance({
       url: API.PATCH_ORDER_PRODUCT,
       method: 'patch',
       params: {
         id,
       },
+      data: { inputMoney },
     });
   },
 };

@@ -1,13 +1,13 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useVMContext } from 'context/VMContext';
-import { addTargetProduct, getProducts, substractTargetProduct } from 'context/VMContext/action';
+import { useProductContext } from 'context/Product';
+import { addTargetProduct, getProducts, substractTargetProduct } from 'context/Product/action';
 import MangementForm from './MangementForm';
 import Product from './Product';
 import * as S from './style';
 
 function Products({ isManger, isPriceUnderInputMoney, handleOrderProduct }) {
-  const { products, dispatch } = useVMContext();
+  const { products, vmDispatch } = useProductContext();
   const [targetProduct, setTargetProduct] = useState(null);
 
   const handleSelectProduct = useCallback(target => {
@@ -16,16 +16,16 @@ function Products({ isManger, isPriceUnderInputMoney, handleOrderProduct }) {
 
   const fetchAddTargetProduct = useCallback(
     id => {
-      addTargetProduct(dispatch, id);
+      addTargetProduct(vmDispatch, id);
     },
-    [dispatch],
+    [vmDispatch],
   );
 
   const fetchSubstractTargetProduct = useCallback(
     id => {
-      substractTargetProduct(dispatch, id);
+      substractTargetProduct(vmDispatch, id);
     },
-    [dispatch],
+    [vmDispatch],
   );
 
   const updateTargetProduct = () => {
@@ -37,7 +37,7 @@ function Products({ isManger, isPriceUnderInputMoney, handleOrderProduct }) {
   };
 
   const fetchProducts = async () => {
-    getProducts(dispatch);
+    getProducts(vmDispatch);
   };
 
   useEffect(() => {

@@ -1,10 +1,10 @@
 import React, { useReducer, createContext, useMemo, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { vmInitiState, vmReducer } from './reducer';
+import { initState, reducer } from './reducer';
 
 const Context = createContext();
 
-export const useVMContext = () => {
+export const useUserContext = () => {
   const context = useContext(Context);
 
   if (!context) {
@@ -14,14 +14,14 @@ export const useVMContext = () => {
   return context;
 };
 
-export default function VMContext({ children }) {
-  const [state, dispatch] = useReducer(vmReducer, vmInitiState);
+export default function UserContext({ children }) {
+  const [state, userDispatch] = useReducer(reducer, initState);
 
-  const providerValue = useMemo(() => ({ ...state, dispatch }), [dispatch, state]);
+  const providerValue = useMemo(() => ({ ...state, userDispatch }), [userDispatch, state]);
 
   return <Context.Provider value={providerValue}>{children}</Context.Provider>;
 }
 
-VMContext.propTypes = {
+UserContext.propTypes = {
   children: PropTypes.element.isRequired,
 };

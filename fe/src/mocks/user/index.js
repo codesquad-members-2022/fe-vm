@@ -9,3 +9,10 @@ export const userChangeUnits = [
 ];
 
 export const userBalance = 17200;
+
+export const userDefaultInfo = {
+  nickname: '도리',
+  totalBalance: 0,
+  changesUnits: userChangeUnits,
+  isManger: false,
+};

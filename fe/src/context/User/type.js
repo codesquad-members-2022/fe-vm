@@ -1,8 +1,6 @@
-// global
-export const GET_PRODUCTS = 'getProducts';
-export const GET_BALANCE = 'getBalance';
-
 // user
+export const USER_LOGIN = 'userLogin';
+export const USER_LOGOUT = 'userLogout';
 export const ORDER_PRODUCT = 'orderProduct';
 export const INSERT_CHANGES = 'insertChanges';
 export const RETURN_CHANGES = 'returnChanges';
@@ -10,5 +8,3 @@ export const RETURN_CHANGES = 'returnChanges';
 // manager
 export const ADD_TARGET_BALANCE = 'addTargetBalacne';
 export const SUBSTRACT_TARGET_BALANCE = 'substractTargetBalance';
-export const ADD_TARGET_PRODUCT = 'addTargetProduct';
-export const SUBSTRACT_TARGET_PRODUCT = 'substractTargetProduct';

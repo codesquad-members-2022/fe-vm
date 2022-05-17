@@ -1,30 +1,26 @@
 import React, { useCallback, useEffect } from 'react';
 import ChangesUnits from 'pages/VMmangement/ChangesUnits';
 import Products from 'components/Products';
-import { useVMContext } from 'context/VMContext';
-import { getBalance, addTargetBalance, substractTargetBalance } from 'context/VMContext/action';
+import { useUserContext } from 'context/User';
+import { addTargetBalance, substractTargetBalance } from 'context/User/action';
 import * as S from './style';
 
 function VMmangement() {
-  const { totalBalance, changesUnits, dispatch } = useVMContext();
+  const { totalBalance, changesUnits, userDispatch } = useUserContext();
 
   const fetchAddTargetBalance = useCallback(
     id => {
-      addTargetBalance(dispatch, id);
+      addTargetBalance(userDispatch, id);
     },
-    [dispatch],
+    [userDispatch],
   );
 
   const fetchSubstractTargetBalance = useCallback(
     id => {
-      substractTargetBalance(dispatch, id);
+      substractTargetBalance(userDispatch, id);
     },
-    [dispatch],
+    [userDispatch],
   );
-
-  useEffect(() => {
-    getBalance(dispatch);
-  }, [dispatch]);
 
   return (
     <S.Container>
