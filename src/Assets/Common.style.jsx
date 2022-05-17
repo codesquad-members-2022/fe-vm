@@ -79,6 +79,7 @@ const GrayButton = styled.div`
 export {
   Relative,
   Absolute,
+  F_basic,
   F_basicCenter,
   F_Center,
   F_BetweenCenter,
