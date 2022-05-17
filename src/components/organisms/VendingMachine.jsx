@@ -10,7 +10,7 @@ const VendingMachine = ({ title, ...props }) => {
     <StyledVM flexType={'center'}>
       <ProductWrapper flexType={'center'}>
         {mockData.map((v, i) => {
-          return <ProductBox key={i} icon={v.icon} cost={v.cost} />;
+          return <ProductBox key={v.name} icon={v.icon} cost={v.cost} />;
         })}
       </ProductWrapper>
       <Logo />
