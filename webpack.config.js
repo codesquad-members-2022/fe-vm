@@ -34,15 +34,15 @@ module.exports = (env) => {
         '@': path.resolve(__dirname, 'src'),
         '@Utils': path.resolve(__dirname, 'src/utils'),
       },
-      extensions: ['.js', '.jsx'],
+      extensions: ['.js', '.ts', '.jsx', '.tsx'],
     },
     entry: {
-      main: './src/index.js',
+      main: './src/index.tsx',
     },
     module: {
       rules: [
         {
-          test: /\.(js|jsx)$/,
+          test: /\.(ts|tsx|js|jsx)$/,
           loader: 'babel-loader',
           exclude: /node_modules/,
           options: {
@@ -59,6 +59,7 @@ module.exports = (env) => {
                 },
               ],
               '@babel/preset-react',
+              '@babel/preset-typescript',
             ],
             plugins: [refreshBabel, 'styled-components'],
           },

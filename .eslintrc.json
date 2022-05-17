@@ -9,8 +9,10 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "prettier",
-    "plugin:import/recommended"
+    "plugin:import/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -18,7 +20,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": ["react", "prettier", "@typescript-eslint"],
   "rules": {
     "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
     "no-undef": "off",
@@ -42,6 +44,8 @@
       }
     ],
     "react/prop-types": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-empty-function": "off"
   }
 }
