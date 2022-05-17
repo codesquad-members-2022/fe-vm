@@ -2,6 +2,7 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Container, MoneyInput, Unit } from 'components/orderArea/MoneySlot.style';
+import { addCommasToNumber } from 'utils/util';
 import { FinalPayContext } from 'pages/VendingMachine';
 
 const MAX_PAYMENT = 100000;
@@ -29,7 +30,7 @@ export default function MoneySlot({ useInputPayState, canOrderState }) {
     <Container>
       <MoneyInput
         type="text"
-        value={inputPay > 0 ? inputPay.toLocaleString('en') : ''}
+        value={inputPay > 0 ? addCommasToNumber(inputPay) : ''}
         onChange={handleChangeMoneyInput}
         readOnly={!canOrderState}
       />

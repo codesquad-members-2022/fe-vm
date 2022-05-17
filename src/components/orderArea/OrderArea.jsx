@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useReducer } from 'react';
 import { Container, BtnWrap, ReturnBtn } from 'components/orderArea/OrderArea.style';
+import { addCommasToNumber } from 'utils/util';
 import { SelectedProductContext } from 'App';
 import { FinalPayContext } from 'pages/VendingMachine';
 import MoneySlot from 'components/orderArea/MoneySlot';
@@ -56,7 +57,7 @@ export default function OrderArea() {
   }, [selectedProduct]);
 
   useEffect(() => {
-    if (finalPay) dispatchHistoryList({ action: 'INPUT', newHistoryState: finalPay.toLocaleString('en') });
+    if (finalPay) dispatchHistoryList({ action: 'INPUT', newHistoryState: addCommasToNumber(finalPay) });
   }, [finalPay]);
 
   return (

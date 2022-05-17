@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ProductBtn, Detail, Price } from 'components/productsArea/Product.style';
+import { addCommasToNumber } from 'utils/util';
 import { FinalPayContext } from 'pages/VendingMachine';
 import { SelectedProductContext } from 'App';
 
@@ -17,7 +18,7 @@ export default function Product({ detail, price, quantity, disabled }) {
   return (
     <ProductBtn quantity={quantity} disabled={disabled} onClick={handleProductClick}>
       <Detail>{detail}</Detail>
-      <Price>{price.toLocaleString('en')}</Price>
+      <Price>{addCommasToNumber(price)}</Price>
     </ProductBtn>
   );
 }
