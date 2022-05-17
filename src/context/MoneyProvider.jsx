@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable react/require-default-props */
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
@@ -31,12 +32,31 @@ export default function MoneyProvider({ children }) {
     );
   };
 
+  const updateMoney = (targetMoney) => {
+    const reversedMoneyInfos = moneyState.slice();
+    reversedMoneyInfos.reverse();
+
+    let targetPrice = targetMoney;
+    for (const info of reversedMoneyInfos) {
+      const { money } = info;
+      const targetNum = Math.floor(targetPrice / money);
+
+      if (targetNum > 0) {
+        info.num += targetNum;
+      }
+      targetPrice %= money;
+    }
+    reversedMoneyInfos.reverse();
+    setMoneyState([...reversedMoneyInfos]);
+  };
+
   const value = useMemo(
     () => ({
       moneyState,
       decreaseMoney,
+      updateMoney,
     }),
-    [moneyState, decreaseMoney]
+    [moneyState, decreaseMoney, updateMoney]
   );
 
   return (

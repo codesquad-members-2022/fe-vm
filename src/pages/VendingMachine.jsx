@@ -7,10 +7,12 @@ import AvailableButton from '../components/AvailableButton';
 import Input from '../components/Input';
 import ProgressBoard from '../components/ProgressBoard';
 import { PriceContext } from '../context/PriceProvider';
+import { MoneyContext } from '../context/MoneyProvider';
 
 export default function VendingMachine() {
   const { inputPrice, progressMsg, remainMoney, updatePrice, insertInput } =
     useContext(PriceContext);
+  const { updateMoney } = useContext(MoneyContext);
   const [content, setContent] = useState(0);
 
   const handleChangeInput = ({ currentTarget }) => {
@@ -47,7 +49,10 @@ export default function VendingMachine() {
   };
 
   const handleClickReturnRemain = () => {
-    updatePrice({ msg: `잔돈 ${remainMoney}원이 반환됩니다.` });
+    const returendMoney = updatePrice({
+      msg: `잔돈 ${remainMoney}원이 반환됩니다.`,
+    });
+    updateMoney(returendMoney);
   };
 
   return (

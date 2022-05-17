@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react/require-default-props */
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
@@ -14,7 +15,8 @@ export default function PriceProvider({ children }) {
 
     if (!currentMoney) {
       setRemainMoney(0);
-      return;
+      setInputPrice(0);
+      return remainMoney;
     }
 
     setRemainMoney(remainMoney + currentMoney);
