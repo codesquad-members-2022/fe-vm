@@ -1,41 +1,52 @@
-import { SetAlertMessage } from "Context/AlertMessageProvider";
+import { AlertMessage, SetAlertMessage } from "Context/AlertMessageProvider";
 import useInvestment from "Hooks/useInvestment";
 import useWallet from "Hooks/useWallet";
 import { INIT_ALERT_MESSAGE } from "Helper/constant";
-import { useContext } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { CoinBoxContainer, Count, Money, CoinBox, TotalBox } from "./Coins.styled";
+import addMessageList from "Helper/message";
+import useMessageList from "Hooks/useMessageList";
 
 export default function Coins() {
   const [investment, setInvestment] = useInvestment();
   const [walletMoney, setWalletMoney] = useWallet();
   const setAlertMessage = useContext(SetAlertMessage);
-  const coinBoxs = getCoinBox({ walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage });
+  const alertMessage = useContext(AlertMessage);
+  const [messageList, setMessageList] = useMessageList([]);
+  const coinBoxsProps = { walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage };
+  const coinBoxs = getCoinBox(coinBoxsProps);
+
+  const reflectNewMessage = useCallback(() => {
+    const addMessageListProps = { alertMessage, setMessageList, messageList };
+    addMessageList(addMessageListProps);
+    setAlertMessage(INIT_ALERT_MESSAGE);
+  }, [alertMessage, messageList, setAlertMessage, setMessageList]);
+
+  useEffect(() => {
+    reflectNewMessage();
+  }, [alertMessage, reflectNewMessage]);
 
   return <CoinBoxContainer>{coinBoxs}</CoinBoxContainer>;
 }
 
-const getCoinBox = ({ walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage }) => {
+const getCoinBox = (props) => {
+  const { walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage } = props;
   if (!walletMoney) {
     return;
   }
 
   const totalMoney = calculateTotalMoney(walletMoney.amount);
   const coinBoxs = Object.entries(walletMoney.amount).map((wallet) => {
-    return createCoinBox({ wallet, walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage });
+    const coinBoxProps = { wallet, walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage };
+    return createCoinBox(coinBoxProps);
   });
   const totalBox = createTotalBox(totalMoney);
   coinBoxs.push(totalBox);
   return coinBoxs;
 };
 
-const createCoinBox = ({
-  wallet,
-  walletMoney,
-  setWalletMoney,
-  investment,
-  setInvestment,
-  setAlertMessage,
-}) => {
+const createCoinBox = (props) => {
+  const { wallet } = props;
   const [coin, cnt] = wallet;
   const id = createKeyForNoHasId(coin, cnt);
   return (
@@ -45,14 +56,7 @@ const createCoinBox = ({
         justify="center"
         align="center"
         onClick={() => {
-          handleCoinClick({
-            wallet,
-            walletMoney,
-            setWalletMoney,
-            investment,
-            setInvestment,
-            setAlertMessage,
-          });
+          handleCoinClick(props);
         }}
       >
         {coin}
@@ -80,14 +84,8 @@ const calculateTotalMoney = (walletMoneyAmount) => {
   return total;
 };
 
-const handleCoinClick = ({
-  wallet,
-  walletMoney,
-  investment,
-  setWalletMoney,
-  setInvestment,
-  setAlertMessage,
-}) => {
+const handleCoinClick = (props) => {
+  const { wallet, walletMoney, investment, setWalletMoney, setInvestment, setAlertMessage } = props;
   const [coin, count] = wallet.map(Number);
 
   if (count === 0) {
