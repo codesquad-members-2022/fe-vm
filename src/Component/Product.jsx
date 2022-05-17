@@ -1,16 +1,15 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import styled, {css} from 'styled-components';
 
-import {UserAccount} from '../Store';
-
-export const Product = ({title, price}) => {
-  const {account} = useContext(UserAccount);
-
+export const Product = ({title, price, handleProductCard, walletState}) => {
   return (
-    <ProductWrapper insertedMoney={account.insertedMoney} productPrice={price}>
+    <ProductWrapper
+      insertedMoney={walletState.insertedMoney}
+      productPrice={price}
+    >
       <ProductThumbnail
         onClick={() => {
-          buyProduct(price);
+          handleProductCard(price);
         }}
       >
         {title}

@@ -1,31 +1,20 @@
-import React, {
-  useContext,
-  useRef,
-  forwardRef,
-  useEffect,
-  useState,
-} from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
-import {UserAccount} from '../Store';
-
-export const VendingMachineInterface = () => {
-  const {account} = useContext(UserAccount);
-  const [history, setHistory] = useState({
-    record: [],
-    insertedMoney: null,
-  });
-
-  useEffect(() => {
-    setHistory({...history, insertedMoney: account.insertedMoney});
-  }, [account.insertedMoney]);
+export const VendingMachineInterface = ({
+  handleRefundBtn,
+  walletState: {insertedMoney},
+}) => {
+  // useEffect(() => {
+  //   setHistory({...history, insertedMoney: account.insertedMoney});
+  // }, [account.insertedMoney]);
 
   const sudoInputEvent = () => {};
 
   return (
     <VM_Wrapper>
-      <VM_MoneyInput onChange={sudoInputEvent} value={account.insertedMoney} />
-      <VM_RefundBtn>잔액 반환</VM_RefundBtn>
+      <VM_MoneyInput onChange={sudoInputEvent} value={insertedMoney} />
+      <VM_RefundBtn onClick={handleRefundBtn}>잔액 반환</VM_RefundBtn>
       <VM_History></VM_History>
     </VM_Wrapper>
   );

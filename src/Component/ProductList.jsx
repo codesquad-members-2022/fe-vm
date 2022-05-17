@@ -3,18 +3,22 @@ import styled from 'styled-components';
 
 import {Product} from './Product';
 
-export const ProductList = ({ProductsData}) => {
+export const ProductList = ({ProductsData, handleProductCard, walletState}) => {
   return (
-    <ProductListWrapper>{createProducts(ProductsData)}</ProductListWrapper>
+    <ProductListWrapper>
+      {createProducts(ProductsData, handleProductCard, walletState)}
+    </ProductListWrapper>
   );
 };
 
-const createProducts = ProductsList => {
+const createProducts = (ProductsList, eventsHandler, walletState) => {
   return ProductsList.map(productData => (
     <Product
       key={productData.id}
       title={productData.title}
       price={productData.price}
+      handleProductCard={eventsHandler}
+      walletState={walletState}
     />
   ));
 };
