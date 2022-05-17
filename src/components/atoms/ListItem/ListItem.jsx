@@ -11,7 +11,7 @@ const ListItem = ({ flexType, sizeType, fontType, borderType, children, ...props
 };
 
 ListItem.defaultProps = {
-  flexType: 'leftCenter',
+  flexType: 'centerLeft',
   sizeType: 'long',
   fontType: 'medium',
   children: '1000원을 투입했습니다!',

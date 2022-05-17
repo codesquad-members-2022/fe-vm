@@ -18,7 +18,7 @@ export default {
       control: { type: 'radio' },
     },
     flexType: {
-      options: ['center', 'leftCenter', 'rightCenter'],
+      options: ['center', 'centerLeft', 'centerRight'],
       control: { type: 'radio' },
     },
     children: {
@@ -30,7 +30,7 @@ export default {
 const Template = args => <Label {...args} />;
 export const LargeLabel = Template.bind({});
 LargeLabel.args = {
-  flexType: 'rightCenter',
+  flexType: 'centerRight',
   sizeType: 'large',
   fontType: 'xxLarge',
   borderType: 'rounded',
