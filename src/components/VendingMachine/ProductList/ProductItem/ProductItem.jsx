@@ -1,5 +1,5 @@
 import Button from "components/common/form/Button/Button";
-import constants from "mockData/constants";
+import constants from "utils/constants";
 
 import { productButtonStyle, ProductLi } from "./ProductItem.styled";
 

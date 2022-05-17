@@ -1,23 +1,31 @@
-import { memo, useContext } from "react";
+import { memo, useCallback, useContext } from "react";
 
 import Button from "components/common/form/Button/Button";
-import { SetMoneyContext } from "contexts/moneyContext";
+import {
+  SetInsertedMoneyContext,
+  SetMoneyContext,
+} from "contexts/moneyContext";
 import { SetProgressContext } from "contexts/progressContext";
-import constants from "mockData/constants";
+import insertMoneyHelper from "helper/insertMoneyHelper";
 
 import { MoneyLi, moneyButtonStyle } from "./MoneyItem.styled";
+
+const { getInsertMoneyMessage } = insertMoneyHelper;
 
 const Count = ({ data }) => {
   return <p className="count">{data}</p>;
 };
 
-const getInsertMoneyMessage = (money) => {
-  return `${money} ${constants.CURRENCY}이 투입되었습니다.`;
-};
-
 const MoneyItem = ({ money, count }) => {
   const decreaseCashCount = useContext(SetMoneyContext);
+  const insertMoney = useContext(SetInsertedMoneyContext);
   const updateProgress = useContext(SetProgressContext);
+
+  const handleClickMoney = useCallback((curMoney) => {
+    decreaseCashCount(curMoney);
+    updateProgress(getInsertMoneyMessage(curMoney));
+    insertMoney(curMoney);
+  }, []);
 
   return (
     <MoneyLi>
@@ -26,10 +34,7 @@ const MoneyItem = ({ money, count }) => {
         data={{ name: money }}
         styles={moneyButtonStyle}
         isDisabled={!count}
-        onClick={() => {
-          decreaseCashCount(money);
-          updateProgress(getInsertMoneyMessage(money));
-        }}
+        onClick={() => handleClickMoney(money)}
       />
       <Count data={count} />
     </MoneyLi>
