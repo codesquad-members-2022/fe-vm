@@ -3,6 +3,7 @@ import {
   StyledUserWindowContainer,
   StyledInputMoneyMonitorWrapper,
   StyledInputMoneyMonitor,
+  StyledInputBoxWrapper,
   StyledInputBox,
   StyledRepaymentBtn,
 } from './userWindow.styled';
@@ -17,30 +18,22 @@ export function UserWindow() {
   const { paybackTimer, setPaybackTimer } = useContext(PaybackTimerContext);
   const PAYBACK_TIME = 4000;
 
-  // useEffect(() => {
-  //   if (!paybackState) return;
-  //   console.log('잔돈 반환용 useEffect');
-  //   setPaybackState(false);
-  //
-  //   const timer = setTimeout(() => {
-  //     logPaybackMoney();
-  //     setInputMoney(0);
-  //   }, PAYBACK_TIME);
-  //
-  //   // return () => {
-  //   //   console.log('clear');
-  //   //   clearTimeout(timer);
-  //   // };
-  // }, [paybackState]);
-
   function handleKeyPress(e) {
     if (inProgress) return;
     if (e.key !== 'Enter') return;
-    const currentInputMoney = parseInt(e.target.value / 100) * 100;
+    const inputValue = e.target.value.replace(',', '');
+    const currentInputMoney = parseInt(inputValue / 100) * 100;
     e.target.value = null;
 
     printInputMoney(currentInputMoney);
     logInputMoney(currentInputMoney);
+  }
+
+  function handleInputChange(e) {
+    const changedValue = Number(e.target.value.replace(/[^0-9]/g, ''));
+    if (changedValue > 0) {
+      e.target.value = changedValue.toLocaleString();
+    }
   }
 
   function logInputMoney(currentInputMoney) {
@@ -79,7 +72,10 @@ export function UserWindow() {
         <p>투입된 금액</p>
         <StyledInputMoneyMonitor>{getWonTemplate(inputMoney)}</StyledInputMoneyMonitor>
       </StyledInputMoneyMonitorWrapper>
-      <StyledInputBox placeholder="금액을 입력하세요." onKeyPress={handleKeyPress} />
+      <StyledInputBoxWrapper>
+        <StyledInputBox placeholder="금액을 입력하세요." onKeyPress={handleKeyPress} onChange={handleInputChange} />
+        <p>(원)</p>
+      </StyledInputBoxWrapper>
       <StyledRepaymentBtn onClick={handleClickRepaymentBtn}>반환</StyledRepaymentBtn>
       <LogMonitor />
     </StyledUserWindowContainer>

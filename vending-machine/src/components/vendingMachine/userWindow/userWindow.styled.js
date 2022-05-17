@@ -28,15 +28,27 @@ export const StyledInputMoneyMonitor = styled.div`
   border: 1px solid ${({ theme }) => theme.color.gray};
 `;
 
-export const StyledInputBox = styled.input`
+export const StyledInputBoxWrapper = styled.div`
+  display: flex;
+  align-items: center;
   width: 300px;
   height: 100px;
-  outline: none;
-  font-size: 30px;
-  text-align: center;
   border: 1px solid ${({ theme }) => theme.color.gray};
-  box-sizing: border-box;
   margin-bottom: 30px;
+  * {
+    font-size: 26px;
+    color: ${({ theme }) => theme.color.darkGray};
+    text-align: center;
+    height: 100px;
+    line-height: 100px;
+  }
+`;
+
+export const StyledInputBox = styled.input`
+  width: 84%;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
 `;
 
 export const StyledRepaymentBtn = styled.button`
