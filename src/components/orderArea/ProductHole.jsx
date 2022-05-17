@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Container, Product } from 'components/orderArea/ProductHole.style';
-// import { FinalPayContext } from 'pages/VendingMachine';
 import { SelectedProductContext } from 'App';
 
 export default function ProductHole() {
