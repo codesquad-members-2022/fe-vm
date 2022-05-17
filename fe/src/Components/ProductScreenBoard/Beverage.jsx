@@ -1,18 +1,18 @@
-import { InvestmentContext, SetAlertMessage, SetInvestmentContext } from 'App';
-import { INIT_ALERT_MESSAGE } from 'Helper/constant';
-import { useContext } from 'react';
-import { BeverageContainer, Price, Title } from './Beverage.styled';
+import { SetAlertMessage } from "Context/AlertMessageProvider";
+import { INIT_ALERT_MESSAGE } from "Helper/constant";
+import useInvestment from "Hooks/useInvestment";
+import { useContext } from "react";
+import { BeverageContainer, Price, Title } from "./Beverage.styled";
 
 export default function Beverage({ title, price }) {
-  const setInvestment = useContext(SetInvestmentContext);
-  const investment = useContext(InvestmentContext);
+  const [investment, setInvestment] = useInvestment();
   const setAlertMessage = useContext(SetAlertMessage);
 
   const investmentPrice = (investment && investment.amount) || 0;
-  const buyPossible = price <= investmentPrice;
+  const isBuyPossible = price <= investmentPrice;
 
   const handleOrder = () => {
-    if (!buyPossible) {
+    if (!isBuyPossible) {
       alertWrongProduct(setAlertMessage);
       return;
     }
@@ -24,7 +24,7 @@ export default function Beverage({ title, price }) {
   };
 
   return (
-    <BeverageContainer buyPossible={buyPossible} onClick={handleOrder}>
+    <BeverageContainer isBuyPossible={isBuyPossible} onClick={handleOrder}>
       <Title flex justify="center" align="center">
         {title}
       </Title>

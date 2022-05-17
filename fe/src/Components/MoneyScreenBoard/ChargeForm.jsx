@@ -1,21 +1,15 @@
-import {
-  SetWalletMoneyContext,
-  WalletMoneyContext,
-  InvestmentContext,
-  SetInvestmentContext,
-  SetAlertMessage,
-} from 'App';
-import { INIT_ALERT_MESSAGE } from 'Helper/constant';
-import { useContext, useState } from 'react';
-import { CashInput, Button, ChargeForm } from './ChargeForm.styled';
+import { SetAlertMessage } from "Context/AlertMessageProvider";
+import { INIT_ALERT_MESSAGE } from "Helper/constant";
+import useInvestment from "Hooks/useInvestment";
+import useWallet from "Hooks/useWallet";
+import { useContext, useState } from "react";
+import { CashInput, Button, ChargeForm } from "./ChargeForm.styled";
 
 export default function ChargeScreen() {
   const [cash, setCash] = useState(0);
-  const setWalletMoney = useContext(SetWalletMoneyContext);
-  const setInvestment = useContext(SetInvestmentContext);
+  const [investment, setInvestment] = useInvestment();
+  const [walletMoney, setWalletMoney] = useWallet();
   const setAlertMessage = useContext(SetAlertMessage);
-  const walletMoney = useContext(WalletMoneyContext);
-  const investment = useContext(InvestmentContext);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -52,8 +46,8 @@ export default function ChargeScreen() {
         align="center"
         onChange={handleInputChange}
         autoFocus
-        value={cash || ''}
-      ></CashInput>
+        value={cash || ""}
+      />
       <Button type="submit" flex justify="center" align="center">
         클릭
       </Button>
@@ -83,7 +77,7 @@ const adjustCash = (coins, cash) => {
     {
       moneyDiff: Infinity,
       coin: 0,
-    },
+    }
   );
   return coin;
 };
