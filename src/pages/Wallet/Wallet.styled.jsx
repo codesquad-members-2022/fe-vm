@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const StyledWallet = styled.div`
   width: 200px;
+  height: 450px;
   margin: 0 auto;
   border: 2px solid black;
   margin-top: 20px;
@@ -9,11 +10,13 @@ const StyledWallet = styled.div`
 
 const WalletDetail = styled.div`
   display: flex;
+  flex-direction: column;
   width: 200px;
-  height: 600px;
+  height: 330px;
   justify-content: space-around;
   flex-wrap: wrap;
   text-align: center;
+  align-items: center;
   margin-top: 20px;
 `;
 
@@ -24,7 +27,8 @@ const TotalAmout = styled.div`
   text-align: center;
   line-height: 40px;
   border: 1px solid green;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  margin-top: 50px;
 `;
 
 const CoinPrice = styled.div`
