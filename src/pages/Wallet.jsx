@@ -1,16 +1,11 @@
-import React, { useState } from "react";
-import myWallet from "mocks/myWallet";
-import { convert2MoneyUnit } from "utils";
+import React, { useContext, useMemo, useState } from "react";
 import MoneyUnitItem from "components/Wallet/MoneyUnitItem";
 import { motion } from "framer-motion";
 import { pageTransition, pageVariants } from "helpers/animation";
+import { WalletDispatchContext, WalletStateContext } from "contexts/WalletProvider";
 
 const Wallet = () => {
-  const [moneyState, setMoneyState] = useState(myWallet);
-  const totalMoney = convert2MoneyUnit(
-    moneyState.reduce((prev, { money, count }) => prev + money * count, 0),
-    "kr"
-  );
+  const { wallet } = useContext(WalletStateContext);
 
   return (
     <motion.div
@@ -21,14 +16,22 @@ const Wallet = () => {
       variants={pageVariants(100)}
       transition={pageTransition}
     >
-      {moneyState.map((moneyUnitInfo) => (
+      {wallet.map((moneyUnitInfo) => (
         <MoneyUnitItem key={moneyUnitInfo.id} {...moneyUnitInfo} />
       ))}
-      <span className="mt-5 w-[95%] text-center py-3 text-3xl border-4 border-starbucks rounded-md">
-        {totalMoney}원
-      </span>
+      <TotalMoney />
     </motion.div>
   );
 };
 
-export default Wallet;
+const TotalMoney = () => {
+  const { coinSum } = useContext(WalletStateContext);
+
+  return (
+    <span className="mt-5 w-[95%] text-center py-3 text-3xl border-4 border-starbucks rounded-md">
+      {coinSum}원
+    </span>
+  );
+};
+
+export default React.memo(Wallet);

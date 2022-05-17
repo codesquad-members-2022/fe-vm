@@ -1,5 +1,5 @@
 import HeaderNav from "components/Nav/HeaderNav";
-import React, { useState } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 
 const App = () => {

@@ -1,11 +1,28 @@
-import React from "react";
+import { WalletDispatchContext } from "contexts/WalletProvider";
+import React, { useContext, useEffect } from "react";
 import { convert2MoneyUnit } from "utils";
 
 const MoneyUnitItem = ({ id, money, count, type }) => {
+  useEffect(() => {
+    console.log(`${money} 아이템 렌더`);
+  });
+
+  const { onInsertCoin } = useContext(WalletDispatchContext);
+
   const krMoney = convert2MoneyUnit(money, "kr");
+
+  const handleInsertMoney = () => {
+    onInsertCoin(id);
+  };
+
   return (
     <div key={id} className="flex justify-end items-center w-[90%]">
-      <button className={`${styledMoneyType(type)} btn btn--starbucks mr-10 `}>{krMoney}원</button>
+      <button
+        className={`${styledMoneyType(type)} btn btn--starbucks mr-10`}
+        onClick={handleInsertMoney}
+      >
+        {krMoney}원
+      </button>
       <div>X</div>
       <span className="w-[30%] text-right">{count}개</span>
     </div>
@@ -25,4 +42,4 @@ const styledMoneyType = (type) => {
   }
 };
 
-export default MoneyUnitItem;
+export default React.memo(MoneyUnitItem);

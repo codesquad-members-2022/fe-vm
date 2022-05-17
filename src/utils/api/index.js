@@ -1,16 +1,18 @@
 import instance from "./instance";
 
 export const API = {
-  getBeverage() {
+  getBeverage(config) {
     return instance({
       url: "beverage",
       method: "get",
+      ...config,
     });
   },
-  getMyWallet() {
+  getMyWallet(config) {
     return instance({
-      url: "myWallet",
+      url: "mocks/myWallet",
       method: "get",
+      ...config,
     });
   },
 };

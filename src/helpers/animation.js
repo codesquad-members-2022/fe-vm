@@ -21,5 +21,5 @@ export const pageVariants = (translateX) => {
 export const pageTransition = {
   type: "tween",
   ease: "anticipate",
-  duration: 0.2,
+  duration: 0.3,
 };
