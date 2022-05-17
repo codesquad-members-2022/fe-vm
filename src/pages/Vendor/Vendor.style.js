@@ -27,28 +27,27 @@ const SideWrapper = styled(FlexBox)`
   padding: 10px 0;
 `;
 
-const ResetButton = styled.button`
+const ReturnBtn = styled.button`
   ${itemStyle}
   width: 340px;
   height: 50px;
   font-size: ${({ theme: { fontSize } }) => fontSize.large};
-  background-color: ${({ theme: { greyScale } }) => greyScale.primaryGrey};
+  background-color: ${({ theme: { greyScale, color }, inputState }) =>
+    inputState === 'active' ? color.orange : greyScale.primaryGrey};
   cursor: auto;
   line-height: inherit;
+  transition: all 400ms ease;
+  color: ${({ theme: { greyScale }, inputState }) =>
+    inputState === 'active' ? greyScale.white : greyScale.black};
+  cursor: ${({ inputState }) => (inputState === 'active' ? 'pointer' : 'auto')};
 
   :focus {
     ${itemStyle}
   }
+
+  :active {
+    box-shadow: none;
+  }
 `;
 
-const Logger = styled.div`
-  ${itemStyle}
-  width: 340px;
-  height: ${({ isStock }) => (isStock ? '500px' : '360px')};
-  font-size: ${({ theme: { fontSize } }) => fontSize.small};
-  background-color: ${({ theme: { greyScale } }) => greyScale.primaryGrey};
-  padding: 15px;
-  overflow-y: auto;
-`;
-
-export { VendorWrapper, ProductGrid, SideWrapper, ResetButton, Logger };
+export { VendorWrapper, ProductGrid, SideWrapper, ReturnBtn };
