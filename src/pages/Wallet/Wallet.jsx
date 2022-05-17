@@ -7,12 +7,12 @@ function Wallet() {
   const { logs, setLogs } = useContext(LogContext);
   const { walletMoney, setWalletMoney } = useContext(WalletContext);
 
-  const getTotalAmout = () => {
-    const totalAmout = walletMoney.reduce(function (acc, cur) {
+  const getTotalAmount = () => {
+    const totalAmount = walletMoney.reduce(function (acc, cur) {
       return acc + cur.price * cur.quantity;
     }, 0);
 
-    return totalAmout;
+    return totalAmount;
   };
 
   // TODO: 로그 추가하는 함수가 Information 컴포넌트 함수와 동일함, 개선하기
@@ -45,7 +45,7 @@ function Wallet() {
           <CoinCount key={"coin-quantity-" + id}>{quantity}개</CoinCount>
         ))}
       </WalletDetail>
-      <TotalAmout>{addComma(getTotalAmout())}원</TotalAmout>
+      <TotalAmout>{addComma(getTotalAmount())}원</TotalAmout>
     </StyledWallet>
   );
 }
