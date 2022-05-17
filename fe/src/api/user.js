@@ -14,14 +14,14 @@ const userApi = {
       method: 'get',
     });
   },
-  orderProduct(id, inputMoney) {
+  orderProduct(id, inputChanges) {
     return instance({
       url: API.PATCH_ORDER_PRODUCT,
       method: 'patch',
       params: {
         id,
       },
-      data: { inputMoney },
+      data: { inputChanges },
     });
   },
 };

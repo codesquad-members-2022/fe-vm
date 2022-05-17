@@ -1,4 +1,4 @@
-const {
+import {
   USER_LOGIN,
   USER_LOGOUT,
   ORDER_PRODUCT,
@@ -6,7 +6,7 @@ const {
   RETURN_CHANGES,
   ADD_TARGET_BALANCE,
   SUBSTRACT_TARGET_BALANCE,
-} = require('./type');
+} from './type';
 
 const CHANGES_UNITS = [
   { id: 10, unit: 10, count: 0 },
@@ -66,6 +66,7 @@ export const reducer = (state, action) => {
     }
     case ORDER_PRODUCT: {
       const { newTotalBalance, newChangesUnits } = payload;
+      console.log(newTotalBalance, newChangesUnits);
       return {
         ...state,
         totalBalance: newTotalBalance,

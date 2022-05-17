@@ -17,7 +17,7 @@ function VendingMachine() {
   const resetInputMoneny = () => setInputMoney(0);
 
   const handleOrderProduct = productId => {
-    orderProduct(vmDispatch, productId, prevInputChanges);
+    orderProduct(userDispatch, productId, prevInputChanges);
     resetInputMoneny();
     getProducts(vmDispatch);
   };

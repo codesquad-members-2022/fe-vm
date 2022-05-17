@@ -29,8 +29,8 @@ export const returnChanges = dispatch => {
   dispatch({ type: RETURN_CHANGES });
 };
 
-export const orderProduct = async (dispatch, id, inputMoney) => {
-  const response = await userApi.orderProduct(id, inputMoney);
+export const orderProduct = async (dispatch, id, inputChanges) => {
+  const response = await userApi.orderProduct(id, inputChanges);
   dispatch({ type: ORDER_PRODUCT, payload: response.data });
 };
 

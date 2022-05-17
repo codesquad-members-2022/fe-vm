@@ -1,20 +1,20 @@
 import { API, API_ROOT_URL } from 'constant/route';
 import { rest } from 'msw';
-import { managerChangeUnits, managerBalance } from './manager';
-import { getRestUnit, orderProduct } from './controller/user';
-import {
-  addTargetProdcut,
-  addTargetUnit,
-  substractTargetProdcut,
-  subStractTargetUnit,
-} from './controller/manager';
+import { addTargetUnit, getRestUnit, orderProduct, subStractTargetUnit } from './controller/user';
+import { addTargetProduct, substractTargetProduct } from './controller/product';
 import randomProducts from './products/randomProducts';
-import { userBalance, userChangeUnits, userDefaultInfo } from './user';
+import {
+  userBalance,
+  defaultChangeUnits,
+  userDefaultInfo,
+  defaultMangerUnits,
+  managerBalance,
+} from './user';
 
-const mangerBalanceObj = getRestUnit(managerChangeUnits, managerBalance);
+const mangerBalanceObj = { changesUnits: defaultMangerUnits, totalBalance: managerBalance };
 const globalProductsObj = { products: randomProducts };
 
-const userBalanceObj = getRestUnit(userChangeUnits, userBalance);
+const userBalanceObj = getRestUnit(defaultChangeUnits, userBalance);
 
 const Users = [
   rest.get(API_ROOT_URL + API.LOGIN, (req, res, ctx) => {
@@ -22,43 +22,6 @@ const Users = [
     const userInfo = { ...userDefaultInfo, changesUnits, totalBalance };
     return res(ctx.status(200), ctx.json(userInfo));
   }),
-  rest.get(API_ROOT_URL + API.GET_PRODUCTS, (req, res, ctx) => {
-    const { products } = globalProductsObj;
-    return res(ctx.status(200), ctx.json(products));
-  }),
-  rest.patch(API_ROOT_URL + API.PATCH_ORDER_PRODUCT, (req, res, ctx) => {
-    const { inputMoney } = req.body;
-    // 잔돈확인;
-    const { changesUnits: userUnits, totalBalance: userTotalBalance } = userBalanceObj;
-
-    const [balanceError, newChangesUnits, newTotalBalance, totalInput] = orderProduct(
-      userUnits,
-      inputMoney,
-      userTotalBalance,
-    );
-    if (balanceError.isError) {
-      return res(ctx.status(406), ctx.json({ errorMessage: balanceError.msg }));
-    }
-    // 제품 수량 확인
-    const { changesUnits: mangerUnits, totalBalance: managertotalBalance } = mangerBalanceObj;
-    if (managertotalBalance <= 0) {
-      return res(ctx.status(406), ctx.json({ errorMessage: '잔고가 없어요' }));
-    }
-    const { products } = globalProductsObj;
-    const productId = req.url.searchParams.get('id');
-    const [targetProduct, productError] = updateProduct(
-      products,
-      productId,
-      substractTargetProdcut,
-    );
-    if (productError.isError) {
-      return res(ctx.status(406), ctx.json({ errorMessage: productError.msg }));
-    }
-    return res(ctx.status(200), ctx.json({ newChangesUnits, newTotalBalance }));
-  }),
-];
-
-const Mangers = [
   rest.patch(API_ROOT_URL + API.PATCH_ADD_BALANCE, (req, res, ctx) => {
     const unitId = Number(req.url.searchParams.get('id'));
     const { changesUnits, totalBalance } = mangerBalanceObj;
@@ -80,10 +43,38 @@ const Mangers = [
     setManagerBalanceObj(newChangesUnits, newTotalBalance);
     return res(ctx.status(200), ctx.json({ newChangesUnits, newTotalBalance }));
   }),
+  rest.patch(API_ROOT_URL + API.PATCH_ORDER_PRODUCT, (req, res, ctx) => {
+    const { inputChanges } = req.body;
+    const inputMoney = inputChanges.reduce((acc, cur) => acc + cur, 0);
+    const { products } = globalProductsObj;
+    const productId = req.url.searchParams.get('id');
+    const [error, newManagerUnits, newMangerTotalBalance, newUserUnits, newUserTotalBalance] =
+      orderProduct(userBalanceObj, mangerBalanceObj, inputMoney, inputChanges, products, productId);
+    if (error.isError) {
+      return res(ctx.status(406), ctx.json({ errorMessage: error.msg }));
+    }
+    setManagerBalanceObj(newManagerUnits, newMangerTotalBalance);
+    setUserBalanceObj(newUserUnits, newUserTotalBalance);
+    const [_, updateProductError] = updateProduct(products, productId, substractTargetProduct);
+    if (updateProductError.isError) {
+      return res(ctx.status(406), ctx.json({ errorMessage: updateProductError.msg }));
+    }
+    return res(
+      ctx.status(200),
+      ctx.json({ newChangesUnits: newUserUnits, newTotalBalance: newUserTotalBalance }),
+    );
+  }),
+];
+
+const Products = [
+  rest.get(API_ROOT_URL + API.GET_PRODUCTS, (req, res, ctx) => {
+    const { products } = globalProductsObj;
+    return res(ctx.status(200), ctx.json(products));
+  }),
   rest.patch(API_ROOT_URL + API.PATCH_ADD_PRODUCT, (req, res, ctx) => {
     const { products } = globalProductsObj;
     const productId = req.url.searchParams.get('id');
-    const [targetProduct, error] = updateProduct(products, productId, addTargetProdcut);
+    const [targetProduct, error] = updateProduct(products, productId, addTargetProduct);
     if (error.isError) {
       return res(ctx.status(406), ctx.json({ errorMessage: error.msg }));
     }
@@ -92,7 +83,7 @@ const Mangers = [
   rest.patch(API_ROOT_URL + API.PATCH_SUBSTRACT_PRODUCT, (req, res, ctx) => {
     const { products } = globalProductsObj;
     const productId = req.url.searchParams.get('id');
-    const [targetProduct, error] = updateProduct(products, productId, substractTargetProdcut);
+    const [targetProduct, error] = updateProduct(products, productId, substractTargetProduct);
     if (error.isError) {
       return res(ctx.status(406), ctx.json({ errorMessage: error.msg }));
     }
@@ -100,7 +91,7 @@ const Mangers = [
   }),
 ];
 
-const handlers = [...Mangers, ...Users];
+const handlers = [...Products, ...Users];
 
 export default handlers;
 
@@ -111,6 +102,11 @@ function setGlobalProducts(products) {
 function setManagerBalanceObj(units, balance) {
   mangerBalanceObj.changesUnits = units;
   mangerBalanceObj.totalBalance = balance;
+}
+
+function setUserBalanceObj(units, balance) {
+  userBalanceObj.changesUnits = units;
+  userBalanceObj.totalBalance = balance;
 }
 
 function updateProduct(products, productId, callback) {
