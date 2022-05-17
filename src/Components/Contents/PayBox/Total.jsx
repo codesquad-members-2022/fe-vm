@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { Color, FontSize, Radius10 } from '../../../Assets/Common.style';
 import { changeNumToLocalMoney } from '../../../Utils/utils';
 import { contentsContext } from '../../MainContents';
 
