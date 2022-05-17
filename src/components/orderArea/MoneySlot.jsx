@@ -11,15 +11,15 @@ export default function MoneySlot({ useInputPayState, canOrderState }) {
   const finalPay = useContext(FinalPayContext)[0];
 
   const isRightPayMent = inputValue => {
-    if (isNaN(inputValue)) return false;
-    if (inputValue >= MAX_PAYMENT) return false;
+    if (inputValue && isNaN(inputValue)) return false;
+    if (inputValue > MAX_PAYMENT) return false;
     return true;
   };
 
   const handleChangeMoneyInput = ({ target }) => {
     const inputValue = target.value;
     const numPay = parseFloat(inputValue.replace(/[,]/gim, ''));
-    if (!inputValue) setInputPay(0);
+
     if (isRightPayMent(numPay)) setInputPay(numPay);
   };
 
