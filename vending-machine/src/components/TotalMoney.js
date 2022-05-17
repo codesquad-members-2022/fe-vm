@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { HeightSort } from "../style/Globalstyles";
 
 function TotalMoney({ sum }) {
-  return <TotalMoneyWrap>{sum.toLocaleString()}원</TotalMoneyWrap>;
+  return <TotalMoneyWrap>{sum.toLocaleString("ko-kr")}원</TotalMoneyWrap>;
 }
 const TotalMoneyWrap = styled.div`
   width: 90%;

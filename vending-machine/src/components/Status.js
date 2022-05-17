@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { messageContext } from "../contexts/messageContext";
 function Status() {
-  return <StatusWrap>status</StatusWrap>;
+  const message = useContext(messageContext).message;
+  return <StatusWrap>{message}</StatusWrap>;
 }
 
 const StatusWrap = styled.div`
