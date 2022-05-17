@@ -4,44 +4,13 @@ import { FONT } from "../../constants/fonts";
 import Text from "../../Text";
 import VmWalletContextStore from "../../stores/VmWalletStore";
 import { useContext } from "react";
+import returnMoney from "./returnMoney";
 
 const ReturnBtn = () => {
   const VmWalletInfo = useContext(VmWalletContextStore);
-  const copyInfo = VmWalletInfo.moneyInfo.slice();
 
   const onReturnClick = () => {
-    if (VmWalletInfo.isInsertCoin && VmWalletInfo.currMoney > 0) {
-      copyInfo.forEach((moneyInfo, idx) => {
-        if (moneyInfo.type === 10000) {
-          copyInfo[idx].amount += Math.floor(VmWalletInfo.currMoney / 10000);
-        } else if (moneyInfo.type === 5000) {
-          copyInfo[idx].amount += Math.floor((VmWalletInfo.currMoney % 10000) / 5000);
-        } else if (moneyInfo.type === 1000) {
-          copyInfo[idx].amount += Math.floor(((VmWalletInfo.currMoney % 10000) % 5000) / 1000);
-        } else if (moneyInfo.type === 500) {
-          copyInfo[idx].amount += Math.floor(
-            (((VmWalletInfo.currMoney % 10000) % 5000) % 1000) / 500
-          );
-        } else if (moneyInfo.type === 100) {
-          copyInfo[idx].amount += Math.floor(
-            ((((VmWalletInfo.currMoney % 10000) % 5000) % 1000) % 500) / 100
-          );
-        } else if (moneyInfo.type === 50) {
-          copyInfo[idx].amount += Math.floor(
-            (((((VmWalletInfo.currMoney % 10000) % 5000) % 1000) % 500) % 100) / 50
-          );
-        } else if (moneyInfo.type === 10) {
-          copyInfo[idx].amount += Math.floor(
-            ((((((VmWalletInfo.currMoney % 10000) % 5000) % 1000) % 500) % 100) % 50) / 10
-          );
-        }
-      });
-      VmWalletInfo.setMoneyInfo(copyInfo);
-      VmWalletInfo.setCurrMoney(0);
-      VmWalletInfo.setLogMessage(
-        VmWalletInfo.logMessage.concat(`${VmWalletInfo.currMoney}원 반환`)
-      );
-    }
+    returnMoney(VmWalletInfo);
   };
 
   return (

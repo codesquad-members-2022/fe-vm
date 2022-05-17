@@ -16,6 +16,11 @@ const Product = ({ product }) => {
       VmWalletInfo.setLogMessage(
         VmWalletInfo.logMessage.concat(`${product.title}을 선택하셨습니다`)
       );
+      setTimeout(() => {
+        VmWalletInfo.setLogMessage(
+          VmWalletInfo.logMessage.concat(`${product.title}를 획득했습니다!`)
+        );
+      }, 2000);
     }
   };
 
