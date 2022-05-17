@@ -13,7 +13,6 @@ const VendingMachine = () => {
 
 const VendingMachineWrapper = styled.div`
   display: flex;
-  height: 900px;
 `;
 
 export default VendingMachine;

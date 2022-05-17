@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { useContext } from "react";
+import styled from "styled-components";
 import { Balance } from "../../contextProviders/BalanceProvider";
 import Money from "./Money";
 import { moneyOrder } from "../../convention";
@@ -19,7 +19,11 @@ const Wallet = () => {
     wallet && (
       <WalletWrapper>
         {moneyOrder.map((moneyType) => (
-          <Money key={moneyType} moneyType={moneyType} number={wallet[moneyType]} />
+          <Money
+            key={moneyType}
+            moneyType={moneyType}
+            number={wallet[moneyType]}
+          />
         ))}
         <TotalBalance>총액: {calTotalBalance()}</TotalBalance>
       </WalletWrapper>

@@ -1,9 +1,9 @@
-import { css } from "styled-components";
 import { useContext } from "react";
+import { css } from "styled-components";
 import { Balance } from "../../../../contextProviders/BalanceProvider";
 import { Records } from "../../../../contextProviders/RecordsProvider";
-import { activityType, moneyOrder } from "../../../../convention";
 import Button from "../../../common/Button";
+import { activityType, moneyOrder } from "../../../../convention";
 
 const ReturnButton = () => {
   const { inputSum, wallet, updateBalance } = useContext(Balance);
@@ -48,6 +48,7 @@ const ReturnButton = () => {
 const returnButtonStyles = css`
   width: 60px;
   height: 60px;
+  margin-top: 10px;
   border-radius: 100%;
   display: flex;
   justify-content: center;
