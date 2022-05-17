@@ -2,13 +2,16 @@ import { applyFlex } from "Helper/utils";
 import styled from "styled-components";
 
 const createBorder = (isBuyPossible) => {
-  return isBuyPossible ? `border: 2px solid #ec407a` : `border: 2px solid #000`;
+  // return isBuyPossible ? `border: 2px solid #ec407a` : `border: 2px solid #000`;
+  return isBuyPossible
+    ? `box-shadow: 0px 0px 20px 1px rgb(200, 0, 200)`
+    : `box-shadow: 0px 0px 20px 1px rgb(200, 200, 200)`;
 };
 export const BeverageContainer = styled.div`
-  box-sizing: border-box;
   ${({ isBuyPossible }) => {
     return createBorder(isBuyPossible) + "; cursor:pointer";
   }};
+  border: 2px solid #000;
   margin: 20px;
   width: 100px;
   height: 100px;

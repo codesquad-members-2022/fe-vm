@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AlertMessageProvider from "Context/AlertMessageProvider";
 import InvestMentProvider from "Context/InvestmentProvider";
 import WalletMoneyProvider from "Context/WalletMoneyProvider";
+import GlobalStyle from "Common/globalStyle";
 
 export default function App() {
   const [walletMoney, setWalletMoney] = useFetch(WALLET_API);
@@ -16,19 +17,22 @@ export default function App() {
   const [alertMessage, setAlertMessage] = useState({});
 
   return (
-    <WalletMoneyProvider state={walletMoney} setState={setWalletMoney}>
-      <InvestMentProvider state={investment} setState={setInvestment}>
-        <AlertMessageProvider state={alertMessage} setState={setAlertMessage}>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route path="/" element={<VendingMachine />} />
-                <Route path="/wallet" element={<Wallet />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </AlertMessageProvider>
-      </InvestMentProvider>
-    </WalletMoneyProvider>
+    <div className="App">
+      <GlobalStyle />
+      <WalletMoneyProvider state={walletMoney} setState={setWalletMoney}>
+        <InvestMentProvider state={investment} setState={setInvestment}>
+          <AlertMessageProvider state={alertMessage} setState={setAlertMessage}>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Layout />}>
+                  <Route path="/" element={<VendingMachine />} />
+                  <Route path="/wallet" element={<Wallet />} />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </AlertMessageProvider>
+        </InvestMentProvider>
+      </WalletMoneyProvider>
+    </div>
   );
 }
