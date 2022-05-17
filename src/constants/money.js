@@ -1,6 +1,6 @@
 import guid from 'util/guid';
 
-const initialMoney = [
+const INITIAL_MONEY = [
   { id: guid(), unit: 10, count: 0 },
   { id: guid(), unit: 50, count: 3 },
   { id: guid(), unit: 100, count: 8 },
@@ -10,4 +10,4 @@ const initialMoney = [
   { id: guid(), unit: 10000, count: 0 },
 ];
 
-export default initialMoney;
+export default INITIAL_MONEY;

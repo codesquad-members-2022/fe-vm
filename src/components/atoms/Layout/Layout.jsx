@@ -1,7 +1,9 @@
 import { Outlet } from 'react-router-dom';
 import LinkNav from 'components/molecules/LinkNav/LinkNav';
-import { GlobalStyle, StyledWrapper } from 'routes/Layout/Layout.style';
-// import { MoneyProvider } from 'components/atoms/Context/MoneyContext';
+import {
+  GlobalStyle,
+  StyledWrapper,
+} from 'components/atoms/Layout/Layout.style';
 
 function Layout() {
   return (

@@ -19,11 +19,6 @@ function MoneyBox({ insertMoney, setInsertMoney }) {
   );
 }
 
-MoneyBox.defaultProps = {
-  insertMoney: [],
-  setInsertMoney: () => {},
-};
-
 MoneyBox.propTypes = {
   insertMoney: PropTypes.arrayOf(PropTypes.objectOf),
   setInsertMoney: PropTypes.func,

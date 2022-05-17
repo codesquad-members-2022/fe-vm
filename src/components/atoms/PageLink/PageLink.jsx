@@ -15,10 +15,6 @@ function PageLink({ pageName }) {
   );
 }
 
-PageLink.defaultProps = {
-  pageName: '',
-};
-
 PageLink.propTypes = {
   pageName: PropTypes.string,
 };

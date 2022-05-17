@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import initialMoney from 'constants/money';
+import { useContext } from 'react';
 import MoneyBox from 'components/molecules/MoneyBox/MoneyBox';
+import { MoneyContext } from 'components/atoms/Context/MoneyContext';
 
 function Wallet() {
-  const [insertMoney, setInsertMoney] = useState(initialMoney);
+  const { insertMoney, setInsertMoney } = useContext(MoneyContext);
   return <MoneyBox insertMoney={insertMoney} setInsertMoney={setInsertMoney} />;
 }
 

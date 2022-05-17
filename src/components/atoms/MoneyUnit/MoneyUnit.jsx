@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import PropTypes from 'prop-types';
 
 function MoneyUnit({ coin, insertMoney, setInsertMoney }) {
@@ -33,12 +34,6 @@ function MoneyUnit({ coin, insertMoney, setInsertMoney }) {
     </li>
   );
 }
-
-MoneyUnit.defaultProps = {
-  coin: {},
-  insertMoney: [],
-  setInsertMoney: () => {},
-};
 
 MoneyUnit.propTypes = {
   coin: PropTypes.shape({
