@@ -1,4 +1,4 @@
-import React, { useContext, useState, useMemo } from "react";
+import React, { useContext, useState, useMemo, useCallback } from "react";
 
 const VendingMachineContext = React.createContext();
 export const useVendingMachineContext = () => useContext(VendingMachineContext);
@@ -7,9 +7,9 @@ function VendingMachineProvider({ children }) {
     const [record, setRecord] = useState([]);
     const [moneyInVendingMachine, setMoneyInVendingMachine] = useState({});
 
-    const addRecord = (newRecord) => {
-        setRecord([...record, newRecord]);
-    };
+    const addRecord = useCallback((newRecord) => {
+        setRecord((prevRecord) => [...prevRecord, newRecord]);
+    }, []);
 
     const putMoneyIntoVendingMachine = (money) => {
         moneyInVendingMachine[money] = moneyInVendingMachine[money]
