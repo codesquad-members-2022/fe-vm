@@ -35,7 +35,7 @@ export default function OrderArea() {
   };
 
   const initVMState = () => {
-    setSelectedProduct({});
+    setSelectedProduct({ detail: null, price: null });
     setOrderState(true);
   };
 

@@ -11,7 +11,7 @@ const SelectedProductContext = createContext(null);
 
 export default function App() {
   const useWalletState = useState(walletData);
-  const useSelectedProductState = useState({});
+  const useSelectedProductState = useState({ detail: null, price: null });
 
   return (
     <WalletContext.Provider value={useWalletState}>
