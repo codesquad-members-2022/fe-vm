@@ -9,6 +9,8 @@ import {
 } from '../../../Utils/utils';
 import Btn from '../../Btn';
 
+const notPayMoney = 0;
+
 export default function AddBtn() {
   const { payTotal, setPayTotal, printMessages, setPrintMessages } =
     useContext(contentsContext);
@@ -16,6 +18,8 @@ export default function AddBtn() {
 
   const addBtnClickHandler = (e) => {
     e.preventDefault();
+    if (payMoney === notPayMoney)
+      return setPrintMessages([...printMessages, getMessage('notPayMoney')]);
     const formatNum = replaceNotNumToSpace(payMoney);
     const updateTotal = payTotal + Number(formatNum);
     const addMessage = getMessage('투입', changeNumToLocalMoney(formatNum));

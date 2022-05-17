@@ -17,6 +17,8 @@ export function getMessage(type, value) {
     case '구입':
       valueMessage = `상품(${value})을 `;
       break;
+    case 'notPayMoney':
+      return '금액을 입력해주세요';
     default:
       throw new Error('message type error');
   }
