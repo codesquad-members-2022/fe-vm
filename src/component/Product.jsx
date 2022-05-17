@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import * as uiConst from "../constant/uiConstant";
+import * as uiConst from "constant/uiConstant";
 
 function Product({ name, price, quantity }) {
     return (

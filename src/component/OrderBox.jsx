@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import returnIcon from "../asset/return.png";
-import insertIcon from "../asset/insert.png";
-import logo from "../asset/codesquad.png";
-import VendingMachineDisplay from "./VendingMachineDisplay";
-import * as uiConst from "../constant/uiConstant";
+import returnIcon from "asset/return.png";
+import insertIcon from "asset/insert.png";
+import logo from "asset/codesquad.png";
+import VendingMachineDisplay from "component/VendingMachineDisplay";
+import * as uiConst from "constant/uiConstant";
 
 function OrderBox() {
     function handleReturnBtn() {
