@@ -30,13 +30,15 @@ const NavBar = () => {
         <Tab>
           <NavLink to="/">
             {({ isActive }) => (
-              <StyledSpan className={isActive ? 'active' : null}>자판기</StyledSpan>
+              <StyledSpan className={isActive ? 'active' : undefined}>자판기</StyledSpan>
             )}
           </NavLink>
         </Tab>
         <Tab>
           <NavLink to="/wallet">
-            {({ isActive }) => <StyledSpan className={isActive ? 'active' : null}>지갑</StyledSpan>}
+            {({ isActive }) => (
+              <StyledSpan className={isActive ? 'active' : undefined}>지갑</StyledSpan>
+            )}
           </NavLink>
         </Tab>
       </TabList>
