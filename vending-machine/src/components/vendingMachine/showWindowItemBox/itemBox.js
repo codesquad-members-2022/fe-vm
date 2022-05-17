@@ -1,14 +1,22 @@
 import { StyledItemContainer, StyledItemName, StyledItemPrice } from './itemBox.styled';
 import { getWonTemplate, delay } from '../../../helper/utils';
-import { useContext, useState } from 'react';
-import { InputMoneyContext, LogContext } from '../vendingMachine';
+import { useContext, useState, useEffect } from 'react';
+import { InputMoneyContext, LogContext, PaybackContext, ProgressContext } from '../vendingMachine';
 
-export function ItemBox({ item, inProgress, setInProgress }) {
+export function ItemBox({ item }) {
   const { inputMoney, setInputMoney } = useContext(InputMoneyContext);
-  const { logList, setLogList } = useContext(LogContext);
+  const { setLogList } = useContext(LogContext);
+  const { inProgress, setInProgress } = useContext(ProgressContext);
+  const { setPaybackState } = useContext(PaybackContext);
   const [boxColor, setBoxColor] = useState('gray');
   const [itemStock, setItemStock] = useState(item.stock);
   const ITEM_DROP_TIME = 2000;
+
+  useEffect(() => {
+    if (!itemStock) {
+      logSoldOut();
+    }
+  }, [itemStock]);
 
   function handleClick() {
     if (!itemStock) return;
@@ -24,29 +32,22 @@ export function ItemBox({ item, inProgress, setInProgress }) {
     printInputMoney();
     logChooseItem();
 
+    // 2초 뒤 아이템 드랍
     delay(ITEM_DROP_TIME).then(() => {
-      paybackMoney();
-      logPaybackMoney();
+      dropItem();
       setInProgress(false);
+      setPaybackState(true);
     });
   }
 
   function logChooseItem() {
     const log = `${item.name} 선택됨.`;
-    logList.push(log);
-    setLogList(logList);
+    setLogList(logList => [...logList, log]);
   }
 
   function logSoldOut() {
     const log = `${item.name} 품절됨.`;
-    logList.push(log);
-    setLogList(logList);
-  }
-
-  function logPaybackMoney() {
-    const log = `잔돈 ${getWonTemplate(inputMoney - item.price)} 반환됨.`;
-    logList.push(log);
-    setLogList(logList);
+    setLogList(logList => [...logList, log]);
   }
 
   function printInputMoney() {
@@ -54,9 +55,8 @@ export function ItemBox({ item, inProgress, setInProgress }) {
     setInputMoney(setValue);
   }
 
-  function paybackMoney() {
+  function dropItem() {
     setBoxColor('gray');
-    //setInputMoney(0);
   }
 
   return (

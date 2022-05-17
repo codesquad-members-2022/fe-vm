@@ -6,15 +6,35 @@ import {
   StyledInputBox,
   StyledRepaymentBtn,
 } from './userWindow.styled';
-import { useContext } from 'react';
-import { InputMoneyContext, LogContext } from '../vendingMachine';
+import { useContext, useEffect } from 'react';
+import { InputMoneyContext, LogContext, PaybackContext, ProgressContext } from '../vendingMachine';
 import { LogMonitor } from '../userWindowLogMonitor/logMonitor';
 
 export function UserWindow() {
   const { inputMoney, setInputMoney } = useContext(InputMoneyContext);
-  const { logList, setLogList } = useContext(LogContext);
+  const { setLogList } = useContext(LogContext);
+  const { paybackState, setPaybackState } = useContext(PaybackContext);
+  const { inProgress } = useContext(ProgressContext);
+  const PAYBACK_TIME = 4000;
+
+  useEffect(() => {
+    if (!paybackState) return;
+    console.log('잔돈 반환용 useEffect');
+    setPaybackState(false);
+
+    const timer = setTimeout(() => {
+      logPaybackMoney();
+      setInputMoney(0);
+    }, PAYBACK_TIME);
+
+    // return () => {
+    //   console.log('clear');
+    //   clearTimeout(timer);
+    // };
+  }, [paybackState]);
 
   function handleKeyPress(e) {
+    if (inProgress) return;
     if (e.key !== 'Enter') return;
     const currentInputMoney = parseInt(e.target.value / 100) * 100;
     e.target.value = null;
@@ -25,8 +45,7 @@ export function UserWindow() {
 
   function logInputMoney(currentInputMoney) {
     const log = `${getWonTemplate(currentInputMoney)} 투입됨.`;
-    logList.push(log);
-    setLogList(logList);
+    setLogList(logList => [...logList, log]);
   }
 
   function printInputMoney(currentInputMoney) {
@@ -35,14 +54,13 @@ export function UserWindow() {
   }
 
   function handleClickRepaymentBtn() {
-    setInputMoney(0);
-    logPaybackMoney();
+    setPaybackState(true);
   }
 
   function logPaybackMoney() {
+    if (inputMoney === 0) return;
     const log = `잔돈 ${getWonTemplate(inputMoney)} 반환됨.`;
-    logList.push(log);
-    setLogList(logList);
+    setLogList(logList => [...logList, log]);
   }
 
   return (
