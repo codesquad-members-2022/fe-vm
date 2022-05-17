@@ -1,20 +1,20 @@
 import { useContext, memo } from "react";
-import { InsertCoinContext, CoinContext } from "context";
+import { SetInsertCoinContext, SetCoinContext } from "context";
 import { Button } from "components";
 
 function Coin({ unit, count }) {
-  const { selectCoin } = useContext(CoinContext);
-  const { insertCoin, setInsertCoin } = useContext(InsertCoinContext);
+  const selectCoin = useContext(SetCoinContext);
+  const setInsertCoin = useContext(SetInsertCoinContext);
 
-  const clickCoin = () => {
+  const handleCoinClick = () => {
     if (!count) return;
-    selectCoin(unit, count);
-    setInsertCoin(insertCoin + unit);
+    selectCoin(unit);
+    setInsertCoin((prevCoin) => prevCoin + unit);
   };
 
   return (
     <>
-      <Button color="yellow" size="medium" onClick={clickCoin}>
+      <Button color="yellow" size="medium" onClick={handleCoinClick}>
         <strong>{unit}</strong>
       </Button>
       <span>{count}</span>
@@ -22,7 +22,10 @@ function Coin({ unit, count }) {
   );
 }
 
-const areEqual = (prevProps, nextProps) => prevProps.count === nextProps.count;
+const areEqual = (prevProps, nextProps) => {
+  return prevProps.count === nextProps.count;
+};
+
 const MemoizedCoin = memo(Coin, areEqual);
 
 export { MemoizedCoin };

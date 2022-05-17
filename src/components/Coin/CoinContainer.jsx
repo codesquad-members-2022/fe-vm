@@ -24,7 +24,7 @@ const StyledCoinContainer = styled.ul`
 `;
 
 function CoinContainer() {
-  const { coin } = useContext(CoinContext);
+  const coin = useContext(CoinContext);
 
   return (
     <StyledCoinContainer>
