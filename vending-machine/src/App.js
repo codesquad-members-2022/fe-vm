@@ -7,20 +7,20 @@ import Wallet from "./page/Wallet";
 import NotFound from "./page/NotFound";
 
 function App() {
-  return (
-    <>
-      <Reset />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<VendingMachine />} />
-            <Route path="/wallet" element={<Wallet />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
+    return (
+        <>
+            <Reset />
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Layout />}>
+                        <Route index element={<VendingMachine />} />
+                        <Route path="/wallet" element={<Wallet />} />
+                        <Route path="*" element={<NotFound />} />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </>
+    );
 }
 
 export default App;

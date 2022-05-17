@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 function Wallet() {
-  return <></>;
+    return <></>;
 }
 
 export default Wallet;
