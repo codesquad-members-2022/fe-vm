@@ -10,6 +10,7 @@ import AlertMessageProvider from "Context/AlertMessageProvider";
 import InvestMentProvider from "Context/InvestmentProvider";
 import WalletMoneyProvider from "Context/WalletMoneyProvider";
 import GlobalStyle from "Common/globalStyle";
+import NotFound from "Pages/NotFound/NotFound";
 
 export default function App() {
   const [walletMoney, setWalletMoney] = useFetch(WALLET_API);
@@ -24,10 +25,11 @@ export default function App() {
           <AlertMessageProvider state={alertMessage} setState={setAlertMessage}>
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={<Layout />}>
+                <Route path="/" exact element={<Layout />}>
                   <Route path="/" element={<VendingMachine />} />
                   <Route path="/wallet" element={<Wallet />} />
                 </Route>
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
           </AlertMessageProvider>
