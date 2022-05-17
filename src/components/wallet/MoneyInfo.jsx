@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import Text from "../../Text";
 import { FONT } from "../../constants/fonts";
-import { useEffect, useState, useContext, useRef } from "react";
+import { useEffect, useState, useContext } from "react";
 import VmWalletContextStore from "../../stores/VmWalletStore";
 
 const MoneyInfo = ({ money, number }) => {

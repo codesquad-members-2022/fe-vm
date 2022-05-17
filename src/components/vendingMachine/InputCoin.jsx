@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useRef, useContext } from "react";
+import { useRef, useContext } from "react";
 
 import { FONT } from "../../constants/fonts";
 import Text from "../../Text";
