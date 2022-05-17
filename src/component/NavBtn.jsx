@@ -17,22 +17,24 @@ function NavBtn() {
 const NavBtnList = styled.ul`
     display: flex;
     justify-content: center;
-    margin: 5rem;
+    margin: ${({ theme }) => theme.margins.xxxl};
 `;
 
 const NavBtnItem = styled.li`
-    border: 1px solid #000;
+    margin: ${({ theme }) => theme.margins.medium};
 `;
 
 const StyledNavLink = styled(NavLink)`
     display: inline-block;
-    padding: 1rem;
+    padding: ${({ theme }) => theme.paddings.medium};
+    font-size: ${({ theme }) => theme.fontSizes.xl};
     text-decoration: none;
-    color: #000;
-    font-size: 2rem;
+    border-radius: ${({ theme }) => theme.borderRadiuses.medium};
+    background-color: ${({ theme }) => theme.colors.lightGray};
+    color: ${({ theme }) => theme.colors.black};
     &.active {
-        background-color: #666;
-        color: #fff;
+        background-color: ${({ theme }) => theme.colors.black};
+        color: ${({ theme }) => theme.colors.white};
     }
 `;
 

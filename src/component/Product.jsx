@@ -13,8 +13,8 @@ function Product({ name, price, quantity }) {
 }
 
 const ProductBox = styled.button`
-    margin: 20px;
-    height: ${uiConst.VENDING_MACHINE_PRODUCT_HEIGHT}px;
+    margin: ${({ theme }) => theme.margins.lg};
+    height: ${uiConst.VENDING_MACHINE_PRODUCT_HEIGHT};
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -23,10 +23,11 @@ const ProductBox = styled.button`
 `;
 
 const ProductName = styled.div`
-    font-size: ${uiConst.VENDING_MACHINE_PRODUCT_SIZE}rem;
+    font-size: ${({ theme }) => theme.fontSizes.xxl};
 `;
+
 const ProductPrice = styled.div`
-    font-size: 1.2rem;
+    font-size: ${({ theme }) => theme.fontSizes.medium};
 `;
 
 export default Product;

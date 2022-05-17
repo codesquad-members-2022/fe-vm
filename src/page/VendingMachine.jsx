@@ -32,21 +32,22 @@ const ProductContainer = styled.div`
 `;
 
 const VendingMachineBox = styled.div`
-    width: ${uiConst.VENDING_MACHINE_WIDTH}px;
+    width: ${uiConst.VENDING_MACHINE_WIDTH};
     margin: 0 auto;
     display: flex;
 `;
 
 const VendingMachineLeftCol = styled.div`
     border: 5px solid #000;
-    min-height: ${uiConst.VENDING_MACHINE_HEIHGT}px;
-    width: 60%;
+    border-right: none;
+    min-height: ${uiConst.VENDING_MACHINE_HEIHGT};
+    width: ${uiConst.PRODUCT_WINDOW_WIDTH};
 `;
 
 const VendingMachineRightCol = styled.div`
     border: 5px solid #000;
     height: ${uiConst.VENDING_MACHINE_HEIHGT}px;
-    width: 40%;
+    width: ${uiConst.VENDING_MACHINE_WIDTH - uiConst.PRODUCT_WINDOW_WIDTH};
 `;
 
 export default VendingMachine;

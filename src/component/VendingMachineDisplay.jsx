@@ -6,13 +6,12 @@ function VendingMachineDisplay() {
 }
 
 const DisplayText = styled.div`
-    border: 2px solid black;
-    margin-bottom: 20px;
-    padding: 10px;
-    color: #15e015;
-    font-size: 2rem;
-    background-color: black;
-    border-radius: 10px;
+    margin-bottom: ${({ theme }) => theme.margins.medium};
+    padding: ${({ theme }) => theme.paddings.medium};
+    font-size: ${({ theme }) => theme.fontSizes.xl};
+    color: ${({ theme }) => theme.colors.lightGreen};
+    background-color: ${({ theme }) => theme.colors.black};
+    border-radius: ${({ theme }) => theme.borderRadiuses.medium}; ;
 `;
 
 export default VendingMachineDisplay;
