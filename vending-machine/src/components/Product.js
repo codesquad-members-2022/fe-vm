@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { ProductContext } from "../contexts/productContext";
+import { WalletContext } from "../contexts/walletContext";
 import canSrc from "../img/free-icon-beer-can-95982.png";
 import { CenterSort, HeightSort } from "../style/Globalstyles";
 import { decreaseAmount } from "../util/util";
@@ -8,11 +9,21 @@ import { decreaseAmount } from "../util/util";
 function Product({ title, price, amount }) {
   const { beverage, setBeverage } = useContext(ProductContext);
   const isSoldOut = amount !== 0;
+  const setInputMoney = useContext(WalletContext).value.setInputMoney;
+  const inputMoney = useContext(WalletContext).value.inputMoney;
+  function decreaseInput(price) {
+    if (price <= inputMoney) {
+      setInputMoney(inputMoney - price);
+    } else {
+      alert("잔액이 부족합니다!");
+    }
+  }
   return (
     <ProductWrap
       isSoldOut={isSoldOut}
       onClick={() => {
         decreaseAmount(beverage, amount, setBeverage, title);
+        decreaseInput(price);
       }}
     >
       <ProductImage src={canSrc}></ProductImage>
