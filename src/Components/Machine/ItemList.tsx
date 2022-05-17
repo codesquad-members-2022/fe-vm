@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 import Item from '@/Components/Machine/Item';
+import { useRef } from 'react';
 
 import { IItem, useItemState } from '@/Context/ItemContext';
 import { useWalletDispatch } from '@/Context/WalletContext';
 import { useMessageDispatch } from '@/Context/MessageContext';
 import { usePriceState, usePriceDispatch } from '@/Context/PriceContext';
+
+import keepTheChange from '@/Utils/keepTheChange';
 
 const ItemListerWrapper = styled.article`
   display: grid;
@@ -24,6 +27,8 @@ export default function ItemList(): JSX.Element {
   const messageDispatch = useMessageDispatch();
   const priceDispatch = usePriceDispatch();
 
+  const timerId = useRef(null);
+
   const availablePurchaseItem = (price: number, count: number) => {
     return count && priceState > price ? true : false;
   };
@@ -38,15 +43,22 @@ export default function ItemList(): JSX.Element {
       return;
     }
 
-    messageDispatch({
-      type: 'INSERT_MESSAGE',
-      unit: 0,
-      message: `${item.text}가 선택 됨`,
-    });
-    // 잔돈 -> Wallet Update -> 잔돈을 어떻게 동전/화폐로 나눠서 지갑에 다시 넣어줄까
-    priceDispatch({ type: 'DELETE_ALL_PRICE' });
-    // 5초 카운트 종료
+    if (timerId.current) {
+      alert('상품이 배출중입니다....');
+      return;
+    }
+
     // 2초 뒤 상품 배출
+    timerId.current = setTimeout(() => {
+      messageDispatch({
+        type: 'INSERT_MESSAGE',
+        unit: 0,
+        message: `${item.text}가 선택 됨`,
+      });
+      keepTheChange(priceState - item.price, walletDispatch);
+      priceDispatch({ type: 'DELETE_ALL_PRICE' });
+      // 5초 카운트 종료
+    }, 2000);
   };
 
   return (

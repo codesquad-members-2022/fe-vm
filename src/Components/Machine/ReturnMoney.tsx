@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
-import { useWalletState } from '@/Context/WalletContext';
+import { useWalletDispatch } from '@/Context/WalletContext';
 import { useMessageDispatch } from '@/Context/MessageContext';
 import { usePriceState, usePriceDispatch } from '@/Context/PriceContext';
+
+import keepTheChange from '@/Utils/keepTheChange';
 
 const ReturnMoneyWrapper = styled.div`
   width: 100%;
@@ -28,16 +30,23 @@ const ReturnMoneyWrapper = styled.div`
 
 export default function ReturnMoney(): JSX.Element {
   const priceState = usePriceState();
-  const walletState = useWalletState();
+  const walletDispatch = useWalletDispatch();
   const messageDispatch = useMessageDispatch();
   const priceDispatch = usePriceDispatch();
 
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (priceState === 0) {
+      alert('반환할 금액이 없습니다.');
+      return;
+    }
     messageDispatch({
       type: 'INSERT_MESSAGE',
       unit: 0,
       message: `${priceState}원 반환됨`,
     });
+
+    keepTheChange(priceState, walletDispatch);
+
     priceDispatch({ type: 'DELETE_ALL_PRICE' });
   };
 
