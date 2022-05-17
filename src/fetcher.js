@@ -1,7 +1,28 @@
-export const fetchData = async (target) => {
-  return await (await fetch(getRequestURL(target))).json();
+const port = process.env.PORT || 3001;
+const baseURL = `http://localhost:${port}`;
+
+export const request = {
+  async getData(target) {
+    const URL = makeURL(target);
+    const data = await (await fetch(URL)).json();
+    return data;
+  },
+
+  async patchData(target, id, requestBody) {
+    const URL = makeURL(target, id);
+    const requestMessage = makeRequestMessage("PATCH", requestBody);
+    fetch(URL, requestMessage);
+  }
 };
 
-const getRequestURL = (target) => {
-  return `http://localhost:3000/mocks/${target}.json`;
+const makeURL = (target, id = "") => {
+  return `${baseURL}/${target}/${id}`;
+};
+
+const makeRequestMessage = (method, requestBody) => {
+  return {
+    method: method,
+    body: JSON.stringify(requestBody),
+    headers: { "Content-type": "application/json; charset=UTF-8" }
+  };
 };
