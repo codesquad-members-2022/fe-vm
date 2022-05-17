@@ -11,11 +11,13 @@ import InvestMentProvider from "Context/InvestmentProvider";
 import WalletMoneyProvider from "Context/WalletMoneyProvider";
 import GlobalStyle from "Common/globalStyle";
 import NotFound from "Pages/NotFound/NotFound";
+import MessageListProvider from "Context/MessageListProvider";
 
 export default function App() {
   const [walletMoney, setWalletMoney] = useFetch(WALLET_API);
   const [investment, setInvestment] = useFetch(INVESTMENT_API);
   const [alertMessage, setAlertMessage] = useState({});
+  const [messageList, setMessageList] = useState([]);
 
   return (
     <div className="App">
@@ -23,15 +25,17 @@ export default function App() {
       <WalletMoneyProvider state={walletMoney} setState={setWalletMoney}>
         <InvestMentProvider state={investment} setState={setInvestment}>
           <AlertMessageProvider state={alertMessage} setState={setAlertMessage}>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" exact element={<Layout />}>
-                  <Route path="/" element={<VendingMachine />} />
-                  <Route path="/wallet" element={<Wallet />} />
-                </Route>
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
+            <MessageListProvider state={messageList} setState={setMessageList}>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" exact element={<Layout />}>
+                    <Route path="/" element={<VendingMachine />} />
+                    <Route path="/wallet" element={<Wallet />} />
+                  </Route>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </MessageListProvider>
           </AlertMessageProvider>
         </InvestMentProvider>
       </WalletMoneyProvider>
