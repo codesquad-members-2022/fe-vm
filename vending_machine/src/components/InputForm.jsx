@@ -44,7 +44,7 @@ const StyledForm = styled.form`
   width: 270px;
   height: 60px;
   margin-top: 20px;
-  border: 2px solid ${color.grey};
+  border: 2px solid ${color.gray};
 `;
 
 const StyledInput = styled.input`
