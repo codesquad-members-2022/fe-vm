@@ -5,6 +5,8 @@ import { useWalletState, useWalletDispatch } from '@/Context/WalletContext';
 import { useMessageDispatch } from '@/Context/MessageContext';
 import { usePriceState, usePriceDispatch } from '@/Context/PriceContext';
 
+import { units } from '@/Constants';
+
 const Input = styled.input`
   min-width: 200px;
   height: 50px;
@@ -53,11 +55,10 @@ export default function InputMoney(): JSX.Element {
     if (typeof price === undefined) return 0;
     else if (price < 10) return 10;
 
-    const units = [10, 50, 100, 500, 1000, 5000, 10000];
     let differenceValue = units[units.length - 1];
     let unitIdx = 0;
 
-    units.forEach((unit, idx) => {
+    [...units].forEach((unit, idx) => {
       if (differenceValue >= Math.abs(unit - price)) {
         unitIdx = idx;
         differenceValue = Math.abs(unit - price);
@@ -72,13 +73,13 @@ export default function InputMoney(): JSX.Element {
       if (isNaN(price) || price < 0) return;
       else {
         const unit = parsingUnit(price);
-        if (unit > sumPrice) {
-          alert('투입된 금액이 초과되었습니다.');
+        if (!isCheckUnit(unit)) {
+          alert(`${unit}원이 지갑에 존재하지 않습니다.`);
           return;
         }
 
-        if (!isCheckUnit(unit)) {
-          alert(`${unit}원이 지갑에 존재하지 않습니다.`);
+        if (unit > sumPrice) {
+          alert('투입된 금액이 초과되었습니다.');
           return;
         }
 
