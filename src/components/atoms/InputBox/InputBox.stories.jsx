@@ -9,7 +9,9 @@ export default {
   },
   argTypes: {
     inputValue: {
-      type: 'text',
+      control: {
+        type: 'text',
+      },
     },
   },
 };

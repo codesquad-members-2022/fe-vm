@@ -6,6 +6,13 @@ export default {
   args: {
     text: '0개',
   },
+  argTypes: {
+    text: {
+      control: {
+        type: 'text',
+      },
+    },
+  },
 };
 
 export const Default = args => <TextBox {...args} />;
