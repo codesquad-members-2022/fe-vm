@@ -1,30 +1,21 @@
 import AmountContext from './AmountContext';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
+import { INITAIL_MONEY } from '../constant/constant';
+import { moneyReducer, logReducer } from './reducer';
 
 const AmountProvider = (props) => {
-  const [amount, setAmount] = useState(0);
-  const [balance, setBalance] = useState(10000);
-  const addItem = (item) => {
-    setAmount(Number(item));
-    setBalance((prev) => prev - amount);
-  };
-
-  //   useEffect(() => {
-  //     setTimeout(() => {
-  //       setBalance((prev) => prev + amount);
-  //       setAmount(0);
-  //       console.log(balance);
-  //     }, 10000);
-
-  //     return () => {};
-  //   }, [amount, balance]);
-  // 자동반환
+  const [money, dispatchMoney] = useReducer(moneyReducer, INITAIL_MONEY);
+  const [log, dispatchLog] = useReducer(logReducer, []);
+  useEffect(() => {
+    console.log(money, 'effect');
+    console.log(log);
+  }, [money, log]);
 
   const amountContext = {
-    totalAmount: amount,
-    balance: balance,
-    add: addItem,
-    remove: (id) => {},
+    money,
+    log,
+    dispatchLog,
+    dispatchMoney,
   };
 
   return (

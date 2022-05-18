@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const VendingCard = ({ isAffordable, name, price }) => {
+const VendingCard = ({ isAffordable, name, price, onSave }) => {
+  const onClickHandler = () => {
+    onSave(price, name);
+  };
   return (
-    <VendingCardList isAffordable={isAffordable}>
+    <VendingCardList
+      isAffordable={isAffordable}
+      onClick={onClickHandler}
+      price={price}
+    >
       <VendingCardName>{name}</VendingCardName>
       <span>{price}</span>
     </VendingCardList>
@@ -12,10 +19,10 @@ const VendingCard = ({ isAffordable, name, price }) => {
 
 const VendingCardList = styled.li`
   ${({ theme }) => theme.mixin.flexMixin('column')};
-  border: 1px solid black;
+  background: ${({ isClicked }) => isClicked && 'yellow'};
+  border: 1px solid ${({ isAffordable }) => (isAffordable ? 'red' : 'black')};
   width: 23%;
   height: 18%;
-  border-color: ${({ isAffordable }) => isAffordable && 'red'};
 `;
 
 const VendingCardName = styled.h3`

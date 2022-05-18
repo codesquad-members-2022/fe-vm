@@ -101,6 +101,85 @@ const DUMMY_DATA = [
   },
 ];
 
+const CURRENCY = [
+  {
+    id: 111,
+    unit: 10,
+  },
+  {
+    id: 112,
+    unit: 50,
+  },
+  {
+    id: 113,
+    unit: 100,
+  },
+  {
+    id: 114,
+    unit: 500,
+  },
+  {
+    id: 115,
+    unit: 1000,
+  },
+  {
+    id: 116,
+    unit: 5000,
+  },
+  {
+    id: 117,
+    unit: 10000,
+  },
+];
+
 const _ = undefined;
 
-export { DUMMY_DATA, _ };
+const INITIAL_WALLET = {
+  10: 5,
+  50: 5,
+  100: 5,
+  500: 5,
+  1000: 5,
+  5000: 5,
+  10000: 5,
+};
+
+const INITAIL_INSERT = {
+  10: 0,
+  50: 0,
+  100: 0,
+  500: 0,
+  1000: 0,
+  5000: 0,
+  10000: 0,
+};
+
+const INITAIL_MONEY = {
+  WALLET: {
+    10: 5,
+    50: 5,
+    100: 5,
+    500: 5,
+    1000: 5,
+    5000: 5,
+    10000: 5,
+  },
+  INSERTED: {
+    10: 0,
+    50: 0,
+    100: 0,
+    500: 0,
+    1000: 0,
+    5000: 0,
+    10000: 0,
+  },
+  TOTAL_AMOUNT: 0,
+};
+export {
+  DUMMY_DATA,
+  _,
+  CURRENCY,
+  INITIAL_WALLET,
+  INITAIL_INSERT,
+  INITAIL_MONEY,
+};

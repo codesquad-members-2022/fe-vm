@@ -1,13 +1,13 @@
 import React from 'react';
 import Page from '../../UI/Page';
 import VendingCards from './VendingCards';
-import VendingForm from './VendingForm';
+import VendingAside from './VendingAside';
 
-const Vending = (props) => {
+const Vending = () => {
   return (
     <Page display="flex">
       <VendingCards />
-      <VendingForm />
+      <VendingAside />
     </Page>
   );
 };
