@@ -4,8 +4,9 @@ import styled from 'styled-components';
 
 import {UserAccount} from '../Store';
 import {ProductList, VendingMachineInterface} from '../Component';
-import {PRODUCTS_DATA} from '../mocks/ProductData';
-import {MONEY_BUTTON_DATA} from '../mocks/MoneyButtonData';
+import {PRODUCTS_DATA} from '../Mocks/ProductData';
+//TODO: MONEY_BUTTON_DATA를 상태로 가질 것인가 말것인가
+import {MONEY_BUTTON_DATA} from '../Mocks/MoneyButtonData';
 
 const accountReducer = (state, action) => {
   switch (action.type) {

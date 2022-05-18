@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from 'react';
 import {useAccount} from '../Hooks/Account';
 import styled from 'styled-components';
 
-import {MONEY_BUTTON_DATA} from '../mocks/MoneyButtonData';
+import {MONEY_BUTTON_DATA} from '../Mocks/MoneyButtonData';
 import {UserAccount} from '../Store';
 import {InsertButton} from '../Component';
 
