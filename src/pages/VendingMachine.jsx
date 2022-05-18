@@ -57,6 +57,7 @@ export default function VendingMachine() {
           Number(previousValue) + Number(currentValue),
         []
       ) - accumulatedItemPrice;
+    setInputPrice([]);
     setProgressMsg([
       ...progressMsg,
       `잔돈 ${currentRemainMoney}원이 반환됩니다.`,
@@ -71,8 +72,8 @@ export default function VendingMachine() {
           <StyledItem key={`vm-item-${title}`}>
             <AvailableButton
               icon={title}
-              isAvailabe={accumulatedItemPrice <= price}
-              disabled={!(accumulatedItemPrice <= price)}
+              isAvailabe={inputPrice.length > 0 && totalPrice >= price}
+              disabled={!(inputPrice.length > 0 && totalPrice >= price)}
               onClick={() => handleSelectItem(title, price)}
             />
             <StyledPrice>{price}</StyledPrice>
