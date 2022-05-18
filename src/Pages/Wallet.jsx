@@ -5,31 +5,7 @@ import styled from 'styled-components';
 import {MONEY_BUTTON_DATA} from '../Mocks/MoneyButtonData';
 import {UserAccount} from '../Store';
 import {InsertButton} from '../Component';
-
-const accountReducer = (state, action) => {
-  switch (action.type) {
-    case 'insert':
-      return {
-        currentMoney: state.currentMoney - action.incomeMoney,
-        insertedMoney: state.insertedMoney + action.incomeMoney,
-      };
-
-    case 'refund':
-      return {
-        currentMoney: state.currentMoney + state.insertedMoney,
-        insertedMoney: 0,
-      };
-
-    case 'buy':
-      return {
-        currentMoney: state.currentMoney,
-        insertedMoney: state.insertedMoney - action.incomeMoney,
-      };
-
-    default:
-      throw new Error(`잘못된 액션 입력입니다. ${action.type}`);
-  }
-};
+import {accountReducer} from '../Reducer';
 
 export const Wallet = () => {
   const {account, sinkedAccount} = useContext(UserAccount);

@@ -6,7 +6,7 @@ export const VendingMachineInterface = ({
   walletState: {insertedMoney},
   handleUserInput,
 }) => {
-  const sudoInputEvent = e => {
+  const onInputEnter = e => {
     if (e.key !== 'Enter') {
       return;
     }
@@ -15,7 +15,7 @@ export const VendingMachineInterface = ({
 
   return (
     <VM_Wrapper>
-      <VM_MoneyInput onKeyDown={sudoInputEvent} />
+      <VM_MoneyInput onKeyDown={onInputEnter} />
       <VM_RefundBtn onClick={handleRefundBtn}>잔액 반환</VM_RefundBtn>
       <VM_History></VM_History>
     </VM_Wrapper>
