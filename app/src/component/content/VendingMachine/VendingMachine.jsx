@@ -6,7 +6,10 @@ import ProductViewWindow from './products/ProductViewWindow';
 function VendingMachine() {
   return (
     <Container>
-      <BgImg src="img/vending-machine.png" alt="자판기" />
+      <BgImg
+        src={process.env.PUBLIC_URL + '/img/vending-machine.png'}
+        alt="자판기"
+      />
       <ProductViewWindow />
       <MoneySlot />
       <BalanceReturnBtn />

@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 function BalanceReturnBtn() {
-  return <Img src="img/balance-return.png" alt="동전 반환" />;
+  return (
+    <Img src={process.env.PUBLIC_URL + '/img/balance-return.png'} alt="동전 반환" />
+  );
 }
 
 const Img = styled.img`
