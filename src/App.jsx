@@ -7,6 +7,7 @@ import TabMenu from '@components/molecules/TabMenu';
 import tabs from '@data/tabs';
 import NotFound from '@pages/NotFound';
 import VendingMachine from '@pages/VendingMachine';
+import Wallet from '@pages/Wallet';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <TabMenu tabs={tabs} />
       <Routes>
         <Route path='/' element={<VendingMachine />} />
+        <Route path='/wallet' element={<Wallet />} />
         <Route path='/*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>

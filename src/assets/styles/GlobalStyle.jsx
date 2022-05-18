@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-import { COLOR } from '@constants';
+import { COLOR, FONT_WEIGHT } from '@constants';
 
 const GlobalStyle = createGlobalStyle`
   *,
@@ -19,7 +19,8 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.5;
     height: 100%;
     font-family: "Noto Sans KR", sans-serif;
-    color: ${COLOR.DARK_GREY}
+    color: ${COLOR.DARK_GREY};
+    font-weight: ${FONT_WEIGHT.MEDIUM};
   }
   html,
   h1,
