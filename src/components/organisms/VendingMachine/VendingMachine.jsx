@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { StyledVM, ProductWrapper } from './VendingMachine.style';
 import ProductBox from 'components/molecules/ProductBox/ProductBox';
 import Logo from 'components/molecules/Logo/Logo';
-import mockData from 'components/organisms/ProductMockData';
+import mockData from 'components/organisms/VendingMachine/ProductMockData';
 
 const VendingMachine = ({ title, ...props }) => {
   return (
     <StyledVM flexType="center">
       <ProductWrapper flexType="center">
-        {mockData.map((v, i) => {
-          return <ProductBox key={v.name} icon={v.icon} cost={v.cost} />;
+        {mockData.map(({ name, icon, cost }, i) => {
+          return <ProductBox key={name} icon={icon} cost={cost} />;
         })}
       </ProductWrapper>
       <Logo />
