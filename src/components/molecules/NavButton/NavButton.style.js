@@ -5,6 +5,7 @@ const StyledNavButton = styled.div`
   width: 312px;
   ${({ borderType }) => borderType && Border[borderType]}
   ${({ flexType }) => flexType && Flex[flexType]};
+  overflow: hidden;
 `;
 
 export { StyledNavButton };

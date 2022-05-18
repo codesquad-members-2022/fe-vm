@@ -1,17 +1,25 @@
-import React from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { StyledNavButton } from './NavButton.style';
 import Button from 'components/atoms/Button/Button';
+import { RouteURL } from 'constants/RouteUrl';
 
 const NavButton = ({ unit, count, ...props }) => {
+  const currentUrl = useLocation();
+
+  const getButtonStyle = path => ({
+    sizeType: 'medium',
+    fontType: 'medium',
+    colorType: currentUrl.pathname === path ? 'point' : 'disabled',
+  });
+
   return (
     <StyledNavButton borderType="rounded" flexType="center">
-      <Button sizeType="medium" colorType="point" fontType="medium">
-        자판기
-      </Button>
-      <Button sizeType="medium" colorType="disabled" fontType="medium">
-        지갑
-      </Button>
+      {RouteURL.map((URL, key) => (
+        <NavLink key={URL.id} to={URL.path}>
+          <Button {...getButtonStyle(URL.path)}>{URL.name}</Button>
+        </NavLink>
+      ))}
     </StyledNavButton>
   );
 };
