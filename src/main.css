@@ -15,11 +15,11 @@
 
 @layer components {
   .btn {
-    @apply text-center transition-all border-2 rounded-lg shadow-md shadow-gray;
+    @apply text-center transition-all border-4 rounded-lg shadow-md shadow-gray;
   }
 
   .btn--starbucks {
-    @apply font-medium text-black transition-all border-starbucks-dark hover:bg-starbucks hover:text-white active:bg-starbucks-dark active:text-white focus:ring;
+    @apply font-medium text-black transition-all border-starbucks hover:bg-starbucks hover:text-white active:bg-starbucks-dark active:text-white focus:ring;
   }
 
   .tab--starbucks {
@@ -28,4 +28,10 @@
 }
 
 @layer utilities {
+  .empty-money {
+    @apply line-through decoration-4;
+  }
+
+  .empty-product {
+  }
 }

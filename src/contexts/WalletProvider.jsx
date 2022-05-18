@@ -1,53 +1,51 @@
-import React, { createContext, useCallback, useEffect, useMemo, useReducer, useState } from "react";
-import myWallet from "mocks/myWallet";
-import { calcTotalMoney } from "helpers/calculateMoney";
+import React, { createContext, useCallback, useEffect, useMemo, useReducer } from "react";
+import moneyData from "mocks/moneyData";
+import MY_WALLET from "constants/myWallet";
 
-const reducer = (state = [], action) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case "INIT":
       return action.data;
 
-    case "INSERT_COIN":
-      const usedCoinState = state.map((coin) => {
-        return coin.id === action.targetId ? { ...coin, count: --coin.count } : coin;
+    case "PUSH_COIN":
+      const decreasedCoins = state.map((coin) => {
+        return coin.id === action.targetId ? { ...coin, count: coin.count - 1 } : coin;
       });
-      return usedCoinState;
+
+      return decreasedCoins;
 
     default:
-      return state;
+      throw Error("WalletProvider action.type error");
   }
 };
 
 const WalletProvider = ({ children }) => {
   const [wallet, dispatch] = useReducer(reducer, []);
-  const [coinSum, setCoinSum] = useState(0);
 
   const fetchMyWallet = () => {
-    // FIXME 로컬에서 import 해 온 값
-    const initData = myWallet;
+    const initData = moneyData.map((moneyItem, index) => {
+      return { ...moneyItem, count: MY_WALLET[index].count };
+    });
+
     dispatch({ type: "INIT", data: initData });
   };
 
-  const onInsertCoin = useCallback((targetId) => {
-    dispatch({ type: "INSERT_COIN", targetId });
+  const onPushCoin = useCallback((targetId) => {
+    dispatch({ type: "PUSH_COIN", targetId });
+  }, []);
+
+  const dispatches = useMemo(() => {
+    return {
+      onPushCoin,
+    };
   }, []);
 
   useEffect(() => {
     fetchMyWallet();
   }, []);
 
-  useEffect(() => {
-    setCoinSum(() => calcTotalMoney(wallet));
-  }, [wallet]);
-
-  const state = { wallet, coinSum };
-
-  const dispatches = useMemo(() => {
-    return { onInsertCoin };
-  }, []);
-
   return (
-    <WalletStateContext.Provider value={state}>
+    <WalletStateContext.Provider value={wallet}>
       <WalletDispatchContext.Provider value={dispatches}>{children}</WalletDispatchContext.Provider>
     </WalletStateContext.Provider>
   );

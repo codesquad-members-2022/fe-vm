@@ -2,7 +2,7 @@ module.exports = {
   content: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     colors: {
-      starbucks: "#00704A",
+      starbucks: "#1B3C35",
       "starbucks-light": "#14ae5c",
       "starbucks-dark": "#015236",
       transparent: "transparent",
@@ -16,7 +16,11 @@ module.exports = {
     fontFamily: {
       main: ["Noto Sans KR", "sans-serif"],
     },
-    extend: {},
+    extend: {
+      scale: {
+        120: "1.2",
+      },
+    },
   },
   variants: {},
   plugins: [],

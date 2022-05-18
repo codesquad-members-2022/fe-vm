@@ -1,7 +1,7 @@
-import { convert2MoneyUnit } from "utils";
+import { convertToMoneyUnit } from "utils";
 
-export const calcTotalMoney = (wallet) =>
-  convert2MoneyUnit(
-    wallet.reduce((prev, { money, count }) => prev + money * count, 0),
+export const calcTotalMoney = (moneyObject) =>
+  convertToMoneyUnit(
+    moneyObject?.reduce((prev, { money, count }) => prev + money * count, 0),
     "kr"
   );

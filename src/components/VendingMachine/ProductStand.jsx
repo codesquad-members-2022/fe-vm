@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import ProductItem from "./ProductItem";
 import ProductTab from "./ProductTab";
-import beverage from "mocks/beverage";
 
-const ProductStand = () => {
-  const [beverageState, setBeverageState] = useState(beverage);
-
+const ProductStand = ({ beverage }) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-[70%]">
       <ProductTab />
-      <div className="grid grid-flow-row grid-cols-4 gap-5 p-4 border-black">
-        {beverageState.map(({ id, ...state }) => (
-          <ProductItem key={id} {...state} />
+      <div className="grid grid-cols-4 grid-flow-row gap-2 p-4">
+        {beverage.map((itemInfo) => (
+          <ProductItem key={itemInfo.id} {...itemInfo} />
         ))}
       </div>
     </div>

@@ -2,8 +2,8 @@ export const pageVariants = (translateX) => {
   return {
     initial: {
       opacity: 0,
-      x: `${-translateX}vw`,
-      sacle: 1.2,
+      x: `${translateX}vw`,
+      sacle: 1.5,
     },
     in: {
       opacity: 1,
@@ -13,7 +13,7 @@ export const pageVariants = (translateX) => {
     out: {
       opacity: 0,
       x: `${translateX}vw`,
-      scale: 0.9,
+      scale: 0.5,
     },
   };
 };
