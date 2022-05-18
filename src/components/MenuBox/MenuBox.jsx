@@ -1,12 +1,14 @@
-import React from "react";
-import { menuItem } from "data";
+import React, { useContext } from "react";
 import { StyledMenuBox } from "./MenuBox.styled";
 import { Menu } from "components";
+import { MenuStockContext } from "../../App.js";
 
 function MenuBox() {
+  const { menuStock } = useContext(MenuStockContext);
+
   return (
     <StyledMenuBox>
-      {menuItem.map(({ id, title, price, stock }) => (
+      {menuStock.map(({ id, title, price, stock }) => (
         <Menu key={id} title={title} price={price} stock={stock}></Menu>
       ))}
     </StyledMenuBox>

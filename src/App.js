@@ -4,7 +4,7 @@ import { Layout } from "components";
 import { VendingMachineContainer, Wallet, NotFound } from "pages";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import { walletItem } from "data";
+import { menuItem, walletItem } from "data";
 
 const GlobalStyles = createGlobalStyle`
   ${reset}
@@ -19,11 +19,13 @@ const GlobalStyles = createGlobalStyle`
   }  
 `;
 
+export const MenuStockContext = React.createContext();
 export const MoneyContext = React.createContext();
 export const LogContext = React.createContext();
 export const WalletContext = React.createContext();
 
 function App() {
+  const [menuStock, setMenuStock] = useState(menuItem);
   const [inputMoney, setInputMoney] = useState(0);
   const [logs, setLogs] = useState([{ idx: 1, type: "init", data: "~ this is vending machine ~" }]);
   const [walletMoney, setWalletMoney] = useState(walletItem);
@@ -33,15 +35,17 @@ function App() {
     <LogContext.Provider value={{ logs, setLogs }}>
       <WalletContext.Provider value={{ walletMoney, setWalletMoney }}>
         <MoneyContext.Provider value={{ inputMoney, setInputMoney }}>
-          <GlobalStyles />
-          <Routes>
-            <Route element={<Layout />}>
-              <Route index element={<VendingMachineContainer />} />
-              <Route path="/vendingmachine" element={<VendingMachineContainer />} />
-              <Route path="/wallet" element={<Wallet />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <MenuStockContext.Provider value={{ menuStock, setMenuStock }}>
+            <GlobalStyles />
+            <Routes>
+              <Route element={<Layout />}>
+                <Route index element={<VendingMachineContainer />} />
+                <Route path="/vendingmachine" element={<VendingMachineContainer />} />
+                <Route path="/wallet" element={<Wallet />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </MenuStockContext.Provider>
         </MoneyContext.Provider>
       </WalletContext.Provider>
     </LogContext.Provider>
