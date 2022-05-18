@@ -1,5 +1,5 @@
 const port = process.env.PORT || 3001;
-const baseURL = `http://localhost:${port}`;
+const baseURL = `https://alan-vm.herokuapp.com`;
 
 export const request = {
   async getData(target) {
