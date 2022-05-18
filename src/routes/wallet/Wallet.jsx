@@ -3,6 +3,7 @@ import {
     WalletContainer,
     WalletItemContainer,
     WalletItem,
+    MoneyUnit,
     TotalAmount,
 } from "./Wallet.Style";
 
@@ -13,7 +14,9 @@ function Wallet() {
         <WalletContainer>
             {wallet.map((moneyUnit) => (
                 <WalletItemContainer key={moneyUnit.id}>
-                    <WalletItem>{moneyUnit.unit}원</WalletItem>
+                    <MoneyUnit disabled={!moneyUnit.count}>
+                        {moneyUnit.unit}원
+                    </MoneyUnit>
                     <WalletItem>{moneyUnit.count}개</WalletItem>
                 </WalletItemContainer>
             ))}
