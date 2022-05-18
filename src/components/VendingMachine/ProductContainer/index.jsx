@@ -1,19 +1,25 @@
 import { useContext } from 'react';
 import { MoneyContext } from 'context/MoneyContext';
+import { ProductsContext } from 'context/ProductContext';
+
 import styled from 'styled-components';
-import PRODUCTS_LIST from 'mock/Products';
 import Product from './Product';
 
-export default function ProductContainer() {
+function ListWrapper() {
   const { insertMoneyData } = useContext(MoneyContext);
+  const { productsList } = useContext(ProductsContext);
 
-  const productComponents = PRODUCTS_LIST.map(product => (
+  const productComponents = productsList.map(product => (
     <Product key={product.id} info={product} totalMoney={insertMoneyData}></Product>
   ));
 
+  return <GridWrapper>{productComponents}</GridWrapper>;
+}
+
+export default function ProductContainer() {
   return (
     <Container>
-      <GridWrapper>{productComponents}</GridWrapper>
+      <ListWrapper />
     </Container>
   );
 }

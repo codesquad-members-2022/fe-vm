@@ -1,11 +1,14 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
+import { LogContext } from 'context/LogContext';
 import { MoneyContext } from 'context/MoneyContext';
 import styled from 'styled-components';
 import setLocalString from 'utils/setLocalString';
 import calculateTotalMoney from 'utils/calculateTotalMoney';
 
 export default function UserInput() {
-  const { walletMoneyData, inputValue, setInputValue, inputInsertMoney } = useContext(MoneyContext);
+  const { insertMoneyLog } = useContext(LogContext);
+  const { walletMoneyData, inputInsertMoney } = useContext(MoneyContext);
+  const [inputValue, setInputValue] = useState('');
   const totalMoney = calculateTotalMoney(walletMoneyData);
 
   const insertWalletMoney = num => {
@@ -13,7 +16,10 @@ export default function UserInput() {
 
     // 자동보정
     let money = Math.floor(num / 10) * 10;
-    if (totalMoney < money) return walletMoneyData;
+    if (totalMoney < money) {
+      insertMoneyLog(walletMoneyData);
+      return walletMoneyData;
+    }
 
     walletMoneyData.forEach(item => {
       // 천원 투입시 만원이 사용되지않도록, 해당하는 금액의 수량이 없으면 리턴
@@ -35,6 +41,7 @@ export default function UserInput() {
         : (money -= item.unit * 투입가능횟수);
     });
 
+    insertMoneyLog(insertLog);
     return insertLog;
   };
 
@@ -48,7 +55,11 @@ export default function UserInput() {
   }, [inputValue, setInputValue]);
 
   const handleClick = () => {
-    if (totalMoney === 0) {
+    if (inputValue === '0') {
+      return;
+    }
+
+    if (!totalMoney) {
       setInputValue('');
       return;
     }
@@ -58,13 +69,27 @@ export default function UserInput() {
     setInputValue('');
   };
 
+  const handleEnterPress = e => {
+    if (e.key === 'Enter') {
+      handleClick();
+    }
+  };
+
   return (
     <InputContainer>
       <InputWrapper>
-        <InputCost type="text" placeholder="0" value={inputValue} onChange={handleChange} />
+        <InputCost
+          type="text"
+          placeholder="0"
+          value={inputValue}
+          onChange={handleChange}
+          onKeyPress={handleEnterPress}
+        />
         <span>원</span>
       </InputWrapper>
-      <InputCostBtn onClick={handleClick}>투입</InputCostBtn>
+      <InputCostBtn onClick={handleClick} disabled={inputValue === '0' || inputValue === ''}>
+        투입
+      </InputCostBtn>
     </InputContainer>
   );
 }

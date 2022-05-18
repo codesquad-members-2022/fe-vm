@@ -1,18 +1,16 @@
-import { createContext, useReducer, useState } from 'react';
+import { createContext, useReducer } from 'react';
 import WALLET_MONEY_DATA from 'mock/Wallet';
 import calculateTotalMoney from 'utils/calculateTotalMoney';
 
 const initState = {
   walletMoneyData: WALLET_MONEY_DATA,
   insertMoneyData: 0,
-  inputValue: '',
 };
 
 export const MoneyContext = createContext(initState);
 
 export const MoneyProvider = ({ children }) => {
   const [state, dispatch] = useReducer(moneyReducer, initState);
-  const [inputValue, setInputValue] = useState('');
 
   const buttonInsertMoney = money => {
     dispatch({
@@ -28,15 +26,21 @@ export const MoneyProvider = ({ children }) => {
     });
   };
 
+  const buyProduct = product => {
+    dispatch({
+      type: 'BUY_PRODUCT',
+      payload: product,
+    });
+  };
+
   return (
     <MoneyContext.Provider
       value={{
         walletMoneyData: state.walletMoneyData,
         insertMoneyData: state.insertMoneyData,
-        inputValue,
-        setInputValue,
         buttonInsertMoney,
         inputInsertMoney,
+        buyProduct,
       }}
     >
       {children}
@@ -68,6 +72,9 @@ const moneyReducer = (state, action) => {
       const updateMachineMoney2 = state.insertMoneyData + calculateTotalMoney(action.payload);
 
       return { walletMoneyData: updateWalletMoney2, insertMoneyData: updateMachineMoney2 };
+    case 'BUY_PRODUCT':
+      const updateInsertMoney = state.insertMoneyData - action.payload;
+      return { ...state, insertMoneyData: updateInsertMoney };
     case 'RETURN_MONEY':
       return;
     default:
