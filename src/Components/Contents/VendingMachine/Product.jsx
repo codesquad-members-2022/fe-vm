@@ -14,6 +14,7 @@ import {
   F_ColumnBetweenCenter,
 } from '../../../Assets/Common.style';
 import soldOutIcon from '../../../Assets/Images/sold-out.svg';
+import { productImgContext } from '.';
 
 export default function Product({ products }) {
   const items = products.map((product) => (
@@ -23,6 +24,7 @@ export default function Product({ products }) {
 }
 
 function Item({ product }) {
+  const { setPickProductImg } = useContext(productImgContext);
   const { payTotal, setPayTotal, printMessages, setPrintMessages } =
     useContext(contentsContext);
   const isSoldOut = !product.stock;
@@ -34,6 +36,7 @@ function Item({ product }) {
 
     setPayTotal(updateTotal);
     setPrintMessages([...printMessages, addMessage]);
+    setPickProductImg(product.image);
     product.stock -= 1;
   };
 
@@ -44,11 +47,8 @@ function Item({ product }) {
     >
       <button>
         <ImgBox>
-          <Img
-            hidden
-            style={{ backgroundImage: `url(${product.image})` }}
-          ></Img>
-          <span>{product.title}</span>
+          <Img style={{ backgroundImage: `url(${product.image})` }} />
+          <span hidden>{product.title}</span>
         </ImgBox>
         <Price className={isActive ? 'active' : ''}>{product.price}원</Price>
       </button>

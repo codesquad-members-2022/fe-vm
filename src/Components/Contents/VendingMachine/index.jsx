@@ -7,15 +7,20 @@ import MachineRight from './MachineRight';
 import { createContext } from 'react';
 
 export const payContext = createContext(0);
+export const productImgContext = createContext(0);
 
 export default function VendingMachine() {
   const [payMoney, setPayMoney] = useState(0);
+  const [pickProductImg, setPickProductImg] = useState(undefined);
+
   return (
     <payContext.Provider value={{ payMoney, setPayMoney }}>
-      <MachineContents>
-        <ProductList products={DATA} />
-        <MachineRight />
-      </MachineContents>
+      <productImgContext.Provider value={{ pickProductImg, setPickProductImg }}>
+        <MachineContents>
+          <ProductList products={DATA} />
+          <MachineRight />
+        </MachineContents>
+      </productImgContext.Provider>
     </payContext.Provider>
   );
 }

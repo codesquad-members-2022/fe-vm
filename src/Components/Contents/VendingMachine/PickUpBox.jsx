@@ -1,4 +1,6 @@
+import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
+import { productImgContext } from '.';
 import {
   FontSize,
   Color,
@@ -9,6 +11,16 @@ import {
 import EnTitle from '../../EnTitle';
 
 export default function PickUpBox() {
+  const { pickProductImg, setPickProductImg } = useContext(productImgContext);
+  const isAnimation = !!pickProductImg;
+
+  useEffect(() => {
+    if (!pickProductImg) return;
+    setTimeout(() => {
+      setPickProductImg(null);
+    }, 2000);
+  }, [pickProductImg, setPickProductImg]);
+
   return (
     <PickUpContents>
       <EnTitle
@@ -17,8 +29,10 @@ export default function PickUpBox() {
         size={FontSize.LARGE}
         color={Color.WHITE}
       />
-      <ProductPickUp>
-        <TargetProduct>{/* 구매한 상품 이미지 들어가기 */}</TargetProduct>
+      <ProductPickUp className={isAnimation ? 'active' : ''}>
+        <TargetProduct>
+          {pickProductImg ? <img src={pickProductImg} alt="구매상품" /> : null}
+        </TargetProduct>
       </ProductPickUp>
     </PickUpContents>
   );
@@ -47,16 +61,29 @@ const ProductPickUp = styled.div`
     height: 100%;
     background: ${Color.BLACK};
     opacity: 0.4;
-    transition: 0.5s;
+    transition: 0.5s 0.3s;
     z-index: 1;
+  }
+
+  &.active div {
+    transform: translateY(0);
+    transition: 0.3s 1s ease-in;
+  }
+  &.active::before {
+    height: 0;
+    transition: 0.5s 1.5s;
   }
 `;
 
 const TargetProduct = styled.div`
-  ${Absolute}
-  left: 0;
-  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100%;
-  bottom: 100%;
-  transition: 0.3s;
+  padding-bottom: 10px;
+  transform: translateY(-100%);
+
+  img {
+    height: 90%;
+  }
 `;
