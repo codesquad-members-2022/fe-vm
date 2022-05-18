@@ -6,10 +6,10 @@ export const HistoryContext = createContext([]);
 export const HistoryDispatchContext = createContext(null);
 
 export function HistoryProvider({ children }) {
-  const { historyList, addInputHistory, addSelectHistory, resetHistory } = useHistory();
+  const { historyList, addInputHistory, addSelectHistory, returnPayHistory, resetHistory } = useHistory();
   const dispatches = useMemo(
-    () => ({ addInputHistory, addSelectHistory, resetHistory }),
-    [addInputHistory, addSelectHistory, resetHistory]
+    () => ({ addInputHistory, addSelectHistory, returnPayHistory, resetHistory }),
+    [addInputHistory, addSelectHistory, returnPayHistory, resetHistory]
   );
 
   return (

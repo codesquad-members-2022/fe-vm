@@ -28,7 +28,7 @@ export default function Product({ productInfo }) {
     if (!finalPay) return;
 
     setSelectedProduct({ detail: productInfo.detail, price: productInfo.price });
-    addSelectHistory(productInfo.detail);
+    addSelectHistory(productInfo);
     const newProductInfo = productInfo;
     newProductInfo.quantity -= 1;
     startVMTimer(initVMState, TIME_TO_PUT_OUT_PRODUCT);
