@@ -28,6 +28,7 @@ const generateMessage = (alertName, alertAmount) => {
     changeAmount: generateChangeMessage,
     orderTitle: generateOrderMessage,
     wrong: generateWrongMessage,
+    buying: generateBuying,
   };
   return alerts[alertName](alertAmount);
 };
@@ -46,4 +47,8 @@ const generateInvestmentMessage = (amount) => {
 
 const generateWrongMessage = () => {
   return `주문할 수 없는 상품입니다.`;
+};
+
+const generateBuying = () => {
+  return `현재 다른 상품 주문 중입니다.`;
 };

@@ -40,3 +40,9 @@ function getFlexTemplate({ justify, align, direction, wrap }) {
     flex-wrap:${wrap}
   `;
 }
+
+export const delay = (time) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, time);
+  });
+};

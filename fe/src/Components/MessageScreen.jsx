@@ -14,7 +14,7 @@ export default function MessageScreen() {
     addMessageList({ alertMessage, setMessageList, messageList });
     setAlertMessage(INIT_ALERT_MESSAGE);
     scrollRef.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
-  }, [alertMessage, messageList, setMessageList, setAlertMessage]);
+  }, [alertMessage, messageList]);
 
   return (
     <ScreenContainer>
