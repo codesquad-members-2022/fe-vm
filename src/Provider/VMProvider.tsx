@@ -2,7 +2,7 @@ import React, { createContext, useReducer, useMemo } from 'react';
 
 import { products, coins } from '@/mock/storage';
 
-interface IState {
+interface IVMState {
   products: IProduct[];
   coins: ICoin[];
   logs: ILog[];
@@ -33,27 +33,20 @@ interface ITimer {
   [key: string]: NodeJS.Timeout;
 }
 
-/*interface IPayload {
-  index?: number;
+type ActionType =
+  | { type: ACTION.INSERT_MONEY_BY_TYPING; payload: { amount: number } }
+  | { type: ACTION.INSERT_COIN; payload: { amount: number; count: number; index: number } }
+  | { type: ACTION.INCREMENT_COIN; payload: { amount: number; count: number; index: number } }
+  | {
+      type: ACTION.SELECT_PRODUCT;
+      payload: { name: string; price: number; stock: number; index: number };
+    }
+  | { type: ACTION.RETURN_CHANGE }
+  | { type: ACTION.DELETE_ALL_LOGS }
+  | { type: ACTION.SET_TIMER; payload: { key: string; delay: number; callback: any } }
+  | { type: ACTION.CLEAR_TIMER; payload: { key: string } };
 
-  amount?: number;
-  count?: number;
-
-  name?: string;
-  price?: number;
-  stock?: number;
-
-  key?: string;
-  delay?: number;
-  callback?: object;
-}*/
-
-interface IAction {
-  type: ACTION;
-  payload: any;
-}
-
-const initialState: IState = {
+const initialState: IVMState = {
   products,
   coins,
   logs: [],
@@ -73,7 +66,7 @@ enum ACTION {
   CLEAR_TIMER = 'CLEAR_TIMER',
 }
 
-const reducer = (state: IState, action: IAction) => {
+const reducer = (state: IVMState, action: ActionType) => {
   switch (action.type) {
     // PAYLOAD: amount
     case ACTION.INSERT_MONEY_BY_TYPING: {
