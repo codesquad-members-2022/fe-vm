@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import MenuImage from "./Menu/MenuImage";
 import MenuPrice from "./Menu/MenuPrice";
@@ -30,7 +30,6 @@ const StyledMenu = styled.li`
   flex-direction: column;
   width: 120px;
   height: 150px;
-  ${"" /* border: 2px solid black; */}
   margin: 10px;
   align-items: center;
   cursor: pointer;
