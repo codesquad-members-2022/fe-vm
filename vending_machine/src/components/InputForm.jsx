@@ -15,7 +15,6 @@ const InputForm = ({ totalMoney, setTotalMoney }) => {
 
   const changeValue = () => {
     const onlyNumber = +inputTag.current.value.replace(/[^0-9]/g, '');
-    console.log(onlyNumber);
     inputTag.current.value = changeKoreanLocalMoney(onlyNumber);
   };
 
