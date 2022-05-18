@@ -12,7 +12,6 @@ function VendingMachine() {
 
 const Container = styled.div`
   position: relative;
-  display: block;
   margin: 26px auto 0;
   width: 950px;
   font-size: ${({ theme }) => theme.fontSize.large};

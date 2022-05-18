@@ -23,18 +23,16 @@ function Stock() {
         </tr>
       </thead>
       <tbody>
-        {products.map(({ code, product, price, stock }) => {
-          return (
-            <tr key={code}>
-              <td>{code}</td>
-              <td>{product}</td>
-              <td>{price}</td>
-              <td>
-                <input type="number" value={stock} />
-              </td>
-            </tr>
-          );
-        })}
+        {products.map(({ code, product, price, stock }) => (
+          <tr key={code}>
+            <td>{code}</td>
+            <td>{product}</td>
+            <td>{price}</td>
+            <td>
+              <input type="number" value={stock} />
+            </td>
+          </tr>
+        ))}
       </tbody>
     </Table>
   );
