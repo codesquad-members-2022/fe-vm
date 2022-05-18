@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { _ } from '../../../constant/constant';
 import Container from '../../UI/container';
+import AmountContext from '../../../store/AmountContext';
 
 const VendingLog = () => {
+  const amountCtx = useContext(AmountContext);
+
   return (
     <Container
       height="60%"
@@ -12,8 +15,9 @@ const VendingLog = () => {
     >
       <h3>VENDING LOG</h3>
       <VendingLogLists>
-        <li>입금되었습니다</li>
-        <li>입금되었습니다</li>
+        {amountCtx.logs.map((v) => (
+          <li>{v}</li>
+        ))}
       </VendingLogLists>
     </Container>
   );

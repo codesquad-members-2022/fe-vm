@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Container from '../../UI/container';
-
+import AmountContext from '../../../store/AmountContext';
 const CurrentInsertMoney = (props) => {
+  const amountCtx = useContext(AmountContext);
+
   return (
     <Container height="50%" flexInfo={['column']}>
       <WalletTitle>입금된 금액</WalletTitle>
-      <InsertedMoney>10000</InsertedMoney>
+      <InsertedMoney>{amountCtx.totalAmount}</InsertedMoney>
     </Container>
   );
 };

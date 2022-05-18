@@ -6,16 +6,20 @@ import AmountContext from '../../../store/AmountContext';
 
 const VendingCards = (props) => {
   const amountCtx = useContext(AmountContext);
-
+  // const onClickHander = (props) => {
+  //   console.log(props);
+  //   // console.log(parseInt(e.currentTarget.textContent));
+  // };
   return (
     <VendingCardLists>
-      {DUMMY_DATA.map((v) => (
+      {DUMMY_DATA.map(({ id, name, price }) => (
         <VendingCard
-          id={v.id}
-          key={v.id}
-          name={v.name}
-          price={v.price}
-          isAffordable={amountCtx.totalAmount >= v.price}
+          id={id}
+          key={id}
+          name={name}
+          price={price}
+          isAffordable={amountCtx.totalAmount >= price}
+          // onSave={onClickHander}
         />
       ))}
     </VendingCardLists>

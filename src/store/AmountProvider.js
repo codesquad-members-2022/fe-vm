@@ -1,30 +1,35 @@
 import AmountContext from './AmountContext';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { INITIAL_WALLET, INITAIL_INSERT } from '../constant/constant';
 
 const AmountProvider = (props) => {
-  const [amount, setAmount] = useState(0);
-  const [balance, setBalance] = useState(10000);
-  const addItem = (item) => {
-    setAmount(Number(item));
-    setBalance((prev) => prev - amount);
-  };
+  const [wallet, setWallet] = useState(INITIAL_WALLET);
+  const [insertedMoney, setInsertedMoney] = useState(INITAIL_INSERT);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [logs, setLogs] = useState([]);
 
-  //   useEffect(() => {
-  //     setTimeout(() => {
-  //       setBalance((prev) => prev + amount);
-  //       setAmount(0);
-  //       console.log(balance);
-  //     }, 10000);
+  useEffect(() => {
+    setTotalAmount(getTotalBalance(insertedMoney));
+  }, [totalAmount, insertedMoney]);
 
-  //     return () => {};
-  //   }, [amount, balance]);
-  // 자동반환
+  const getTotalBalance = useCallback((walletObj) => {
+    const walletArray = Object.entries(walletObj);
+    const totalBalance = walletArray.reduce(
+      (acc, cur) => acc + Number(cur[0]) * Number(cur[1]),
+      0
+    );
+    return totalBalance;
+  }, []);
 
   const amountContext = {
-    totalAmount: amount,
-    balance: balance,
-    add: addItem,
-    remove: (id) => {},
+    totalAmount,
+    wallet,
+    insertedMoney,
+    logs,
+    setTotalAmount,
+    setWallet,
+    setInsertedMoney,
+    setLogs,
   };
 
   return (

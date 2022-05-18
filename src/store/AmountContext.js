@@ -5,6 +5,7 @@ const AmountContext = React.createContext({
   balance: 0,
   add: (item) => {},
   remove: (id) => {},
+  insertedMoney: {},
 });
 
 export default AmountContext;
