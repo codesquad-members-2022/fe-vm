@@ -6,8 +6,8 @@ const WalletPage = () => {
   return (
     <Styled.WalletPage>
       <Styled.WalletPageWrapper>
-        <VendingMachineController />
         <Wallet />
+        <VendingMachineController />
       </Styled.WalletPageWrapper>
     </Styled.WalletPage>
   );
