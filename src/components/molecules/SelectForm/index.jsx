@@ -25,7 +25,6 @@ const SelectForm = () => {
 
   const putMoney = () => {
     // TODO: 지갑 구현 후 마무리
-    console.log(selectValue);
   };
 
   return (
