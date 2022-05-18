@@ -38,7 +38,7 @@ interface IProviderValue {
   dispatch: React.Dispatch<ActionType>;
 }
 
-type ActionType =
+export type ActionType =
   | { type: ACTION.INSERT_MONEY_BY_TYPING; payload: { amount: number } }
   | { type: ACTION.INSERT_COIN; payload: { amount: number; count: number; index: number } }
   | { type: ACTION.INCREMENT_COIN; payload: { amount: number; count: number; index: number } }
@@ -71,7 +71,7 @@ enum ACTION {
   CLEAR_TIMER = 'CLEAR_TIMER',
 }
 
-const reducer = (state: IVMState, action: ActionType) => {
+const reducer = (state: IVMState, action: ActionType): IVMState => {
   switch (action.type) {
     // PAYLOAD: amount
     case ACTION.INSERT_MONEY_BY_TYPING: {
@@ -280,7 +280,7 @@ const reducer = (state: IVMState, action: ActionType) => {
   }
 };
 
-const VMContext = createContext<IVMState>(initialState);
+const VMContext = createContext<IProviderValue>({ state: initialState, dispatch: () => {} });
 
 const VMProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState, undefined);
@@ -295,4 +295,4 @@ const VMProvider = ({ children }: any) => {
   return <VMContext.Provider value={value}>{children}</VMContext.Provider>;
 };
 
-export { ACTION, VMContext, VMProvider };
+export { ACTION, VMContext, VMProvider, IProviderValue };
