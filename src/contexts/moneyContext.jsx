@@ -50,7 +50,7 @@ const MoneyProvider = ({ children }) => {
         return moneyCount
           .filter(({ money }) => money === currentData.money)
           .reduce((prev, { count }) => {
-            return { ...prev, count: currentData.count + count };
+            return { ...prev, count: prev.count + count };
           }, currentData);
       });
     });
