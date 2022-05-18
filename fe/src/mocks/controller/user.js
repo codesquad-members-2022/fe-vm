@@ -69,15 +69,6 @@ export function getTargetUnitInfo(units, id) {
   return [targetIndex, targetUnit, error];
 }
 
-// 상품 id로 선택한 상품을 찾기 !!!
-// 선택한 상품의 수량 확인: 0 이하면 에러 !!!
-// 투입한 금액에서 상품 가격 빼기 !!!
-// 남은 금액을 매니저 잔고 돌면서 내림차순으로 반환 !!
-// 다돌았는데 남은 금액이 있으면 거스름돈이 없다는 에러 반환 !!
-// 거스름돈 배열을 유저의 거스름돈 배열에 그대로 대입 !!
-// 유저가 투입한 동전만큼 유저 지갑에서 제거 !!
-// 유저 total업데이트 및 매니저 total업데이트 !!
-
 export const orderProduct = (
   userBalanceObj,
   mangerBalanceObj,
@@ -92,31 +83,38 @@ export const orderProduct = (
     isError: false,
     msg: '',
   };
+  // 자판기 잔고 확인
   if (managerTotalBalance <= 0) {
     error.isError = true;
     error.msg = '잔고가 없어요';
     return [error];
   }
+  // 주문한 상품 정보가져오기
   const [, targetProduct, targetError] = getTargetProductInfo(products, productId);
   if (targetError.isError) {
     error.isError = true;
     error.msg = targetError.msg;
     return [error];
   }
+  // 주문한 상품의 수량 확인
   if (targetProduct.ea <= 0) {
     error.isError = true;
     error.msg = '선택한 상품의 수량이 충분하지 않아요.';
     return [error];
   }
+  // 투입금액과 주문한 상품의 가격 비교
   if (inputMoney < targetProduct.price) {
     error.isError = true;
     error.msg = '선택한 금액보다 상품의 가격이 높아요.';
     return [error];
   }
+  // 반환금액 =  투입한 금액 - 상품 금액
+  // 반환금액으로 거스름돈 구하기
   const restMoney = inputMoney - targetProduct.price;
   const { changesUnits: restUnits } = getRestUnit(defaultChangeUnits, restMoney);
   const newManagerUnits = [...mangerUnits];
   const newUserUnits = [...userUnits];
+  // 반환금액 거스름돈 단위마다 자판기 거스름돈에서 빼고, 유저 거스름돈에 추가
   for (let i = 0; i < newManagerUnits.length; i += 1) {
     const restUnit = restUnits[i];
     const mangerUnit = newManagerUnits[i];
@@ -133,11 +131,13 @@ export const orderProduct = (
     newManagerUnits[i].count = mangerUnit.count - restUnit.count;
     newUserUnits[i].count = userUnit.count + restUnit.count;
   }
+  // 투입금액을 유저 거스름돈에서 빼기
   inputChanges.forEach(id => {
     const targetIndex = newUserUnits.findIndex(unit => unit.id === id);
     const targetUnit = newUserUnits[targetIndex];
     newUserUnits[targetIndex] = { ...targetUnit, count: targetUnit.count - 1 };
   });
+  // 유저 총 잔고와 자판기 총 잔고 최신화
   const newMangerTotalBalance = getTotalBalance(newManagerUnits);
   const newUserTotalBalance = getTotalBalance(newUserUnits);
   return [error, newManagerUnits, newMangerTotalBalance, newUserUnits, newUserTotalBalance];

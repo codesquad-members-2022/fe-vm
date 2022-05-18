@@ -1,26 +1,12 @@
 import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
-import { ModalWrapper, ModalContainer, CloseModalButton } from './style';
 import * as S from './style';
 
-function Potal({ children }) {
-  useEffect(() => {
-    document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
-    return () => {
-      const scrollY = document.body.style.top;
-      document.body.style.cssText = `position: "";  top: "";`;
-      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
-    };
-  }, []);
-  // id가 modal인 DOM 노드에 모달 창을 render합니다.
-  const rootElement = document.getElementById('modal');
-  return createPortal(children, rootElement);
-}
-
 function WindowModal({ children, show, handleOpenModal }) {
-  const stopPropagation = useCallback(e => {
-    e.stopPropagation();
+  const stopPropagation = useCallback(event => {
+    // 없으면 이벤트가 천파되어 모달 내부를 눌러도 모달이 닫힘
+    event.stopPropagation();
   }, []);
 
   const handleKeyEsc = useCallback(
@@ -53,3 +39,19 @@ WindowModal.propTypes = {
 };
 
 export default WindowModal;
+
+function Potal({ children }) {
+  useEffect(() => {
+    // 화면 스크롤 방지
+    document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
+    return () => {
+      // 스크롤 방지 해제
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = `position: "";  top: "";`;
+      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+    };
+  }, []);
+
+  const rootElement = document.getElementById('modal');
+  return createPortal(children, rootElement);
+}

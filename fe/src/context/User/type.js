@@ -1,6 +1,8 @@
-// user
+// global
 export const USER_LOGIN = 'userLogin';
 export const USER_LOGOUT = 'userLogout';
+
+// user
 export const ORDER_PRODUCT = 'orderProduct';
 export const INSERT_CHANGES = 'insertChanges';
 export const RETURN_CHANGES = 'returnChanges';

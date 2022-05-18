@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ROUTE } from 'constant/route';
 import { Tab, Tabs } from '@mui/material';
+import LoginModal from 'components/LoginModal';
 import { useUserContext } from 'context/User';
 import useModal from 'hooks/useModal';
-import LoginModal from 'components/LoginModal';
 import { isLogin } from 'utils/cookie';
+import { ROUTE } from 'constant/route';
 import * as S from './style';
+
+// TODO: 로그인 관련 창 토글로 분리하기
 
 function GlobalNavigation() {
   const [isModalOpen, handleOpenModal] = useModal();

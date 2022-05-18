@@ -22,6 +22,10 @@ const useFetcher = axiosInstance => {
     }
   };
 
+  useEffect(() => {
+    fetcher();
+  }, [trigger]);
+
   return [error, loading, fetcher];
 };
 

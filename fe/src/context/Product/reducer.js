@@ -7,27 +7,35 @@ export const initState = {
 export const reducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
-    case GET_PRODUCTS:
+    case GET_PRODUCTS: {
+      const { products } = payload;
       return {
         ...state,
-        products: payload,
+        products,
       };
-    case ADD_TARGET_PRODUCT:
+    }
+    case ADD_TARGET_PRODUCT: {
+      const { targetProduct } = payload;
+      const newProducts = getNewTargetProduct(state.products, targetProduct);
       return {
         ...state,
-        products: setNewTargetProduct(state.products, payload),
+        products: newProducts,
       };
-    case SUBSTRACT_TARGET_PRODUCT:
+    }
+    case SUBSTRACT_TARGET_PRODUCT: {
+      const { targetProduct } = payload;
+      const newProducts = getNewTargetProduct(state.products, targetProduct);
       return {
         ...state,
-        products: setNewTargetProduct(state.products, payload),
+        products: newProducts,
       };
+    }
     default:
       return { ...state };
   }
 };
 
-const setNewTargetProduct = (prevProducts, newTargetProduct) => {
+const getNewTargetProduct = (prevProducts, newTargetProduct) => {
   const newProducts = prevProducts.map(product => {
     if (product.id === newTargetProduct.id) {
       return newTargetProduct;
