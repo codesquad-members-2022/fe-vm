@@ -29,7 +29,6 @@ const ProductSelectBtn = styled.button`
   width: 50px;
   height: 25px;
   background-color: ${({ theme }) => theme.color.color_400};
-  color: ${({ theme }) => theme.color.color_300};
   font-size: ${({ theme }) => theme.fontSize.small};
   border-radius: 15%;
 `;

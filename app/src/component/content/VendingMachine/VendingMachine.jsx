@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import BalanceReturnBtn from './controller/BalanceReturnBtn';
+import MoneySlot from './controller/MoneySlot';
 import ProductViewWindow from './products/ProductViewWindow';
 
 function VendingMachine() {
@@ -6,6 +8,8 @@ function VendingMachine() {
     <Container>
       <BgImg src="img/vending-machine.png" alt="자판기" />
       <ProductViewWindow />
+      <MoneySlot />
+      <BalanceReturnBtn />
     </Container>
   );
 }

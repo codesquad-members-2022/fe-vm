@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
 
     *{
         box-sizing: border-box;
+        color: ${({ theme }) => theme.color.color_300}
     }
 
     input, textarea { 
@@ -58,6 +59,10 @@ const GlobalStyle = createGlobalStyle`
       &:active {
         text-decoration: none;
       }
+    }
+
+    input {
+      border: 0;
     }
 `;
 
