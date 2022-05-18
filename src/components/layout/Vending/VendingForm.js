@@ -74,6 +74,7 @@ const VendingForm = () => {
       newAmount: totalAmount,
     });
   };
+
   return (
     <>
       <StyledForm onSubmit={submitHandler}>

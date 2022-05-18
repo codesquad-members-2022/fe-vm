@@ -56,6 +56,12 @@ const logReducer = (state, action) => {
     const newLog = `${action.newAmount}원이 반환되었습니다.`;
     return [...state, newLog];
   }
+
+  if (action.type === 'BUY') {
+    const { price, name } = action.item;
+    const newLog = `${name}을 ${price}원으로 구매했습니다.`;
+    return [...state, newLog];
+  }
 };
 
 export { moneyReducer, logReducer };

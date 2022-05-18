@@ -4,12 +4,14 @@ import VendingCard from './VendingCard';
 import { DUMMY_DATA, _ } from '../../../constant/constant';
 import AmountContext from '../../../store/AmountContext';
 
-const VendingCards = (props) => {
-  const { money } = useContext(AmountContext);
-  // const onClickHander = (props) => {
-  //   console.log(props);
-  //   // console.log(parseInt(e.currentTarget.textContent));
-  // };
+const VendingCards = () => {
+  const { money, dispatchMoney, dispatchLog } = useContext(AmountContext);
+  const onSaveInfo = (price, name) => {
+    if (money.TOTAL_AMOUNT < price) return alert('금액이 부족합니다');
+    console.log(money.INSERTED);
+    dispatchLog({ type: 'BUY', item: { price, name } });
+  };
+
   return (
     <VendingCardLists>
       {DUMMY_DATA.map(({ id, name, price }) => (
@@ -19,7 +21,7 @@ const VendingCards = (props) => {
           name={name}
           price={price}
           isAffordable={money.TOTAL_AMOUNT >= price}
-          // onSave={onClickHander}
+          onSave={onSaveInfo}
         />
       ))}
     </VendingCardLists>

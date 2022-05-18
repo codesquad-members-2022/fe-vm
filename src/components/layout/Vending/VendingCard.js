@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const VendingCard = ({ isAffordable, name, price, onSave }) => {
   const onClickHandler = () => {
-    console.log(price);
+    onSave(price, name);
   };
   return (
     <VendingCardList
@@ -19,6 +19,7 @@ const VendingCard = ({ isAffordable, name, price, onSave }) => {
 
 const VendingCardList = styled.li`
   ${({ theme }) => theme.mixin.flexMixin('column')};
+  background: ${({ isClicked }) => isClicked && 'yellow'};
   border: 1px solid ${({ isAffordable }) => (isAffordable ? 'red' : 'black')};
   width: 23%;
   height: 18%;
