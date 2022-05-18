@@ -10,6 +10,7 @@ const Container = styled.div`
   height: 40px;
   background-color: ${COLOR.OFF_WHITE};
   border-radius: 7px;
+  margin-bottom: 20px;
   cursor: text;
 `;
 

@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 
 import * as S from '@components/atoms/InputBox/InputBox.style';
 
-const NO_BALANCE = '0';
+export const NO_BALANCE = '0';
 const SUFFIX = '원';
 
 const InputBox = ({ inputValue, setInputValue }) => {

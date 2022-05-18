@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button, { BUTTON_SIZE, BUTTON_THEME } from '@components/atoms/Button';
+import Button, { BUTTON_SIZE } from '@components/atoms/Button';
 import TextBox from '@components/atoms/TextBox';
 import * as S from '@components/molecules/MoneyCounter/MoneyCounter.style';
 
@@ -10,7 +10,6 @@ const MoneyCounter = ({ money, putMoney }) => {
   return (
     <S.Container>
       <Button
-        theme={BUTTON_THEME.DEFAULT}
         size={BUTTON_SIZE.LARGE}
         disabled={isButtonDisabled}
         onClick={() => putMoney(money.id)}
