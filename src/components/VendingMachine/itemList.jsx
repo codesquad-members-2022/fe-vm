@@ -3,18 +3,13 @@ import styled from 'styled-components';
 import { Default_radius, Default_shadow, Color } from 'Assets/Style/Common';
 import VMListItem from './item';
 import VMproducts from 'Assets/VMData/products';
-import { StockProvider } from 'context/productStock';
 
 const VMItemList = () => {
   const products = VMproducts.map((product) => {
     return <VMListItem key={product.id} product={product} coin={1000} />;
   });
 
-  return (
-    <VMItemListBox>
-      <StockProvider>{products}</StockProvider>
-    </VMItemListBox>
-  );
+  return <VMItemListBox>{products}</VMItemListBox>;
 };
 
 const VMItemListBox = styled.div`
@@ -30,4 +25,4 @@ const VMItemListBox = styled.div`
   heigh: 70rem;
 `;
 
-export default VMItemList;
+export default React.memo(VMItemList);

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { F_center, Default_radius, Color } from 'Assets/Style/Common';
 import { ProductContext } from 'context/productStock';
@@ -15,7 +15,6 @@ const VMListItem = ({ product, coin }) => {
         ...prevState,
         [product.id]: prevState[product.id] - 1,
       };
-      localStorage.setItem('products', JSON.stringify(currentState));
       return currentState;
     });
   };
