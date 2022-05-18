@@ -18,10 +18,11 @@ function Information() {
     let surplus = money > getTotalAmount(walletMoney) ? getTotalAmount(walletMoney) : money;
 
     for (let i = walletMoney.length - 1; i >= 0; i--) {
-      if (surplus >= walletMoney[i].price && walletMoney[i].quantity > 0) {
-        const quantity = Math.min(Math.floor(surplus / walletMoney[i].price), walletMoney[i].quantity);
-        surplus = surplus - quantity * walletMoney[i].price;
-        walletMoney[i] = { ...walletMoney[i], quantity: walletMoney[i].quantity - quantity };
+      const { price, quantity } = walletMoney[i];
+      if (surplus >= price && quantity > 0) {
+        const convertedQuantity = Math.min(Math.floor(surplus / price), quantity);
+        surplus -= convertedQuantity * price;
+        walletMoney[i] = { ...walletMoney[i], quantity: quantity - convertedQuantity };
       }
     }
 
@@ -52,10 +53,11 @@ function Information() {
     addReturnLog(change);
 
     for (let i = walletMoney.length - 1; i >= 0; i--) {
-      if (change >= walletMoney[i].price) {
-        const returnedCoinQuantity = Math.floor(change / walletMoney[i].price);
-        change = change % walletMoney[i].price;
-        walletMoney[i] = { ...walletMoney[i], quantity: walletMoney[i].quantity + returnedCoinQuantity }; // set함수 안 쓰고 이렇게도 변경해도 되나
+      const { price, quantity } = walletMoney[i];
+      if (change >= price) {
+        const returnedCoinQuantity = Math.floor(change / price);
+        change %= price;
+        walletMoney[i] = { ...walletMoney[i], quantity: quantity + returnedCoinQuantity }; // set함수 안 쓰고 이렇게도 변경해도 되나
       }
     }
   };
