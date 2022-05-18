@@ -9,8 +9,7 @@ VMproducts.forEach((product) => {
 const ProductContext = createContext(null);
 
 const StockProvider = ({ children }) => {
-  const prevPageState = JSON.parse(localStorage.getItem('products'));
-  const [ProductStock, setProductStock] = useState(prevPageState || stock);
+  const [ProductStock, setProductStock] = useState(stock);
   return (
     <ProductContext.Provider value={{ ProductStock, setProductStock }}>
       {children}
