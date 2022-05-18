@@ -6,9 +6,12 @@ import colors from "../../constants/colors";
 import VmWalletContextStore from "../../stores/VmWalletStore";
 import { useContext, useEffect, useState } from "react";
 
+import returnMoney from "./returnMoney";
+
 const Product = ({ product }) => {
   const VmWalletInfo = useContext(VmWalletContextStore);
   const [productDisplay, setProductDisplay] = useState("");
+  const [isSelectProduct, setIsSelectProduct] = useState(false);
 
   const onProductClick = () => {
     if (productDisplay === "red") {
@@ -20,6 +23,7 @@ const Product = ({ product }) => {
         VmWalletInfo.setLogMessage(
           VmWalletInfo.logMessage.concat(`${product.title}를 획득했습니다!`)
         );
+        setIsSelectProduct(true);
       }, 2000);
     }
   };
@@ -30,7 +34,10 @@ const Product = ({ product }) => {
     } else {
       setProductDisplay("lightWhite");
     }
-  }, [VmWalletInfo.currMoney, product.price]);
+    if (isSelectProduct) {
+      returnMoney(VmWalletInfo);
+    }
+  }, [VmWalletInfo.currMoney, product.price, isSelectProduct]);
 
   return (
     <ProductWrap display={productDisplay} onClick={onProductClick}>

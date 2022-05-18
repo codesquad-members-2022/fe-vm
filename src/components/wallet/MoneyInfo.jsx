@@ -31,7 +31,7 @@ const MoneyInfo = ({ money, number }) => {
         <Text font={FONT.MEDIUM_BOLD}>{money.type}원</Text>
       </MoneyWrap>
       <AmountWrap>
-        <Text font={FONT.MEDIUM_BOLD}>{moneyAmount}개</Text>
+        <Text font={FONT.LARGE_BOLD}>{moneyAmount}개</Text>
       </AmountWrap>
     </MoneyInfoWrap>
   );
