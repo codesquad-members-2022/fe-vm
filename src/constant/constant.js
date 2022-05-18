@@ -134,4 +134,24 @@ const CURRENCY = [
 
 const _ = undefined;
 
-export { DUMMY_DATA, _, CURRENCY };
+const INITIAL_WALLET = {
+  10: 5,
+  50: 5,
+  100: 5,
+  500: 5,
+  1000: 5,
+  5000: 5,
+  10000: 5,
+};
+
+const INITAIL_INSERT = {
+  10: 0,
+  50: 0,
+  100: 0,
+  500: 0,
+  1000: 0,
+  5000: 0,
+  10000: 0,
+};
+
+export { DUMMY_DATA, _, CURRENCY, INITIAL_WALLET, INITAIL_INSERT };
