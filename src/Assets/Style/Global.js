@@ -4,6 +4,11 @@ import { Color } from './Common';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
   html{
     font-size: 10px;
     font-family: 'Noto Sans KR', sans-serif;
