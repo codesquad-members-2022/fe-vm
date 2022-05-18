@@ -47,7 +47,7 @@ const accountReducer = (state, action) => {
           if (accCount < count) {
             inputValue = inputValue % unit;
             saved += unit * accCount;
-            currentMoneyList[idx].count = accCount - count;
+            currentMoneyList[idx].count = count - accCount;
           }
 
           if (accCount === count) {
@@ -67,8 +67,6 @@ const accountReducer = (state, action) => {
         {inputValue, change: 0, saved: 0},
       );
 
-      // console.log(checkedMoney.saved, checkedMoney.change);
-
       if (!checkedMoney.change) {
         return {
           currentMoney: state.currentMoney - inputValue,
@@ -76,15 +74,18 @@ const accountReducer = (state, action) => {
         };
       }
 
-      for (const list of currentMoneyList) {
+      const currentMoneyListEntry = currentMoneyList.reverse().entries();
+      for (const [idx, list] of currentMoneyListEntry) {
+        const nextUnit = currentMoneyList.reverse()[idx + 1].unit;
+
         if (list.count > 0 && list.unit > checkedMoney.change) {
-          console.log('잔돈 ' + checkedMoney.change);
-          console.log('보정값' + list.unit);
           return {
-            currentMoney: state.currentMoney - checkedMoney.saved - list.unit,
+            currentMoney: state.currentMoney - (checkedMoney.saved + list.unit),
             insertedMoney: checkedMoney.saved + list.unit,
           };
         }
+
+        checkedMoney.saved -= checkedMoney.saved % nextUnit;
       }
 
     default:
