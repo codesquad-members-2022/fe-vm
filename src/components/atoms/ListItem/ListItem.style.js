@@ -38,6 +38,8 @@ const StyledListItem = styled.li`
   ${({ sizeType }) => sizeType && Size[sizeType]}
   ${({ fontType }) => fontType && Font[fontType]}
   ${({ borderType }) => borderType && Border[borderType]}
+  background: ${({ theme: { colors } }) => colors.white};
+  padding-right: 10px;
 `;
 
 export default StyledListItem;
