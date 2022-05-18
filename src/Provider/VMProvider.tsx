@@ -33,6 +33,11 @@ interface ITimer {
   [key: string]: NodeJS.Timeout;
 }
 
+interface IProviderValue {
+  state: IVMState;
+  dispatch: React.Dispatch<ActionType>;
+}
+
 type ActionType =
   | { type: ACTION.INSERT_MONEY_BY_TYPING; payload: { amount: number } }
   | { type: ACTION.INSERT_COIN; payload: { amount: number; count: number; index: number } }
@@ -275,12 +280,12 @@ const reducer = (state: IVMState, action: ActionType) => {
   }
 };
 
-const VMContext = createContext(null);
+const VMContext = createContext<IVMState>(initialState);
 
 const VMProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState, undefined);
 
-  const value: any = useMemo(() => {
+  const value = useMemo<IProviderValue>(() => {
     return {
       state,
       dispatch,

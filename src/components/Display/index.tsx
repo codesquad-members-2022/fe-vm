@@ -3,7 +3,11 @@ import React, { useContext, useRef } from 'react';
 import Product from '@/components/Product';
 import { VMContext } from '@/Provider/VMProvider';
 
-const Display = ({ className }) => {
+export interface Props {
+  className: string;
+}
+
+const Display = ({ className }: Props) => {
   const {
     state: { products, totalInputAmount },
     dispatch,
@@ -12,15 +16,13 @@ const Display = ({ className }) => {
 
   return (
     <div className={className}>
-      {products.map(({ id, name, price, stock }, index) => (
+      {products.map((product, index) => (
         <Product
-          key={id}
-          name={name}
-          price={price}
-          stock={stock}
+          key={product.id}
+          {...product}
           index={index}
           dispatch={dispatch}
-          purchasable={totalInputAmount >= price}
+          purchasable={totalInputAmount >= product.price}
           isInProcess={isInProcess}
         />
       ))}
