@@ -1,10 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
-import TabMenu from './TabMenu/TabMenu';
-import VendingMachine from './TabContent/VendingMachine/VendingMachine';
-import Wallet from './TabContent/Wallet/Wallet';
-import Stock from './TabContent/Stock/Stock';
+import { ThemeProvider } from 'styled-components';
+import theme from '../common/theme';
+import GlobalStyle from '../common/GlobalStyle';
+import Gnb from './gnb/Gnb';
+import VendingMachine from './content/VendingMachine/VendingMachine';
+import Wallet from './content/Wallet/Wallet';
+import Stock from './content/Stock/Stock';
 
-const TABS = {
+const GNB_ITEMS = {
   vendingMachine: {
     title: '자판기',
     content: <VendingMachine />,
@@ -19,24 +22,23 @@ const TABS = {
   },
 };
 
-const tabs = Object.entries(TABS);
+const gnbItems = Object.entries(GNB_ITEMS);
 
 function App() {
   return (
-    <>
-      <TabMenu tabs={tabs} />
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Gnb items={gnbItems} />
       <Routes>
-        {tabs.map(tab => {
-          const [tabKey, { content }] = tab;
-          return <Route
-            path={`/${tabKey}`}
-            key={tabKey}
-            element={content}
-          ></Route>;
+        {gnbItems.map(item => {
+          const [itemKey, { content }] = item;
+          return (
+            <Route path={`/${itemKey}`} key={itemKey} element={content}></Route>
+          );
         })}
         <Route path="/*" element={<div>{`not found`}</div>}></Route>
       </Routes>
-    </>
+    </ThemeProvider>
   );
 }
 
