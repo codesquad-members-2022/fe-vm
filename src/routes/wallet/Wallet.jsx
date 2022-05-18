@@ -14,18 +14,18 @@ function Wallet() {
         useVendingMachineContext();
 
     const takeMoneyFromWallet = (moneyUnit) => {
-        const moneyInWallet = wallet.findIndex(
-            (money) => money.unit === moneyUnit
+        const moneyInWallet = wallet.find(
+            (money) => money.unit === moneyUnit && money.count > 0
         );
 
-        if (!moneyInWallet || !wallet[moneyInWallet].count) {
+        if (!moneyInWallet) {
             return;
         }
 
-        wallet[moneyInWallet].count -= 1;
+        moneyInWallet.count -= 1;
         updateWallet(wallet);
-        addRecord(`${wallet[moneyInWallet].unit}원이 투입됨`);
-        putMoneyIntoVendingMachine(wallet[moneyInWallet].unit);
+        putMoneyIntoVendingMachine(moneyInWallet.unit);
+        addRecord(`${moneyInWallet.unit}원이 투입됨`);
     };
 
     return (
