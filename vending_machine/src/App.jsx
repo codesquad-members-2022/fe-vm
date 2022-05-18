@@ -65,7 +65,7 @@ const App = () => {
   return (
     <TotalMoneyContext.Provider value={[totalMoney, setTotalMoney]}>
       <ProgressContext.Provider value={progressContextValue}>
-        <BrowserRouter>
+        <BrowserRouter basename="fe-vm">
           <StyledApp>
             <Header />
             <Main />

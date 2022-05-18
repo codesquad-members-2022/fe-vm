@@ -10,7 +10,7 @@ const Main = () => {
   return (
     <StyledMain>
       <Routes>
-        <Route path="/fe-vm" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/wallet" element={<Wallet />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

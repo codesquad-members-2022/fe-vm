@@ -25,7 +25,7 @@ const Header = () => {
         content={'자판기'}
         disabled={isClickedVM}
         onClick={() => {
-          changePage('/fe-vm');
+          changePage('/');
           changeColor(isClickedVM);
         }}
       />
