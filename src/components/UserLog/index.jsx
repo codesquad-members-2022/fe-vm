@@ -6,7 +6,9 @@ import { PRODUCT_ICON } from '@/constants/constants';
 import { VendorContext } from '@/context/VendorProvider';
 
 const UserLog = ({ isStock }) => {
-  const { userLog, product } = useContext(VendorContext);
+  const {
+    state: { userLog, product },
+  } = useContext(VendorContext);
   const userLogRef = useRef(null);
 
   useEffect(() => {

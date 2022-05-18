@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useRef } from 'react';
 
-import { INPUT_STATE } from '@/constants/constants';
+import { ACTION } from '@/constants/actionType';
 import { VendorContext } from '@/context/VendorProvider';
 
 import * as S from './CashDisplay.style';
@@ -9,42 +9,32 @@ import * as S from './CashDisplay.style';
 const CashDisplay = ({ isBalance, small }) => {
   const inputRef = useRef(null);
   const {
-    balance,
-    setBalance,
-    userLog,
-    setUserLog,
-    userBalance,
-    setUserBalance,
-    inputState,
-    setInputState,
-    input,
-    setInput,
+    state: { balance, userLog, userCash, inputState, insertedCash },
+    dispatch,
   } = useContext(VendorContext);
 
   const handleSubmit = e => {
     e.preventDefault();
     const currentCash = Number(inputRef.current.value);
 
-    if (currentCash <= 0) {
-      return;
-    }
-    if (currentCash > balance) {
-      setInputState(INPUT_STATE.warning);
-      setUserLog([...userLog, `🚫You don't have enough money`]);
-      return;
-    }
-    setUserBalance(+userBalance + currentCash);
-    setInputState(INPUT_STATE.active);
-    setBalance(balance - currentCash);
-    setUserLog([
-      ...userLog,
-      `🪙Input $${currentCash}`,
-      `💳Your Balance: ${+userBalance + currentCash}`,
-    ]);
+    dispatch({
+      type: ACTION.INSERT_CASH,
+      payload: {
+        currentCash,
+        balance,
+        userLog,
+        userCash,
+      },
+    });
   };
 
   const onChange = ({ target }) => {
-    setInput(target.value.replace(/(^0+)/, ''));
+    dispatch({
+      type: ACTION.INPUT_ON_CHANGE,
+      payload: {
+        insertedCash: target.value,
+      },
+    });
   };
 
   return (
@@ -54,7 +44,7 @@ const CashDisplay = ({ isBalance, small }) => {
           <S.MonetaryUnit isBalance={isBalance} small={small}>
             $
           </S.MonetaryUnit>
-          <S.Balance small={small}>{balance.toLocaleString('en-US')}</S.Balance>
+          <S.Balance small={small}>{userCash.toLocaleString('en-US')}</S.Balance>
         </S.DisplayBox>
       ) : (
         <S.DisplayBox inputState={inputState}>
@@ -65,7 +55,7 @@ const CashDisplay = ({ isBalance, small }) => {
               ref={inputRef}
               min={0}
               max={99999}
-              value={input}
+              value={insertedCash}
               onChange={onChange}
             />
           </S.CashForm>
