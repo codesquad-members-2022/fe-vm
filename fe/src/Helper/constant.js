@@ -8,6 +8,8 @@ export const INIT_ALERT_MESSAGE = {
   chargeCash: 0,
   changeAmount: 0,
   orderTitle: "",
+  wrong: false,
+  buying: false,
 };
 
 export const NAV_MENUS = [

@@ -6,12 +6,24 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AlertMessageProvider from "Context/AlertMessageProvider";
 import InvestMentProvider from "Context/InvestmentProvider";
 import WalletMoneyProvider from "Context/WalletMoneyProvider";
+import OrderTimerProvider from "Context/OrderInProgressProvider";
+import MessageListProvider from "Context/MessageListProvider";
 import GlobalStyle from "Common/globalStyle";
 import NotFound from "Pages/NotFound/NotFound";
-import MessageListProvider from "Context/MessageListProvider";
-import { composeProvider } from "Helper/utils";
 
-const providerList = [WalletMoneyProvider, InvestMentProvider, AlertMessageProvider, MessageListProvider];
+import { composeProvider } from "Helper/utils";
+import InvestmentTimerProvider from "Context/InvestmentTimerProvider";
+
+const providerList = [
+  WalletMoneyProvider,
+  InvestMentProvider,
+  AlertMessageProvider,
+  MessageListProvider,
+  InvestMentProvider,
+  OrderTimerProvider,
+  InvestmentTimerProvider,
+];
+
 const Provider = composeProvider(providerList);
 
 export default function App() {
