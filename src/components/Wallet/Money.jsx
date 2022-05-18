@@ -12,7 +12,7 @@ const Money = ({ info }) => {
   const decrease = () => {
     if (info.amount === 0) return;
     buttonInsertMoney(info.unit);
-    insertMoneyLog(info.unit);
+    insertMoneyLog([{ ...info, amount: 1 }]);
   };
 
   return (

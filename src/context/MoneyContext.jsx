@@ -26,6 +26,13 @@ export const MoneyProvider = ({ children }) => {
     });
   };
 
+  const buyProduct = product => {
+    dispatch({
+      type: 'BUY_PRODUCT',
+      payload: product,
+    });
+  };
+
   return (
     <MoneyContext.Provider
       value={{
@@ -33,6 +40,7 @@ export const MoneyProvider = ({ children }) => {
         insertMoneyData: state.insertMoneyData,
         buttonInsertMoney,
         inputInsertMoney,
+        buyProduct,
       }}
     >
       {children}
@@ -64,6 +72,9 @@ const moneyReducer = (state, action) => {
       const updateMachineMoney2 = state.insertMoneyData + calculateTotalMoney(action.payload);
 
       return { walletMoneyData: updateWalletMoney2, insertMoneyData: updateMachineMoney2 };
+    case 'BUY_PRODUCT':
+      const updateInsertMoney = state.insertMoneyData - action.payload;
+      return { ...state, insertMoneyData: updateInsertMoney };
     case 'RETURN_MONEY':
       return;
     default:
