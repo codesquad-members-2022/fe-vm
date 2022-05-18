@@ -6,8 +6,8 @@ import { Menu } from "components";
 function MenuBox() {
   return (
     <StyledMenuBox>
-      {menuItem.map(({ id, title, price }) => (
-        <Menu key={id} title={title} price={price}></Menu>
+      {menuItem.map(({ id, title, price, stock }) => (
+        <Menu key={id} title={title} price={price} stock={stock}></Menu>
       ))}
     </StyledMenuBox>
   );
