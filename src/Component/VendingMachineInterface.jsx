@@ -4,16 +4,18 @@ import styled from 'styled-components';
 export const VendingMachineInterface = ({
   handleRefundBtn,
   walletState: {insertedMoney},
+  handleUserInput,
 }) => {
-  // useEffect(() => {
-  //   setHistory({...history, insertedMoney: account.insertedMoney});
-  // }, [account.insertedMoney]);
-
-  const sudoInputEvent = () => {};
+  const sudoInputEvent = e => {
+    if (e.key !== 'Enter') {
+      return;
+    }
+    handleUserInput(e.target.value);
+  };
 
   return (
     <VM_Wrapper>
-      <VM_MoneyInput onChange={sudoInputEvent} value={insertedMoney} />
+      <VM_MoneyInput onKeyDown={sudoInputEvent} />
       <VM_RefundBtn onClick={handleRefundBtn}>잔액 반환</VM_RefundBtn>
       <VM_History></VM_History>
     </VM_Wrapper>

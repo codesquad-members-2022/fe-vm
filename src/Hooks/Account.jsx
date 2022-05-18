@@ -11,9 +11,13 @@ export const useAccount = (initial, reducer) => {
     dispatchUserMoney({type: 'refund'});
   };
 
-  const buyProduct = productPrice => {
+  const buyProduct = productPrice => () => {
     dispatchUserMoney({type: 'buy', incomeMoney: productPrice});
   };
 
-  return {insertMoney, refundMoney, buyProduct, userMoney};
+  const inputMoney = income => {
+    dispatchUserMoney({type: 'input', incomeMoney: income});
+  };
+
+  return {insertMoney, refundMoney, buyProduct, inputMoney, userMoney};
 };
