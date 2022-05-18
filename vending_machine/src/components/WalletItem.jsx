@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from './Button';
 
-const WalletItem = ({ unit, quantity }) => {
+const WalletItem = ({ unit, quantity, onClick }) => {
   return (
     <>
-      <StyledItem content={`${unit}원`} disabled={false} onClick={() => {}} />
+      <StyledItem content={`${unit}원`} disabled={false} onClick={onClick} />
       <StyledItem as={'span'}>{quantity}개</StyledItem>
     </>
   );

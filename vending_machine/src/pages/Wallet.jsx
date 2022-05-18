@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import { TotalMoneyContext } from '../App';
 import SumMoney from '../components/SumMoney';
 import TotalMoney from '../components/TotalMoney';
-import { flexBetween } from '../style/mixins';
 import { getData } from '../utility/util';
-import WalletItem from '../components/WalletItem';
+import WalletCoinBox from '../components/WalletCoinBox';
 
 const Wallet = () => {
   const [coinData, setCoinData] = useState([]);
@@ -20,11 +19,7 @@ const Wallet = () => {
 
   return (
     <WalletContainer>
-      {coinData.map(({ id, unit, quantity }) => (
-        <WalletBox key={id}>
-          <WalletItem unit={unit} quantity={quantity} />
-        </WalletBox>
-      ))}
+      <WalletCoinBox coinData={coinData} setTotalMoney={setTotalMoney} />
       <TotalMoney totalMoney={totalMoney} />
       <SumMoney coinData={coinData} />
     </WalletContainer>
@@ -36,11 +31,6 @@ const WalletContainer = styled.ul`
   width: 400px;
   height: 1000px;
   border: 2px solid black;
-`;
-
-const WalletBox = styled.li`
-  ${flexBetween}
-  font-size: 30px;
 `;
 
 export default Wallet;
