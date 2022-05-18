@@ -1,16 +1,21 @@
 import styled from "styled-components";
 
+export const CLASS_NAME = {
+  ACTIVE: "current-path",
+  LINK: "link",
+};
+
 const Wrapper = styled.div`
   display: inline-block;
   width: 10rem;
 
   ${({ theme: { fontStyles } }) => fontStyles.nav}
 
-  .link {
+  .${CLASS_NAME.LINK} {
     display: block;
     border-bottom: 4px solid ${({ theme: { colors } }) => colors.white};
 
-    &:hover {
+    &:hover:not(.${CLASS_NAME.ACTIVE}) {
       ${({ theme: { colors, whitespace } }) => `
           background-color: ${colors.black};
           border-radius: ${whitespace.default};
@@ -19,8 +24,9 @@ const Wrapper = styled.div`
     }
   }
 
-  .current-path {
+  .${CLASS_NAME.ACTIVE} {
     border-color: ${({ theme: { colors } }) => colors.black};
+    cursor: default;
   }
 `;
 

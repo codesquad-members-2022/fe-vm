@@ -1,6 +1,6 @@
 import Button from "components/common/form/Button/Button";
 import Input from "components/common/form/Input/Input";
-import constants from "mockData/constants";
+import constants from "utils/constants";
 
 import { Wrapper, insertButtonStyle } from "./InsertMoneyArea.styled";
 

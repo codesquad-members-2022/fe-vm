@@ -7,9 +7,16 @@ const Wrapper = styled.div`
     color: ${colors.white};
     padding: ${whitespace.default};
   `};
-  height: calc(100% - 10rem);
-  max-height: calc(100% - 10rem);
+
+  height: calc(100% - 11.5rem);
+  max-height: calc(100% - 11.5rem);
   overflow-y: auto;
 `;
 
-export default Wrapper;
+const ProgressList = styled.ol`
+  li:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+`;
+
+export { Wrapper, ProgressList };

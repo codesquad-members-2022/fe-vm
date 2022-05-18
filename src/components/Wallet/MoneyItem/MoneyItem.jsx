@@ -1,7 +1,11 @@
-import { useContext } from "react";
+import { memo, useCallback, useContext } from "react";
 
 import Button from "components/common/form/Button/Button";
-import { MoneyContext } from "pages/Layout/Layout";
+import {
+  SetInsertedMoneyContext,
+  SetMoneyContext,
+} from "contexts/moneyContext";
+import { SetProgressContext } from "contexts/progressContext";
 
 import { MoneyLi, moneyButtonStyle } from "./MoneyItem.styled";
 
@@ -9,8 +13,16 @@ const Count = ({ data }) => {
   return <p className="count">{data}</p>;
 };
 
-const MoneyItem = ({ onClick }) => {
-  const { money, count } = useContext(MoneyContext);
+const MoneyItem = ({ money, count }) => {
+  const decreaseCashCount = useContext(SetMoneyContext);
+  const insertMoney = useContext(SetInsertedMoneyContext);
+  const updateProgress = useContext(SetProgressContext);
+
+  const handleClickMoney = useCallback(() => {
+    decreaseCashCount(money);
+    updateProgress("insert", money);
+    insertMoney(money);
+  }, [decreaseCashCount, updateProgress, insertMoney, money]);
 
   return (
     <MoneyLi>
@@ -19,11 +31,11 @@ const MoneyItem = ({ onClick }) => {
         data={{ name: money }}
         styles={moneyButtonStyle}
         isDisabled={!count}
-        onClick={onClick}
+        onClick={handleClickMoney}
       />
       <Count data={count} />
     </MoneyLi>
   );
 };
 
-export default MoneyItem;
+export default memo(MoneyItem);
