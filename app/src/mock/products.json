@@ -1,0 +1,53 @@
+{
+  "products": [
+    {
+      "code": 0,
+      "name": "콜라",
+      "stock": 3,
+      "price": 500,
+      "alt": "콜라"
+    },
+    {
+      "code": 1,
+      "name": "사이다",
+      "stock": 7,
+      "price": 600,
+      "alt": "사이다"
+    },
+    {
+      "code": 2,
+      "name": "환타",
+      "stock": 1,
+      "price": 1900,
+      "alt": "환타"
+    },
+    {
+      "code": 3,
+      "name": "토레타",
+      "stock": 3,
+      "price": 250,
+      "alt": "토레타"
+    },
+    {
+      "code": 4,
+      "name": "마운틴듀",
+      "stock": 10,
+      "price": 1500,
+      "alt": "마운틴듀"
+    },
+    {
+      "code": 5,
+      "name": "데자와",
+      "stock": 5,
+      "price": 3500,
+      "alt": "데자와"
+    },
+    {
+      "code": 6,
+      "name": "에비앙",
+      "stock": 3,
+      "price": 280,
+      "alt": "에비앙"
+    }
+  ]
+}
