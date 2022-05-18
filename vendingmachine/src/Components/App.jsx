@@ -237,13 +237,13 @@ const App = () => {
   const handleClickMoney = useCallback(
     (money, index) => {
       if (walletInfo[index].number > 0) {
-        setInputMoney(inputMoney + money);
-        setWalletInfo(updateInfo(index, walletInfo, 'wallet'));
+        setInputMoney(prev => prev + money);
+        setWalletInfo(prev => updateInfo(index, prev, 'wallet'));
         dispatch({ type: ACTION_TYPE.money, money: money });
         history.current = history.current.concat(index);
       }
     },
-    [inputMoney, walletInfo, updateInfo],
+    [updateInfo],
   );
 
   const handleClickProduct = useCallback(
