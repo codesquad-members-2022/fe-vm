@@ -1,15 +1,24 @@
 import { SetAlertMessage } from "Context/AlertMessageProvider";
-import { INIT_ALERT_MESSAGE } from "Helper/constant";
+import { INIT_ALERT_MESSAGE, INVESTMENT_COUNT_TIME } from "Helper/constant";
 import useInvestment from "Hooks/useInvestment";
+import useInvestmentTimer from "Hooks/useInvestmentTimer";
 import useWallet from "Hooks/useWallet";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CashInput, Button, ChargeForm } from "./ChargeForm.styled";
 
 export default function ChargeScreen() {
+  // cash : (투입될 화폐 단위) 자판기에 보유중인 잔액과 불일치할 경우 자판기 금액에 맞게 조정한다.
+  // investment : 투입금액 (현재 자판기에 투입된 금액)
+  // walletMoney : 현재 지갑 보유 금액 (객체)
   const [cash, setCash] = useState(0);
   const [investment, setInvestment] = useInvestment();
   const [walletMoney, setWalletMoney] = useWallet();
   const setAlertMessage = useContext(SetAlertMessage);
+  const resetInvestment = useInvestmentTimer();
+
+  useEffect(() => {
+    resetInvestment(INVESTMENT_COUNT_TIME);
+  }, [investment]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -20,14 +29,9 @@ export default function ChargeScreen() {
       return;
     }
 
-    chargeCash({
-      investment,
-      setInvestment,
-      walletMoney,
-      setWalletMoney,
-      setCash,
-      adjustedCash,
-    });
+    const chargeCashProps = { investment, setInvestment, walletMoney, setWalletMoney, setCash, adjustedCash };
+
+    chargeCash(chargeCashProps);
     alertChargeMessage({ setAlertMessage, adjustedCash });
   };
 
@@ -95,7 +99,8 @@ const isReasonableCoin = (walletMoney, cash) => {
   return reasonableCoin;
 };
 
-const chargeCash = ({ investment, setInvestment, walletMoney, setWalletMoney, setCash, adjustedCash }) => {
+const chargeCash = (props) => {
+  const { investment, setInvestment, walletMoney, setWalletMoney, setCash, adjustedCash } = props;
   investment.amount += Number(adjustedCash);
   const newInvestment = { ...investment };
 

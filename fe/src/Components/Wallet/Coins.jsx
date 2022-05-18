@@ -1,11 +1,12 @@
 import { AlertMessage, SetAlertMessage } from "Context/AlertMessageProvider";
 import useInvestment from "Hooks/useInvestment";
 import useWallet from "Hooks/useWallet";
-import { INIT_ALERT_MESSAGE } from "Helper/constant";
+import { INIT_ALERT_MESSAGE, INVESTMENT_COUNT_TIME } from "Helper/constant";
 import { useCallback, useContext, useEffect } from "react";
 import { CoinBoxContainer, Count, Money, CoinBox, TotalBox } from "./Coins.styled";
 import addMessageList from "Helper/message";
 import useMessageList from "Hooks/useMessageList";
+import useInvestmentTimer from "Hooks/useInvestmentTimer";
 
 export default function Coins() {
   const [investment, setInvestment] = useInvestment();
@@ -13,6 +14,7 @@ export default function Coins() {
   const setAlertMessage = useContext(SetAlertMessage);
   const alertMessage = useContext(AlertMessage);
   const [messageList, setMessageList] = useMessageList([]);
+  const resetInvestment = useInvestmentTimer();
   const coinBoxsProps = { walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage };
   const coinBoxs = getCoinBox(coinBoxsProps);
 
@@ -24,20 +26,21 @@ export default function Coins() {
 
   useEffect(() => {
     reflectNewMessage();
-  }, [alertMessage, reflectNewMessage]);
+    resetInvestment(INVESTMENT_COUNT_TIME);
+  }, [alertMessage]);
 
   return <CoinBoxContainer>{coinBoxs}</CoinBoxContainer>;
 }
 
 const getCoinBox = (props) => {
-  const { walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage } = props;
+  const { walletMoney } = props;
   if (!walletMoney) {
     return;
   }
 
   const totalMoney = calculateTotalMoney(walletMoney.amount);
   const coinBoxs = Object.entries(walletMoney.amount).map((wallet) => {
-    const coinBoxProps = { wallet, walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage };
+    const coinBoxProps = { ...props, wallet };
     return createCoinBox(coinBoxProps);
   });
   const totalBox = createTotalBox(totalMoney);
