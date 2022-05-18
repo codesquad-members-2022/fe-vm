@@ -1,7 +1,7 @@
 /* eslint-disable react/require-default-props */
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { changeNumberToKoreanLocaleMoney } from 'utils';
+import { changeNumberToKoreanLocaleMoney } from 'utils/global';
 import { Button } from '@mui/material';
 import * as S from './style';
 

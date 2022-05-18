@@ -2,12 +2,6 @@ import { API } from 'constant/route';
 import instance from './core';
 
 const mangerApi = {
-  getBalance() {
-    return instance({
-      url: API.GET_BALANCE,
-      method: 'get',
-    });
-  },
   addTargetBalance(id) {
     return instance({
       url: API.PATCH_ADD_BALANCE,

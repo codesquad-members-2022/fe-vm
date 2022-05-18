@@ -1,88 +1,208 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Products from 'components/Products';
-import { useVMContext } from 'context/VMContext';
-import { orderProduct } from 'context/VMContext/action';
-import InsertMoneyForm from './InsertMoneyForm';
+import { useProductContext } from 'context/Product';
+import { useUserContext } from 'context/User';
+import { insertChanges, orderProduct, returnChanges } from 'context/User/action';
+import { getProducts } from 'context/Product/action';
+import { isLogin } from 'utils/cookie';
+import userApi from 'api/user';
+import InputMoneyForm from './InputMoneyForm';
+import InsertChangesForm from './InsertChangesForm';
+import ActionLogs from './ActionLogs';
 import * as S from './style';
 
 function VendingMachine() {
-  const { totalBalance, changesUnits, dispatch } = useVMContext();
-  // FIXME: input defualt value 0일 때 에러 수정 -> 0123, 1230이런식으로 0이 안없어짐
-  const [insertMoney, setInsertMoney] = useState(0);
+  const { vmDispatch } = useProductContext();
+  const { nickname, totalBalance, changesUnits, prevInputChanges, userDispatch, actionLogs } =
+    useUserContext();
+  const [inputMoney, setInputMoney] = useState(0);
+  const resetTrigger = useRef(null);
 
-  const handleOrderProduct = useCallback(
-    productId => {
-      orderProduct(dispatch, productId);
-    },
-    [insertMoney],
-  );
+  const resetInputMoneny = () => setInputMoney(0);
 
-  const handleReturnChanges = useCallback(
+  const handleOrderProduct = async productId => {
+    try {
+      const {
+        data: { newProducts, ...userInfo },
+      } = await userApi.orderProduct(productId, prevInputChanges);
+      orderProduct(userDispatch, userInfo);
+      getProducts(vmDispatch, { products: newProducts });
+      resetInputMoneny();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getSumInsertMoney = units => units.reduce((acc, cur) => acc + cur, 0);
+
+  const preventNonLoginUser = useCallback(() => {
+    if (!isLogin() || !nickname) {
+      alert('로그인 이후 이용해주세요.');
+      return true;
+    }
+    return false;
+  }, [nickname]);
+
+  const handleSubmitInputMoney = useCallback(
     event => {
+      // reducer로 옮기기
       event.preventDefault();
-      const submitInsertMoney = event.target.insertMoney.value;
-      const submitOnlyNumber = Number(submitInsertMoney.replaceAll(',', ''));
-      const existUnits = checkRestUnits(changesUnits);
-      if (!existUnits) {
-        alert('잔돈이 없어요');
+      if (preventNonLoginUser()) {
+        return;
       }
-      const targetUnit = findTargetUnit(existUnits, submitOnlyNumber);
-      console.log('targetUnit :>> ', targetUnit);
-      if (!targetUnit) {
-        const closestUnit = findClosestUnit(existUnits, submitOnlyNumber);
-        if (!closestUnit) {
-          alert('가까운 돈도 없어요');
-        }
-        console.log('target :>> ', closestUnit);
+      if (totalBalance <= 0) {
+        alert('잔고가 없어요');
+        return;
       }
-      // TODO: 가까운 잔고 단위가 없거나 현재 돈보다 입력 값이 크면 사용자 에러
+      const submitInputMoney = event.target.inputMoney.value;
+      const [error, closestUnit, submitOnlyNumber] = adjustingWithExistUnit(
+        changesUnits,
+        submitInputMoney,
+      );
+      if (error.isError) {
+        alert(error.msg);
+        return;
+      }
+      const { id } = closestUnit;
+      resetInputMoneny();
+      insertChanges(userDispatch, id, submitOnlyNumber);
     },
-    [changesUnits],
+    [changesUnits, preventNonLoginUser, totalBalance, userDispatch],
   );
 
-  const onChangeInsertMoney = useCallback(({ target }) => {
-    const { value } = target;
-    const onlyNumber = Number(value.replace(/[^0-9]/g, ''));
-    setInsertMoney(onlyNumber);
-  }, []);
-
-  const isPriceUnderInsertMoney = useCallback(
-    targetPrice => targetPrice <= insertMoney,
-    [insertMoney],
+  const onChangeInputMoney = useCallback(
+    ({ target }) => {
+      if (preventNonLoginUser()) {
+        return;
+      }
+      const { value } = target;
+      const onlyNumber = Number(value.replace(/[^0-9]/g, ''));
+      setInputMoney(onlyNumber);
+    },
+    [preventNonLoginUser],
   );
+
+  const isPriceUnderInputMoney = useCallback(
+    targetPrice => targetPrice <= inputMoney,
+    [inputMoney],
+  );
+
+  const insertChangeIntoInputMoney = useCallback(
+    unitId => {
+      if (preventNonLoginUser()) {
+        return;
+      }
+      resetInputMoneny();
+      insertChanges(userDispatch, unitId);
+    },
+    [preventNonLoginUser, userDispatch],
+  );
+
+  const handleClickReturnChanges = useCallback(() => {
+    if (preventNonLoginUser()) {
+      return;
+    }
+    resetInputMoneny();
+    returnChanges(userDispatch);
+  }, [userDispatch, preventNonLoginUser]);
+
+  const startTiggerEvent = useCallback(
+    newInputSum => {
+      if (newInputSum > 0) {
+        resetTrigger.current = setTimeout(() => {
+          handleClickReturnChanges();
+          resetInputMoneny();
+        }, RESET_TIME);
+      }
+    },
+    [handleClickReturnChanges],
+  );
+
+  useEffect(() => {
+    const newInputSum = getSumInsertMoney(prevInputChanges);
+    setInputMoney(prev => prev + newInputSum);
+    startTiggerEvent(newInputSum);
+    return () => {
+      clearInterval(resetTrigger.current);
+    };
+  }, [prevInputChanges, startTiggerEvent]);
 
   return (
     <S.Container>
       <Products
         isManger={false}
-        isPriceUnderInsertMoney={isPriceUnderInsertMoney}
+        isPriceUnderInputMoney={isPriceUnderInputMoney}
         handleOrderProduct={handleOrderProduct}
       />
-      <InsertMoneyForm
-        totalBalance={totalBalance}
-        insertMoney={insertMoney}
-        onChangeInsertMoney={onChangeInsertMoney}
-        handleReturnChanges={handleReturnChanges}
-      />
+      <S.InputContanier>
+        <InputMoneyForm
+          inputMoney={inputMoney}
+          onChangeInputMoney={onChangeInputMoney}
+          handleSubmitInputMoney={handleSubmitInputMoney}
+          handleClickReturnChanges={handleClickReturnChanges}
+        />
+        <InsertChangesForm
+          totalBalance={totalBalance}
+          changesUnits={changesUnits}
+          insertChangeIntoInputMoney={insertChangeIntoInputMoney}
+        />
+        <ActionLogs actionLogs={actionLogs} />
+      </S.InputContanier>
     </S.Container>
   );
 }
 
 export default VendingMachine;
 
-const findClosestUnit = (existUnits, submitOnlyNumber) => {
-  return existUnits.reduce((acc, { unit }) => {
-    const substractAbs = Math.abs(submitOnlyNumber - acc);
-    if (substractAbs < acc) {
-      return acc;
-    }
-    return unit;
-  }, 0);
+const RESET_TIME = 5000;
+
+// 사용자 소지하고 있는 잔고에 가장 가까운 단위로 변환
+const adjustingWithExistUnit = (existsUnits, submitNumber) => {
+  const error = {
+    isError: false,
+    msg: '',
+  };
+  const submitOnlyNumber = Number(submitNumber.replaceAll(',', ''));
+  if (submitOnlyNumber === 0) {
+    error.isError = true;
+    error.msg = '입력한 금액이 없어요.';
+    return [error];
+  }
+  const existUnits = checkRestUnits(existsUnits);
+  if (existUnits.length === 0) {
+    error.isError = true;
+    error.msg = '잔돈이 없어요.';
+    return [error];
+  }
+  const targetUnit = findTargetUnit(existUnits, submitOnlyNumber);
+  if (targetUnit) {
+    return [error, targetUnit, submitOnlyNumber];
+  }
+  const closestUnit = findClosestUnit(existUnits, submitOnlyNumber);
+  if (!closestUnit) {
+    error.isError = true;
+    error.msg = '투입한 금액에 근접한 잔고가 없어요.';
+    return [error];
+  }
+  return [error, closestUnit, submitOnlyNumber];
 };
 
-const findTargetUnit = (existUnits, submitOnlyNumber) => {
-  const targetUnit = existUnits.find(({ unit }) => unit === submitOnlyNumber);
-  return targetUnit?.unit;
+const findClosestUnit = (existUnits, submitNumber) => {
+  const closestUnit = existUnits.reduce((acc, cur) => {
+    if (isAccBiggerThanCurrentWithAbs(submitNumber, acc.unit, cur.unit)) {
+      return cur;
+    }
+    return acc;
+  });
+  return closestUnit;
+};
+
+const isAccBiggerThanCurrentWithAbs = (submitNumber, acc, cur) =>
+  Math.abs(submitNumber - acc) > Math.abs(submitNumber - cur);
+
+const findTargetUnit = (existUnits, submitNumber) => {
+  const targetUnit = existUnits.find(({ unit }) => unit === submitNumber);
+  return targetUnit;
 };
 
 const checkRestUnits = units => {

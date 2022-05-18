@@ -1,34 +1,41 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import ChangesUnits from 'pages/VMmangement/ChangesUnits';
 import Products from 'components/Products';
-import { useVMContext } from 'context/VMContext';
-import { getBalance, addTargetBalance, substractTargetBalance } from 'context/VMContext/action';
+import { useUserContext } from 'context/User';
+import { addTargetBalance, substractTargetBalance } from 'context/User/action';
+import mangerApi from 'api/manger';
 import * as S from './style';
 
 function VMmangement() {
-  const { totalBalance, changesUnits, dispatch } = useVMContext();
+  const { totalBalance, changesUnits, userDispatch } = useUserContext();
 
   const fetchAddTargetBalance = useCallback(
-    id => {
-      addTargetBalance(dispatch, id);
+    async id => {
+      try {
+        const { data } = await mangerApi.addTargetBalance(id);
+        addTargetBalance(userDispatch, data);
+      } catch (error) {
+        console.error(error);
+      }
     },
-    [dispatch],
+    [userDispatch],
   );
 
   const fetchSubstractTargetBalance = useCallback(
-    id => {
-      substractTargetBalance(dispatch, id);
+    async id => {
+      try {
+        const { data } = await mangerApi.substractTargetBalance(id);
+        substractTargetBalance(userDispatch, data);
+      } catch (error) {
+        console.error(error);
+      }
     },
-    [dispatch],
+    [userDispatch],
   );
-
-  useEffect(() => {
-    getBalance(dispatch);
-  }, [dispatch]);
 
   return (
     <S.Container>
-      <Products isManger isPriceUnderInsertMoney={() => {}} handleOrderProduct={() => {}} />
+      <Products isManger isPriceUnderInputMoney={() => {}} handleOrderProduct={() => {}} />
       <ChangesUnits
         totalBalance={totalBalance}
         changesUnits={changesUnits}
@@ -38,7 +45,5 @@ function VMmangement() {
     </S.Container>
   );
 }
-
-VMmangement.propTypes = {};
 
 export default VMmangement;

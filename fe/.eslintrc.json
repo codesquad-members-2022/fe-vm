@@ -10,7 +10,13 @@
   "rules": {
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "no-console": "warn",
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "react/jsx-props-no-spreading": [
+      "warn",
+      {
+        "cutstom": "enforce"
+      }
+    ]
   },
   "settings": {
     "import/resolver": {

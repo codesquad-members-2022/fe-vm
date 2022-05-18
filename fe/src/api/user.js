@@ -1,22 +1,29 @@
 import { API } from 'constant/route';
 import instance from './core';
 
-const globalApi = {
-  getProducts() {
+const userApi = {
+  login() {
     return instance({
-      url: API.GET_PRODUCTS,
+      url: API.LOGIN,
       method: 'get',
     });
   },
-  orderProduct(id) {
+  logout() {
+    return instance({
+      url: API.LOGOUT,
+      method: 'get',
+    });
+  },
+  orderProduct(id, inputChanges) {
     return instance({
       url: API.PATCH_ORDER_PRODUCT,
       method: 'patch',
       params: {
         id,
       },
+      data: { inputChanges },
     });
   },
 };
 
-export default globalApi;
+export default userApi;

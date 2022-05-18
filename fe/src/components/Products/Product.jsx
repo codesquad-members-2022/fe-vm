@@ -1,13 +1,14 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { changeNumberToKoreanLocaleMoney } from 'utils';
+import { changeNumberToKoreanLocaleMoney } from 'utils/global';
 import { Button } from '@mui/material';
 import * as S from './style';
 
 function Product({
   productInfo,
+  isManger,
   isSelect,
-  isPriceUnderInsertMoney,
+  isPriceUnderInputMoney,
   handleSelectProduct,
   handleOrderProduct,
 }) {
@@ -15,13 +16,14 @@ function Product({
   return (
     <S.ProductCard
       type={type}
-      canBuy={isPriceUnderInsertMoney(price)}
+      isSelect={isSelect}
+      canBuy={isPriceUnderInputMoney(price)}
       onClick={() => handleSelectProduct(productInfo)}
     >
       <h5>{productName}</h5>
       <span>{changeNumberToKoreanLocaleMoney(price)}원</span>
       <span>{ea}개</span>
-      {isSelect && (
+      {isSelect && !isManger && (
         <Button variant="contained" onClick={() => handleOrderProduct(id)}>
           주문하기
         </Button>
@@ -38,8 +40,9 @@ Product.propTypes = {
     price: PropTypes.number.isRequired,
     ea: PropTypes.number.isRequired,
   }).isRequired,
+  isManger: PropTypes.bool.isRequired,
   isSelect: PropTypes.bool.isRequired,
-  isPriceUnderInsertMoney: PropTypes.func.isRequired,
+  isPriceUnderInputMoney: PropTypes.func.isRequired,
   handleSelectProduct: PropTypes.func.isRequired,
   handleOrderProduct: PropTypes.func.isRequired,
 };

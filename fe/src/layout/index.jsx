@@ -1,5 +1,5 @@
 import React from 'react';
-import VMContext from 'context/VMContext';
+import ProductContext from 'context/Product';
 import GlobalNavigation from 'components/GlobalNavigation';
 import { Outlet } from 'react-router-dom';
 import * as S from './style';
@@ -13,9 +13,9 @@ function Layout() {
         </div>
       </S.Header>
       <S.Main>
-        <VMContext>
+        <ProductContext>
           <Outlet />
-        </VMContext>
+        </ProductContext>
       </S.Main>
     </S.AppContainer>
   );
