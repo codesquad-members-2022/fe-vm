@@ -13,7 +13,7 @@ function WalletProvider({ children }) {
   function getWithdrawableAmount(requiredAmount) {
     const amountOfMoneyTemp = amountOfMoney;
     const withdrawableAmount = Object.entries(amountOfMoneyTemp)
-      .sort((a, b) => b[0] - a[0])
+      .sort(([valueA], [valueB]) => valueB - valueA)
       .map(([value, amount]) => {
         const numberOfSubstracted = Math.min(Math.floor(requiredAmount / Number(value)), amount);
         requiredAmount -= value * numberOfSubstracted;
