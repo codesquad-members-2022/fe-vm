@@ -5,6 +5,7 @@ import { useUserContext } from 'context/User';
 import { insertChanges, orderProduct, returnChanges } from 'context/User/action';
 import { getProducts } from 'context/Product/action';
 import { isLogin } from 'utils/cookie';
+import userApi from 'api/user';
 import InputMoneyForm from './InputMoneyForm';
 import InsertChangesForm from './InsertChangesForm';
 import ActionLogs from './ActionLogs';
@@ -14,15 +15,21 @@ function VendingMachine() {
   const { vmDispatch } = useProductContext();
   const { nickname, totalBalance, changesUnits, prevInputChanges, userDispatch, actionLogs } =
     useUserContext();
+
   // FIXME: input defualt value 0일 때 에러 수정 -> 0123, 1230이런식으로 0이 안없어짐
   const [inputmoney, setInputMoney] = useState(0);
 
   const resetInputMoneny = () => setInputMoney(0);
 
-  const handleOrderProduct = productId => {
-    orderProduct(userDispatch, productId, prevInputChanges);
-    resetInputMoneny();
-    getProducts(vmDispatch);
+  const handleOrderProduct = async productId => {
+    try {
+      const { data } = await userApi.orderProduct(productId, prevInputChanges);
+      orderProduct(userDispatch, data);
+      resetInputMoneny();
+      getProducts(vmDispatch);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const getSumInsertMoney = units => {

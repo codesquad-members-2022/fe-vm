@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 import WindowModal from 'components/WindowModal';
 import { requestLogin } from 'context/User/action';
 import { useUserContext } from 'context/User';
+import userApi from 'api/user';
 
 function LoginModal({ isModalOpen, handleOpenModal }) {
   const { userDispatch } = useUserContext();
-  const handleClickLoginButton = () => {
-    requestLogin(userDispatch);
+  const handleClickLoginButton = async () => {
+    try {
+      const { data } = await userApi.login();
+      requestLogin(userDispatch, data);
+    } catch (error) {
+      console.error(error);
+    }
     handleOpenModal();
   };
 

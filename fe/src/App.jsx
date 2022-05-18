@@ -10,7 +10,7 @@ import { useUserContext } from 'context/User';
 import Layout from './layout';
 
 function App() {
-  const { isManger } = useUserContext();
+  const { isManager } = useUserContext();
   return (
     <Router>
       <Routes>
@@ -18,7 +18,7 @@ function App() {
           <Route index element={<PublicRoute Component={VendingMachine} restricted={false} />} />
           <Route
             path={ROUTE.MANGEMENT}
-            element={<AdminRoute Component={VMmangement} isAdmin={!!isManger} />}
+            element={<AdminRoute Component={VMmangement} isAdmin={!!isManager} />}
           />
         </Route>
         <Route path="*" element={<NotFound />} />

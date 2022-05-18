@@ -1,5 +1,3 @@
-import mangerApi from 'api/manger';
-import userApi from 'api/user';
 import {
   ADD_TARGET_BALANCE,
   INSERT_CHANGES,
@@ -11,36 +9,23 @@ import {
 } from './type';
 
 // global
-export const requestLogin = async dispatch => {
-  const response = await userApi.login();
-  dispatch({ type: USER_LOGIN, payload: response.data });
-};
-export const requestLogout = async dispatch => {
-  const response = await userApi.logout();
-  dispatch({ type: USER_LOGOUT });
-};
+export const requestLogin = (dispatch, responseData) =>
+  dispatch({ type: USER_LOGIN, payload: responseData });
+
+export const requestLogout = dispatch => dispatch({ type: USER_LOGOUT });
 
 // user
-export const insertChanges = (dispatch, id, submitOnlyNumber) => {
+export const insertChanges = (dispatch, id, submitOnlyNumber) =>
   dispatch({ type: INSERT_CHANGES, payload: { unitId: id, submitOnlyNumber } });
-};
 
-export const returnChanges = dispatch => {
-  dispatch({ type: RETURN_CHANGES });
-};
+export const returnChanges = dispatch => dispatch({ type: RETURN_CHANGES });
 
-export const orderProduct = async (dispatch, productId, inputChanges) => {
-  const response = await userApi.orderProduct(productId, inputChanges);
-  dispatch({ type: ORDER_PRODUCT, payload: response.data });
-};
+export const orderProduct = (dispatch, responseData) =>
+  dispatch({ type: ORDER_PRODUCT, payload: responseData });
 
 // manager
-export const addTargetBalance = async (dispatch, id) => {
-  const response = await mangerApi.addTargetBalance(id);
-  dispatch({ type: ADD_TARGET_BALANCE, payload: response.data });
-};
+export const addTargetBalance = (dispatch, responseData) =>
+  dispatch({ type: ADD_TARGET_BALANCE, payload: responseData });
 
-export const substractTargetBalance = async (dispatch, id) => {
-  const response = await mangerApi.substractTargetBalance(id);
-  dispatch({ type: SUBSTRACT_TARGET_BALANCE, payload: response.data });
-};
+export const substractTargetBalance = (dispatch, responseData) =>
+  dispatch({ type: SUBSTRACT_TARGET_BALANCE, payload: responseData });

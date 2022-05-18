@@ -1,23 +1,34 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import ChangesUnits from 'pages/VMmangement/ChangesUnits';
 import Products from 'components/Products';
 import { useUserContext } from 'context/User';
 import { addTargetBalance, substractTargetBalance } from 'context/User/action';
+import mangerApi from 'api/manger';
 import * as S from './style';
 
 function VMmangement() {
   const { totalBalance, changesUnits, userDispatch } = useUserContext();
 
   const fetchAddTargetBalance = useCallback(
-    id => {
-      addTargetBalance(userDispatch, id);
+    async id => {
+      try {
+        const { data } = await mangerApi.addTargetBalance(id);
+        addTargetBalance(userDispatch, data);
+      } catch (error) {
+        console.error(error);
+      }
     },
     [userDispatch],
   );
 
   const fetchSubstractTargetBalance = useCallback(
-    id => {
-      substractTargetBalance(userDispatch, id);
+    async id => {
+      try {
+        const { data } = await mangerApi.substractTargetBalance(id);
+        substractTargetBalance(userDispatch, data);
+      } catch (error) {
+        console.error(error);
+      }
     },
     [userDispatch],
   );
@@ -34,7 +45,5 @@ function VMmangement() {
     </S.Container>
   );
 }
-
-VMmangement.propTypes = {};
 
 export default VMmangement;

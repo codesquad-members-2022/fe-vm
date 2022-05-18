@@ -2,6 +2,8 @@ import React, { memo, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useProductContext } from 'context/Product';
 import { addTargetProduct, getProducts, substractTargetProduct } from 'context/Product/action';
+import mangerApi from 'api/manger';
+import globalApi from 'api/globalApi';
 import MangementForm from './MangementForm';
 import Product from './Product';
 import * as S from './style';
@@ -15,15 +17,25 @@ function Products({ isManger, isPriceUnderInputMoney, handleOrderProduct }) {
   }, []);
 
   const fetchAddTargetProduct = useCallback(
-    id => {
-      addTargetProduct(vmDispatch, id);
+    async id => {
+      try {
+        const { data } = await mangerApi.addTargetProduct(id);
+        addTargetProduct(vmDispatch, data);
+      } catch (error) {
+        console.log(error);
+      }
     },
     [vmDispatch],
   );
 
   const fetchSubstractTargetProduct = useCallback(
-    id => {
-      substractTargetProduct(vmDispatch, id);
+    async id => {
+      try {
+        const { data } = await mangerApi.substractTargetProduct(id);
+        substractTargetProduct(vmDispatch, data);
+      } catch (error) {
+        console.error(error);
+      }
     },
     [vmDispatch],
   );
@@ -37,7 +49,12 @@ function Products({ isManger, isPriceUnderInputMoney, handleOrderProduct }) {
   };
 
   const fetchProducts = async () => {
-    getProducts(vmDispatch);
+    try {
+      const { data } = await globalApi.getProducts();
+      getProducts(vmDispatch, data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
