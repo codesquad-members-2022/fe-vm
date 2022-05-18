@@ -1,13 +1,14 @@
 import React, { createContext, useReducer, useMemo } from 'react';
 
-import { products, coins, logs, totalInputAmount, balance } from '@/mock/storage';
+import { products, coins } from '@/mock/storage';
 
 const initialState = {
   products,
-  logs,
-  totalInputAmount,
-  balance,
   coins,
+  logs: [],
+  totalInputAmount: 0,
+  balance: coins.reduce((acc, { amount, count }) => acc + amount * count, 0),
+  timer: {},
 };
 
 const ACTION = {
@@ -15,6 +16,10 @@ const ACTION = {
   INSERT_COIN: 'INSERT_COIN',
   INCREMENT_COIN: 'INCREMENT_COIN',
   SELECT_PRODUCT: 'SELECT_PRODUCT',
+  RETURN_CHANGE: 'RETURN_CHANGE',
+  DELETE_ALL_LOGS: 'DELETE_ALL_LOGS',
+  SET_TIMER: 'SET_TIMER',
+  CLEAR_TIMER: 'CLEAR_TIMER',
 };
 
 const reducer = (state, action) => {
@@ -30,6 +35,7 @@ const reducer = (state, action) => {
       }
 
       let surplus = requestedInputAmount;
+
       for (let i = newCoins.length - 1; i >= 0; i--) {
         if (surplus === 0) {
           break;
@@ -42,16 +48,19 @@ const reducer = (state, action) => {
         const newCount = count - realRequiredCount;
         surplus -= realRequiredCount * amount;
         newCoins[i] = { ...newCoins[i], count: newCount };
+
         console.log(`%c[${amount}]: ${realRequiredCount}개 사용`, 'color: #fe2;');
       }
       console.log(`----------`);
       const realInputAmount = requestedInputAmount - surplus;
 
-      const newLogs = [...logs];
-      newLogs.push({
-        id: newLogs.length,
-        message: `${realInputAmount.toLocaleString()}원이 투입됐습니다.`,
-      });
+      const newLogs = [
+        ...logs,
+        {
+          id: logs.length.toString(),
+          message: `${realInputAmount.toLocaleString()}원이 투입됐습니다.`,
+        },
+      ];
 
       const newTotalInputAmount = totalInputAmount + realInputAmount;
 
@@ -66,12 +75,15 @@ const reducer = (state, action) => {
       };
     }
 
+    // TODO: amount
     case ACTION.INSERT_COIN: {
       const { amount, count, index } = action.payload;
       const { logs, totalInputAmount, coins, balance } = state;
 
-      const newLogs = [...logs];
-      newLogs.push({ id: newLogs.length, message: `${amount.toLocaleString()}원이 투입됐습니다.` });
+      const newLogs = [
+        ...logs,
+        { id: logs.length.toString(), message: `${amount.toLocaleString()}원이 투입됐습니다.` },
+      ];
 
       const newCoins = [...coins];
       newCoins[index] = { ...newCoins[index] };
@@ -107,6 +119,7 @@ const reducer = (state, action) => {
       };
     }
 
+    // TODO: name
     case ACTION.SELECT_PRODUCT: {
       const { name, price, stock, index } = action.payload;
       const { totalInputAmount, products, logs } = state;
@@ -119,11 +132,13 @@ const reducer = (state, action) => {
       const newProducts = [...products];
       newProducts[index] = { ...newProducts[index], stock: newStock };
 
-      const newLogs = [...logs];
-      newLogs.push({
-        id: newLogs.length,
-        message: `${name}이(가) 선택됨`,
-      });
+      const newLogs = [
+        ...logs,
+        {
+          id: logs.length.toString(),
+          message: `${name}이(가) 선택됨`,
+        },
+      ];
 
       const newTotalInputAmount = totalInputAmount - price;
 
@@ -133,6 +148,73 @@ const reducer = (state, action) => {
         logs: newLogs,
         totalInputAmount: newTotalInputAmount,
       };
+    }
+
+    // TODO: totalInputAmount
+    case ACTION.RETURN_CHANGE: {
+      const { balance, coins, logs, totalInputAmount } = state;
+      if (totalInputAmount === 0) {
+        return state;
+      }
+
+      const newBalance = balance + totalInputAmount;
+      const newLogs = [
+        ...logs,
+        { id: logs.length.toString(), message: `잔돈 ${totalInputAmount.toLocaleString()}원 반환` },
+      ];
+      const newCoins = [...coins];
+
+      let remain = totalInputAmount;
+      for (let i = newCoins.length - 1; i >= 0; i--) {
+        const { amount, count } = newCoins[i];
+        if (amount > remain) {
+          continue;
+        }
+
+        const newCount = count + Math.floor(remain / amount);
+        newCoins[i] = { ...newCoins[i], count: newCount };
+        remain %= amount;
+        console.log(`%c[${amount}]: ${newCount - count}개 충전`, 'color: #fe2;');
+      }
+      console.log(`----------`);
+
+      return {
+        ...state,
+        coins: newCoins,
+        logs: newLogs,
+        totalInputAmount: 0,
+        balance: newBalance,
+      };
+    }
+
+    case ACTION.DELETE_ALL_LOGS: {
+      return {
+        ...state,
+        logs: [],
+      };
+    }
+
+    case ACTION.SET_TIMER: {
+      const { key, delay, callback } = action.payload;
+      const { timer } = state;
+
+      if (Object.hasOwn(timer, key)) {
+        clearTimeout(timer[key]);
+      }
+
+      timer[key] = setTimeout(callback, delay * 1000);
+      return state;
+    }
+
+    case ACTION.CLEAR_TIMER: {
+      const { key } = action.payload;
+      const { timer } = state;
+
+      if (Object.hasOwn(timer, key)) {
+        clearTimeout(timer[key]);
+      }
+
+      return state;
     }
 
     default: {

@@ -1,6 +1,7 @@
 import React, { useContext, memo } from 'react';
 import styled, { css } from 'styled-components';
 
+import { RETURN_CHANGE_DELAY } from '@/constants/timer';
 import { ACTION, VMContext } from '@/Provider/VMProvider';
 import { Flexbox } from '@/utils/style';
 
@@ -36,6 +37,17 @@ const Coin = memo(({ amount, count, dispatch, index }) => {
         amount,
         count,
         index,
+      },
+    });
+
+    dispatch({
+      type: ACTION.SET_TIMER,
+      payload: {
+        key: 'returnChange',
+        delay: RETURN_CHANGE_DELAY,
+        callback: () => {
+          dispatch({ type: ACTION.RETURN_CHANGE });
+        },
       },
     });
   };
@@ -76,7 +88,7 @@ const CoinList = styled.ol``;
 
 const Balance = styled.div`
   ${Flexbox};
-  padding: 10px;
+  padding: 20px;
   border: 1px solid ${({ theme }) => theme.colors.black};
   margin: 20px auto 0;
 `;
@@ -96,8 +108,8 @@ const Amount = styled.div`
 const Count = styled.div`
   ${Flexbox};
   padding: 10px;
-  min-width: 35px;
-  height: 35px;
+  min-width: 70px;
+  height: 55px;
   border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 999px;
   margin-left: 10px;
@@ -108,7 +120,7 @@ const buttonCommonStyle = css`
   font-size: ${({ theme }) => theme.fontSize.base};
   cursor: pointer;
   transition: all 400ms;
-  height: 35px;
+  height: 55px;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.lightBlack};
@@ -122,15 +134,17 @@ const buttonCommonStyle = css`
 const InsertButton = styled.button`
   ${Flexbox};
   ${buttonCommonStyle};
-  width: 100px;
+  width: 150px;
 `;
 
 const IncrementButton = styled.button`
   ${Flexbox};
   ${buttonCommonStyle};
-  width: 35px;
+  font-size: 30px;
+  font-weight: bold;
+  width: 55px;
   border-radius: 999px;
-  margin-left: 4px;
+  margin-left: 5px;
 `;
 
 export default Wallet;

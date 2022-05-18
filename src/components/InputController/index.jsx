@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
+import { RETURN_CHANGE_DELAY } from '@/constants/timer';
 import { ACTION, VMContext } from '@/Provider/VMProvider';
 import { Flexbox } from '@/utils/style';
 
@@ -15,6 +16,19 @@ const InputController = ({ className }) => {
     setIsSubmitted(false);
   };
 
+  const onClickReturnButton = () => {
+    dispatch({
+      type: ACTION.RETURN_CHANGE,
+    });
+
+    dispatch({
+      type: ACTION.CLEAR_TIMER,
+      payload: {
+        key: 'returnChange',
+      },
+    });
+  };
+
   return (
     <InputControllerLayout className={className} dir="column" jc="space-around" ai="unset">
       <InputLayer>
@@ -27,7 +41,7 @@ const InputController = ({ className }) => {
         )}
         <span>원</span>
       </InputLayer>
-      <ReturnButton>반환</ReturnButton>
+      <ReturnButton onClick={onClickReturnButton}>반환</ReturnButton>
     </InputControllerLayout>
   );
 };
@@ -45,6 +59,17 @@ const InputForm = ({ dispatch, setIsSubmitted }) => {
       type: ACTION.INSERT_MONEY_BY_TYPING,
       payload: {
         amount: inputValue,
+      },
+    });
+
+    dispatch({
+      type: ACTION.SET_TIMER,
+      payload: {
+        key: 'returnChange',
+        delay: RETURN_CHANGE_DELAY,
+        callback: () => {
+          dispatch({ type: ACTION.RETURN_CHANGE });
+        },
       },
     });
   };

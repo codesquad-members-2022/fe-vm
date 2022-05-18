@@ -1,25 +1,59 @@
-import React, { memo } from 'react';
-import styled, { css } from 'styled-components';
+import React, { memo, useState } from 'react';
+import styled, { css, keyframes } from 'styled-components';
 
+import { RETURN_CHANGE_DELAY, SELECT_PRODUCT_THROTTLE_DELAY } from '@/constants/timer';
 import { ACTION } from '@/Provider/VMProvider';
 import { Flexbox } from '@/utils/style';
+import { throttle } from '@/utils/timer';
 
-const Product = memo(({ name, price, stock, index, purchasable, dispatch }) => {
+const Product = memo(({ name, price, stock, index, purchasable, dispatch, isInProcess }) => {
   const outOfStock = stock === 0;
   const maxNumOfDisplay = 99;
-  const onClick = () => {
-    if (stock === 0) {
-      return;
-    }
+  const [isSelected, setIsSelected] = useState(false);
 
+  const onClick = throttle(() => {
     dispatch({
       type: ACTION.SELECT_PRODUCT,
       payload: { name, price, stock, index },
     });
+
+    isInProcess.current = false;
+    setIsSelected(false);
+  }, SELECT_PRODUCT_THROTTLE_DELAY * 1000);
+
+  const onClickProduct = (event) => {
+    if (isInProcess.current === true) {
+      return;
+    }
+
+    if (outOfStock || !purchasable) {
+      isInProcess.current = false;
+      return;
+    }
+
+    isInProcess.current = true;
+    setIsSelected(true);
+    onClick(event);
+
+    dispatch({
+      type: ACTION.SET_TIMER,
+      payload: {
+        key: 'returnChange',
+        delay: RETURN_CHANGE_DELAY + SELECT_PRODUCT_THROTTLE_DELAY,
+        callback: () => {
+          dispatch({ type: ACTION.RETURN_CHANGE });
+        },
+      },
+    });
   };
 
   return (
-    <ProductLayer onClick={onClick} purchasable={purchasable} outOfStock={outOfStock} dir="column">
+    <ProductLayer
+      onClick={onClickProduct}
+      purchasable={purchasable}
+      outOfStock={outOfStock}
+      dir="column"
+    >
       <Name>{name}</Name>
       <Price>{price.toLocaleString()}원</Price>
       <Stock>
@@ -27,6 +61,7 @@ const Product = memo(({ name, price, stock, index, purchasable, dispatch }) => {
         <span>{stock > maxNumOfDisplay && '+'}</span>
       </Stock>
       {outOfStock && <DisabledMark>Out Of Stock</DisabledMark>}
+      {isSelected && <ProgressBox />}
     </ProductLayer>
   );
 });
@@ -98,7 +133,6 @@ const Price = styled.footer`
 const Stock = styled.span`
   ${Flexbox};
   position: absolute;
-  top: -5px;
   width: 100%;
   height: 100%;
   font-size: 50px;
@@ -127,6 +161,26 @@ const DisabledMark = styled.span`
   height: 30%;
   background-color: #ff233d;
   transform: rotate(-30deg);
+`;
+
+const progress = keyframes`
+  0% {
+    transform: translate3d(0, 100%, 0);
+  }
+  
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+`;
+
+const ProgressBox = styled.div`
+  position: absolute;
+  background-color: #93ff3c;
+  width: 100%;
+  height: 100%;
+  transform: translate3d(0, 100%, 0);
+  opacity: 0.5;
+  animation: ${progress} ${SELECT_PRODUCT_THROTTLE_DELAY}s ease-in-out;
 `;
 
 export default Product;

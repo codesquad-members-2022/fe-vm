@@ -11,24 +11,7 @@ const Router = () => {
   return (
     <BrowserRouter basename={BASE_URL}>
       <Container>
-        <NavBar>
-          <TabList>
-            <Tab>
-              <NavLink to="/">
-                {({ isActive }) => (
-                  <StyledSpan className={isActive ? 'active' : null}>자판기</StyledSpan>
-                )}
-              </NavLink>
-            </Tab>
-            <Tab>
-              <NavLink to="/wallet">
-                {({ isActive }) => (
-                  <StyledSpan className={isActive ? 'active' : null}>지갑</StyledSpan>
-                )}
-              </NavLink>
-            </Tab>
-          </TabList>
-        </NavBar>
+        <NavBar />
         <VMProvider>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -40,12 +23,33 @@ const Router = () => {
   );
 };
 
+const NavBar = () => {
+  return (
+    <NavBarLayer>
+      <TabList>
+        <Tab>
+          <NavLink to="/">
+            {({ isActive }) => (
+              <StyledSpan className={isActive ? 'active' : null}>자판기</StyledSpan>
+            )}
+          </NavLink>
+        </Tab>
+        <Tab>
+          <NavLink to="/wallet">
+            {({ isActive }) => <StyledSpan className={isActive ? 'active' : null}>지갑</StyledSpan>}
+          </NavLink>
+        </Tab>
+      </TabList>
+    </NavBarLayer>
+  );
+};
+
 const Container = styled.div`
   width: 1080px;
   margin: 30px auto;
 `;
 
-const NavBar = styled.nav``;
+const NavBarLayer = styled.nav``;
 
 const TabList = styled.ul`
   ${Flexbox};
