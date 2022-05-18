@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { ErrorContext } from 'components/App';
+import { ErrorContext, MoneyContext } from 'components/App';
 import MESSAGES from 'constants/messages';
 
 function Coin({
@@ -12,6 +12,7 @@ function Coin({
   handleCoinCount,
 }) {
   const { showErrorMsg } = useContext(ErrorContext);
+  const { curMoney, setMoney } = useContext(MoneyContext);
 
   return (
     <Wrap>
@@ -27,6 +28,7 @@ function Coin({
     }
     setCurWalletMoney(curWalletMoney - coin.AMOUNT);
     handleCoinCount(coinIdx);
+    setMoney(curMoney + coin.AMOUNT);
   }
 }
 
