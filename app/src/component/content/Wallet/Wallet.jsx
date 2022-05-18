@@ -1,6 +1,7 @@
-import styled from 'styled-components';
 import { useContext } from 'react';
 import { MoneyContext } from '../../../index';
+import Table from '../../styled-component/Table';
+
 
 const MONEY_TABLE_HEADER = {
   UNIT: '단위',
@@ -32,10 +33,5 @@ function Wallet() {
     </Table>
   );
 }
-
-const Table = styled.table`
-  margin: 20px auto 0;
-  width: 460px;
-`;
 
 export default Wallet;

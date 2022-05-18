@@ -1,6 +1,6 @@
-import styled from 'styled-components';
 import { useContext } from 'react';
 import { ProductsContext } from '../../../index';
+import Table from '../../styled-component/Table';
 
 const PRODUCT_TABLE_HEADER = {
   CODE: '상품코드',
@@ -37,10 +37,5 @@ function Stock() {
     </Table>
   );
 }
-
-const Table = styled.table`
-  margin: 20px auto 0;
-  width: 460px;
-`;
 
 export default Stock;
