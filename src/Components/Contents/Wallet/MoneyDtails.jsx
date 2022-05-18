@@ -7,7 +7,7 @@ import {
   F_BetweenCenter,
   Radius10,
 } from '../../../Assets/Common.style';
-import { changeNumToLocalMoney } from '../../../Utils/utils';
+import { changeNumToLocalMoney, getMessage } from '../../../Utils/utils';
 import { contentsContext, myMoneyContext } from '../../MainContents';
 
 export default function MoneyDtails() {
@@ -19,7 +19,8 @@ export default function MoneyDtails() {
 }
 
 function Money() {
-  const { payTotal, setPayTotal } = useContext(contentsContext);
+  const { payTotal, setPayTotal, printMessages, setPrintMessages } =
+    useContext(contentsContext);
   const { myMoneyDetails, setMyMoneyDetails } = useContext(myMoneyContext);
 
   const payMoney = (moneyInfo) => {
@@ -31,7 +32,12 @@ function Money() {
     const updateMoneyDetails = myMoneyDetails.map((money) => {
       return money.value === moneyInfo.value ? updateMoney : money;
     });
+    const addMessage = getMessage(
+      '투입',
+      changeNumToLocalMoney(moneyInfo.value),
+    );
 
+    setPrintMessages([...printMessages, addMessage]);
     setPayTotal(payTotal + moneyInfo.value);
     setMyMoneyDetails(updateMoneyDetails);
   };
