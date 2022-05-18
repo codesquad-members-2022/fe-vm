@@ -12,7 +12,7 @@ const StyledMenuTitle = styled.div`
   line-height: 40px;
   padding: 10px;
 
-  border: ${({ price, inputMoney }) => (price > inputMoney ? "2px solid black" : "2px solid red")};
+  border: ${({ price, inputMoney, stock }) => (inputMoney >= price && stock ? "2px solid red" : "2px solid black")};
   background-color: ${({ stock }) => (stock ? "white" : "gray")};
   &:hover {
     background-color: ${({ stock }) => (stock ? "#ff8e14" : "gray")};

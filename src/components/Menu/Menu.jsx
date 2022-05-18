@@ -4,7 +4,7 @@ import { addComma } from "utils";
 import { MenuStockContext, MoneyContext, LogContext } from "../../App.js";
 
 function Menu({ title, price, stock }) {
-  const { inputMoney } = useContext(MoneyContext);
+  const { inputMoney, setInputMoney } = useContext(MoneyContext);
   const { logs, setLogs } = useContext(LogContext);
   const { menuStock, setMenuStock } = useContext(MenuStockContext);
 
@@ -14,7 +14,11 @@ function Menu({ title, price, stock }) {
   };
 
   const handleMenuStock = () => {
-    if (!stock) return;
+    if (!stock || price > inputMoney) return;
+
+    setInputMoney(inputMoney - price);
+    // TODO: 타이머 적용 후 잔돈 반환
+
     const editedMenuStock = menuStock.map((menu) => {
       if (menu.title === title) {
         return { ...menu, stock: menu.stock - 1 };
