@@ -1,18 +1,18 @@
 import React, { useEffect, useState, createContext } from "react";
-import amountOfMoneyData from "../data/amountOfMoney";
 
 const WalletContext = createContext({
-  amountOfMoney: {},
+  amountOfMoney: [],
   getWithDrawableAmount: () => {},
   getTotalMoney: () => {},
 });
 
 function WalletProvider({ children }) {
-  const [amountOfMoney, setAmountOfMoney] = useState({});
+  const [amountOfMoney, setAmountOfMoney] = useState([]);
 
   function getWithdrawableAmount(requiredAmount) {
     const amountOfMoneyTemp = amountOfMoney;
-    const withdrawableAmount = Object.entries(amountOfMoneyTemp)
+    const withdrawableAmount = amountOfMoney
+      .map(({ unit, amount }) => [unit, amount])
       .sort(([valueA], [valueB]) => valueB - valueA)
       .map(([value, amount]) => {
         const numberOfSubstracted = Math.min(Math.floor(requiredAmount / Number(value)), amount);
@@ -27,17 +27,24 @@ function WalletProvider({ children }) {
     return withdrawableAmount;
   }
   function getTotalMoney() {
-    return Object.entries(amountOfMoney).reduce(
-      (total, [valueKey, amount]) => (total += Number(valueKey) * amount),
-      0
-    );
+    return amountOfMoney
+      .map(({ unit, amount }) => [unit, amount])
+      .reduce((total, [unit, amount]) => (total += unit * amount), 0);
   }
-  function subtractMoney(value, numberOfSubstracted) {
-    setAmountOfMoney({ ...amountOfMoney, [value]: amountOfMoney[value] - numberOfSubstracted });
+  function subtractMoney(unit, numberOfSubstracted) {
+    setAmountOfMoney(
+      amountOfMoney.map((item) => {
+        if (item.unit === unit) {
+          item.amount -= numberOfSubstracted;
+        }
+        return item;
+      })
+    );
   }
   function putMoneyToWallet(addedAmount) {
     const amountOfMoneyTemp = amountOfMoney;
-    Object.entries(amountOfMoneyTemp)
+    amountOfMoney
+      .map(({ unit, amount }) => [unit, amount])
       .sort(([valueA], [valueB]) => valueB - valueA)
       .forEach(([value]) => {
         const numberOfAdded = Math.min(Math.floor(addedAmount / Number(value)));
@@ -47,7 +54,17 @@ function WalletProvider({ children }) {
     setAmountOfMoney(amountOfMoneyTemp);
   }
   useEffect(() => {
-    setAmountOfMoney(amountOfMoneyData);
+    async function fetchData() {
+      const response = await fetch("data/amountOfMoney.json", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      const data = await response.json();
+      setAmountOfMoney(data);
+    }
+    fetchData();
   }, []);
   const value = { amountOfMoney, getWithdrawableAmount, getTotalMoney, subtractMoney, putMoneyToWallet };
   return <WalletContext.Provider value={value}>{children}</WalletContext.Provider>;

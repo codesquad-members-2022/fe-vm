@@ -1,0 +1,9 @@
+[
+  { "id": 10, "unit": 10, "amount": 0 },
+  { "id": 50, "unit": 50, "amount": 1 },
+  { "id": 100, "unit": 100, "amount": 5 },
+  { "id": 500, "unit": 500, "amount": 5 },
+  { "id": 1000, "unit": 1000, "amount": 2 },
+  { "id": 5000, "unit": 5000, "amount": 2 },
+  { "id": 10000, "unit": 10000, "amount": 1 }
+]
