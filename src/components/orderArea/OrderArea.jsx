@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect, useReducer } from 'react';
 import { Container, BtnWrap, ReturnBtn } from 'components/orderArea/OrderArea.style';
 import { addCommasToNumber } from 'utils/util';
-import { SelectedProductContext } from 'App';
-import { FinalPayContext } from 'pages/VendingMachine';
+import { SelectedProductContext, SelectedProductSetContext } from 'Context/SelectedProductProvider';
+import { FinalPayContext } from 'Context/FinalPayProvider';
 import MoneySlot from 'components/orderArea/MoneySlot';
 import PutBtn from 'components/orderArea/PutBtn';
 import History from 'components/orderArea/History';
@@ -26,8 +26,11 @@ export default function OrderArea() {
   const useInputPayState = useState('');
   const [canOrderState, setOrderState] = useState(true);
   const [historyList, dispatchHistoryList] = useReducer(historyReducer, []);
-  const [selectedProduct, setSelectedProduct] = useContext(SelectedProductContext);
-  const finalPay = useContext(FinalPayContext)[0];
+  const [selectedProduct, setSelectedProduct] = [
+    useContext(SelectedProductContext),
+    useContext(SelectedProductSetContext)
+  ];
+  const finalPay = useContext(FinalPayContext);
 
   let timerIDToSelectProduct;
   const startTimerToSelectProduct = () => {

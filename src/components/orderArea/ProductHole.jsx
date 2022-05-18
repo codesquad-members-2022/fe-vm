@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { Container, Product } from 'components/orderArea/ProductHole.style';
-import { SelectedProductContext } from 'App';
+import { SelectedProductContext } from 'Context/SelectedProductProvider';
 
 export default function ProductHole() {
-  const { detail } = useContext(SelectedProductContext)[0];
+  const selectedProduct = useContext(SelectedProductContext);
 
   return (
     <Container>
-      <Product visible={!!detail}>{detail}</Product>
+      <Product visible={!!selectedProduct.detail}>{selectedProduct.detail}</Product>
     </Container>
   );
 }

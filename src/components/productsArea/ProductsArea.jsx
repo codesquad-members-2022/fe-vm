@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { Container } from 'components/productsArea/ProductsArea.style';
-import { ProductsContext, FinalPayContext } from 'pages/VendingMachine';
+import { ProductsContext } from 'Context/ProductsProvider';
+import { FinalPayContext } from 'Context/FinalPayProvider';
 import Product from 'components/productsArea/Product';
 
 export default function ProductsArea() {
-  const [productsState] = useContext(ProductsContext);
-  const [finalPay] = useContext(FinalPayContext);
+  const productsState = useContext(ProductsContext);
+  const finalPay = useContext(FinalPayContext);
 
   const canBuyProduct = price => (finalPay ? price <= finalPay : true);
 

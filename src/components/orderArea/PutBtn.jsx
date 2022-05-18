@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'components/orderArea/PutBtn.style';
-import { FinalPayContext } from 'pages/VendingMachine';
-import { WalletContext } from 'App';
+import { FinalPayContext, FinalPaySetContext } from 'Context/FinalPayProvider';
+import { WalletContext } from 'Context/WalletProvider';
 
 export default function PutBtn({ inputPay, startTimerToSelectProduct }) {
-  const [finalPay, setFinalPay] = useContext(FinalPayContext);
-  const walletState = useContext(WalletContext)[0];
+  const [finalPay, setFinalPay] = [useContext(FinalPayContext), useContext(FinalPaySetContext)];
+  const walletState = useContext(WalletContext);
 
   const getSumOfUnitCloseToPayment = (sumOfUnit, unit, quantity) => {
     let newSumOfUnit = sumOfUnit;

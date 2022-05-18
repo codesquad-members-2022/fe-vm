@@ -3,13 +3,13 @@ import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Container, MoneyInput, Unit } from 'components/orderArea/MoneySlot.style';
 import { addCommasToNumber } from 'utils/util';
-import { FinalPayContext } from 'pages/VendingMachine';
+import { FinalPayContext } from 'Context/FinalPayProvider';
 
 const MAX_PAYMENT = 100000;
 
 export default function MoneySlot({ useInputPayState, canOrderState }) {
   const [inputPay, setInputPay] = useInputPayState;
-  const finalPay = useContext(FinalPayContext)[0];
+  const finalPay = useContext(FinalPayContext);
 
   const isRightPayMent = inputValue => {
     if (inputValue && isNaN(inputValue)) return false;

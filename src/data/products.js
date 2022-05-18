@@ -14,7 +14,7 @@ const productData = [
   {
     id: 3,
     detail: '🍒',
-    price: 2300,
+    price: 3200,
     quantity: 3
   },
   {
@@ -26,31 +26,31 @@ const productData = [
   {
     id: 5,
     detail: '🍅',
-    price: 700,
+    price: 1750,
     quantity: 9
   },
   {
     id: 6,
     detail: '🍉',
-    price: 7500,
+    price: 9500,
     quantity: 2
   },
   {
     id: 7,
     detail: '🍑',
-    price: 1800,
+    price: 2800,
     quantity: 6
   },
   {
     id: 8,
     detail: '🍊',
-    price: 600,
+    price: 3600,
     quantity: 10
   },
   {
     id: 9,
     detail: '🍍',
-    price: 6000,
+    price: 7400,
     quantity: 3
   },
   {
@@ -80,13 +80,13 @@ const productData = [
   {
     id: 14,
     detail: '🍐',
-    price: 3600,
+    price: 5600,
     quantity: 2
   },
   {
     id: 15,
     detail: '🍏',
-    price: 1500,
+    price: 3300,
     quantity: 7
   },
   {
@@ -98,7 +98,7 @@ const productData = [
   {
     id: 17,
     detail: '🥑',
-    price: 4000,
+    price: 8700,
     quantity: 2
   },
   {
@@ -110,13 +110,13 @@ const productData = [
   {
     id: 19,
     detail: '🍇',
-    price: 4300,
+    price: 6300,
     quantity: 4
   },
   {
     id: 20,
     detail: '🥥',
-    price: 9000,
+    price: 10000,
     quantity: 1
   }
 ];

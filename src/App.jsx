@@ -1,21 +1,16 @@
-import React, { useState, createContext } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GNB from 'layout/GNB/GNB';
 import VendingMachine from 'pages/VendingMachine';
 import Wallet from 'pages/Wallet';
-import walletData from 'data/wallet';
 import { Container } from 'App.style';
-
-const WalletContext = createContext(null);
-const SelectedProductContext = createContext(null);
+import { WalletProvider } from 'Context/WalletProvider';
+import { SelectedProductProvider } from 'Context/SelectedProductProvider';
 
 export default function App() {
-  const useWalletState = useState(walletData);
-  const useSelectedProductState = useState({ detail: null, price: null });
-
   return (
-    <WalletContext.Provider value={useWalletState}>
-      <SelectedProductContext.Provider value={useSelectedProductState}>
+    <WalletProvider>
+      <SelectedProductProvider>
         <Container>
           <BrowserRouter basename={process.env.PUBLIC_URL}>
             <GNB />
@@ -25,9 +20,7 @@ export default function App() {
             </Routes>
           </BrowserRouter>
         </Container>
-      </SelectedProductContext.Provider>
-    </WalletContext.Provider>
+      </SelectedProductProvider>
+    </WalletProvider>
   );
 }
-
-export { WalletContext, SelectedProductContext };

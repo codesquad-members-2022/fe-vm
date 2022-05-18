@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ProductBtn, Detail, Price } from 'components/productsArea/Product.style';
 import { addCommasToNumber } from 'utils/util';
-import { FinalPayContext } from 'pages/VendingMachine';
-import { SelectedProductContext } from 'App';
+import { FinalPayContext, FinalPaySetContext } from 'Context/FinalPayProvider';
+import { SelectedProductSetContext } from 'Context/SelectedProductProvider';
 
 export default function Product({ detail, price, quantity, disabled }) {
-  const setSelectedProduct = useContext(SelectedProductContext)[1];
-  const [finalPay, setFinalPay] = useContext(FinalPayContext);
+  const setSelectedProduct = useContext(SelectedProductSetContext);
+  const [finalPay, setFinalPay] = [useContext(FinalPayContext), useContext(FinalPaySetContext)];
 
   const handleProductClick = () => {
     if (!finalPay) return;
