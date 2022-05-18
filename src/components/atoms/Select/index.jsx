@@ -9,11 +9,12 @@ const Select = ({ selectValue, setSelectValue, options }) => {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   const iconName = isSelectOpen ? ICON_NAME.SELECT_OPEN : ICON_NAME.SELECT_CLOSE;
-  const selected = value => value === selectValue;
+  const selected = option => option === selectValue;
 
-  const changeValue = event => {
-    const selected = event.target.innerText;
-    setSelectValue(selected);
+  const changeSelectValue = event => {
+    const selectedId = Number(event.target.dataset.id);
+    setSelectValue(selectedId);
+    toggleSelect();
   };
 
   const toggleSelect = () => setIsSelectOpen(prevState => !prevState);
@@ -22,19 +23,19 @@ const Select = ({ selectValue, setSelectValue, options }) => {
     <>
       <S.SelectContainer>
         <S.SelectBox onClick={toggleSelect}>
-          <S.Value>{selectValue}</S.Value>
+          <S.Value>{selectValue.label}</S.Value>
           <Icon iconName={iconName} />
         </S.SelectBox>
         {isSelectOpen && (
           <S.Select>
-            {options.map(({ id, label, value }) => (
+            {options.map(option => (
               <S.Option
-                key={id}
-                data-value={value}
-                onClick={changeValue}
-                selected={selected(label)}
+                key={option.id}
+                data-id={option.id}
+                onClick={changeSelectValue}
+                selected={selected(option)}
               >
-                {label}
+                {option.label}
               </S.Option>
             ))}
           </S.Select>
@@ -45,7 +46,7 @@ const Select = ({ selectValue, setSelectValue, options }) => {
 };
 
 Select.propTypes = {
-  selectValue: PropTypes.string,
+  selectValue: PropTypes.object,
   setSelectValue: PropTypes.func,
   options: PropTypes.array,
 };
