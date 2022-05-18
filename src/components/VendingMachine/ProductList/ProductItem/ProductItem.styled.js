@@ -33,7 +33,7 @@ const ProductLi = styled.li`
 
   button:not([disabled]) {
     border: ${({ theme: { colors }, isAvailablePurchase }) =>
-      isAvailablePurchase && `3px solid ${colors.green}`};
+      isAvailablePurchase && `3px solid ${colors.darkblue}`};
   }
 
   p {

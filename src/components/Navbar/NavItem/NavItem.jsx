@@ -11,7 +11,6 @@ const handleClickNavLink = (e) => {
   if (!e.target.classList.contains(CLASS_NAME.ACTIVE)) {
     return;
   }
-
   e.preventDefault();
 };
 
