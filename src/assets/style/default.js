@@ -24,6 +24,7 @@ const colors = {
   white: '#FFFFFF',
   darkBlue: '#013365',
   skyBlue: '#97CBE8',
+  lightBlue: '#EBF0FF',
   purple: '#A8226E',
   green: '#34A840',
   brightGreen: '#33FF00',

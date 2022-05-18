@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import CherryBombTTF from 'assets/font/CherryBomb-Regular.ttf';
+import Digital7 from 'assets/font/digital-7.ttf';
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -12,6 +13,8 @@ const GlobalStyle = createGlobalStyle`
 
 body {
   font-family: 'Noto Sans KR';
+  width: 100%;
+  height: 100%;
 }
 
 h1 {
@@ -52,6 +55,11 @@ menu {
 @font-face {
   font-family: 'CherryBomb';
   src: url(${CherryBombTTF});
+}
+
+@font-face {
+  font-family: 'Digital7';
+  src: url(${Digital7});
 }
 `;
 
