@@ -6,6 +6,7 @@ import { insertChanges, orderProduct, returnChanges } from 'context/User/action'
 import { getProducts } from 'context/Product/action';
 import { isLogin } from 'utils/cookie';
 import userApi from 'api/user';
+import useSetTimeout from 'hooks/useSetTimeout';
 import InputMoneyForm from './InputMoneyForm';
 import InsertChangesForm from './InsertChangesForm';
 import ActionLogs from './ActionLogs';
@@ -16,7 +17,6 @@ function VendingMachine() {
   const { nickname, totalBalance, changesUnits, prevInputChanges, userDispatch, actionLogs } =
     useUserContext();
   const [inputMoney, setInputMoney] = useState(0);
-  const resetTrigger = useRef(null);
 
   const resetInputMoneny = () => setInputMoney(0);
 
@@ -106,26 +106,17 @@ function VendingMachine() {
     returnChanges(userDispatch);
   }, [userDispatch, preventNonLoginUser]);
 
-  const startTiggerEvent = useCallback(
-    newInputSum => {
-      if (newInputSum > 0) {
-        resetTrigger.current = setTimeout(() => {
-          handleClickReturnChanges();
-          resetInputMoneny();
-        }, RESET_TIME);
-      }
-    },
-    [handleClickReturnChanges],
-  );
-
   useEffect(() => {
     const newInputSum = getSumInsertMoney(prevInputChanges);
     setInputMoney(prev => prev + newInputSum);
-    startTiggerEvent(newInputSum);
-    return () => {
-      clearInterval(resetTrigger.current);
-    };
-  }, [prevInputChanges, startTiggerEvent]);
+  }, [prevInputChanges]);
+
+  useSetTimeout({
+    delay: RESET_TIME,
+    tigger: prevInputChanges,
+    triggerCondition: getSumInsertMoney(prevInputChanges) > 0,
+    callback: handleClickReturnChanges,
+  });
 
   return (
     <S.Container>
