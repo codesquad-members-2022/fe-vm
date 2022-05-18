@@ -3,7 +3,7 @@ import Page from '../../UI/Page';
 import VendingCards from './VendingCards';
 import VendingAside from './VendingAside';
 
-const Vending = (props) => {
+const Vending = () => {
   return (
     <Page display="flex">
       <VendingCards />

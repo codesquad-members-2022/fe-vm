@@ -1,10 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import Container from '../../UI/container';
 import VendingForm from './VendingForm';
 import VendingLog from './VendingLog';
 
-const VendingAside = (props) => {
+const VendingAside = () => {
   return (
     <Container
       width="40%"
