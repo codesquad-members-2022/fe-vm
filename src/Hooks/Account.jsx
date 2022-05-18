@@ -9,8 +9,8 @@ export const useAccount = (initial, reducer) => {
 
   const refundMoney = createDispatch.refundMoney(dispatchUserMoney);
 
-  const buyProduct = productPrice => () =>
-    createDispatch.buyProduct(dispatchUserMoney)(productPrice);
+  const buyProduct = (productPrice, productTitle) => () =>
+    createDispatch.buyProduct(dispatchUserMoney)(productPrice, productTitle);
 
   const inputMoney = createDispatch.inputMoney(dispatchUserMoney);
 

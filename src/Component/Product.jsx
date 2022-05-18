@@ -2,12 +2,14 @@ import React from 'react';
 import styled, {css} from 'styled-components';
 
 export const Product = ({title, price, handleProductCard, walletState}) => {
+  // console.log(title);
+  // console.log(price);
   return (
     <ProductWrapper
       insertedMoney={walletState.insertedMoney}
       productPrice={price}
     >
-      <ProductThumbnail onClick={handleProductCard(price)}>
+      <ProductThumbnail onClick={handleProductCard(price, title)}>
         {title}
       </ProductThumbnail>
       <PriceTag>{price}</PriceTag>

@@ -5,6 +5,7 @@ export const UserAccount = React.createContext(null);
 const sinkState = accountState => currentState => {
   accountState.currentMoney = currentState.currentMoney;
   accountState.insertedMoney = currentState.insertedMoney;
+  accountState.history = currentState.history;
 };
 
 export const UserAccountContext = ({children, currentPage}) => {

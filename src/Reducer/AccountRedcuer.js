@@ -7,18 +7,29 @@ export const accountReducer = (state, action) => {
       return {
         currentMoney: state.currentMoney - action.incomeMoney,
         insertedMoney: state.insertedMoney + action.incomeMoney,
+        history: [...state.history, `${action.incomeMoney} 원 추가!`],
       };
 
     case 'refund':
       return {
         currentMoney: state.currentMoney + state.insertedMoney,
         insertedMoney: 0,
+        history: [
+          ...state.history,
+          `${state.insertedMoney} 원 반환 되엇습니다.`,
+        ],
       };
 
     case 'buy':
       return {
         currentMoney: state.currentMoney,
         insertedMoney: state.insertedMoney - action.incomeMoney,
+        history: [
+          ...state.history,
+          `${action.product} 를 구매하셨습니다. 현재 투입금액: ${
+            state.insertedMoney - action.incomeMoney
+          }`,
+        ],
       };
 
     case 'input':
@@ -31,7 +42,13 @@ export const accountReducer = (state, action) => {
       });
 
       if (inputValue > state.currentMoney) {
-        return state; // 히스토리 로그 출력
+        return {
+          ...state,
+          history: [
+            ...state.history,
+            `${inputValue}원 은 현재금액 ${state.currentMoney}원 보다 높은 금액입니다.`,
+          ],
+        };
       }
 
       const checkedMoney = currentMoneyList.reduce(
@@ -64,6 +81,7 @@ export const accountReducer = (state, action) => {
         return {
           currentMoney: state.currentMoney - inputValue,
           insertedMoney: inputValue,
+          history: [...state.history, `${inputValue}원 추가!`],
         };
       }
 
@@ -75,6 +93,12 @@ export const accountReducer = (state, action) => {
           return {
             currentMoney: state.currentMoney - (checkedMoney.saved + list.unit),
             insertedMoney: checkedMoney.saved + list.unit,
+            history: [
+              ...state.history,
+              `${inputValue}원 투입하였지만 지갑 사정으로 인해 ${
+                checkedMoney.saved + list.unit
+              }원으로 보정 되셨습니다.`,
+            ],
           };
         }
 
