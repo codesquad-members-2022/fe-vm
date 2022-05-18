@@ -8,7 +8,7 @@ function ReturnBtn() {
   const inputMoneySum = useContext(WalletContext).value.inputMoneySum;
   const sum = useContext(WalletContext).sum;
   const setSum = useContext(WalletContext).setSum;
-  const setMessage = useContext(messageContext).setMessage;
+  const { message, setMessage } = useContext(messageContext);
   const value = useContext(WalletContext).value;
   const setWalletMoney = useContext(WalletContext).value.setWalletMoney;
 
@@ -47,7 +47,7 @@ function ReturnBtn() {
     setWalletMoney(newArr);
   }
   function makeReturnMessage() {
-    setMessage(`잔돈이 반환됨`);
+    setMessage([...message, "잔돈이 반환됨"]);
   }
   return (
     <ReturnBtnWrap>

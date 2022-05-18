@@ -11,7 +11,7 @@ function Product({ title, price, amount }) {
   const { beverage, setBeverage } = useContext(ProductContext);
   const setInputMoney = useContext(WalletContext).value.setInputMoneySum;
   const inputMoney = useContext(WalletContext).value.inputMoneySum;
-  const setMessage = useContext(messageContext).setMessage;
+  const { message, setMessage } = useContext(messageContext);
   const isSoldOut = amount !== 0;
   function makeBuyMessage(title) {
     return `${title} 선택됨`;
@@ -20,10 +20,12 @@ function Product({ title, price, amount }) {
   function decreaseInput(price, amount, title) {
     if (price <= inputMoney && amount > 0) {
       setInputMoney(inputMoney - price);
-      const message = makeBuyMessage(title);
-      setMessage(message);
+      const newMessage = makeBuyMessage(title);
+      setMessage([...message, newMessage]);
     } else {
-      alert("잔액이 부족합니다!");
+      if (amount === 0) {
+        alert("재고가 부족합니다!");
+      } else alert("잔액이 부족합니다!");
     }
   }
   return (
