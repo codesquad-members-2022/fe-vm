@@ -21,16 +21,16 @@ export const requestLogout = async dispatch => {
 };
 
 // user
-export const insertChanges = (dispatch, id) => {
-  dispatch({ type: INSERT_CHANGES, payload: id });
+export const insertChanges = (dispatch, id, submitOnlyNumber) => {
+  dispatch({ type: INSERT_CHANGES, payload: { unitId: id, submitOnlyNumber } });
 };
 
 export const returnChanges = dispatch => {
   dispatch({ type: RETURN_CHANGES });
 };
 
-export const orderProduct = async (dispatch, id, inputChanges) => {
-  const response = await userApi.orderProduct(id, inputChanges);
+export const orderProduct = async (dispatch, productId, inputChanges) => {
+  const response = await userApi.orderProduct(productId, inputChanges);
   dispatch({ type: ORDER_PRODUCT, payload: response.data });
 };
 

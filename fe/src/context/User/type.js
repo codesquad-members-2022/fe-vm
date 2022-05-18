@@ -4,6 +4,7 @@ export const USER_LOGOUT = 'userLogout';
 export const ORDER_PRODUCT = 'orderProduct';
 export const INSERT_CHANGES = 'insertChanges';
 export const RETURN_CHANGES = 'returnChanges';
+export const LOG_ACTION = 'logAction';
 
 // manager
 export const ADD_TARGET_BALANCE = 'addTargetBalacne';

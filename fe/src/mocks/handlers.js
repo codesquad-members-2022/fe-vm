@@ -63,13 +63,21 @@ const Users = [
     }
     setManagerBalanceObj(newManagerUnits, newMangerTotalBalance);
     setUserBalanceObj(newUserUnits, newUserTotalBalance);
-    const [, updateProductError] = updateProduct(products, productId, substractTargetProduct);
+    const [targetProduct, updateProductError] = updateProduct(
+      products,
+      productId,
+      substractTargetProduct,
+    );
     if (updateProductError.isError) {
       return res(ctx.status(406), ctx.json({ errorMessage: updateProductError.msg }));
     }
     return res(
       ctx.status(200),
-      ctx.json({ newChangesUnits: newUserUnits, newTotalBalance: newUserTotalBalance }),
+      ctx.json({
+        newChangesUnits: newUserUnits,
+        newTotalBalance: newUserTotalBalance,
+        targetProduct,
+      }),
     );
   }),
 ];

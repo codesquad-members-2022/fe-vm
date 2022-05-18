@@ -4,13 +4,16 @@ import { useProductContext } from 'context/Product';
 import { useUserContext } from 'context/User';
 import { insertChanges, orderProduct, returnChanges } from 'context/User/action';
 import { getProducts } from 'context/Product/action';
+import { isLogin } from 'utils/cookie';
 import InputMoneyForm from './InputMoneyForm';
 import InsertChangesForm from './InsertChangesForm';
+import ActionLogs from './ActionLogs';
 import * as S from './style';
 
 function VendingMachine() {
   const { vmDispatch } = useProductContext();
-  const { totalBalance, changesUnits, prevInputChanges, userDispatch } = useUserContext();
+  const { nickname, totalBalance, changesUnits, prevInputChanges, userDispatch, actionLogs } =
+    useUserContext();
   // FIXME: input defualt value 0일 때 에러 수정 -> 0123, 1230이런식으로 0이 안없어짐
   const [inputmoney, setInputMoney] = useState(0);
 
@@ -22,10 +25,25 @@ function VendingMachine() {
     getProducts(vmDispatch);
   };
 
+  const getSumInsertMoney = units => {
+    setInputMoney(prev => units.reduce((acc, cur) => acc + cur, prev));
+  };
+
+  const preventNonLoginUser = useCallback(() => {
+    if (!isLogin() || !nickname) {
+      alert('로그인 이후 이용해주세요.');
+      return true;
+    }
+    return false;
+  }, [nickname]);
+
   const handleSubmitInputMoney = useCallback(
     event => {
       // reducer로 옮기기
       event.preventDefault();
+      if (preventNonLoginUser()) {
+        return;
+      }
       if (totalBalance <= 0) {
         alert('잔고가 없어요');
         return;
@@ -39,21 +57,24 @@ function VendingMachine() {
         alert(error.msg);
         return;
       }
-      const { unit, id } = closestUnit;
-      console.log(
-        `입력한 ${submitOnlyNumber}이 소유하고 있는 잔돈 중 가장 가까운 금액인 ${unit}으로 변경되었습니다.`,
-      );
+      const { id } = closestUnit;
       resetInputMoneny();
-      insertChanges(userDispatch, id);
+      insertChanges(userDispatch, id, submitOnlyNumber);
     },
-    [changesUnits, totalBalance, userDispatch],
+    [changesUnits, preventNonLoginUser, totalBalance, userDispatch],
   );
 
-  const onChangeInputMoney = useCallback(({ target }) => {
-    const { value } = target;
-    const onlyNumber = Number(value.replace(/[^0-9]/g, ''));
-    setInputMoney(onlyNumber);
-  }, []);
+  const onChangeInputMoney = useCallback(
+    ({ target }) => {
+      if (preventNonLoginUser()) {
+        return;
+      }
+      const { value } = target;
+      const onlyNumber = Number(value.replace(/[^0-9]/g, ''));
+      setInputMoney(onlyNumber);
+    },
+    [preventNonLoginUser],
+  );
 
   const isPriceUnderInputMoney = useCallback(
     targetPrice => targetPrice <= inputmoney,
@@ -62,20 +83,22 @@ function VendingMachine() {
 
   const insertChangeIntoInputMoney = useCallback(
     unitId => {
+      if (preventNonLoginUser()) {
+        return;
+      }
       resetInputMoneny();
       insertChanges(userDispatch, unitId);
     },
-    [userDispatch],
+    [preventNonLoginUser, userDispatch],
   );
 
   const handleClickReturnChanges = useCallback(() => {
+    if (preventNonLoginUser()) {
+      return;
+    }
     resetInputMoneny();
     returnChanges(userDispatch);
-  }, [userDispatch]);
-
-  const getSumInsertMoney = units => {
-    setInputMoney(prev => units.reduce((acc, cur) => acc + cur, prev));
-  };
+  }, [userDispatch, preventNonLoginUser]);
 
   useEffect(() => {
     getSumInsertMoney(prevInputChanges);
@@ -100,7 +123,7 @@ function VendingMachine() {
           changesUnits={changesUnits}
           insertChangeIntoInputMoney={insertChangeIntoInputMoney}
         />
-        <ul>log list</ul>
+        <ActionLogs actionLogs={actionLogs} />
       </S.InputContanier>
     </S.Container>
   );

@@ -8,6 +8,17 @@ import {
   SUBSTRACT_TARGET_BALANCE,
 } from './type';
 
+const ACTIONS = {
+  [USER_LOGIN]: nickname => `${nickname}(이)가 로그인했습니다.`,
+  [INSERT_CHANGES]: (unitId, submitOnlyNumber) =>
+    submitOnlyNumber
+      ? `입력한 ${submitOnlyNumber}이 소유하고 있는 잔돈 중 가장 가까운 금액인 ${unitId}으로 변경되었습니다.`
+      : `${unitId}을(를) 자판기에 투입했습니다.`,
+  [RETURN_CHANGES]: changes =>
+    `투입 금액: ${changes.reduce((acc, cur) => acc + cur, 0)}을(를) 잔돈으로 반환합니다.`,
+  [ORDER_PRODUCT]: productsName => `상품: ${productsName} 주문을 성공했습니다.`,
+};
+
 const CHANGES_UNITS = [
   { id: 10, unit: 10, count: 0 },
   { id: 50, unit: 50, count: 0 },
@@ -24,54 +35,79 @@ export const initState = {
   changesUnits: CHANGES_UNITS,
   prevInputChanges: [],
   isManager: false,
+  actionLogs: [{ id: 0, msg: '자판기가 켜졌습니다.' }],
 };
 
 export const reducer = (state, action) => {
   const { payload, type } = action;
   switch (type) {
     case USER_LOGIN: {
+      const { actionLogs } = state;
       const { nickname, totalBalance, changesUnits, isManager } = payload;
-      return { ...state, nickname, totalBalance, changesUnits, isManager };
+      const actionMessage = ACTIONS[type](nickname);
+      const newActionLogs = logAction(actionLogs, actionMessage);
+      return {
+        ...state,
+        nickname,
+        totalBalance,
+        changesUnits,
+        isManager,
+        actionLogs: newActionLogs,
+      };
     }
     case USER_LOGOUT:
       return { ...state };
     case INSERT_CHANGES: {
-      const { changesUnits, prevInputChanges, totalBalance } = state;
+      const { changesUnits, prevInputChanges, totalBalance, actionLogs } = state;
+      const { unitId, submitOnlyNumber } = payload;
       const [newChangesUnits, newPrevInputChanges, newTotalBalance] = updateprevInputChanges(
         changesUnits,
         prevInputChanges,
         totalBalance,
-        payload,
+        unitId,
       );
+      const actionMessage = ACTIONS[type](unitId, submitOnlyNumber);
+      const newActionLogs = logAction(actionLogs, actionMessage);
       return {
         ...state,
         totalBalance: newTotalBalance,
         prevInputChanges: newPrevInputChanges,
         changesUnits: newChangesUnits,
+        actionLogs: newActionLogs,
       };
     }
     case RETURN_CHANGES: {
-      const { changesUnits, prevInputChanges, totalBalance } = state;
+      const { changesUnits, prevInputChanges, totalBalance, actionLogs } = state;
       const [newChangesUnits, newTotalBalance] = returnChanges(
         changesUnits,
         prevInputChanges,
         totalBalance,
       );
+      const actionMessage = ACTIONS[type](prevInputChanges);
+      const newActionLogs = logAction(actionLogs, actionMessage);
       return {
         ...state,
         totalBalance: newTotalBalance,
         changesUnits: newChangesUnits,
         prevInputChanges: [],
+        actionLogs: newActionLogs,
       };
     }
     case ORDER_PRODUCT: {
-      const { newTotalBalance, newChangesUnits } = payload;
-      console.log(newTotalBalance, newChangesUnits);
+      const { actionLogs } = state;
+      const {
+        newTotalBalance,
+        newChangesUnits,
+        targetProduct: { product_name: productName },
+      } = payload;
+      const actionMessage = ACTIONS[type](productName);
+      const newActionLogs = logAction(actionLogs, actionMessage);
       return {
         ...state,
         totalBalance: newTotalBalance,
         changesUnits: newChangesUnits,
         prevInputChanges: [],
+        actionLogs: newActionLogs,
       };
     }
     case ADD_TARGET_BALANCE: {
@@ -93,6 +129,12 @@ export const reducer = (state, action) => {
     default:
       return { ...state };
   }
+};
+
+const logAction = (prevLogs, actionMessage) => {
+  const logsLength = prevLogs.length;
+  const newLogs = [...prevLogs, { id: logsLength, msg: actionMessage }];
+  return newLogs;
 };
 
 const returnChanges = (changesUnits, prevInputChanges, totalBalance) => {
