@@ -7,7 +7,7 @@ import {
   StyledInputBox,
   StyledRepaymentBtn,
 } from './userWindow.styled';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { InputMoneyContext, LogContext, PaybackTimerContext, ProgressContext } from '../vendingMachine';
 import { LogMonitor } from '../userWindowLogMonitor/logMonitor';
 import { PAYBACK_TIME } from '../../../common/constants';
@@ -17,6 +17,12 @@ export function UserWindow() {
   const { setLogList } = useContext(LogContext);
   const { inProgress } = useContext(ProgressContext);
   const { paybackTimer, setPaybackTimer } = useContext(PaybackTimerContext);
+
+  useEffect(() => {
+    if (!inputMoney) return;
+    stopPaybackTimer();
+    startPaybackTimer();
+  }, [inputMoney]);
 
   function handleKeyPress(e) {
     if (inProgress) return;
@@ -42,22 +48,28 @@ export function UserWindow() {
   }
 
   function printInputMoney(currentInputMoney) {
-    const setValue = inputMoney + currentInputMoney;
-    setInputMoney(setValue);
+    setInputMoney(inputMoney => inputMoney + currentInputMoney);
   }
 
   function handleClickRepaymentBtn() {
-    if (paybackTimer !== null) {
-      return;
+    if (paybackTimer === null) {
+      startPaybackTimer();
     }
-    const payback = () => {
-      setTimeout(() => {
-        logPaybackMoney();
-        setInputMoney(0);
-        setPaybackTimer(null);
-      }, PAYBACK_TIME);
-    };
-    setPaybackTimer(payback());
+  }
+
+  function startPaybackTimer() {
+    const payback = setTimeout(() => {
+      logPaybackMoney();
+      setInputMoney(0);
+      setPaybackTimer(null);
+    }, PAYBACK_TIME);
+    setPaybackTimer(payback);
+  }
+
+  function stopPaybackTimer() {
+    if (paybackTimer !== null) {
+      setPaybackTimer(timer => clearTimeout(timer));
+    }
   }
 
   function logPaybackMoney() {

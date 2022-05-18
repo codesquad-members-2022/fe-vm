@@ -30,16 +30,14 @@ export function ItemBox({ item }) {
   function chooseItem() {
     setInProgress(true);
     setBoxColor('red');
-    setItemStock(itemStock - 1);
-    printInputMoney();
     logChooseItem();
-    stopPaybackTimer();
 
     // 2초 뒤 아이템 드랍
     delay(ITEM_DROP_TIME).then(() => {
       dropItem();
+      printInputMoney();
+      setItemStock(itemStock - 1);
       setInProgress(false);
-      startPaybackTimer();
     });
   }
 
