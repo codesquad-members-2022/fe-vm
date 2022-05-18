@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import * as uiConst from "../constant/uiConstant";
-import { vendingMachineProductList } from "../mockData/mockData";
+import vendingMachineProductList from "../mockData/mockData";
 import Product from "../component/Product";
 import OrderBox from "../component/OrderBox";
 

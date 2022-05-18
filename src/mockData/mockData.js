@@ -1,4 +1,4 @@
-export const vendingMachineProductList = [
+const vendingMachineProductList = [
     { id: 1, name: "🥤", quantity: 10, price: 1900 },
     { id: 2, name: "🍔", quantity: 10, price: 4500 },
     { id: 3, name: "🍟", quantity: 10, price: 2800 },
@@ -19,3 +19,5 @@ export const vendingMachineProductList = [
     { id: 15, name: "🍪", quantity: 10, price: 1000 },
     { id: 16, name: "🍦", quantity: 10, price: 1500 },
 ];
+
+export default vendingMachineProductList;

@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable react/jsx-no-bind */
 import styled from "styled-components";
 import returnIcon from "asset/return.png";
 import insertIcon from "asset/insert.png";

@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
 import * as uiConst from "constant/uiConstant";
 
-function Product({ name, price, quantity }) {
+function Product({ name, price }) {
     return (
         <ProductBox>
             <ProductName>{name}</ProductName>
