@@ -2,7 +2,7 @@ import { SlotContainer, Slot } from "./MoneySlot.style";
 import { useVendingMachineContext } from "../../context/VendingMachineContext";
 import { useWalletContext } from "../../context/WalletContext";
 
-const getMoneyFromWallet = (input, wallet) => {
+const getMoneyUnitFromWallet = (input, wallet) => {
     const differenceBetweenInputAndWalletMoney = wallet.map((money) => {
         return {
             difference: Math.abs(input - money.unit),
@@ -13,7 +13,7 @@ const getMoneyFromWallet = (input, wallet) => {
         .sort((a, b) => a.difference - b.difference)
         .filter(({ count }) => count > 0);
 
-    return minDifference.length ? minDifference[0] : null;
+    return minDifference.length ? minDifference[0].unit : null;
 };
 
 function MoneySlot() {
@@ -30,18 +30,18 @@ function MoneySlot() {
         const moneyInput = event.target.value;
         event.target.value = "";
 
-        const moneyFromWallet = getMoneyFromWallet(moneyInput, wallet);
-        if (!moneyFromWallet) {
+        const moneyUnitFromWallet = getMoneyUnitFromWallet(moneyInput, wallet);
+        if (!moneyUnitFromWallet) {
             return;
         }
 
         const moneyInWallet = wallet.find(
-            (money) => money.id === moneyFromWallet.id
+            (money) => money.unit === moneyUnitFromWallet
         );
         moneyInWallet.count -= 1;
         updateWallet(wallet);
-        addRecord(`${moneyFromWallet.unit}원이 투입됨`);
-        putMoneyIntoVendingMachine(moneyFromWallet.unit);
+        putMoneyIntoVendingMachine(moneyInWallet.unit);
+        addRecord(`${moneyInWallet.unit}원이 투입됨`);
     };
 
     return (
