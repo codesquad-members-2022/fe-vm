@@ -19,7 +19,8 @@ export function UserWindow() {
   const { paybackTimer, setPaybackTimer } = useContext(PaybackTimerContext);
 
   useEffect(() => {
-    if (!inputMoney) return;
+    if (inputMoney === 0) return;
+    console.log('input', inputMoney);
     stopPaybackTimer();
     startPaybackTimer();
   }, [inputMoney]);
