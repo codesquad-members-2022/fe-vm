@@ -5,6 +5,7 @@ import GNB from 'components/Header/GNB';
 import VM from 'pages/VM';
 import Wallet from 'pages/Wallet';
 import Store from 'pages/Store';
+import NotFound from 'pages/NotFound';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/vm" element={<VM />} />
         <Route path="/wallet" element={<Wallet />} />
         <Route path="/store" element={<Store />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
