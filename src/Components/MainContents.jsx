@@ -13,7 +13,7 @@ export default function MainContents() {
   const [printMessages, setPrintMessages] = useState([]);
   const [myMoneyDetails, setMyMoneyDetails] = useState(moneyData);
   const myMoneyTotal = myMoneyDetails.reduce(
-    (prev, next) => prev + next.value * next.count,
+    (prev, next) => prev + next.unit * next.count,
     0,
   );
 

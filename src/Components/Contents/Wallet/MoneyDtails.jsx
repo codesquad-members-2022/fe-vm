@@ -26,32 +26,32 @@ function Money() {
   const payMoney = (moneyInfo) => {
     const updateMoney = {
       type: moneyInfo.type,
-      value: moneyInfo.value,
+      unit: moneyInfo.unit,
       count: moneyInfo.count - 1,
     };
     const updateMoneyDetails = myMoneyDetails.map((money) => {
-      return money.value === moneyInfo.value ? updateMoney : money;
+      return money.unit === moneyInfo.unit ? updateMoney : money;
     });
     const addMessage = getMessage(
       '투입',
-      changeNumToLocalMoney(moneyInfo.value),
+      changeNumToLocalMoney(moneyInfo.unit),
     );
 
     setPrintMessages([...printMessages, addMessage]);
-    setPayTotal(payTotal + moneyInfo.value);
+    setPayTotal(payTotal + moneyInfo.unit);
     setMyMoneyDetails(updateMoneyDetails);
   };
 
   const moneyTags = myMoneyDetails.map((moneyInfo) => {
     return (
-      <MoneyBox key={moneyInfo.value} moneyType={moneyInfo.type}>
+      <MoneyBox key={moneyInfo.unit} moneyType={moneyInfo.type}>
         <MoneyButton
           type="button"
           moneyType={moneyInfo.type}
           disabled={!moneyInfo.count}
           onClick={payMoney.bind(null, moneyInfo)}
         >
-          {changeNumToLocalMoney(moneyInfo.value)}
+          {changeNumToLocalMoney(moneyInfo.unit)}
         </MoneyButton>
         <MoneyCount>{moneyInfo.count}</MoneyCount>
       </MoneyBox>
