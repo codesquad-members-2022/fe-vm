@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { useTheme } from 'styled-components';
 import styled from 'styled-components';
-import StyledLink from '../../utils/StyledLink';
 
 function GnbItem({ item, numOfItem, isActive, setActiveTab }) {
   const theme = useTheme();
@@ -50,4 +50,7 @@ const Container = styled.li`
   line-height: 70px;
 `;
 
+const StyledLink = styled(Link)`
+  color: ${({ textcolor }) => textcolor};
+`;
 export default GnbItem;

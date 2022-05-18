@@ -45,6 +45,20 @@ const GlobalStyle = createGlobalStyle`
       padding: 20px;
       border: 1px solid ${({ theme }) => theme.color.color_200}
     }
+
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+      &:focus,
+      &:hover,
+      &:visited,
+      &:link,
+      &:active {
+        text-decoration: none;
+      }
+    }
 `;
 
 export default GlobalStyle;
