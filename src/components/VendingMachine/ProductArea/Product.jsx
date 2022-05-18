@@ -42,10 +42,15 @@ const ProductWrapper = styled.div`
 
 const ProductImageWrapper = styled.div`
   height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
   img {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     opacity: ${({ stock }) => (stock ? "100%" : "20%")};
+    object-fit: cover;
   }
 `;
 

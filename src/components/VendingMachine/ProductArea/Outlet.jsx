@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 const Outlet = ({ purchaseTarget }) => {
-  console.log("render", purchaseTarget);
-  console.log(purchaseTarget?.imgSrc);
   return (
     <OutletWrapper>
       <PurchasedProduct productImgSrc={purchaseTarget?.imgSrc} />
@@ -20,9 +18,9 @@ const OutletWrapper = styled.div`
 
 const PurchasedProduct = styled.div`
   position: absolute;
-  width: 100px;
-  height: 100px;
-  top: -100px;
+  width: 150px;
+  height: 150px;
+  top: -150px;
   left: calc(50% - 50px);
 
   ${({ productImgSrc }) =>

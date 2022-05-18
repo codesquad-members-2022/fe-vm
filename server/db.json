@@ -2,85 +2,85 @@
   "productsInfo": [
     {
       "id": 1,
-      "name": "product1",
-      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "name": "코카콜라",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/168968579-609b8507-4145-4330-9813-1ac87201012e.png",
+      "price": 1300,
+      "stock": 2
+    },
+    {
+      "id": 2,
+      "name": "코카콜라",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/168968579-609b8507-4145-4330-9813-1ac87201012e.png",
+      "price": 1300,
+      "stock": 2
+    },
+    {
+      "id": 3,
+      "name": "코카콜라(제로)",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/168968589-8b351153-3bdc-4e17-9a28-b1f8fad6c50a.png",
       "price": 1300,
       "stock": 3
     },
     {
-      "id": 2,
-      "name": "product2",
-      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
-      "price": 1300,
-      "stock": 5
-    },
-    {
-      "id": 3,
-      "name": "product3",
-      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
-      "price": 1300,
-      "stock": 4
-    },
-    {
       "id": 4,
-      "name": "product4",
-      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "name": "코카콜라(제로)",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/168968589-8b351153-3bdc-4e17-9a28-b1f8fad6c50a.png",
       "price": 1300,
-      "stock": 0
+      "stock": 2
     },
     {
       "id": 5,
-      "name": "product5",
-      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "name": "웰치스",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/168968563-1b34bfe5-4a49-46f2-a6e7-dc2db141d110.png",
       "price": 1300,
-      "stock": 1
+      "stock": 3
     },
     {
       "id": 6,
-      "name": "product6",
-      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "name": "칠성사이다",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/168968571-3ab50463-4d8f-479d-acb1-a0330a6bf9f5.png",
       "price": 1500,
-      "stock": 0
+      "stock": 3
     },
     {
       "id": 7,
-      "name": "product7",
-      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "name": "환타",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/168968574-2c68f343-6d66-4b15-a72c-1914f0df3c13.png",
       "price": 1600,
-      "stock": 0
+      "stock": 3
     },
     {
       "id": 8,
-      "name": "product8",
-      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "name": "스프라이트",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/168968575-cccff4f6-765d-4eee-8d49-7289656b2ee8.png",
       "price": 1700,
-      "stock": 0
+      "stock": 3
     },
     {
       "id": 9,
-      "name": "product9",
-      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "name": "칠성사이다(제로)",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/168968576-3c0e1d1e-9cf6-4a84-9379-c29abcd76bca.png",
       "price": 1800,
-      "stock": 0
+      "stock": 1
     },
     {
       "id": 10,
-      "name": "product10",
-      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "name": "나랑드사이다",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/168968583-d08522ed-6d3e-4951-b650-c5266eb383db.png",
       "price": 1900,
       "stock": 0
     },
     {
       "id": 11,
-      "name": "product11",
-      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "name": "파워에이드",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/168968584-900df574-7fda-4ff2-b7fe-4a6801e16939.png",
       "price": 2000,
       "stock": 0
     },
     {
       "id": 12,
-      "name": "product12",
-      "imgSrc": "https://user-images.githubusercontent.com/95538993/167665509-f2c55bf1-0425-4fc1-9e22-4101d5ad39ff.png",
+      "name": "펩시(제로)",
+      "imgSrc": "https://user-images.githubusercontent.com/95538993/168970098-42a25a3b-e7d9-45a6-8316-26a2c2f2a10f.png",
       "price": 2100,
       "stock": 0
     }
@@ -88,11 +88,11 @@
   "wallet": {
     "10": 10,
     "50": 1,
-    "100": 16,
-    "500": 3,
-    "1000": 1,
-    "5000": 0,
+    "100": 8,
+    "500": 4,
+    "1000": 8,
+    "5000": 1,
     "10000": 0,
-    "50000": 0
+    "50000": 2
   }
 }
