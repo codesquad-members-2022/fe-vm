@@ -1,4 +1,3 @@
-import { Border } from 'assets/style/common';
 import styled from 'styled-components';
 
 const StyledInput = styled.input`
@@ -10,7 +9,6 @@ const StyledInput = styled.input`
   font-weight: ${({ theme: { fontWeight } }) => fontWeight.bold};
   color: ${({ theme: { colors } }) => colors.black};
   text-align: right;
-  ${Border.rounded}
 `;
 
 export default StyledInput;

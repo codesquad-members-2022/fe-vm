@@ -6,11 +6,11 @@ export default {
   component: Label,
   argTypes: {
     sizeType: {
-      options: ['small', 'medium', 'large'],
+      options: ['small', 'medium', 'large', 'xLarge'],
       control: { type: 'radio' },
     },
     fontType: {
-      options: ['medium', 'large', 'logo'],
+      options: ['medium', 'large', 'logo', 'digital'],
       control: { type: 'radio' },
     },
     borderType: {
