@@ -19,7 +19,6 @@ const InputValue = () => {
     setAccumulatedPrice(accumulatedPrice + inputPrice);
     setInputPrice("");
   };
-  console.log(message);
 
   return (
     <div className="vendingmachine-input-wrapper">
