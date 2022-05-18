@@ -63,7 +63,7 @@ const Users = [
     }
     setManagerBalanceObj(newManagerUnits, newMangerTotalBalance);
     setUserBalanceObj(newUserUnits, newUserTotalBalance);
-    const [targetProduct, updateProductError] = updateProduct(
+    const [updateProductError, targetProduct, newProducts] = updateProduct(
       products,
       productId,
       substractTargetProduct,
@@ -77,6 +77,7 @@ const Users = [
         newChangesUnits: newUserUnits,
         newTotalBalance: newUserTotalBalance,
         targetProduct,
+        newProducts,
       }),
     );
   }),
@@ -90,7 +91,7 @@ const Products = [
   rest.patch(API_ROOT_URL + API.PATCH_ADD_PRODUCT, (req, res, ctx) => {
     const { products } = globalProductsObj;
     const productId = req.url.searchParams.get('id');
-    const [targetProduct, error] = updateProduct(products, productId, addTargetProduct);
+    const [error, targetProduct] = updateProduct(products, productId, addTargetProduct);
     if (error.isError) {
       return res(ctx.status(406), ctx.json({ errorMessage: error.msg }));
     }
@@ -99,7 +100,7 @@ const Products = [
   rest.patch(API_ROOT_URL + API.PATCH_SUBSTRACT_PRODUCT, (req, res, ctx) => {
     const { products } = globalProductsObj;
     const productId = req.url.searchParams.get('id');
-    const [targetProduct, error] = updateProduct(products, productId, substractTargetProduct);
+    const [error, targetProduct] = updateProduct(products, productId, substractTargetProduct);
     if (error.isError) {
       return res(ctx.status(406), ctx.json({ errorMessage: error.msg }));
     }
@@ -129,5 +130,5 @@ function updateProduct(products, productId, callback) {
   const [newProducts, targetIndex, error] = callback(products, productId);
   setGlobalProducts(newProducts);
   const targetProduct = newProducts[targetIndex];
-  return [targetProduct, error];
+  return [error, targetProduct, newProducts];
 }

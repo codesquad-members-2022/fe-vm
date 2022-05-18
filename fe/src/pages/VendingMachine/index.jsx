@@ -6,7 +6,6 @@ import { insertChanges, orderProduct, returnChanges } from 'context/User/action'
 import { getProducts } from 'context/Product/action';
 import { isLogin } from 'utils/cookie';
 import userApi from 'api/user';
-import globalApi from 'api/globalApi';
 import InputMoneyForm from './InputMoneyForm';
 import InsertChangesForm from './InsertChangesForm';
 import ActionLogs from './ActionLogs';
@@ -24,11 +23,12 @@ function VendingMachine() {
 
   const handleOrderProduct = async productId => {
     try {
-      const { data } = await userApi.orderProduct(productId, prevInputChanges);
-      orderProduct(userDispatch, data);
+      const {
+        data: { newProducts, ...userInfo },
+      } = await userApi.orderProduct(productId, prevInputChanges);
+      orderProduct(userDispatch, userInfo);
+      getProducts(vmDispatch, { products: newProducts });
       resetInputMoneny();
-      const { data: products } = await globalApi.getProducts();
-      getProducts(vmDispatch, products);
     } catch (error) {
       console.error(error);
     }
