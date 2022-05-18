@@ -6,14 +6,16 @@ import Button from '../components/Button';
 import AvailableButton from '../components/AvailableButton';
 import Input from '../components/Input';
 import ProgressBoard from '../components/ProgressBoard';
-import { PriceContext } from '../context/PriceProvider';
 import { MoneyContext } from '../context/MoneyProvider';
 
 export default function VendingMachine() {
-  const { inputPrice, progressMsg, remainMoney, updatePrice, insertInput } =
-    useContext(PriceContext);
-  const { updateMoney } = useContext(MoneyContext);
+  const [accumulatedItemPrice, setAccumulatedItemPrice] = useState(0);
+  const { inputPrice, setInputPrice, totalPrice, setTotalPrice } =
+    useContext(MoneyContext);
   const [content, setContent] = useState(0);
+  const [progressMsg, setProgressMsg] = useState(
+    inputPrice.map((price) => `${price}원이 투입되었습니다.`)
+  );
 
   const handleChangeInput = ({ currentTarget }) => {
     setContent(currentTarget.textContent);
@@ -32,27 +34,34 @@ export default function VendingMachine() {
 
     // Todo : 지갑에 요금의 개수가 없거나 지갑 전체 요금보다 큰 경우 예외처리
     const currentPrice = Number(content);
-    insertInput({
-      currentMoney: currentPrice,
-      msg: `${currentPrice}원이 투입되었습니다.`,
-    });
+    setInputPrice([...inputPrice, Number(currentPrice)]);
+    setProgressMsg([...progressMsg, `${currentPrice}원이 투입되었습니다.`]);
   };
 
   const handleSelectItem = (title, price) => {
-    const currentRemainMoney = remainMoney - price;
-    if (currentRemainMoney < 0 && remainMoney !== null) {
+    const currentRemainMoney =
+      inputPrice[inputPrice.length - 1] - (accumulatedItemPrice + price);
+    if (currentRemainMoney < 0) {
       window.alert('요금을 초과하였습니다.');
       return;
     }
 
-    updatePrice({ currentMoney: -price, msg: `${title}가 선택되었습니다.` });
+    setAccumulatedItemPrice(accumulatedItemPrice + price);
+    setProgressMsg([...progressMsg, `${title}가 선택되었습니다.`]);
   };
 
   const handleClickReturnRemain = () => {
-    const returendMoney = updatePrice({
-      msg: `잔돈 ${remainMoney}원이 반환됩니다.`,
-    });
-    updateMoney(returendMoney);
+    const currentRemainMoney =
+      inputPrice.reduce(
+        (previousValue, currentValue) =>
+          Number(previousValue) + Number(currentValue),
+        []
+      ) - accumulatedItemPrice;
+    setProgressMsg([
+      ...progressMsg,
+      `잔돈 ${currentRemainMoney}원이 반환됩니다.`,
+    ]);
+    setTotalPrice(currentRemainMoney + totalPrice);
   };
 
   return (
@@ -62,8 +71,8 @@ export default function VendingMachine() {
           <StyledItem key={`vm-item-${title}`}>
             <AvailableButton
               icon={title}
-              isAvailabe={remainMoney >= price}
-              disabled={!(remainMoney >= price)}
+              isAvailabe={accumulatedItemPrice <= price}
+              disabled={!(accumulatedItemPrice <= price)}
               onClick={() => handleSelectItem(title, price)}
             />
             <StyledPrice>{price}</StyledPrice>
@@ -72,7 +81,7 @@ export default function VendingMachine() {
       </StyledItems>
       <StyledController>
         <Input
-          price={inputPrice}
+          price={inputPrice[inputPrice.length - 1]}
           onChangeInput={handleChangeInput}
           onClickSave={handleClickSave}
         />
