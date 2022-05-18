@@ -6,7 +6,7 @@ export default {
   component: Button,
   argTypes: {
     sizeType: {
-      options: ['thin', 'small', 'medium', 'large'],
+      options: ['thin', 'small', 'medium', 'large', 'xLarge'],
       control: { type: 'radio' },
     },
     borderType: {
@@ -83,7 +83,7 @@ mediumButtonDisabled.storyName = 'mediumButton-Disabled';
 
 export const largeButton = Template.bind({});
 largeButton.args = {
-  sizeType: 'large',
+  sizeType: 'xLarge',
   borderType: 'rounded',
   children: '10원',
 };

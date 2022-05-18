@@ -6,10 +6,10 @@ import Button from 'components/atoms/Button/Button';
 const NavButton = ({ unit, count, ...props }) => {
   return (
     <StyledNavButton borderType="rounded" flexType="center">
-      <Button sizeType="medium" colorType="point">
+      <Button sizeType="medium" colorType="point" fontType="medium">
         자판기
       </Button>
-      <Button sizeType="medium" colorType="disabled">
+      <Button sizeType="medium" colorType="disabled" fontType="medium">
         지갑
       </Button>
     </StyledNavButton>

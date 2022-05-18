@@ -20,6 +20,11 @@ const MediumSize = css`
 `;
 
 const LargeSize = css`
+  width: 270px;
+  height: 56px;
+`;
+
+const XLargeSize = css`
   width: 305px;
   height: 56px;
 `;
@@ -29,6 +34,7 @@ const Size = {
   small: SmallSize,
   medium: MediumSize,
   large: LargeSize,
+  xLarge: XLargeSize,
 };
 
 /* ColorType : Background, Font */
@@ -52,10 +58,10 @@ const ColorStyle = css`
   color: ${({ colorType }) => fontColors[colorType] || fontColors.default};
   background-color: ${({ colorType }) => BackgroundColors[colorType] || BackgroundColors.default};
   &:hover {
-    background-color: ${({ colorType }) => lighten(0.1, BackgroundColors[colorType] || BackgroundColors.default)};
+    background-color: ${({ colorType }) => darken(0.1, BackgroundColors[colorType] || BackgroundColors.default)};
   }
   &:active {
-    background-color: ${({ colorType }) => darken(0.1, BackgroundColors[colorType] || BackgroundColors.default)};
+    background-color: ${({ colorType }) => darken(0.2, BackgroundColors[colorType] || BackgroundColors.default)};
   }
   &:disabled {
     color: ${fontColors.disabled};
@@ -63,9 +69,43 @@ const ColorStyle = css`
   }
 `;
 
+/* FontType */
+const DefaultFont = css`
+  font-weight: ${({ theme: { fontWeight } }) => fontWeight.bold};
+  color: ${({ theme: { colors } }) => colors.black};
+`;
+
+const MediumFont = css`
+  ${DefaultFont}
+  font-size: ${({ theme: { fontSize } }) => fontSize.medium};
+`;
+
+const LargeFont = css`
+  ${DefaultFont}
+  font-size: ${({ theme: { fontSize } }) => fontSize.large};
+`;
+
+const XXLargeFont = css`
+  ${DefaultFont}
+  font-size: ${({ theme: { fontSize } }) => fontSize.xxLarge};
+`;
+
+const LogoFont = css`
+  ${DefaultFont}
+  font-size: ${({ theme: { fontSize } }) => fontSize.logo};
+`;
+
+const Font = {
+  medium: MediumFont,
+  large: LargeFont,
+  xxLarge: XXLargeFont,
+  logo: LogoFont,
+};
+
 const StyledButton = styled.button`
   ${({ sizeType }) => sizeType && Size[sizeType]}
   ${({ borderType }) => borderType && Border[borderType]}
+  ${({ fontType }) => fontType && Font[fontType]}
   ${ColorStyle};
 `;
 
