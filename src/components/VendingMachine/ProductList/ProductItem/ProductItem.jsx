@@ -5,16 +5,17 @@ import { productButtonStyle, ProductLi } from "./ProductItem.styled";
 
 const { SOLDOUT_MESSAGE } = constants;
 
-const ProductItem = ({ productData }) => {
+const ProductItem = ({ productData, currentMoney }) => {
   const { name, isInStock, price } = productData;
+  const isAvailablePurchase = currentMoney >= price;
 
   return (
-    <ProductLi>
+    <ProductLi isAvailablePurchase={isAvailablePurchase} isInStock={isInStock}>
       <Button
         data={{ name }}
         styles={productButtonStyle}
         className="product-button"
-        isDisabled={!isInStock}
+        isDisabled={!isInStock || !isAvailablePurchase}
       />
       <p className="product-price">{(isInStock && price) || SOLDOUT_MESSAGE}</p>
     </ProductLi>

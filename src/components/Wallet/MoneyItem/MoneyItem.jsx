@@ -18,11 +18,11 @@ const MoneyItem = ({ money, count }) => {
   const insertMoney = useContext(SetInsertedMoneyContext);
   const updateProgress = useContext(SetProgressContext);
 
-  const handleClickMoney = useCallback((curMoney) => {
-    decreaseCashCount(curMoney);
-    updateProgress("insert", curMoney);
-    insertMoney(curMoney);
-  }, []);
+  const handleClickMoney = useCallback(() => {
+    decreaseCashCount(money);
+    updateProgress("insert", money);
+    insertMoney(money);
+  }, [decreaseCashCount, updateProgress, insertMoney, money]);
 
   return (
     <MoneyLi>
@@ -31,7 +31,7 @@ const MoneyItem = ({ money, count }) => {
         data={{ name: money }}
         styles={moneyButtonStyle}
         isDisabled={!count}
-        onClick={() => handleClickMoney(money)}
+        onClick={handleClickMoney}
       />
       <Count data={count} />
     </MoneyLi>
