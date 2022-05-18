@@ -2,7 +2,58 @@ import React, { createContext, useReducer, useMemo } from 'react';
 
 import { products, coins } from '@/mock/storage';
 
-const initialState = {
+interface IState {
+  products: IProduct[];
+  coins: ICoin[];
+  logs: ILog[];
+  totalInputAmount: number;
+  balance: number;
+  timer: ITimer;
+}
+
+interface IProduct {
+  id: string;
+  name: string;
+  price: number;
+  stock: number;
+}
+
+interface ICoin {
+  id: string;
+  amount: number;
+  count: number;
+}
+
+interface ILog {
+  id: string;
+  message: string;
+}
+
+interface ITimer {
+  [key: string]: NodeJS.Timeout;
+}
+
+/*interface IPayload {
+  index?: number;
+
+  amount?: number;
+  count?: number;
+
+  name?: string;
+  price?: number;
+  stock?: number;
+
+  key?: string;
+  delay?: number;
+  callback?: object;
+}*/
+
+interface IAction {
+  type: ACTION;
+  payload: any;
+}
+
+const initialState: IState = {
   products,
   coins,
   logs: [],
@@ -11,19 +62,20 @@ const initialState = {
   timer: {},
 };
 
-const ACTION = {
-  INSERT_MONEY_BY_TYPING: 'INSERT_MONEY_BY_TYPING',
-  INSERT_COIN: 'INSERT_COIN',
-  INCREMENT_COIN: 'INCREMENT_COIN',
-  SELECT_PRODUCT: 'SELECT_PRODUCT',
-  RETURN_CHANGE: 'RETURN_CHANGE',
-  DELETE_ALL_LOGS: 'DELETE_ALL_LOGS',
-  SET_TIMER: 'SET_TIMER',
-  CLEAR_TIMER: 'CLEAR_TIMER',
-};
+enum ACTION {
+  INSERT_MONEY_BY_TYPING = 'INSERT_MONEY_BY_TYPING',
+  INSERT_COIN = 'INSERT_COIN',
+  INCREMENT_COIN = 'INCREMENT_COIN',
+  SELECT_PRODUCT = 'SELECT_PRODUCT',
+  RETURN_CHANGE = 'RETURN_CHANGE',
+  DELETE_ALL_LOGS = 'DELETE_ALL_LOGS',
+  SET_TIMER = 'SET_TIMER',
+  CLEAR_TIMER = 'CLEAR_TIMER',
+}
 
-const reducer = (state, action) => {
+const reducer = (state: IState, action: IAction) => {
   switch (action.type) {
+    // PAYLOAD: amount
     case ACTION.INSERT_MONEY_BY_TYPING: {
       const { amount } = action.payload;
       const { balance, coins, logs, totalInputAmount } = state;
@@ -75,6 +127,7 @@ const reducer = (state, action) => {
       };
     }
 
+    // PAYLOAD: amount, count, index
     // TODO: amount
     case ACTION.INSERT_COIN: {
       const { amount, count, index } = action.payload;
@@ -102,6 +155,7 @@ const reducer = (state, action) => {
       };
     }
 
+    // PAYLOAD: amount, count, index
     case ACTION.INCREMENT_COIN: {
       const { amount, count, index } = action.payload;
       const { coins, balance } = state;
@@ -119,6 +173,7 @@ const reducer = (state, action) => {
       };
     }
 
+    // PAYLOAD: name, price, stock, index
     // TODO: name
     case ACTION.SELECT_PRODUCT: {
       const { name, price, stock, index } = action.payload;
@@ -150,6 +205,7 @@ const reducer = (state, action) => {
       };
     }
 
+    // PAYLOAD: null
     // TODO: totalInputAmount
     case ACTION.RETURN_CHANGE: {
       const { balance, coins, logs, totalInputAmount } = state;
@@ -187,6 +243,7 @@ const reducer = (state, action) => {
       };
     }
 
+    // PAYLOAD: null
     case ACTION.DELETE_ALL_LOGS: {
       return {
         ...state,
@@ -194,6 +251,7 @@ const reducer = (state, action) => {
       };
     }
 
+    // PAYLOAD: key, delay, callback
     case ACTION.SET_TIMER: {
       const { key, delay, callback } = action.payload;
       const { timer } = state;
@@ -206,6 +264,7 @@ const reducer = (state, action) => {
       return state;
     }
 
+    // PAYLOAD: key
     case ACTION.CLEAR_TIMER: {
       const { key } = action.payload;
       const { timer } = state;
@@ -225,10 +284,10 @@ const reducer = (state, action) => {
 
 const VMContext = createContext(null);
 
-const VMProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+const VMProvider = ({ children }: any) => {
+  const [state, dispatch] = useReducer(reducer, initialState, undefined);
 
-  const value = useMemo(() => {
+  const value: any = useMemo(() => {
     return {
       state,
       dispatch,
