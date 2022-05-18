@@ -6,6 +6,7 @@ export const VendingMachineInterface = ({
   walletState: {insertedMoney},
   handleUserInput,
 }) => {
+  const [isInputClicked, setIsInputCliked] = useState(false);
   const onInputEnter = e => {
     if (e.key !== 'Enter') {
       return;
@@ -15,7 +16,17 @@ export const VendingMachineInterface = ({
 
   return (
     <VM_Wrapper>
-      <VM_MoneyInput onKeyDown={onInputEnter} />
+      {isInputClicked ? (
+        <VM_MoneyInput onKeyDown={onInputEnter} />
+      ) : (
+        <VM_insertedMoney
+          onClick={() => {
+            setIsInputCliked(true);
+          }}
+        >
+          {insertedMoney}
+        </VM_insertedMoney>
+      )}
       <VM_RefundBtn onClick={handleRefundBtn}>잔액 반환</VM_RefundBtn>
       <VM_History></VM_History>
     </VM_Wrapper>
@@ -60,6 +71,15 @@ const VM_RefundBtn = styled.button`
 const VM_History = styled.div`
   width: 300px;
   height: 500px;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 10px;
+`;
+
+const VM_insertedMoney = styled.div`
+  width: 300px;
+  height: 80px;
+  font-size: 20px;
   border: 1px solid black;
   border-radius: 20px;
   padding: 10px;
