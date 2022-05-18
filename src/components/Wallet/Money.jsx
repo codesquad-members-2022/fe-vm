@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import icons from "../../styles/icons";
-import { Balance } from "../../contextProviders/BalanceProvider";
-import { Records } from "../../contextProviders/RecordsProvider";
-import { activityType } from "../../convention";
+import icons from "styles/icons";
+import { Balance } from "contextProviders/BalanceProvider";
+import { Records } from "contextProviders/RecordsProvider";
+import { activityType } from "convention";
 
 const Money = ({ moneyType, number }) => {
   const { wallet, inputSum, updateBalance } = useContext(Balance);

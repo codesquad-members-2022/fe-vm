@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { Balance } from "../../contextProviders/BalanceProvider";
+import { Balance } from "contextProviders/BalanceProvider";
 import Money from "./Money";
-import { moneyOrder } from "../../convention";
+import { moneyOrder } from "convention";
 
 const Wallet = () => {
   const { wallet } = useContext(Balance);

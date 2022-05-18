@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { RecordsProvider } from "../contextProviders/RecordsProvider";
-import { BalanceProvider } from "../contextProviders/BalanceProvider";
-import VendingMachine from "../components/VendingMachine/VendingMachine";
-import Wallet from "../components/Wallet/Wallet";
+import { RecordsProvider } from "contextProviders/RecordsProvider";
+import { BalanceProvider } from "contextProviders/BalanceProvider";
+import VendingMachine from "components/VendingMachine/VendingMachine";
+import Wallet from "components/Wallet/Wallet";
 
 const Main = () => {
   return (

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { Records } from "../../../../contextProviders/RecordsProvider";
+import { Records } from "contextProviders/RecordsProvider";
 import { v4 as uuidv4 } from "uuid";
 
 const MessageDisplay = () => {

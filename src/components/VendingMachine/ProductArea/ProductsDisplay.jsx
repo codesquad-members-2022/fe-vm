@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import Product from "./Product";
-import { ProductsInfo } from "../../../contextProviders/ProductsInfoProvider";
+import { ProductsInfo } from "contextProviders/ProductsInfoProvider";
 
 const ProductsDisplay = ({ handlePurchaseBtnClick }) => {
   const { productsInfo } = useContext(ProductsInfo);

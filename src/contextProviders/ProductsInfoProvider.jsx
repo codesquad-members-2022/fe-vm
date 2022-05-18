@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { request } from "../fetcher";
+import { request } from "fetcher";
 
 export const ProductsInfo = createContext();
 export const ProductsInfoProvider = ({ children }) => {

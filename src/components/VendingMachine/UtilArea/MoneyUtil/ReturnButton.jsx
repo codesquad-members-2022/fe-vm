@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { css } from "styled-components";
-import { Balance } from "../../../../contextProviders/BalanceProvider";
-import { Records } from "../../../../contextProviders/RecordsProvider";
-import Button from "../../../common/Button";
-import { activityType, moneyOrder } from "../../../../convention";
+import { Balance } from "contextProviders/BalanceProvider";
+import { Records } from "contextProviders/RecordsProvider";
+import Button from "components/common/Button";
+import { activityType, moneyOrder } from "convention";
 
 const ReturnButton = () => {
   const { inputSum, wallet, updateBalance } = useContext(Balance);

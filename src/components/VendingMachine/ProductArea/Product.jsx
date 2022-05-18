@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { Balance } from "../../../contextProviders/BalanceProvider";
+import { Balance } from "contextProviders/BalanceProvider";
 import styled, { css } from "styled-components";
-import Button from "../../common/Button";
+import Button from "components/common/Button";
 
 const Product = ({ productInfo, handlePurchaseBtnClick }) => {
   const { inputSum } = useContext(Balance);

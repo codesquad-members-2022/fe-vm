@@ -1,11 +1,11 @@
 import { useState, useContext } from "react";
 import styled from "styled-components";
-import { ProductsInfo } from "../../../contextProviders/ProductsInfoProvider";
-import { Balance } from "../../../contextProviders/BalanceProvider";
-import { Records } from "../../../contextProviders/RecordsProvider";
+import { ProductsInfo } from "contextProviders/ProductsInfoProvider";
+import { Balance } from "contextProviders/BalanceProvider";
+import { Records } from "contextProviders/RecordsProvider";
 import ProductsDisplay from "./ProductsDisplay";
 import Outlet from "./Outlet";
-import { activityType } from "../../../convention";
+import { activityType } from "convention";
 
 const ProductArea = () => {
   const { updateProductInfo } = useContext(ProductsInfo);

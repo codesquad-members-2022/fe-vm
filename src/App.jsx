@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ProductsInfoProvider } from "./contextProviders/ProductsInfoProvider";
-import Layout from "./pages/Layout";
-import Main from "./pages/Main";
-import StockManager from "./pages/StockManager";
+import { ProductsInfoProvider } from "contextProviders/ProductsInfoProvider";
+import Layout from "pages/Layout";
+import Main from "pages/Main";
+import StockManager from "pages/StockManager";
 
 const App = () => (
   <ProductsInfoProvider>
