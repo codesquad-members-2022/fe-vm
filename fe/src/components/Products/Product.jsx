@@ -6,6 +6,7 @@ import * as S from './style';
 
 function Product({
   productInfo,
+  isManger,
   isSelect,
   isPriceUnderInputMoney,
   handleSelectProduct,
@@ -15,13 +16,14 @@ function Product({
   return (
     <S.ProductCard
       type={type}
+      isSelect={isSelect}
       canBuy={isPriceUnderInputMoney(price)}
       onClick={() => handleSelectProduct(productInfo)}
     >
       <h5>{productName}</h5>
       <span>{changeNumberToKoreanLocaleMoney(price)}원</span>
       <span>{ea}개</span>
-      {isSelect && (
+      {isSelect && !isManger && (
         <Button variant="contained" onClick={() => handleOrderProduct(id)}>
           주문하기
         </Button>
@@ -38,6 +40,7 @@ Product.propTypes = {
     price: PropTypes.number.isRequired,
     ea: PropTypes.number.isRequired,
   }).isRequired,
+  isManger: PropTypes.bool.isRequired,
   isSelect: PropTypes.bool.isRequired,
   isPriceUnderInputMoney: PropTypes.func.isRequired,
   handleSelectProduct: PropTypes.func.isRequired,

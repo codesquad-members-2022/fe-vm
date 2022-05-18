@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Products from 'components/Products';
 import { useProductContext } from 'context/Product';
 import { useUserContext } from 'context/User';
@@ -15,9 +15,8 @@ function VendingMachine() {
   const { vmDispatch } = useProductContext();
   const { nickname, totalBalance, changesUnits, prevInputChanges, userDispatch, actionLogs } =
     useUserContext();
-
-  // FIXME: input defualt value 0일 때 에러 수정 -> 0123, 1230이런식으로 0이 안없어짐
-  const [inputmoney, setInputMoney] = useState(0);
+  const [inputMoney, setInputMoney] = useState(0);
+  const resetTrigger = useRef(null);
 
   const resetInputMoneny = () => setInputMoney(0);
 
@@ -34,9 +33,7 @@ function VendingMachine() {
     }
   };
 
-  const getSumInsertMoney = units => {
-    setInputMoney(prev => units.reduce((acc, cur) => acc + cur, prev));
-  };
+  const getSumInsertMoney = units => units.reduce((acc, cur) => acc + cur, 0);
 
   const preventNonLoginUser = useCallback(() => {
     if (!isLogin() || !nickname) {
@@ -86,8 +83,8 @@ function VendingMachine() {
   );
 
   const isPriceUnderInputMoney = useCallback(
-    targetPrice => targetPrice <= inputmoney,
-    [inputmoney],
+    targetPrice => targetPrice <= inputMoney,
+    [inputMoney],
   );
 
   const insertChangeIntoInputMoney = useCallback(
@@ -109,9 +106,26 @@ function VendingMachine() {
     returnChanges(userDispatch);
   }, [userDispatch, preventNonLoginUser]);
 
+  const startTiggerEvent = useCallback(
+    newInputSum => {
+      if (newInputSum > 0) {
+        resetTrigger.current = setTimeout(() => {
+          handleClickReturnChanges();
+          resetInputMoneny();
+        }, RESET_TIME);
+      }
+    },
+    [handleClickReturnChanges],
+  );
+
   useEffect(() => {
-    getSumInsertMoney(prevInputChanges);
-  }, [prevInputChanges]);
+    const newInputSum = getSumInsertMoney(prevInputChanges);
+    setInputMoney(prev => prev + newInputSum);
+    startTiggerEvent(newInputSum);
+    return () => {
+      clearInterval(resetTrigger.current);
+    };
+  }, [prevInputChanges, startTiggerEvent]);
 
   return (
     <S.Container>
@@ -122,7 +136,7 @@ function VendingMachine() {
       />
       <S.InputContanier>
         <InputMoneyForm
-          inputmoney={inputmoney}
+          inputMoney={inputMoney}
           onChangeInputMoney={onChangeInputMoney}
           handleSubmitInputMoney={handleSubmitInputMoney}
           handleClickReturnChanges={handleClickReturnChanges}
@@ -139,6 +153,8 @@ function VendingMachine() {
 }
 
 export default VendingMachine;
+
+const RESET_TIME = 5000;
 
 // 사용자 소지하고 있는 잔고에 가장 가까운 단위로 변환
 const adjustingWithExistUnit = (existsUnits, submitNumber) => {

@@ -7,11 +7,12 @@ import * as S from './style';
 const INSERT_FORM_ID = 'insert-form';
 
 function InputMoneyForm({
-  inputmoney,
+  inputMoney,
   onChangeInputMoney,
   handleSubmitInputMoney,
   handleClickReturnChanges,
 }) {
+  const inputNumber = inputMoney === 0 ? '' : changeNumberToKoreanLocaleMoney(inputMoney);
   return (
     <>
       <S.InputMoneyFormBox onSubmit={handleSubmitInputMoney} id={INSERT_FORM_ID}>
@@ -19,7 +20,7 @@ function InputMoneyForm({
           <input
             type="text"
             name="inputMoney"
-            value={changeNumberToKoreanLocaleMoney(inputmoney)}
+            value={inputNumber}
             onChange={onChangeInputMoney}
             placeholder="투입할 금액을 입력하세요."
           />
@@ -39,7 +40,7 @@ function InputMoneyForm({
 }
 
 InputMoneyForm.propTypes = {
-  inputmoney: PropTypes.number.isRequired,
+  inputMoney: PropTypes.number.isRequired,
   onChangeInputMoney: PropTypes.func.isRequired,
   handleSubmitInputMoney: PropTypes.func.isRequired,
   handleClickReturnChanges: PropTypes.func.isRequired,

@@ -79,6 +79,7 @@ function Products({ isManger, isPriceUnderInputMoney, handleOrderProduct }) {
           <Product
             key={product.id}
             productInfo={product}
+            isManger={isManger}
             isSelect={targetProduct?.id === product.id} // TODO: 변수로 빼기
             isPriceUnderInputMoney={isPriceUnderInputMoney}
             handleSelectProduct={handleSelectProduct}

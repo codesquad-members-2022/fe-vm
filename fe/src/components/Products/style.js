@@ -29,9 +29,12 @@ export const ProductCard = styled.div`
       };
       return borderColorType[type];
     }};
-  background-color: ${({ canBuy, theme: { color } }) => {
+  background-color: ${({ canBuy, isSelect, theme: { color } }) => {
     if (canBuy) {
       return color.blue;
+    }
+    if (isSelect) {
+      return color.orange;
     }
     return color.white;
   }};
