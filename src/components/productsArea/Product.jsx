@@ -4,35 +4,49 @@ import { ProductBtn, Detail, Price } from 'components/productsArea/Product.style
 import { addCommasToNumber } from 'utils/util';
 import { FinalPayContext, FinalPaySetContext } from 'Context/FinalPayProvider';
 import { SelectedProductSetContext } from 'Context/SelectedProductProvider';
+import { VMTimerSetContext } from 'Context/VMTimerProvider';
+import { HistoryDispatchContext } from 'Context/HistoryProvider';
 
-export default function Product({ detail, price, quantity, disabled }) {
+const TIME_TO_PUT_OUT_PRODUCT = 2000;
+
+export default function Product({ productInfo }) {
   const setSelectedProduct = useContext(SelectedProductSetContext);
   const [finalPay, setFinalPay] = [useContext(FinalPayContext), useContext(FinalPaySetContext)];
+  const { addSelectHistory, resetHistory } = useContext(HistoryDispatchContext);
+  const startVMTimer = useContext(VMTimerSetContext);
+
+  const canBuyProduct = () => (finalPay ? finalPay >= productInfo.price : true);
+  const isSoldout = () => productInfo.quantity <= 0;
+
+  const initVMState = () => {
+    setFinalPay(0);
+    setSelectedProduct({ detail: null, price: null });
+    resetHistory();
+  };
 
   const handleProductClick = () => {
     if (!finalPay) return;
-    setSelectedProduct({ detail, price });
-    setFinalPay(0);
+
+    setSelectedProduct({ detail: productInfo.detail, price: productInfo.price });
+    addSelectHistory(productInfo.detail);
+    const newProductInfo = productInfo;
+    newProductInfo.quantity -= 1;
+    startVMTimer(initVMState, TIME_TO_PUT_OUT_PRODUCT);
   };
 
   return (
-    <ProductBtn quantity={quantity} disabled={disabled} onClick={handleProductClick}>
-      <Detail>{detail}</Detail>
-      <Price>{addCommasToNumber(price)}</Price>
+    <ProductBtn quantity={productInfo.quantity} disabled={!canBuyProduct() || isSoldout()} onClick={handleProductClick}>
+      <Detail>{productInfo.detail}</Detail>
+      <Price>{addCommasToNumber(productInfo.price)}</Price>
     </ProductBtn>
   );
 }
 
 Product.propTypes = {
-  detail: PropTypes.string,
-  price: PropTypes.number,
-  quantity: PropTypes.number,
-  disabled: PropTypes.bool
+  // eslint-disable-next-line react/forbid-prop-types
+  productInfo: PropTypes.object
 };
 
 Product.defaultProps = {
-  detail: '',
-  price: 0,
-  quantity: 0,
-  disabled: false
+  productInfo: {}
 };
