@@ -32,4 +32,14 @@ const Flex = {
   centerRight: FlexContainer({ align: 'center', justify: 'flex-end' }),
 };
 
-export { Border, Flex };
+/* Drag Disable */
+const DragDisable = css`
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+`;
+
+export { Border, Flex, DragDisable };
