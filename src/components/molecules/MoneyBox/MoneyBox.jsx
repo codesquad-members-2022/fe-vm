@@ -19,12 +19,12 @@ const MoneyBox = ({ unit, count, ...props }) => {
 
 MoneyBox.defaultProps = {
   unit: '10원',
-  count: '0개',
+  count: '0',
 };
 
 MoneyBox.propTypes = {
   unit: PropTypes.string,
-  count: PropTypes.string,
+  count: PropTypes.number,
 };
 
 export default MoneyBox;
