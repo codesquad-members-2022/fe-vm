@@ -13,7 +13,7 @@ const moneyDataTemplate = [
 const moneyHelper = {
   computeTotalMoney(insertedMoney) {
     return insertedMoney.reduce(
-      (prev, { money }) => prev + money,
+      (prev, { money, count = 1 }) => prev + money * count,
       INITIAL_MONEY
     );
   },
