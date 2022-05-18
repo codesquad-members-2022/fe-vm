@@ -7,10 +7,6 @@ const sinkState = accountState => currentState => {
   accountState.insertedMoney = currentState.insertedMoney;
 };
 
-const check = a => b => {
-  console.log(a === b);
-};
-
 export const UserAccountContext = ({children, currentPage}) => {
   const [account, setAccount] = useState({
     currentMoney: 36450,
@@ -22,8 +18,6 @@ export const UserAccountContext = ({children, currentPage}) => {
 
   useEffect(() => {
     setAccount(account);
-    console.log(account);
-    console.log('바뀜');
   }, [currentPage]);
   return (
     <UserAccount.Provider
