@@ -33,9 +33,9 @@ const LogMessageWrap = styled.div`
   flex-direction: column;
   width: 80%;
   height: 60%;
-  margin: 5% auto 0 auto;
+  margin: 25% auto 0 auto;
   border-radius: 10px;
-  border: 9px solid black;
+  box-shadow: inset 3px 3px 30px 5px grey;
   background-color: white;
   overflow: hidden;
   padding-top: 4%;

@@ -17,8 +17,8 @@ const Info = () => {
 const InfoWrap = styled.div`
   width: 35%;
   text-align: center;
-  padding-top: 6%;
-  border: 10px solid darkGrey;
+  padding-top: 16px;
+  // border: 10px solid darkGrey;
   border-radius: 10px;
 `;
 
