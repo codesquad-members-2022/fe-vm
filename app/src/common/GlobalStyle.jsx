@@ -34,6 +34,17 @@ const GlobalStyle = createGlobalStyle`
       list-style: none;
       padding: 0;
     }
+
+    table {
+      text-align: center;
+      border-collapse: collapse;
+      border: 1px solid ${({ theme }) => theme.color.color_200}
+    }
+
+    th, td {
+      padding: 20px;
+      border: 1px solid ${({ theme }) => theme.color.color_200}
+    }
 `;
 
 export default GlobalStyle;

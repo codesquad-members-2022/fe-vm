@@ -5,7 +5,7 @@ import GlobalStyle from '../common/GlobalStyle';
 import Gnb from './gnb/Gnb';
 import VendingMachine from './content/VendingMachine/VendingMachine';
 import Wallet from './content/Wallet/Wallet';
-import Stock from './content/Inventory/Stock';
+import Stock from './content/Stock/Stock';
 
 const GNB_ITEMS = {
   vendingMachine: {
