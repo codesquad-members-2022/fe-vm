@@ -1,23 +1,25 @@
 import React from 'react';
 import Header from './Components/Header';
-import Main from './Page';
+import MainContents from './Components/MainContents';
 
-const MENU = {
-  menu1: {
+const MENU = [
+  {
     title: 'Vending Machine',
     value: 'vending-machine',
+    path: '/',
   },
-  menu2: {
+  {
     title: 'Wallet',
     value: 'wallet',
+    path: '/wallet',
   },
-};
+];
 
 function App() {
   return (
     <>
       <Header menu={MENU} />
-      <Main />
+      <MainContents />
     </>
   );
 }

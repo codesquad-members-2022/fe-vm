@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import Product from './Product';
 
-export default function ProductList({ products, payTotal, message }) {
+export default function ProductList({ products }) {
   return (
     <ProductBox>
-      <Product products={products} payTotal={payTotal} message={message} />
+      <Product products={products} />
     </ProductBox>
   );
 }

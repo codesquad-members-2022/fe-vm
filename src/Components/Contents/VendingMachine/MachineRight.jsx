@@ -2,12 +2,12 @@ import PickUpBox from './PickUpBox';
 import MessageBox from '../MessageBox';
 import PayBox from '../PayBox';
 
-export default function MachineRight({ payTotal, payMoney, message }) {
+export default function MachineRight() {
   return (
     <div>
-      <PayBox payTotal={payTotal} payMoney={payMoney} message={message} />
+      <PayBox />
       <PickUpBox />
-      <MessageBox message={message.value} />
+      <MessageBox />
     </div>
   );
 }

@@ -1,17 +1,23 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
-import { changeNumToLocalMoney } from '../../../Utils/utils';
+import {
+  changeNumToLocalMoney,
+  replaceNotNumToSpace,
+} from '../../../Utils/utils';
 import {
   Color,
   FontSize,
   F_Center,
   Radius10,
 } from '../../../Assets/Common.style';
+import { payContext } from '../VendingMachine';
 
-export default function PayInput({ setPayMoney, input }) {
-  const payMoneyHandler = () => {
-    const formatNum = input.current.value.replace(/[^0-9]|,/g, ''); // 숫자 아닐때 공백처리
-    setPayMoney(formatNum);
-    input.current.value = changeNumToLocalMoney(formatNum);
+export default function PayInput() {
+  const { payMoney, setPayMoney } = useContext(payContext);
+  const payMoneyHandler = ({ target }) => {
+    const formatNum = replaceNotNumToSpace(target.value);
+    target.value = changeNumToLocalMoney(formatNum);
+    setPayMoney(target.value);
   };
 
   return (
@@ -20,7 +26,7 @@ export default function PayInput({ setPayMoney, input }) {
         type="text"
         placeholder="0"
         onChange={payMoneyHandler}
-        ref={input}
+        value={payMoney}
       />
       <span>원</span>
     </InputBox>

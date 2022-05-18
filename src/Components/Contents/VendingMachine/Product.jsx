@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import { getMessage } from '../../../Utils/utils';
+import { contentsContext } from '../../MainContents';
 import {
   Absolute,
   Color,
@@ -13,39 +14,31 @@ import {
   F_ColumnBetweenCenter,
 } from '../../../Assets/Common.style';
 import soldOutIcon from '../../../Assets/Images/sold-out.svg';
+import { productImgContext } from '.';
 
-export default function Product({ products, payTotal, message }) {
+export default function Product({ products }) {
   const items = products.map((product) => (
-    <Item
-      key={product.id}
-      product={product}
-      payTotal={payTotal}
-      message={message}
-    />
+    <Item key={product.id} product={product} />
   ));
   return items;
 }
 
-function Item({ product, payTotal, message }) {
-  const [isSoldOut, setIsSoldOut] = useState(!product.stock);
-  const [isActive, setIsActive] = useState(payTotal.value >= product.price);
+function Item({ product }) {
+  const { setPickProductImg } = useContext(productImgContext);
+  const { payTotal, setPayTotal, printMessages, setPrintMessages } =
+    useContext(contentsContext);
+  const isSoldOut = !product.stock;
+  const isActive = payTotal >= product.price;
 
   const buyProductHandler = () => {
-    const MESSAGE = getMessage('구입', product.title);
-    const updateTotal = payTotal.value - product.price;
+    const addMessage = getMessage('구입', product.title);
+    const updateTotal = payTotal - product.price;
 
-    payTotal.set(updateTotal);
-    message.set([...message.value, MESSAGE]);
+    setPayTotal(updateTotal);
+    setPrintMessages([...printMessages, addMessage]);
+    setPickProductImg(product.image);
     product.stock -= 1;
   };
-
-  useEffect(() => {
-    setIsActive(payTotal.value >= product.price);
-  }, [payTotal.value]);
-
-  useEffect(() => {
-    setIsSoldOut(!product.stock);
-  }, [product.stock]);
 
   return (
     <ProductItem
@@ -54,11 +47,8 @@ function Item({ product, payTotal, message }) {
     >
       <button>
         <ImgBox>
-          <Img
-            hidden
-            style={{ backgroundImage: `url(${product.image})` }}
-          ></Img>
-          <span>{product.title}</span>
+          <Img style={{ backgroundImage: `url(${product.image})` }} />
+          <span hidden>{product.title}</span>
         </ImgBox>
         <Price className={isActive ? 'active' : ''}>{product.price}원</Price>
       </button>
