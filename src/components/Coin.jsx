@@ -1,25 +1,34 @@
-import React, { useContext, useState } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { MoneyContext } from 'components/App';
-import MESSAGES from 'messages';
+import { ErrorContext, MoneyContext } from 'components/App';
+import MESSAGES from 'constants/messages';
 
-function Coin({ amount, cnt }) {
-  const { curMoney, setMoney, showErrorMsg } = useContext(MoneyContext);
-  const [moneyCnt, setMoneyCnt] = useState(cnt);
+function Coin({
+  coin,
+  coinIdx,
+  curWalletMoney,
+  setCurWalletMoney,
+  handleCoinCount,
+}) {
+  const { showErrorMsg } = useContext(ErrorContext);
+  const { curMoney, setMoney } = useContext(MoneyContext);
+
   return (
     <Wrap>
-      <Amount onClick={handleChargeMoney}>{amount}원</Amount>
-      <Box>{moneyCnt}개</Box>
+      <Amount onClick={handleChargeMoney}>{coin.AMOUNT}원</Amount>
+      <Box>{coin.CNT}개</Box>
     </Wrap>
   );
   function handleChargeMoney() {
-    const hasCoins = moneyCnt >= 1;
+    const hasCoins = coin.CNT >= 1;
     if (!hasCoins) {
       showErrorMsg(MESSAGES.ERROR.NOT_ENOUGH_COINS);
       return;
     }
-    setMoney(curMoney + amount);
-    setMoneyCnt(moneyCnt - 1);
+    setCurWalletMoney(curWalletMoney - coin.AMOUNT);
+    handleCoinCount(coinIdx);
+    setMoney(curMoney + coin.AMOUNT);
   }
 }
 

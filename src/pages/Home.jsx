@@ -1,8 +1,8 @@
-import ControlPanel from 'components/ControlPanel';
-import Product from 'components/Product';
-import PRODUCTS from 'mock/products';
 import React from 'react';
 import styled from 'styled-components';
+import ControlPanel from 'components/ControlPanel';
+import Product from 'components/Product';
+import PRODUCTS from 'mocks/products';
 
 function Home() {
   return (
@@ -18,8 +18,8 @@ export default Home;
 function Products() {
   return (
     <ProductWrap>
-      {PRODUCTS.map(({ name, price }) => (
-        <Product name={name} price={price} />
+      {PRODUCTS.map(({ id, name, price }) => (
+        <Product key={id} name={name} price={price} />
       ))}
     </ProductWrap>
   );

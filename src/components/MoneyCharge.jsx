@@ -1,26 +1,39 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { MoneyContext } from 'components/App';
-import Coin from 'components/Coin';
-import COINS from 'mock/coins';
+import Coins from 'components/Coins';
+import { CoinContext } from 'components/App';
 
 function MoneyCharge() {
-  const { curMoney } = useContext(MoneyContext);
+  const { coins, setCoins } = useContext(CoinContext);
+  const defaultWalletMoney = coins.reduce(
+    (prev, coin) => prev + coin.AMOUNT * coin.CNT,
+    0,
+  );
+  const [curWalletMoney, setCurWalletMoney] = useState(defaultWalletMoney);
   return (
     <Wrap>
-      <Coins />
+      <Coins
+        coins={coins}
+        curWalletMoney={curWalletMoney}
+        setCurWalletMoney={setCurWalletMoney}
+        handleCoinCount={handleCoinCount}
+      />
       <Total>
-        <div>{curMoney}</div>
+        <div>{curWalletMoney}</div>
         <div>원</div>
       </Total>
     </Wrap>
   );
-}
-
-function Coins() {
-  return COINS.map(({ AMOUNT, CNT }) => (
-    <Coin key={`${AMOUNT}`} amount={AMOUNT} cnt={CNT} />
-  ));
+  function handleCoinCount(coinIdx) {
+    const newCoins = coins.map((coin, idx) => {
+      const isTargetCoin = idx === coinIdx;
+      if (isTargetCoin) {
+        return { AMOUNT: coin.AMOUNT, CNT: coin.CNT - 1 };
+      }
+      return coin;
+    });
+    setCoins(newCoins);
+  }
 }
 
 const Wrap = styled.div({
@@ -30,6 +43,7 @@ const Wrap = styled.div({
   gap: '20px',
   marginTop: '20px',
 });
+
 const Total = styled.div({
   width: '100%',
   textAlign: 'end',

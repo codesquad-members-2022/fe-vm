@@ -3,16 +3,15 @@ import styled from 'styled-components';
 
 function Product({ name, price }) {
   return (
-    <Wrap>
+    <div>
       <Name>{name}</Name>
       <Price>{price}</Price>
-    </Wrap>
+    </div>
   );
 }
 
 export default Product;
 
-const Wrap = styled.div({});
 const Name = styled.div({
   border: '1px solid black',
   height: '50px',
