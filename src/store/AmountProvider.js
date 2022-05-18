@@ -1,35 +1,21 @@
 import AmountContext from './AmountContext';
-import React, { useCallback, useEffect, useState } from 'react';
-import { INITIAL_WALLET, INITAIL_INSERT } from '../constant/constant';
+import React, { useEffect, useReducer } from 'react';
+import { INITAIL_MONEY } from '../constant/constant';
+import { moneyReducer, logReducer } from './reducer';
 
 const AmountProvider = (props) => {
-  const [wallet, setWallet] = useState(INITIAL_WALLET);
-  const [insertedMoney, setInsertedMoney] = useState(INITAIL_INSERT);
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [logs, setLogs] = useState([]);
-
+  const [money, dispatchMoney] = useReducer(moneyReducer, INITAIL_MONEY);
+  const [log, dispatchLog] = useReducer(logReducer, []);
   useEffect(() => {
-    setTotalAmount(getTotalBalance(insertedMoney));
-  }, [totalAmount, insertedMoney]);
-
-  const getTotalBalance = useCallback((walletObj) => {
-    const walletArray = Object.entries(walletObj);
-    const totalBalance = walletArray.reduce(
-      (acc, cur) => acc + Number(cur[0]) * Number(cur[1]),
-      0
-    );
-    return totalBalance;
-  }, []);
+    console.log(money, 'effect');
+    console.log(log);
+  }, [money, log]);
 
   const amountContext = {
-    totalAmount,
-    wallet,
-    insertedMoney,
-    logs,
-    setTotalAmount,
-    setWallet,
-    setInsertedMoney,
-    setLogs,
+    money,
+    log,
+    dispatchLog,
+    dispatchMoney,
   };
 
   return (

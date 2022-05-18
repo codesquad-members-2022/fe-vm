@@ -5,7 +5,7 @@ import Container from '../../UI/container';
 import AmountContext from '../../../store/AmountContext';
 
 const VendingLog = () => {
-  const amountCtx = useContext(AmountContext);
+  const { log } = useContext(AmountContext);
 
   return (
     <Container
@@ -15,8 +15,8 @@ const VendingLog = () => {
     >
       <h3>VENDING LOG</h3>
       <VendingLogLists>
-        {amountCtx.logs.map((v) => (
-          <li>{v}</li>
+        {log.map((v, i) => (
+          <li key={i}>{v}</li>
         ))}
       </VendingLogLists>
     </Container>

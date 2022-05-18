@@ -9,7 +9,6 @@ import styled from 'styled-components';
 import Input from '../../UI/Input';
 import Button from '../../UI/Button';
 import AmountContext from '../../../store/AmountContext';
-import { INITAIL_INSERT } from '../../../constant/constant';
 
 const checkValid = (wallet, money) => {
   const newInsertedMoney = {};
@@ -31,38 +30,27 @@ const checkValid = (wallet, money) => {
 
 const VendingForm = () => {
   const amountInputRef = useRef();
-  const amountCtx = useContext(AmountContext);
+  const { money, dispatchMoney, dispatchLog } = useContext(AmountContext);
   const [isInputValid, setIsInputValid] = useState(true);
 
   const submitHandler = (event) => {
     event.preventDefault();
     const insertedMoney = amountInputRef.current.value;
     const [isValid, newInsertedMoneyObj] = checkValid(
-      amountCtx.wallet,
+      money.WALLET,
       insertedMoney
     );
 
     if (isValid) {
       setIsInputValid(true);
-      amountCtx.setWallet((prev) => {
-        const walletChagedUnit = {};
-        for (const unit in newInsertedMoneyObj) {
-          walletChagedUnit[unit] = prev[unit] - newInsertedMoneyObj[unit];
-        }
-        return { ...prev, ...walletChagedUnit };
+      dispatchMoney({
+        type: 'INSERT',
+        newState: newInsertedMoneyObj,
       });
 
-      amountCtx.setInsertedMoney((prev) => {
-        const walletChagedUnit = {};
-        for (const unit in newInsertedMoneyObj) {
-          walletChagedUnit[unit] = prev[unit] + newInsertedMoneyObj[unit];
-        }
-        return { ...prev, ...walletChagedUnit };
-      });
-
-      amountCtx.setLogs((prev) => {
-        const newLog = `${insertedMoney}원이 입금되었습니다.`;
-        return [...prev, newLog];
+      dispatchLog({
+        type: 'INSERT',
+        newAmount: insertedMoney,
       });
     } else {
       setIsInputValid(false);
@@ -70,29 +58,20 @@ const VendingForm = () => {
   };
 
   useEffect(() => {
-    amountInputRef.current.value = amountCtx.totalAmount;
-  }, [amountCtx.totalAmount]);
+    amountInputRef.current.value = money.TOTAL_AMOUNT;
+  }, [money]);
 
   const inputOnfocusHandler = useCallback(() => {
     amountInputRef.current.value = '';
   }, []);
 
   const onClickHandler = () => {
-    const inserted = amountCtx.insertedMoney;
-    const totalAmount = amountCtx.totalAmount;
+    const totalAmount = money.TOTAL_AMOUNT;
 
-    amountCtx.setWallet((prev) => {
-      const prevWallet = prev;
-      for (const unit in inserted) {
-        prevWallet[unit] += inserted[unit];
-      }
-      return prevWallet;
-    });
-
-    amountCtx.setInsertedMoney(INITAIL_INSERT);
-    amountCtx.setLogs((prev) => {
-      const newLog = `${totalAmount}원이 반환되었습니다.`;
-      return [...prev, newLog];
+    dispatchMoney({ type: 'WITHDRAW' });
+    dispatchLog({
+      type: 'WITHDRAW',
+      newAmount: totalAmount,
     });
   };
   return (
@@ -105,8 +84,7 @@ const VendingForm = () => {
             id: 'amount',
             type: 'number',
             min: '0',
-            max: amountCtx.balance,
-            defaultValue: amountCtx.totalAmount,
+            defaultValue: money.TOTAL_AMOUNT,
             onFocus: inputOnfocusHandler,
           }}
         />

@@ -1,53 +1,43 @@
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Button from '../../UI/Button';
 import Container from '../../UI/container';
-import { _, CURRENCY } from '../../../constant/constant';
+import { _ } from '../../../constant/constant';
 import AmountContext from '../../../store/AmountContext';
 
-const WalletButton = ({ id, unit, onClick }) => {
+const WalletButton = ({ unit, onClick, isDisabled }) => {
   return (
-    <MoneyButton id={id} unit={unit} onClick={onClick}>
+    <MoneyButton unit={unit} key={unit} onClick={onClick} disabled={isDisabled}>
       {unit}
     </MoneyButton>
   );
 };
 
 const WalletButtons = () => {
-  const amountCtx = useContext(AmountContext);
+  const { money, dispatchMoney, dispatchLog } = useContext(AmountContext);
 
-  const onClickHandler = useCallback((e) => {
-    const clickedUnit = e.target.textContent.trim();
-    amountCtx.setWallet((prev) => {
-      const newWallet = {};
-      newWallet[`${clickedUnit}`] = prev[`${clickedUnit}`] - 1;
-
-      return { ...prev, ...newWallet };
-    });
-
-    amountCtx.setInsertedMoney((prev) => {
-      const newInsertedMoney = {};
-      newInsertedMoney[`${clickedUnit}`] = prev[`${clickedUnit}`] + 1;
-
-      return { ...prev, ...newInsertedMoney };
-    });
-    // todo - 이부분 공통적인 부분 많으니까 수정할 방법 찾아서 수정하기
-  }, []);
+  const onClickHandler = (e) => {
+    const newAmount = e.target.textContent.trim();
+    const newState = {};
+    newState[`${newAmount}`] = 1;
+    dispatchMoney({ type: 'INSERT', newState });
+    dispatchLog({ type: 'INSERT', newAmount });
+  };
 
   return (
     <>
       <Container width="100%" height="10%" flexInfo={[_, _, 'space-around']}>
-        {CURRENCY.map((v) => (
+        {Object.keys(money.WALLET).map((v) => (
           <WalletButton
-            id={v.id}
-            key={v.id}
-            unit={v.unit}
+            key={v}
+            unit={v}
             onClick={onClickHandler}
+            isDisabled={money.WALLET[v] ? false : true}
           />
         ))}
       </Container>
       <Container width="100%" height="20%" flexInfo={[_, _, 'space-around']}>
-        {Object.values(amountCtx.wallet).map((v, i) => (
+        {Object.values(money.WALLET).map((v, i) => (
           <MoneyButton key={i}>{v}</MoneyButton>
         ))}
       </Container>

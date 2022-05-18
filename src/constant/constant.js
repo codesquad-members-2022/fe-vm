@@ -154,4 +154,32 @@ const INITAIL_INSERT = {
   10000: 0,
 };
 
-export { DUMMY_DATA, _, CURRENCY, INITIAL_WALLET, INITAIL_INSERT };
+const INITAIL_MONEY = {
+  WALLET: {
+    10: 5,
+    50: 5,
+    100: 5,
+    500: 5,
+    1000: 5,
+    5000: 5,
+    10000: 5,
+  },
+  INSERTED: {
+    10: 0,
+    50: 0,
+    100: 0,
+    500: 0,
+    1000: 0,
+    5000: 0,
+    10000: 0,
+  },
+  TOTAL_AMOUNT: 0,
+};
+export {
+  DUMMY_DATA,
+  _,
+  CURRENCY,
+  INITIAL_WALLET,
+  INITAIL_INSERT,
+  INITAIL_MONEY,
+};

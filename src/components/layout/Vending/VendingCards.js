@@ -5,7 +5,7 @@ import { DUMMY_DATA, _ } from '../../../constant/constant';
 import AmountContext from '../../../store/AmountContext';
 
 const VendingCards = (props) => {
-  const amountCtx = useContext(AmountContext);
+  const { money } = useContext(AmountContext);
   // const onClickHander = (props) => {
   //   console.log(props);
   //   // console.log(parseInt(e.currentTarget.textContent));
@@ -18,7 +18,7 @@ const VendingCards = (props) => {
           key={id}
           name={name}
           price={price}
-          isAffordable={amountCtx.totalAmount >= price}
+          isAffordable={money.TOTAL_AMOUNT >= price}
           // onSave={onClickHander}
         />
       ))}
