@@ -1,15 +1,15 @@
 import { createGlobalStyle } from 'styled-components';
 import { reset } from 'styled-reset';
-import { F_center, Color } from './Common';
+import { Color } from './Common';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
   html{
     font-size: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
   }
   body{
-    font-family: 'Noto Sans KR', sans-serif;
-    background-color: ${Color.backGroundGray};
+    background-color: ${Color.black};
   }
   button{
     cursor: pointer;
@@ -17,7 +17,8 @@ const GlobalStyle = createGlobalStyle`
 };
 
   #root{
-    ${F_center}
+    display: flex;
+    align-items:center;
     flex-direction: column;
     width: 100vw;
     height: 100vh;

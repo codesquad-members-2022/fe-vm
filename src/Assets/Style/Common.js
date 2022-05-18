@@ -15,11 +15,13 @@ const Default_radius = css`
 `;
 
 const Color = {
+  black: '#010305;',
   white: '#FFFFFF',
-  backGroundGray: '#E9E9E9',
   gray: '#D9D9D9',
-  lightGray: '#EAEAEA',
-  darkGray: '#B6B6B6',
+  headerGray: '#1C2024',
+  backGroundGray: '#2B2F34;',
+  lightGray: '#3D444C',
+  darkGray: '#1D2125;',
   yellowGreen: '#12DD88',
   neonGreen: 'rgba(64, 233, 101, 1)',
 };
