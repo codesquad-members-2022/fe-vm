@@ -7,11 +7,7 @@ export const Product = ({title, price, handleProductCard, walletState}) => {
       insertedMoney={walletState.insertedMoney}
       productPrice={price}
     >
-      <ProductThumbnail
-        onClick={() => {
-          handleProductCard(price);
-        }}
-      >
+      <ProductThumbnail onClick={handleProductCard(price)}>
         {title}
       </ProductThumbnail>
       <PriceTag>{price}</PriceTag>

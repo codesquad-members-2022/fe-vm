@@ -9,8 +9,8 @@ const divideCurrentMoney = (moneyList, money) => {
   return moneyList;
 };
 
-const handleMoneyButton = (unit, currentMoney, insertMoney) => () => {
-  if (currentMoney < unit) {
+const handleMoneyButton = (unit, currentMoney, insertMoney, count) => () => {
+  if (currentMoney < unit || count === 0) {
     return;
   }
   insertMoney(unit);
@@ -27,7 +27,8 @@ export const InsertButton = ({
     <InsertBtnWrapper>
       <MoneyBtn
         key={id}
-        onClick={handleMoneyButton(unit, currentMoney, handleMoneyBtn)}
+        //Todo: 인자값 줄이기 리팩토링
+        onClick={handleMoneyButton(unit, currentMoney, handleMoneyBtn, count)}
       >
         {unit + '원'}
       </MoneyBtn>
