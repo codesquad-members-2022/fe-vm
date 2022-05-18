@@ -8,6 +8,8 @@ export default function MoneyAmount({ value, amount }) {
   const { subtractMoney } = useContext(WalletContext);
   const { addInputAmount } = useContext(InputAmountContext);
   const { log } = useContext(LogContext);
+  const isDisabled = amount === 0;
+
   function insertMoneyToVM() {
     subtractMoney(value, 1);
     addInputAmount(value);
@@ -15,7 +17,7 @@ export default function MoneyAmount({ value, amount }) {
   }
   return (
     <MoneyAmountWrapper>
-      <MoneyButton onClick={insertMoneyToVM} disabled={amount === 0}>
+      <MoneyButton onClick={insertMoneyToVM} disabled={isDisabled}>
         {value.toLocaleString()}원
       </MoneyButton>
       <Amount>X {amount}</Amount>
