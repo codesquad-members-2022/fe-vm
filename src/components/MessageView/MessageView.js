@@ -1,12 +1,13 @@
 import "./MessageView.css";
+import { useContext } from "react";
+import { MessageContext } from "../../context/MessageContext";
 
-const MessageView = ({ message }) => {
+const MessageView = () => {
+  const { message } = useContext(MessageContext);
   return (
     <div className="message-view">
       {message.map((v, i) => (
-        <div key={i}>
-          {typeof v === "string" ? <p>{v} 선택</p> : <p>{v} 투입</p>}
-        </div>
+        <div key={i}>{v}</div>
       ))}
     </div>
   );

@@ -1,9 +1,17 @@
+.product-wrapper {
+  width: 550px;
+  padding: 20px;
+  text-align: center;
+}
+
 .product-info {
-  margin: 30px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .product {
   width: 70px;
   height: 50px;
   border: 1px solid #000;
+  margin: 30px;
 }

@@ -1,4 +1,4 @@
-export const data = [
+export const productData = [
   {
     id: 1,
     name: "콜라",
@@ -11,7 +11,7 @@ export const data = [
   },
   {
     id: 3,
-    name: "파인애플맛환타",
+    name: "토마토쥬스",
     price: 400,
   },
   {
