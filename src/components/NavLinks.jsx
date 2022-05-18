@@ -4,15 +4,26 @@ import { v4 as uuidv4 } from 'uuid';
 
 import COLORS from 'constants/colors';
 
-const useNavLinks = (links) => {
+const links = [
+  {
+    path: '/vendingMachine',
+    title: '자판기',
+  },
+  {
+    path: '/wallet',
+    title: '지갑',
+  },
+];
+
+const NavLinks = () => {
   const location = useLocation();
 
   const pathname =
     location.pathname === '/' ? '/vendingMachine' : location.pathname;
   const isSelectedPath = (path) => path === pathname;
 
-  const navLinks = (
-    <NavLinks>
+  return (
+    <NavLinksWrapper>
       {links.map(({ path, title }) => (
         <NavLink key={uuidv4()}>
           <Link to={path}>
@@ -20,12 +31,11 @@ const useNavLinks = (links) => {
           </Link>
         </NavLink>
       ))}
-    </NavLinks>
+    </NavLinksWrapper>
   );
-  return navLinks;
 };
 
-const NavLinks = styled.ul`
+const NavLinksWrapper = styled.ul`
   display: flex;
   justify-content: center;
   width: 20rem;
@@ -51,4 +61,4 @@ const Button = styled.button`
   }
 `;
 
-export default useNavLinks;
+export default NavLinks;

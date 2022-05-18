@@ -1,34 +1,20 @@
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
+import NavLinks from 'components/NavLinks';
 import COLORS from 'constants/colors';
-import useNavLinks from 'hooks/useNavLinks';
 
-const links = [
-  {
-    path: '/vendingMachine',
-    title: '자판기',
-  },
-  {
-    path: '/wallet',
-    title: '지갑',
-  },
-];
-
-const Layout = () => {
-  const navLinks = useNavLinks(links);
-  return (
-    <>
-      <Header>
-        <HeaderTitle>코쿼 자판기</HeaderTitle>
-        <nav>{navLinks}</nav>
-      </Header>
-      <Content>
-        <Outlet />
-      </Content>
-    </>
-  );
-};
+const Layout = () => (
+  <>
+    <Header>
+      <HeaderTitle>코쿼 자판기</HeaderTitle>
+      <NavLinks />
+    </Header>
+    <Content>
+      <Outlet />
+    </Content>
+  </>
+);
 
 const Header = styled.header`
   display: flex;
