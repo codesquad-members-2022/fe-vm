@@ -1,3 +1,5 @@
+import { HistoryContext } from "context";
+import { useContext } from "react";
 import styled from "styled-components";
 
 const StyledHistoryBox = styled.ul`
@@ -7,14 +9,18 @@ const StyledHistoryBox = styled.ul`
   margin-top: 10px;
 `;
 
-const History = styled.li``;
+function History({ comment }) {
+  return comment;
+}
 
 function HistoryBox() {
-  const history = [{ id: 1, type: "input", content: "500" }];
+  const { histories } = useContext(HistoryContext);
   return (
     <StyledHistoryBox>
-      {history.map(({ id, type, content }) => (
-        <History key={id}>{content + type}</History>
+      {histories.history.map(({ id, comment }) => (
+        <li key={id}>
+          <History comment={comment} />
+        </li>
       ))}
     </StyledHistoryBox>
   );
