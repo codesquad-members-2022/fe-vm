@@ -33,6 +33,7 @@ function VendingMachineProvider({ children }) {
         moneyInVendingMachine,
         totalMoneyInVendingMachine,
         putMoneyIntoVendingMachine,
+        setMoneyInVendingMachine,
     };
 
     return (

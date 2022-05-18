@@ -1,10 +1,10 @@
 import MoneySlot from "../../components/moneySlot/MoneySlot";
 import Products from "../../components/product/Products";
 import RecordBoard from "../../components/recordBoard/RecordBoard";
+import ReturnButton from "../../components/returnButton/ReturnButton";
 import {
     VendingMachineContainer,
     UserInterfaceContainer,
-    ChangesButton,
 } from "./VendingMachine.style";
 
 function VendingMachine() {
@@ -13,7 +13,7 @@ function VendingMachine() {
             <Products />
             <UserInterfaceContainer>
                 <MoneySlot />
-                <ChangesButton>반환</ChangesButton>
+                <ReturnButton />
                 <RecordBoard />
             </UserInterfaceContainer>
         </VendingMachineContainer>
