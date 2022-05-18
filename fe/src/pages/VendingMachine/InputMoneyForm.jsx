@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
-import { changeNumberToKoreanLocaleMoney } from 'utils';
+import { changeNumberToKoreanLocaleMoney } from 'utils/global';
 import * as S from './style';
 
 const INSERT_FORM_ID = 'insert-form';

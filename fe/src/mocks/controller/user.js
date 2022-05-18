@@ -61,7 +61,7 @@ export function getTargetUnitInfo(units, id) {
     msg: '',
   };
   const targetIndex = units.findIndex(unit => unit.id === id);
-  if (!targetIndex) {
+  if (isNaN(targetIndex) && !targetIndex) {
     error.isError = true;
     error.msg = '상품들 중에 찾는 id가 없어요. ';
   }

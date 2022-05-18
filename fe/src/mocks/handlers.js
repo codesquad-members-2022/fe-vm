@@ -13,14 +13,22 @@ import {
 
 const mangerBalanceObj = { changesUnits: defaultMangerUnits, totalBalance: managerBalance };
 const globalProductsObj = { products: randomProducts };
-
 const userBalanceObj = getRestUnit(defaultChangeUnits, userBalance);
 
 const Users = [
   rest.get(API_ROOT_URL + API.LOGIN, (req, res, ctx) => {
     const { changesUnits, totalBalance } = userBalanceObj;
     const userInfo = { ...userDefaultInfo, changesUnits, totalBalance };
-    return res(ctx.status(200), ctx.json(userInfo));
+    if (userInfo.isManager) {
+      const { changesUnits: mangerUnits, totalBalance: managerTotalBalance } = mangerBalanceObj;
+      const mangerInfo = {
+        ...userDefaultInfo,
+        changesUnits: mangerUnits,
+        totalBalance: managerTotalBalance,
+      };
+      return res(ctx.status(200), ctx.cookie('auth-token', 'temp jwt'), ctx.json(mangerInfo));
+    }
+    return res(ctx.status(200), ctx.cookie('auth-token', 'temp jwt'), ctx.json(userInfo));
   }),
   rest.patch(API_ROOT_URL + API.PATCH_ADD_BALANCE, (req, res, ctx) => {
     const unitId = Number(req.url.searchParams.get('id'));
@@ -55,7 +63,7 @@ const Users = [
     }
     setManagerBalanceObj(newManagerUnits, newMangerTotalBalance);
     setUserBalanceObj(newUserUnits, newUserTotalBalance);
-    const [_, updateProductError] = updateProduct(products, productId, substractTargetProduct);
+    const [, updateProductError] = updateProduct(products, productId, substractTargetProduct);
     if (updateProductError.isError) {
       return res(ctx.status(406), ctx.json({ errorMessage: updateProductError.msg }));
     }

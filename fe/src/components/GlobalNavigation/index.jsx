@@ -5,11 +5,12 @@ import { Tab, Tabs } from '@mui/material';
 import { useUserContext } from 'context/User';
 import useModal from 'hooks/useModal';
 import LoginModal from 'components/LoginModal';
+import { isLogin } from 'utils/cookie';
 import * as S from './style';
 
 function GlobalNavigation() {
   const [isModalOpen, handleOpenModal] = useModal();
-  const { nickname } = useUserContext();
+  const { nickname, isManager } = useUserContext();
   const [activeTabIndex, setActiveTabIndex] = useState(currentTab);
   const handleActiveTab = (event, newValue) => {
     setActiveTabIndex(newValue);
@@ -25,9 +26,9 @@ function GlobalNavigation() {
         centered
       >
         <Tab label="상품 주문" to={ROUTE.HOME} component={Link} />
-        <Tab label="재고 관리" to={ROUTE.MANGEMENT} component={Link} />
+        {isManager && <Tab label="재고 관리" to={ROUTE.MANGEMENT} component={Link} />}
       </Tabs>
-      {nickname ? (
+      {isLogin() && nickname ? (
         <span>{nickname}</span>
       ) : (
         <button type="button" onClick={handleOpenModal}>
