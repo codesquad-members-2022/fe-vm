@@ -5,6 +5,7 @@ import { VendingMachineContainer, Wallet, NotFound } from "pages";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import { menuItem, walletItem } from "data";
+import { BrowserRouter } from "react-router-dom";
 
 const GlobalStyles = createGlobalStyle`
   ${reset}
@@ -37,14 +38,16 @@ function App() {
         <MoneyContext.Provider value={{ inputMoney, setInputMoney }}>
           <MenuStockContext.Provider value={{ menuStock, setMenuStock }}>
             <GlobalStyles />
-            <Routes>
-              <Route element={<Layout />}>
-                <Route index element={<VendingMachineContainer />} />
-                <Route path="/vendingmachine" element={<VendingMachineContainer />} />
-                <Route path="/wallet" element={<Wallet />} />
-              </Route>
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
+              <Routes>
+                <Route element={<Layout />}>
+                  <Route index element={<VendingMachineContainer />} />
+                  <Route path="/vendingmachine" element={<VendingMachineContainer />} />
+                  <Route path="/wallet" element={<Wallet />} />
+                </Route>
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
           </MenuStockContext.Provider>
         </MoneyContext.Provider>
       </WalletContext.Provider>
