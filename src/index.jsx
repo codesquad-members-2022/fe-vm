@@ -7,9 +7,7 @@ import MoneyProvider from './context/MoneyProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <MoneyProvider>
-      <App />
-    </MoneyProvider>
-  </React.StrictMode>
+  <MoneyProvider>
+    <App />
+  </MoneyProvider>
 );

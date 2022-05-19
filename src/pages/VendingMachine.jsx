@@ -15,9 +15,8 @@ export default function VendingMachine() {
     inputPrice,
     setInputPrice,
     moneyInfos,
-    setMoneyInfos,
-    decreaseWalletMoneyByInput,
-    addRefund2MoneyInfo,
+    onDecreaseWalletMoneyByInput,
+    onAddRefund2MoneyInfo,
   } = useContext(MoneyContext);
   const [content, setContent] = useState(0);
   const [progressMsg, setProgressMsg] = useState(
@@ -42,7 +41,7 @@ export default function VendingMachine() {
     // Todo : 지갑에 요금의 개수가 없거나 지갑 전체 요금보다 큰 경우 예외처리
     const currentPrice = Number(content);
     setInputPrice([...inputPrice, Number(currentPrice)]);
-    setMoneyInfos([...decreaseWalletMoneyByInput(Number(currentPrice))]);
+    onDecreaseWalletMoneyByInput(Number(currentPrice));
     setProgressMsg([...progressMsg, `${currentPrice}원이 투입되었습니다.`]);
   };
 
@@ -70,8 +69,8 @@ export default function VendingMachine() {
       ...progressMsg,
       `잔돈 ${currentRemainMoney}원이 반환됩니다.`,
     ]);
-    const newMoneyInfos = addRefund2MoneyInfo(currentRemainMoney);
-    setMoneyInfos([...newMoneyInfos]);
+
+    onAddRefund2MoneyInfo(currentRemainMoney);
   };
 
   return (

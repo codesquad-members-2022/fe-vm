@@ -1,6 +1,8 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-undef */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable react/require-default-props */
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
 export const MoneyContext = React.createContext();
@@ -16,30 +18,60 @@ export default function MoneyProvider({ children }) {
     { type: 10000, num: 1 },
   ];
 
-  const [inputPrice, setInputPrice] = useState([]);
-  const [moneyInfos, setMoneyInfos] = useState(initialMoneyInfos);
+  const reducer = (state, action) => {
+    const { type, payload } = action;
+    switch (type) {
+      case 'INSERT':
+        return decreaseWalletMoney({ state, price: payload });
+      case 'INSERT_INPUT':
+        return decreaseWalletMoneyByInput({ state, price: payload });
+      case 'REFUND':
+        return addRefund2MoneyInfo({ state, price: payload });
+      default:
+        throw new Error('type을 확인해주세요', type);
+    }
+  };
 
-  const decreaseWalletMoney = (currentMoneyType) => {
-    const targetMoney = moneyInfos.find(
-      ({ type }) => type === currentMoneyType
-    );
-    const filteredMoney = moneyInfos.filter(
-      ({ type }) => type !== currentMoneyType
-    );
+  const [moneyInfos, dispatchMoneyInfos] = useReducer(
+    reducer,
+    initialMoneyInfos
+  );
+
+  const [inputPrice, setInputPrice] = useState([]);
+
+  function decreaseWalletMoney({ state, price }) {
+    const targetMoney = state.find(({ type }) => type === price);
+    const filteredMoney = state.filter(({ type }) => type !== price);
 
     const { type } = targetMoney;
     const num = targetMoney.num - 1;
-    setMoneyInfos(
-      [...filteredMoney, { type, num }].sort(
-        (aMoney, bMoney) => aMoney.type - bMoney.type
-      )
-    );
-  };
 
-  const findTargetMoneyInfo = (price, infos) => {
+    const newMoneyInfos = [...filteredMoney, { type, num }].sort(
+      (aMoney, bMoney) => aMoney.type - bMoney.type
+    );
+
+    return newMoneyInfos;
+  }
+
+  function findTargetMoneyInfo(price, infos) {
+    return infos.map(({ type, num }) => {
+      if (type === price) {
+        return {
+          type,
+          num,
+        };
+      }
+      return {
+        type,
+        num: 0,
+      };
+    });
+  }
+
+  function findRefundTargetMoneyInfo(price, infos) {
     let money = price;
     infos.reverse();
-    return infos.map(({ type }) => {
+    const newInfos = infos.map(({ type }) => {
       const num = Math.floor(money / type);
       money %= type;
       return {
@@ -47,10 +79,12 @@ export default function MoneyProvider({ children }) {
         num,
       };
     });
-  };
 
-  const updateMoneyInfo = ({ targetInfos, isPlus }) => {
-    const newInfos = moneyInfos.map((info, index) => {
+    return newInfos;
+  }
+
+  function updateMoneyInfo({ targetInfos, isPlus, infos }) {
+    const newInfos = infos.map((info, index) => {
       const { type, num } = targetInfos[index];
       if (info.type === type && num > 0) {
         return {
@@ -63,26 +97,39 @@ export default function MoneyProvider({ children }) {
     });
 
     return newInfos;
-  };
+  }
 
-  const decreaseWalletMoneyByInput = (price) => {
-    const targetInfos = findTargetMoneyInfo(price, moneyInfos);
-    const newMoneyInfos = updateMoneyInfo({ targetInfos, isPlus: false });
-    newMoneyInfos.reverse();
+  function decreaseWalletMoneyByInput({ state, price }) {
+    const targetInfos = findTargetMoneyInfo(price, state);
+    const newMoneyInfos = updateMoneyInfo({
+      targetInfos,
+      isPlus: false,
+      infos: state,
+    });
 
     return newMoneyInfos;
-  };
+  }
 
-  const addRefund2MoneyInfo = (price) => {
-    const refundMoneyInfo = findTargetMoneyInfo(price, moneyInfos);
-
+  function addRefund2MoneyInfo({ state, price }) {
+    const refundMoneyInfo = findRefundTargetMoneyInfo(price, state);
     const newMoneyInfos = updateMoneyInfo({
       targetInfos: refundMoneyInfo,
       isPlus: true,
+      infos: state,
     });
     newMoneyInfos.reverse();
 
     return newMoneyInfos;
+  }
+
+  const onDecreaseWalletMoney = (price) => {
+    dispatchMoneyInfos({ type: 'INSERT', payload: price });
+  };
+  const onDecreaseWalletMoneyByInput = (price) => {
+    dispatchMoneyInfos({ type: 'INSERT_INPUT', payload: price });
+  };
+  const onAddRefund2MoneyInfo = (price) => {
+    dispatchMoneyInfos({ type: 'REFUND', payload: price });
   };
 
   const value = useMemo(
@@ -90,19 +137,17 @@ export default function MoneyProvider({ children }) {
       inputPrice,
       setInputPrice,
       moneyInfos,
-      setMoneyInfos,
-      decreaseWalletMoney,
-      decreaseWalletMoneyByInput,
-      addRefund2MoneyInfo,
+      onDecreaseWalletMoney,
+      onDecreaseWalletMoneyByInput,
+      onAddRefund2MoneyInfo,
     }),
     [
       inputPrice,
       setInputPrice,
       moneyInfos,
-      setMoneyInfos,
-      decreaseWalletMoney,
-      decreaseWalletMoneyByInput,
-      addRefund2MoneyInfo,
+      onDecreaseWalletMoney,
+      onDecreaseWalletMoneyByInput,
+      onAddRefund2MoneyInfo,
     ]
   );
 
