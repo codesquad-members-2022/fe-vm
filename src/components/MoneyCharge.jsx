@@ -5,7 +5,7 @@ import { CoinContext } from 'components/App';
 import getTotalMoneyOfCoins from 'components/utils';
 
 function MoneyCharge() {
-  const { coins, setCoins } = useContext(CoinContext);
+  const { coins } = useContext(CoinContext);
   const defaultWalletMoney = getTotalMoneyOfCoins(coins);
   const [curWalletMoney, setCurWalletMoney] = useState(defaultWalletMoney);
   return (
@@ -14,7 +14,6 @@ function MoneyCharge() {
         coins={coins}
         curWalletMoney={curWalletMoney}
         setCurWalletMoney={setCurWalletMoney}
-        handleCoinCount={handleCoinCount}
       />
       <Total>
         <div>{curWalletMoney}</div>
@@ -22,16 +21,6 @@ function MoneyCharge() {
       </Total>
     </Wrap>
   );
-  function handleCoinCount(coinIdx) {
-    const newCoins = coins.map((coin, idx) => {
-      const isTargetCoin = idx === coinIdx;
-      if (isTargetCoin) {
-        return { AMOUNT: coin.AMOUNT, CNT: coin.CNT - 1 };
-      }
-      return coin;
-    });
-    setCoins(newCoins);
-  }
 }
 
 const Wrap = styled.div({
