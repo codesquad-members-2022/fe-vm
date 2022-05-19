@@ -1,6 +1,6 @@
 import { createContext, Dispatch, useReducer, useContext } from 'react';
 
-type PriceAction =
+export type PriceAction =
   | { type: 'SELECT_PRICE' }
   | { type: 'ADD_PRICE'; price: number | undefined }
   | { type: 'DELETE_ALL_PRICE' };
