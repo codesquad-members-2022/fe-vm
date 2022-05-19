@@ -66,7 +66,9 @@ const InsertMoneyArea = () => {
 
   const inputRef = useRef(null);
 
-  const focusInput = () => inputRef.current.focus();
+  const focusInput = () => {
+    inputRef.current.focus();
+  };
 
   const isValidInput = (inputValue) => {
     if (isInputUnderMinLength(inputValue)) {

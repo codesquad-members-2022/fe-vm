@@ -20,7 +20,7 @@ const ProgressArea = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, []);
+  }, [progress]);
 
   return (
     <Wrapper>
