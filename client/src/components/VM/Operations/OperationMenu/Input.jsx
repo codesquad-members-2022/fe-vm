@@ -81,45 +81,6 @@ export default function Input() {
     }
   }
 
-  function validateInput(input, moneyUnitArr, wallet) {
-    const neededMoney = getNeededMoney(input, moneyUnitArr);
-    const newWallet = { ...wallet };
-    const left = [];
-    let validation = true;
-    let balanced = null;
-
-    neededMoney.forEach(([unit, amount]) => {
-      if (newWallet[unit] >= amount) {
-        newWallet[unit] -= amount;
-        amount = 0;
-      } else {
-        left.push([unit, amount]);
-      }
-    });
-
-    if (!left.length) return [newWallet, balanced];
-
-    const leftTotal = left.reduce((acc, [unit, amount]) => {
-      return acc + unit * amount;
-    }, 0);
-
-    for (let i = 0; i < reversedMoneyUnitArr.length; i++) {
-      if (
-        reversedMoneyUnitArr[i] > leftTotal &&
-        newWallet[reversedMoneyUnitArr[i]] > 0
-      ) {
-        newWallet[reversedMoneyUnitArr[i]] -= 1;
-        balanced = reversedMoneyUnitArr[i];
-        validation = true;
-        break;
-      } else {
-        validation = false;
-      }
-    }
-
-    return validation ? [newWallet, balanced] : false;
-  }
-
   useEffect(() => {
     setCursor(true);
   }, [cursor]);
@@ -151,6 +112,45 @@ export default function Input() {
       원
     </StyledForm>
   );
+}
+
+function validateInput(input, moneyUnitArr, wallet) {
+  const neededMoney = getNeededMoney(input, moneyUnitArr);
+  const newWallet = { ...wallet };
+  const left = [];
+  let validation = true;
+  let balanced = null;
+
+  neededMoney.forEach(([unit, amount]) => {
+    if (newWallet[unit] >= amount) {
+      newWallet[unit] -= amount;
+      amount = 0;
+    } else {
+      left.push([unit, amount]);
+    }
+  });
+
+  if (!left.length) return [newWallet, balanced];
+
+  const leftTotal = left.reduce((acc, [unit, amount]) => {
+    return acc + unit * amount;
+  }, 0);
+
+  for (let i = 0; i < reversedMoneyUnitArr.length; i++) {
+    if (
+      reversedMoneyUnitArr[i] > leftTotal &&
+      newWallet[reversedMoneyUnitArr[i]] > 0
+    ) {
+      newWallet[reversedMoneyUnitArr[i]] -= 1;
+      balanced = reversedMoneyUnitArr[i];
+      validation = true;
+      break;
+    } else {
+      validation = false;
+    }
+  }
+
+  return validation ? [newWallet, balanced] : false;
 }
 
 const StyledForm = styled.form`
