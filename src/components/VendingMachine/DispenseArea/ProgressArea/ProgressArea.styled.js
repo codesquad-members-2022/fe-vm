@@ -8,8 +8,8 @@ const Wrapper = styled.div`
     padding: ${whitespace.default};
   `};
 
-  height: calc(100% - 11.5rem);
-  max-height: calc(100% - 11.5rem);
+  height: calc(100% - 13rem);
+  max-height: calc(100% - 13rem);
   overflow-y: auto;
 `;
 

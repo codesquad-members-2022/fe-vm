@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 
 import StyledInput from "./Input.styled";
 
-const Input = ({ type, value, style }) => {
+const Input = forwardRef(({ type, value, styles }, ref) => {
   const [inputValue, setInputValue] = useState(value);
 
   const handleInputChange = ({ target }) => {
@@ -14,9 +14,10 @@ const Input = ({ type, value, style }) => {
       type={type}
       value={inputValue}
       onChange={handleInputChange}
-      style={style}
+      styles={styles}
+      ref={ref}
     />
   );
-};
+});
 
 export default Input;

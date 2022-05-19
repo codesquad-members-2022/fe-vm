@@ -15,7 +15,7 @@ const Count = ({ data }) => {
 
 const MoneyItem = ({ money, count }) => {
   const decreaseCashCount = useContext(SetMoneyContext);
-  const insertMoney = useContext(SetInsertedMoneyContext);
+  const { insertMoney } = useContext(SetInsertedMoneyContext);
   const updateProgress = useContext(SetProgressContext);
 
   const handleClickMoney = useCallback(() => {

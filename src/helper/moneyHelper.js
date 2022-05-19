@@ -26,6 +26,9 @@ const moneyHelper = {
         }, currentData);
     });
   },
+  isWithinBaseMoney(insertedMoney, baseMoney) {
+    return insertedMoney <= baseMoney;
+  },
 };
 
 export default moneyHelper;
