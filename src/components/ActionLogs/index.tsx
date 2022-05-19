@@ -1,6 +1,7 @@
 import React, { useContext, memo, useRef, useEffect, useState } from 'react';
 
-import { ACTION, ActionType, VMContext } from '@/Provider/VMProvider';
+import { ACTION, ActionType, VMContext } from '@/Context/VMContext';
+import { LOG_ACTION, LogDispatch, useLog } from '@/Context/VMContext/LogContext';
 
 import * as S from './styles';
 
@@ -14,11 +15,13 @@ export interface LogProps {
 
 export interface ContextMenuProps {
   dispatch: React.Dispatch<ActionType>;
+  lDispatch: LogDispatch;
   top: number;
   left: number;
 }
 
 const ActionLogs = ({ className }: LogsProps) => {
+  const { state: lState, dispatch: lDispatch } = useLog();
   const {
     state: { logs },
     dispatch,
@@ -26,7 +29,7 @@ const ActionLogs = ({ className }: LogsProps) => {
   const actionLogsRef = useRef<HTMLOListElement | null>(null);
   const contextMenuWrapperRef = useRef<HTMLDivElement | null>(null);
   const [isContextMenuActive, setIsContextMenuActive] = useState(false);
-  const [points, setPoints] = useState({ x: 30, y: 30 });
+  const [points, setPoints] = useState({ x: 0, y: 0 });
 
   const onContextMenu = (event: React.PointerEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -68,12 +71,14 @@ const ActionLogs = ({ className }: LogsProps) => {
   return (
     <S.ActionLogsLayout className={className} onContextMenu={onContextMenu}>
       <S.ActionLogsLayer ref={actionLogsRef}>
-        {logs.map(({ id, message }) => (
+        {lState.map(({ id, message }) => (
           <ActionLog key={id} message={message} />
         ))}
       </S.ActionLogsLayer>
       <S.ContextMenuWrapper ref={contextMenuWrapperRef}>
-        {isContextMenuActive && <ContextMenu dispatch={dispatch} top={points.y} left={points.x} />}
+        {isContextMenuActive && (
+          <ContextMenu lDispatch={lDispatch} dispatch={dispatch} top={points.y} left={points.x} />
+        )}
       </S.ContextMenuWrapper>
     </S.ActionLogsLayout>
   );
@@ -87,17 +92,14 @@ const ActionLog = memo(({ message }: LogProps) => {
   );
 });
 
-const ContextMenu = ({ dispatch, top, left }: ContextMenuProps) => {
+const ContextMenu = ({ lDispatch, dispatch, top, left }: ContextMenuProps) => {
   const onClick = () => {
-    dispatch({ type: ACTION.DELETE_ALL_LOGS });
+    // dispatch({ type: ACTION.DELETE_ALL_LOGS });
+    lDispatch({ type: LOG_ACTION.CLEAR });
   };
 
   return (
     <S.ContextMenuLayer top={top} left={left}>
-      <S.ContextMenuItem onClick={onClick}>모든 로그 삭제</S.ContextMenuItem>
-      <S.ContextMenuItem onClick={onClick}>모든 로그 삭제</S.ContextMenuItem>
-      <S.ContextMenuItem onClick={onClick}>모든 로그 삭제</S.ContextMenuItem>
-      <S.ContextMenuItem onClick={onClick}>모든 로그 삭제</S.ContextMenuItem>
       <S.ContextMenuItem onClick={onClick}>모든 로그 삭제</S.ContextMenuItem>
     </S.ContextMenuLayer>
   );
