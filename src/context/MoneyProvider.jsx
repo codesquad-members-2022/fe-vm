@@ -55,7 +55,7 @@ const moneyReducer = (state, { type, targetMoney, count, amount }) => {
       const newWalletMoney = state.walletMoney.map((money) => {
         const newMoney = {
           ...money,
-          count: money.count + state.nsertedMoney[money.amount],
+          count: money.count + state.insertedMoney[money.amount],
         };
         return newMoney;
       });
