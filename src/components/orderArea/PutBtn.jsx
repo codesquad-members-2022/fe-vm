@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'components/orderArea/PutBtn.style';
-import { addCommasToNumber } from 'utils/util';
 import { FinalPayContext, FinalPaySetContext } from 'Context/FinalPayProvider';
 import { SelectedProductSetContext } from 'Context/SelectedProductProvider';
 import { VMTimerSetContext } from 'Context/VMTimerProvider';
@@ -52,7 +51,7 @@ export default function PutBtn({ inputPay }) {
   const StartTimerToSelectProduct = totalPay => {
     stopVMTimer();
     startVMTimer([
-      [() => returnPayHistory(addCommasToNumber(totalPay)), TIME_TO_SELCT_PRODUCT],
+      [() => returnPayHistory(totalPay), TIME_TO_SELCT_PRODUCT],
       [resetVMState, TIME_TO_RESET_HISTORY]
     ]);
   };
@@ -61,7 +60,7 @@ export default function PutBtn({ inputPay }) {
     const modifiedPayment = modifyPayment();
     const totalPay = finalPay + modifiedPayment;
     setFinalPay(totalPay);
-    addInputHistory(addCommasToNumber(totalPay));
+    addInputHistory(totalPay);
     StartTimerToSelectProduct(totalPay);
   };
 
