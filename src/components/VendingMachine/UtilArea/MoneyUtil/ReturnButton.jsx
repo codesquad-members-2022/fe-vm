@@ -1,9 +1,9 @@
-import { css } from "styled-components";
 import { useContext } from "react";
-import { Balance } from "../../../../contextProviders/BalanceProvider";
-import { Records } from "../../../../contextProviders/RecordsProvider";
-import { activityType, moneyOrder } from "../../../../convention";
-import Button from "../../../common/Button";
+import { css } from "styled-components";
+import { Balance } from "contextProviders/BalanceProvider";
+import { Records } from "contextProviders/RecordsProvider";
+import Button from "components/common/Button";
+import { activityType, moneyOrder } from "convention";
 
 const ReturnButton = () => {
   const { inputSum, wallet, updateBalance } = useContext(Balance);
@@ -26,22 +26,29 @@ const ReturnButton = () => {
   };
 
   const packChange = () => {
-    let remainInputSum = inputSum;
     const change = {};
-    moneyOrder.forEach((moneyType) => {
+    moneyOrder.reduce((remainInputSum, moneyType) => {
       const currMoneyNumber = parseInt(remainInputSum / Number(moneyType));
       change[moneyType] = currMoneyNumber;
-      remainInputSum = remainInputSum % Number(moneyType);
-    });
+      return remainInputSum % Number(moneyType);
+    }, inputSum);
+
     return change;
   };
 
-  return <Button styles={returnButtonStyles} content={"return"} onClick={handleClick} />;
+  return (
+    <Button
+      styles={returnButtonStyles}
+      content={"return"}
+      onClick={handleClick}
+    />
+  );
 };
 
 const returnButtonStyles = css`
   width: 60px;
   height: 60px;
+  margin-top: 10px;
   border-radius: 100%;
   display: flex;
   justify-content: center;

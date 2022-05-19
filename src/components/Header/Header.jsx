@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Nav from "./Nav";
-import icons from "../../styles/icons";
+import icons from "styles/icons";
 
 const Header = () => {
   return (

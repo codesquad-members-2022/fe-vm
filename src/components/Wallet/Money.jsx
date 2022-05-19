@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import icons from "../../styles/icons";
 import { useContext } from "react";
-import { Balance } from "../../contextProviders/BalanceProvider";
-import { Records } from "../../contextProviders/RecordsProvider";
-import { activityType } from "../../convention";
+import styled from "styled-components";
+import icons from "styles/icons";
+import { Balance } from "contextProviders/BalanceProvider";
+import { Records } from "contextProviders/RecordsProvider";
+import { activityType } from "convention";
 
 const Money = ({ moneyType, number }) => {
   const { wallet, inputSum, updateBalance } = useContext(Balance);
@@ -38,7 +38,8 @@ const MoneyWrapper = styled.div`
 const MoneyButton = styled.div`
   width: 140px;
   height: 70px;
-  background: ${({ moneyType }) => `url(${icons.MONEY_IMG[moneyType]})`} no-repeat center;
+  background: ${({ moneyType }) => `url(${icons.MONEY_IMG[moneyType]})`}
+    no-repeat center;
   background-size: contain;
 `;
 

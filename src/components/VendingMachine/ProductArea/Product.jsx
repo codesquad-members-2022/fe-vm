@@ -1,33 +1,10 @@
 import { useContext } from "react";
-import { Balance } from "../../../contextProviders/BalanceProvider";
-import { Records } from "../../../contextProviders/RecordsProvider";
-import { ProductsInfo } from "../../../contextProviders/ProductsInfoProvider";
-import { activityType } from "../../../convention";
+import { Balance } from "contextProviders/BalanceProvider";
 import styled, { css } from "styled-components";
-import Button from "../../common/Button";
+import Button from "components/common/Button";
 
-const Product = ({ productInfo, productIdx }) => {
-  const { inputSum, setInputSum } = useContext(Balance);
-  const { updateRecord } = useContext(Records);
-  const { updateProductInfo } = useContext(ProductsInfo);
-
-  const handleClick = () => {
-    if (!productInfo.stock) {
-      updateRecord(activityType.OUT_OF_STOCK, productInfo.name);
-    } else if (inputSum < productInfo.price) {
-      updateRecord(activityType.LACK_OF_MONEY);
-    } else {
-      purchaseProduct();
-      updateRecord(activityType.PURCHASE, productInfo.name);
-    }
-  };
-
-  const purchaseProduct = () => {
-    const newProductInfo = { ...productInfo };
-    newProductInfo.stock--;
-    updateProductInfo(productInfo.id, productIdx, newProductInfo);
-    setInputSum(inputSum - productInfo.price);
-  };
+const Product = ({ productInfo, handlePurchaseBtnClick }) => {
+  const { inputSum } = useContext(Balance);
 
   const decidePurchaseBtnStyles = () => {
     if (!productInfo.stock) {
@@ -52,7 +29,7 @@ const Product = ({ productInfo, productIdx }) => {
         <Button
           styles={decidePurchaseBtnStyles()}
           content={decidePurchaseBtnContent()}
-          onClick={handleClick}
+          onClick={() => handlePurchaseBtnClick(productInfo)}
         />
       </ProductStand>
     </ProductWrapper>
@@ -65,10 +42,15 @@ const ProductWrapper = styled.div`
 
 const ProductImageWrapper = styled.div`
   height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
   img {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     opacity: ${({ stock }) => (stock ? "100%" : "20%")};
+    object-fit: cover;
   }
 `;
 

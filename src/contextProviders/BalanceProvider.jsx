@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { request } from "../fetcher";
+import { request } from "fetcher";
 
 export const Balance = createContext();
 

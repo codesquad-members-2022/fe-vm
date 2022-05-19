@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useContext, useState } from "react";
-import { ProductsInfo } from "../contextProviders/ProductsInfoProvider";
-import ProductStockManager from "../components/StockManager/ProductStockManager";
-import SaveButton from "../components/StockManager/SaveButton";
+import { ProductsInfo } from "contextProviders/ProductsInfoProvider";
+import ProductStockManager from "components/StockManager/ProductStockManager";
+import SaveButton from "components/StockManager/SaveButton";
 
 const StockManager = () => {
   const { productsInfo } = useContext(ProductsInfo);

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import { alertMessage } from "../../convention";
+import { alertMessage } from "convention";
 
 const Nav = () => {
   const navigate = useNavigate();
