@@ -1,4 +1,11 @@
-import React, { Dispatch, createContext, useReducer, useMemo, useContext } from 'react';
+import React, {
+  Dispatch,
+  createContext,
+  useReducer,
+  useMemo,
+  useContext,
+  useCallback,
+} from 'react';
 
 import { coins } from '@/mock/storage';
 
@@ -63,6 +70,10 @@ const walletReducer = (state: IWallet, action: WalletAction): IWallet => {
       }
 
       let surplus = requestedInputAmount;
+
+      /* NOTE: 각 동전이 총 몇개 사용될 수 있는지 외부에서 파악하고
+         NOTE: 알고리즘 적용 후 realInputAmount와 동전개수 넣어주는 방식?
+       */
 
       for (let i = newCoins.length - 1; i >= 0; i--) {
         if (surplus === 0) {
@@ -131,14 +142,54 @@ const WalletProvider = ({ children }: { children: React.ReactNode }) => {
   return <WalletContext.Provider value={value}>{children}</WalletContext.Provider>;
 };
 
+interface ICalRequiredCoins {
+  (wallet: IWallet, inputAmount: number): {
+    realInputAmount: number;
+    requiredCoinCountInfo: { amount: number; count: number }[];
+  };
+}
+
+const calRequiredCoins: ICalRequiredCoins = (wallet, inputAmount) => {
+  // inputAmount 받으면 적절하게 분류해서 실제 투입금, 실제 인풋 정보줌
+  const { coins, balance } = wallet;
+  const requiredCoinCountInfo = wallet.coins.map(({ amount, count }) => {
+    return { amount, count: 0 };
+  });
+
+  // 갖고 있는 금액보다 많은 금액이 요청되면 갖고 있는 금액만 투입
+  const requestedInputAmount = balance < inputAmount ? balance : inputAmount;
+  let surplus = requestedInputAmount;
+
+  for (let i = coins.length - 1; i >= 0; i--) {
+    if (surplus === 0) {
+      break;
+    }
+
+    const { amount, count } = coins[i];
+
+    // 실제로는 requiredCount 만큼 넣을 수 있어도, 가지고 있는 동전 개수가 적을 수도 있음
+    const requiredCount = Math.floor(surplus / amount);
+    const realRequiredCount = requiredCount > count ? count : requiredCount;
+    requiredCoinCountInfo[i].count = realRequiredCount;
+    surplus -= realRequiredCount * amount;
+
+    console.log(`%c[${amount}]: ${realRequiredCount}개 사용`, 'color: #fe2;');
+  }
+
+  const realInputAmount = requestedInputAmount - surplus;
+
+  return { realInputAmount, requiredCoinCountInfo };
+};
+
 const useWallet = () => {
   const wallet = useContext(WalletContext);
+  const _calRequiredCoins = useCallback(() => calRequiredCoins, []);
 
   if (!wallet) {
-    console.log('wallet error');
-    throw new Error('wallet error');
+    throw new Error('WalletContext Error');
   }
-  return wallet;
+
+  return [wallet, _calRequiredCoins];
 };
 
 export { useWallet, WalletProvider, WALLET_ACTION };
