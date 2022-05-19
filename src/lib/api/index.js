@@ -10,4 +10,13 @@ const productsApi = {
     }),
 };
 
-export { productsApi };
+const walletApi = {
+  getAllMoney: () => getData(API.WALLET),
+  reduceMoneyQuantity: ({ id, data }) =>
+    patchData({
+      url: `${API.WALLET}/${id}`,
+      data,
+    }),
+};
+
+export { productsApi, walletApi };

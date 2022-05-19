@@ -22,6 +22,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
+    "server": "npx json-server ./db.json --port 4000",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },

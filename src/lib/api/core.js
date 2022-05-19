@@ -23,10 +23,7 @@ const getData = async url =>
 const patchData = async ({ url, data }) =>
   await instance
     .patch(url, data)
-    .then(res => {
-      console.log(res);
-      return res.data;
-    })
+    .then(res => res.data)
     .catch(err => {
       if (err.response) {
         console.log(err.response.data.message);
