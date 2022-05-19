@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { InputContext } from "../../../../store/InputStore";
-import { MessageContext } from "../../../../store/MessageStore";
-import { WalletContext } from "../../../../store/WalletStore";
+import { InputContext } from "store/InputStore";
+import { MessageContext } from "store/MessageStore";
+import { WalletContext } from "store/WalletStore";
 
-export default function MoneyAmount({ unit, amount }) {
+export default function MoneyAmount({ amount, unit }) {
   const inputContext = useContext(InputContext);
   const { input, setInput } = inputContext;
   const messageContext = useContext(MessageContext);
@@ -12,20 +12,22 @@ export default function MoneyAmount({ unit, amount }) {
   const walletContext = useContext(WalletContext);
   const { setWallet } = walletContext;
 
+  const moneyAmountClickHandler = (amount, unit) => {
+    {
+      if (amount > 0) {
+        setWallet((prev) => {
+          const newWallet = { ...prev };
+          newWallet[unit] -= 1;
+          return newWallet;
+        });
+        setInput(input + Number(unit));
+        setMessage((prev) => [...prev, `${unit}원이 투입되었습니다`]);
+      }
+    }
+  };
+
   return (
-    <StyledMoneyAmount
-      onClick={() => {
-        if (amount > 0) {
-          setWallet((prev) => {
-            const newWallet = { ...prev };
-            newWallet[unit] -= 1;
-            return newWallet;
-          });
-          setInput(input + Number(unit));
-          setMessage((prev) => [...prev, `${unit}원이 투입되었습니다`]);
-        }
-      }}
-    >
+    <StyledMoneyAmount onClick={() => moneyAmountClickHandler(amount, unit)}>
       {amount}
     </StyledMoneyAmount>
   );

@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { WalletContext } from "../../store/WalletStore";
 import NavBarButton from "./Buttons/NavBarButton";
 import SelectedNavBarButton from "./Buttons/SelectedNavBarButton";
 
@@ -17,9 +16,6 @@ export default function NavBar() {
     setIsSelected(checkLocationPath("/", "/wallet"));
   });
 
-  const walletContext = useContext(WalletContext);
-  const { total } = walletContext;
-
   return (
     <StyledNavBar>
       {!isSelected ? (
@@ -32,7 +28,7 @@ export default function NavBar() {
           <NavBarButton
             clickHandler={selectWallet}
             link="/wallet"
-            text={`지갑(${total})`}
+            text={`지갑`}
           ></NavBarButton>
         </>
       ) : (
@@ -45,7 +41,7 @@ export default function NavBar() {
           <SelectedNavBarButton
             clickHandler={selectWallet}
             link="/wallet"
-            text={`지갑(${total})`}
+            text={`지갑`}
           ></SelectedNavBarButton>
         </>
       )}

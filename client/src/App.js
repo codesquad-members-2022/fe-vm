@@ -1,19 +1,18 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import "./App.css";
-import NavBar from "./components/NavBar/NavBar";
+import NavBar from "components/NavBar/NavBar";
 import NotFound from "./components/NotFound/NotFound";
-import VM from "./components/VM/VM";
-import Wallet from "./components/Wallet/Wallet";
-import InputStore from "./store/InputStore";
-import MessageStore from "./store/MessageStore";
-import WalletStore from "./store/WalletStore";
+import VM from "components/VM/VM";
+import Wallet from "components/Wallet/Wallet";
+import InputStore from "store/InputStore";
+import MessageStore from "store/MessageStore";
+import WalletStore from "store/WalletStore";
 
 function App() {
   return (
     <BrowserRouter>
-      <WalletStore>
-        <NavBar />
+      <NavBar />
 
+      <WalletStore>
         <InputStore>
           <MessageStore>
             <Routes>

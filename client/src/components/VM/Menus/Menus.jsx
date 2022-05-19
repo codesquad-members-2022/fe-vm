@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Menu from "./Menu";
-import menuDB from "../../../menuDB.json";
+import menuDB from "menuDB.json";
 
 export default function Menus() {
   const menuList = menuDB.menus.map((menu, index) => (

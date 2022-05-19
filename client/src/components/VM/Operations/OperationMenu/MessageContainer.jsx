@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { MessageContext } from "../../../../store/MessageStore";
+import { MessageContext } from "store/MessageStore";
 
 export default function MessageContainer() {
   const messageContext = useContext(MessageContext);
