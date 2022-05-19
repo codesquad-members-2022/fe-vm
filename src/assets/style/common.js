@@ -17,49 +17,29 @@ const Border = {
 };
 
 /* Flex */
-const Center = css`
+const FlexContainer = ({ align, justify }) => css`
   display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const LeftCenter = css`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-const RightCenter = css`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-`;
-
-const CenterBetween = css`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const CenterAround = css`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-const CenterEvenly = css`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  align-items: ${align};
+  justify-content: ${justify};
 `;
 
 const Flex = {
-  center: Center,
-  centerBetween: CenterBetween,
-  centerAround: CenterAround,
-  centerEvenly: CenterEvenly,
-  leftCenter: LeftCenter,
-  rightCenter: RightCenter,
+  center: FlexContainer({ align: 'center', justify: 'center' }),
+  centerBetween: FlexContainer({ align: 'center', justify: 'space-between' }),
+  centerAround: FlexContainer({ align: 'center', justify: 'space-around' }),
+  centerEvenly: FlexContainer({ align: 'center', justify: 'space-evenly' }),
+  centerLeft: FlexContainer({ align: 'center', justify: 'flex-start' }),
+  centerRight: FlexContainer({ align: 'center', justify: 'flex-end' }),
 };
 
-export { Border, Flex };
+/* Drag Disable */
+const DragDisable = css`
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+`;
+
+export { Border, Flex, DragDisable };

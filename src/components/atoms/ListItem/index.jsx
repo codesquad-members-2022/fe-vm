@@ -1,17 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyledListItem from './ListItem.style';
+import * as Styled from 'components/atoms/ListItem/ListItem.style';
 
-const ListItem = ({ flexType, sizeType, fontType, borderType, children, ...props }) => {
+const ListItem = ({ flexType, sizeType, fontType, borderType, children, onClick, ...props }) => {
   return (
-    <StyledListItem flexType={flexType} sizeType={sizeType} fontType={fontType} borderType={borderType} props={props}>
+    <Styled.ListItem
+      flexType={flexType}
+      sizeType={sizeType}
+      fontType={fontType}
+      borderType={borderType}
+      onClick={onClick}
+      props={props}
+    >
       {children}
-    </StyledListItem>
+    </Styled.ListItem>
   );
 };
 
 ListItem.defaultProps = {
-  flexType: 'leftCenter',
+  flexType: 'centerLeft',
   sizeType: 'long',
   fontType: 'medium',
   children: '1000원을 투입했습니다!',

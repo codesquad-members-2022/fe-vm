@@ -1,9 +1,9 @@
 import { Flex } from 'assets/style/common';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-const StyledMoneyBox = styled.div`
+const MoneyBox = styled.div`
   width: 425px;
   ${({ flexType }) => flexType && Flex[flexType]};
 `;
 
-export { StyledMoneyBox };
+export { MoneyBox };

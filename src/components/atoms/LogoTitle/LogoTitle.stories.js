@@ -1,5 +1,5 @@
 import React from 'react';
-import LogoTitle from './LogoTitle';
+import LogoTitle from 'components/atoms/LogoTitle';
 
 export default {
   title: 'Atoms/LogoTitle',

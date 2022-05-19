@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyledLabel from './Label.style';
+import * as Styled from 'components/atoms/Label/Label.style';
 
 const Label = ({ flexType, sizeType, fontType, borderType, children, ...props }) => {
   return (
-    <StyledLabel flexType={flexType} sizeType={sizeType} fontType={fontType} borderType={borderType} props={props}>
+    <Styled.Label flexType={flexType} sizeType={sizeType} fontType={fontType} borderType={borderType} props={props}>
       {children}
-    </StyledLabel>
+    </Styled.Label>
   );
 };
 

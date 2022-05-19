@@ -1,16 +1,16 @@
 import React from 'react';
-import Label from './Label';
+import Label from 'components/atoms/Label';
 
 export default {
   title: 'Atoms/Label',
   component: Label,
   argTypes: {
     sizeType: {
-      options: ['small', 'medium', 'large'],
+      options: ['small', 'medium', 'large', 'xLarge'],
       control: { type: 'radio' },
     },
     fontType: {
-      options: ['medium', 'large', 'logo'],
+      options: ['medium', 'large', 'logo', 'digital'],
       control: { type: 'radio' },
     },
     borderType: {
@@ -18,7 +18,7 @@ export default {
       control: { type: 'radio' },
     },
     flexType: {
-      options: ['center', 'leftCenter', 'rightCenter'],
+      options: ['center', 'centerLeft', 'centerRight'],
       control: { type: 'radio' },
     },
     children: {
@@ -30,7 +30,7 @@ export default {
 const Template = args => <Label {...args} />;
 export const LargeLabel = Template.bind({});
 LargeLabel.args = {
-  flexType: 'rightCenter',
+  flexType: 'centerRight',
   sizeType: 'large',
   fontType: 'xxLarge',
   borderType: 'rounded',

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Border, Flex } from 'assets/style/common';
+import { Border, Flex, DragDisable } from 'assets/style/common';
 
 /* SizeType */
 const SmallSize = css`
@@ -13,7 +13,12 @@ const MediumSize = css`
 `;
 
 const LargeSize = css`
-  width: 465px;
+  width: 270px;
+  height: 80px;
+`;
+
+const XLargeSize = css`
+  width: 468px;
   height: 80px;
 `;
 
@@ -21,12 +26,14 @@ const Size = {
   small: SmallSize,
   medium: MediumSize,
   large: LargeSize,
+  xLarge: XLargeSize,
 };
 
 /* FontType */
 const DefaultFont = css`
-  font-weight: ${({ theme: { fontWeight } }) => fontWeight.display};
+  font-weight: ${({ theme: { fontWeight } }) => fontWeight.bold};
   color: ${({ theme: { colors } }) => colors.black};
+  background-color: ${({ theme: { colors } }) => colors.white};
 `;
 
 const MediumFont = css`
@@ -42,19 +49,29 @@ const XXLargeFont = css`
 const LogoFont = css`
   ${DefaultFont}
   font-size: ${({ theme: { fontSize } }) => fontSize.logo};
+  background-color: ${({ theme: { colors } }) => colors.white};
+`;
+
+const DigitalFont = css`
+  font-family: 'Digital7';
+  font-size: ${({ theme: { fontSize } }) => fontSize.logo};
+  color: ${({ theme: { colors } }) => colors.brightGreen};
+  background-color: ${({ theme: { colors } }) => colors.black};
 `;
 
 const Font = {
   medium: MediumFont,
   xxLarge: XXLargeFont,
   logo: LogoFont,
+  digital: DigitalFont,
 };
 
-const StyledLabel = styled.li`
-  ${({ flexType }) => flexType && Flex[flexType]};
+const Label = styled.li`
+  ${DragDisable}
+  ${({ flexType }) => flexType && Flex[flexType]}
   ${({ sizeType }) => sizeType && Size[sizeType]}
   ${({ fontType }) => fontType && Font[fontType]}
   ${({ borderType }) => borderType && Border[borderType]}
 `;
 
-export default StyledLabel;
+export { Label };

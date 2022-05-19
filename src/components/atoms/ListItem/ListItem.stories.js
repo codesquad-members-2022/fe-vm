@@ -1,5 +1,5 @@
 import React from 'react';
-import ListItem from './ListItem';
+import ListItem from 'components/atoms/ListItem';
 
 export default {
   title: 'Atoms/ListItem',
@@ -26,7 +26,7 @@ export default {
 const Template = args => <ListItem {...args} />;
 export const ShortListItem = Template.bind({});
 ShortListItem.args = {
-  flexType: 'rightCenter',
+  flexType: 'centerRight',
   sizeType: 'short',
   fontType: 'large',
   borderType: 'rounded',

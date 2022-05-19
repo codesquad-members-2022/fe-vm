@@ -1,5 +1,5 @@
 import React from 'react';
-import VendingMachine from './VendingMachine';
+import VendingMachine from 'components/organisms/VendingMachine';
 
 export default {
   title: 'Organisms/VendingMachine',

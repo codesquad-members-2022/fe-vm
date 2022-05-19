@@ -4,7 +4,7 @@ const WhiteTextShadow = css`
   text-shadow: 3px 3px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
 `;
 
-const StyledTitle = styled.h1`
+const Title = styled.h1`
   display: inline;
   color: ${({ theme: { colors } }) => colors.purple};
   font-size: ${({ theme: { fontSize } }) => fontSize.logo};
@@ -15,4 +15,4 @@ const StyledTitle = styled.h1`
   ${WhiteTextShadow};
 `;
 
-export { StyledTitle };
+export { Title };
