@@ -1,38 +1,49 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { ErrorContext, MoneyContext } from 'components/App';
+import { ErrorContext, MoneyContext, LoadingContext } from 'components/App';
 import { MESSAGES, PHRASES } from 'constants/messages';
 import { copyObject } from 'utils';
+import DELAY_MS from 'constants/delay';
 
 function Product({ name, price, stock, products, setProducts }) {
   const { curMoney, setMoney } = useContext(MoneyContext);
   const { showErrorMsg } = useContext(ErrorContext);
+  const { setLoading } = useContext(LoadingContext);
   const hasStock = stock >= 1;
   const canPurchase = curMoney >= price && hasStock;
 
   return (
     <div>
-      <Name disabled={!hasStock} canPurchase={canPurchase} onClick={handlePurchaseProduct}>
+      <Name
+        disabled={!hasStock}
+        canPurchase={canPurchase}
+        onClick={() => {
+          setLoading(true);
+          setTimeout(handlePurchaseProduct, DELAY_MS.PURCHASE);
+        }}
+      >
         {name}
       </Name>
       <Row>
         <Price>{price}</Price>
-        <Stock>{hasStock ? stock : PHRASES.SOLD_OUT}</Stock>
+        <Stock>{hasStock ? `${stock}개` : PHRASES.SOLD_OUT}</Stock>
       </Row>
     </div>
   );
+
   function handlePurchaseProduct() {
     if (!canPurchase) {
       showErrorMsg(MESSAGES.ERROR.NOT_ENOUGH_MONEY);
       return;
     }
+
     const copiedProducts = products.map(copyObject);
     const updatedProducts = copiedProducts.map(decreaseStock);
     const updatedMoney = curMoney - price;
 
     setProducts(updatedProducts);
     setMoney(updatedMoney);
+    // setLoading(false);
 
     function decreaseStock(product) {
       const isTargetProduct = product.name === name;
