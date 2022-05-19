@@ -1,17 +1,25 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 export default function useVMTimer() {
-  const [VMTimerID, setVMTimerId] = useState(null);
+  const [VMTimerID, setVMTimerId] = useState([]);
 
-  const startVMTimer = useCallback(
-    (callback, time) => {
-      if (VMTimerID) clearTimeout(VMTimerID);
+  const startVMTimer = callbackArr => {
+    const [newVMTimerID] = callbackArr.reduce(
+      ([timerIDArr, accTime], [callback, time]) => {
+        const timerID = setTimeout(callback, accTime + time);
+        return [[...timerIDArr, timerID], accTime + time];
+      },
+      [[], 0]
+    );
+    setVMTimerId(newVMTimerID);
+  };
 
-      const newVMTimerID = setTimeout(callback, time);
-      setVMTimerId(newVMTimerID);
-    },
-    [VMTimerID]
-  );
+  const stopVMTimer = () => {
+    if (!VMTimerID) return;
 
-  return { VMTimerID, startVMTimer };
+    VMTimerID.forEach(ID => clearTimeout(ID));
+    setVMTimerId([]);
+  };
+
+  return { VMTimerID, startVMTimer, stopVMTimer };
 }

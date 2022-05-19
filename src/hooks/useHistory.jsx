@@ -26,8 +26,8 @@ export default function useHistory() {
     dispatchHistoryList({ action: 'SELECT', historyState: selectedProduct.detail });
   }, []);
 
-  const returnPayHistory = useCallback((totalPay, selectedProduct) => {
-    dispatchHistoryList({ action: 'RETURN', historyState: totalPay - selectedProduct.price });
+  const returnPayHistory = useCallback(totalPay => {
+    dispatchHistoryList({ action: 'RETURN', historyState: totalPay });
   }, []);
 
   const resetHistory = useCallback(() => {

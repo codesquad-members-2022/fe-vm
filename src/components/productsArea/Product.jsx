@@ -13,12 +13,12 @@ export default function Product({ productInfo }) {
   const setSelectedProduct = useContext(SelectedProductSetContext);
   const [finalPay, setFinalPay] = [useContext(FinalPayContext), useContext(FinalPaySetContext)];
   const { addSelectHistory, resetHistory } = useContext(HistoryDispatchContext);
-  const startVMTimer = useContext(VMTimerSetContext);
+  const { startVMTimer, stopVMTimer } = useContext(VMTimerSetContext);
 
   const canBuyProduct = () => (finalPay ? finalPay >= productInfo.price : true);
   const isSoldout = () => productInfo.quantity <= 0;
 
-  const initVMState = () => {
+  const resetVMState = () => {
     setFinalPay(0);
     setSelectedProduct({ detail: null, price: null });
     resetHistory();
@@ -31,7 +31,8 @@ export default function Product({ productInfo }) {
     addSelectHistory(productInfo);
     const newProductInfo = productInfo;
     newProductInfo.quantity -= 1;
-    startVMTimer(initVMState, TIME_TO_PUT_OUT_PRODUCT);
+    stopVMTimer();
+    startVMTimer([[resetVMState, TIME_TO_PUT_OUT_PRODUCT]]);
   };
 
   return (
