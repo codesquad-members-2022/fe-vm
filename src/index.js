@@ -1,4 +1,5 @@
 import MachineProvider from "contexts/MachineProvider";
+import ProductProvider from "contexts/ProductProvider";
 import WalletProvider from "contexts/WalletProvider";
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -11,9 +12,11 @@ root.render(
   <React.StrictMode>
     <WalletProvider>
       <MachineProvider>
-        <BrowserRouter>
-          <AppRouter />
-        </BrowserRouter>
+        <ProductProvider>
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <AppRouter />
+          </BrowserRouter>
+        </ProductProvider>
       </MachineProvider>
     </WalletProvider>
   </React.StrictMode>

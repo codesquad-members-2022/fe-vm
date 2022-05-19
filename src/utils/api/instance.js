@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "json",
   timeout: 1000,
 });
 
@@ -22,7 +22,6 @@ instance.interceptors.response.use(
     /*
         http status가 200인 경우
         응답 성공 직전 호출됩니다. 
-        .then() 으로 이어집니다.
     */
     return response;
   },

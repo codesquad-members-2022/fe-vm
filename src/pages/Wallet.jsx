@@ -1,28 +1,26 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext } from "react";
 import MoneyUnitItem from "components/Wallet/MoneyUnitItem";
-import { motion } from "framer-motion";
-import { pageTransition, pageVariants } from "helpers/animation";
-import { WalletDispatchContext, WalletStateContext } from "contexts/WalletProvider";
+import { WalletStateContext } from "contexts/WalletProvider";
 import { calcTotalMoney } from "helpers/calculateMoney";
+import MotionPageContainer from "components/Motion/MotionPageContainer";
+import { convertMoneyUnit } from "utils";
 
 const Wallet = () => {
   const wallet = useContext(WalletStateContext);
-  const totalMoney = calcTotalMoney(wallet);
+  const totalMoney = convertMoneyUnit(calcTotalMoney(wallet));
 
   return (
-    <motion.div
-      className="flex flex-col gap-3 items-center p-4 mx-auto max-w-xs text-2xl rounded-3xl border-4 border-starbucks shadow-lg shadow-gray"
-      initial="initial"
-      animate="in"
-      exit="out"
-      variants={pageVariants(100)}
-      transition={pageTransition}
+    <MotionPageContainer
+      className={
+        "flex flex-col gap-3 items-center p-4 mx-auto max-w-xs text-2xl rounded-3xl border-4 border-starbucks shadow-lg shadow-gray"
+      }
+      translateX={100}
     >
-      {wallet.map((moneyUnitInfo) => (
-        <MoneyUnitItem key={moneyUnitInfo.id} {...moneyUnitInfo} />
+      {wallet.map((moneyInfo) => (
+        <MoneyUnitItem key={moneyInfo.id} {...moneyInfo} />
       ))}
       <TotalMoney totalMoney={totalMoney} />
-    </motion.div>
+    </MotionPageContainer>
   );
 };
 

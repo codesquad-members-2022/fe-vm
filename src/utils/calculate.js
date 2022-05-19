@@ -1,1 +1,1 @@
-export const convertToMoneyUnit = (params, config) => Number(params).toLocaleString(config);
+export const convertMoneyUnit = (params, config) => Number(params).toLocaleString(config);

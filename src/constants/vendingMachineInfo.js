@@ -49,6 +49,7 @@ const VENDING_MACHINE_INFO = {
       count: 0,
     },
   ],
+  totalMoney: 0,
   history: [],
 };
 
