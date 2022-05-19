@@ -2,7 +2,10 @@ import React, { useContext, memo } from 'react';
 import styled, { css } from 'styled-components';
 
 import { RETURN_CHANGE_DELAY } from '@/constants/timer';
-import { ACTION, VMContext } from '@/Provider/VMProvider';
+import { ACTION, VMContext } from '@/Context/VMContext';
+import { LOG_ACTION, LogDispatch, useLog } from '@/Context/VMContext/LogContext';
+import { MACHINE_ACTION, MachineDispatch, useMachine } from '@/Context/VMContext/MachineContext';
+import { WALLET_ACTION, WalletDispatch, useWallet } from '@/Context/VMContext/WalletContext';
 import { Flexbox } from '@/styles/util';
 
 const Wallet = () => {
@@ -11,56 +14,80 @@ const Wallet = () => {
     dispatch,
   } = useContext(VMContext);
 
+  const {
+    wallet: { state: wState, dispatch: wDispatch },
+  } = useWallet();
+
+  const { state: mState, dispatch: mDispatch } = useMachine();
+  const { state: lState, dispatch: lDispatch } = useLog();
+
   return (
     <WalletLayout>
       <WalletLayer>
         <CoinList>
-          {coins.map(({ id, amount, count }, index) => (
-            <Coin key={id} amount={amount} count={count} dispatch={dispatch} index={index} />
+          {wState.coins.map((coin, index) => (
+            <Coin
+              key={coin.id}
+              {...coin}
+              index={index}
+              dispatch={dispatch}
+              wDispatch={wDispatch}
+              mDispatch={mDispatch}
+              lDispatch={lDispatch}
+            />
           ))}
         </CoinList>
-        <Balance>총 {balance.toLocaleString()}원</Balance>
+        <Balance>총 {wState.balance.toLocaleString()}원</Balance>
       </WalletLayer>
     </WalletLayout>
   );
 };
 
-const Coin = memo(({ amount, count, dispatch, index }) => {
+const Coin = memo(({ amount, count, index, dispatch, wDispatch, mDispatch, lDispatch }) => {
   const onClickInsertButton = () => {
     if (count === 0) {
       return;
     }
 
-    dispatch({
-      type: ACTION.INSERT_COIN,
-      payload: {
-        amount,
-        count,
-        index,
-      },
-    });
+    // NOTE: wState: 코인개수, balance 업데이트
+    // NOTE: mState: totalInputAmount 업데이트
+    // NOTE: lState: log 업데이트
 
-    dispatch({
-      type: ACTION.SET_TIMER,
-      payload: {
-        key: 'returnChange',
-        delay: RETURN_CHANGE_DELAY,
-        callback: () => {
-          dispatch({ type: ACTION.RETURN_CHANGE });
-        },
-      },
-    });
+    wDispatch({ type: WALLET_ACTION.INSERT_COIN, payload: { amount, count, index } });
+    mDispatch({ type: MACHINE_ACTION.INSERT_MONEY, payload: { amount } });
+    lDispatch({ type: LOG_ACTION.INSERT_MONEY, payload: { amount } });
+
+    // dispatch({
+    //   type: ACTION.INSERT_COIN,
+    //   payload: {
+    //     amount,
+    //     count,
+    //     index,
+    //   },
+    // });
+
+    // dispatch({
+    //   type: ACTION.SET_TIMER,
+    //   payload: {
+    //     key: 'returnChange',
+    //     delay: RETURN_CHANGE_DELAY,
+    //     callback: () => {
+    //       dispatch({ type: ACTION.RETURN_CHANGE });
+    //     },
+    //   },
+    // });
   };
 
   const onClickIncrementButton = () => {
-    dispatch({
-      type: ACTION.INCREMENT_COIN,
-      payload: {
-        amount,
-        count,
-        index,
-      },
-    });
+    // dispatch({
+    //   type: ACTION.INCREMENT_COIN,
+    //   payload: {
+    //     amount,
+    //     count,
+    //     index,
+    //   },
+    // });
+    wDispatch({ type: WALLET_ACTION.INCREMENT_COIN, payload: { amount, count, index } });
   };
 
   return (

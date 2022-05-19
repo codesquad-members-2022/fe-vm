@@ -2,7 +2,10 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { VMProvider } from '@/Provider/VMProvider';
+import { VMProvider } from '@/Context/VMContext';
+import { WalletProvider } from '@/Context/VMContext/WalletContext';
+import { MachineProvider } from '@/Context/VMContext/MachineContext';
+import { LogProvider } from '@/Context/VMContext/LogContext';
 import Home from '@/routes/Home';
 import Wallet from '@/routes/Wallet';
 import { Flexbox } from '@/styles/util';
@@ -13,10 +16,16 @@ const Router = () => {
       <Container>
         <NavBar />
         <VMProvider>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/wallet" element={<Wallet />} />
-          </Routes>
+          <LogProvider>
+            <MachineProvider>
+              <WalletProvider>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/wallet" element={<Wallet />} />
+                </Routes>
+              </WalletProvider>
+            </MachineProvider>
+          </LogProvider>
         </VMProvider>
       </Container>
     </BrowserRouter>
