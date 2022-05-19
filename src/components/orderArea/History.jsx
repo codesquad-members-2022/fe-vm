@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { HistoryList, HistoryItem } from 'components/orderArea/History.style';
-import { HistoryContext } from 'Context/HistoryProvider';
+import { HistoryContext } from 'contexts/HistoryProvider';
 
 export default function History() {
   const historyList = useContext(HistoryContext);

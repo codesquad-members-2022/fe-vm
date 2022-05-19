@@ -4,10 +4,10 @@ import { ProductBtn, Detail, Price } from 'components/productsArea/Product.style
 import { addCommasToNumber } from 'utils/util';
 import { TIME_TO_SELCT_PRODUCT, TIME_TO_RESET_HISTORY, TIME_TO_PUT_OUT_PRODUCT } from 'constant/constant';
 import useVMState from 'hooks/useVMState';
-import { FinalPayContext, FinalPaySetContext } from 'Context/FinalPayProvider';
-import { SelectedProductSetContext } from 'Context/SelectedProductProvider';
-import { VMTimerSetContext } from 'Context/VMTimerProvider';
-import { HistoryDispatchContext } from 'Context/HistoryProvider';
+import { FinalPayContext, FinalPaySetContext } from 'contexts/FinalPayProvider';
+import { SelectedProductSetContext } from 'contexts/SelectedProductProvider';
+import { VMTimerSetContext } from 'contexts/VMTimerProvider';
+import { HistoryDispatchContext } from 'contexts/HistoryProvider';
 
 export default function Product({ productInfo, toggleSelectableStatus }) {
   const setSelectedProduct = useContext(SelectedProductSetContext);

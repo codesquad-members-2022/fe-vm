@@ -4,10 +4,10 @@ import GNB from 'layout/GNB/GNB';
 import VendingMachine from 'pages/VendingMachine';
 import Wallet from 'pages/Wallet';
 import { Container } from 'App.style';
-import { WalletProvider } from 'Context/WalletProvider';
-import { SelectedProductProvider } from 'Context/SelectedProductProvider';
-import { HistoryProvider } from 'Context/HistoryProvider';
-import { VMTimerProvider } from 'Context/VMTimerProvider';
+import { WalletProvider } from 'contexts/WalletProvider';
+import { SelectedProductProvider } from 'contexts/SelectedProductProvider';
+import { HistoryProvider } from 'contexts/HistoryProvider';
+import { VMTimerProvider } from 'contexts/VMTimerProvider';
 
 export default function App() {
   return (

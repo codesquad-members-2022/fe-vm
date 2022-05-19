@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { FinalPaySetContext } from 'Context/FinalPayProvider';
-import { SelectedProductSetContext } from 'Context/SelectedProductProvider';
-import { HistoryDispatchContext } from 'Context/HistoryProvider';
+import { FinalPaySetContext } from 'contexts/FinalPayProvider';
+import { SelectedProductSetContext } from 'contexts/SelectedProductProvider';
+import { HistoryDispatchContext } from 'contexts/HistoryProvider';
 
 export default function useVMState() {
   const setFinalPay = useContext(FinalPaySetContext);

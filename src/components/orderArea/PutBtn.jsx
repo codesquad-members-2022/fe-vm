@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Button } from 'components/orderArea/PutBtn.style';
 import { TIME_TO_SELCT_PRODUCT, TIME_TO_RESET_HISTORY } from 'constant/constant';
 import useVMState from 'hooks/useVMState';
-import { FinalPayContext, FinalPaySetContext } from 'Context/FinalPayProvider';
-import { HistoryDispatchContext } from 'Context/HistoryProvider';
-import { VMTimerSetContext } from 'Context/VMTimerProvider';
-import { WalletContext } from 'Context/WalletProvider';
+import { FinalPayContext, FinalPaySetContext } from 'contexts/FinalPayProvider';
+import { HistoryDispatchContext } from 'contexts/HistoryProvider';
+import { VMTimerSetContext } from 'contexts/VMTimerProvider';
+import { WalletContext } from 'contexts/WalletProvider';
 
 export default function PutBtn({ inputPay }) {
   const [finalPay, setFinalPay] = [useContext(FinalPayContext), useContext(FinalPaySetContext)];
