@@ -20,7 +20,6 @@ export function UserWindow() {
 
   useEffect(() => {
     if (inputMoney === 0) return;
-    console.log('input', inputMoney);
     stopPaybackTimer();
     startPaybackTimer();
   }, [inputMoney]);

@@ -2,7 +2,7 @@ import { StyledItemContainer, StyledItemName, StyledItemPrice } from './itemBox.
 import { getWonTemplate, delay } from '../../../helper/utils';
 import { useContext, useState, useEffect } from 'react';
 import { InputMoneyContext, LogContext, PaybackTimerContext, ProgressContext } from '../vendingMachine';
-import { PAYBACK_TIME } from '../../../common/constants';
+import { ITEM_DROP_TIME } from '../../../common/constants';
 
 export function ItemBox({ item }) {
   const { inputMoney, setInputMoney } = useContext(InputMoneyContext);
@@ -12,7 +12,6 @@ export function ItemBox({ item }) {
 
   const [boxColor, setBoxColor] = useState('gray');
   const [itemStock, setItemStock] = useState(item.stock);
-  const ITEM_DROP_TIME = 2000;
 
   useEffect(() => {
     if (!itemStock) {
@@ -33,7 +32,6 @@ export function ItemBox({ item }) {
     logChooseItem();
     stopPaybackTimer();
 
-    // 2초 뒤 아이템 드랍
     delay(ITEM_DROP_TIME).then(() => {
       dropItem();
       printInputMoney();
