@@ -1,13 +1,14 @@
 import { SetAlertMessage } from "Context/AlertMessageProvider";
 import { OrderInProgressContext, SetOrderInProgressContext } from "Context/OrderInProgressProvider";
-import { INIT_ALERT_MESSAGE, INVESTMENT_API, INVESTMENT_COUNT_TIME } from "Helper/constant";
-import { delay, fetchData } from "Helper/utils";
+import { DRINK_API, INIT_ALERT_MESSAGE, INVESTMENT_API, INVESTMENT_COUNT_TIME } from "Helper/constant";
+import { delay, fetchData, getAPIById } from "Helper/utils";
 import useInvestment from "Hooks/useInvestment";
 import useInvestmentTimer from "Hooks/useInvestmentTimer";
-import { useCallback, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { BeverageContainer, Price, Title } from "./Beverage.styled";
 
-export default function Beverage({ title, price, id }) {
+export default function Beverage(props) {
+  const { title, price, id, stock, beverages, setBeverages } = props.props;
   const [investment, setInvestment] = useInvestment();
   const setAlertMessage = useContext(SetAlertMessage);
   const resetInvestment = useInvestmentTimer();
@@ -32,7 +33,10 @@ export default function Beverage({ title, price, id }) {
       // 주문 대기시간동안 /wallet 페이지로 이동했다가 돌아왔다면 거스름돈 반환 딜레이를 초기화 해놨기 때문에, 다시 세팅해줌
       resetInvestment(INVESTMENT_COUNT_TIME);
       const orderProps = { setOrderInProgress, setInvestment, investment, setAlertMessage, price, title };
+      const stockProps = { beverages, setBeverages, id };
+
       reflectOrder(orderProps);
+      reflectStockChange(stockProps);
     };
 
     if (id !== orderInProgress) {
@@ -47,7 +51,12 @@ export default function Beverage({ title, price, id }) {
       id={id}
       orderInProgress={orderInProgress}
       isBuyPossible={isBuyPossible}
+      stock={stock}
       onClick={() => {
+        if (!stock) {
+          alertSoldOut(setAlertMessage);
+          return;
+        }
         handleOrder(handleOrderProps);
       }}
     >
@@ -55,11 +64,21 @@ export default function Beverage({ title, price, id }) {
         {title}
       </Title>
       <Price flex justify="center" align="center">
-        {price}
+        {stock ? price : "품절"}
       </Price>
     </BeverageContainer>
   );
 }
+
+const reflectStockChange = (props) => {
+  const { beverages, setBeverages, id } = props;
+  const idx = id - 1;
+  beverages[idx].stock -= 1;
+  const api = getAPIById(DRINK_API, id);
+  const newBeverages = [...beverages];
+  setBeverages(newBeverages);
+  fetchData(api, { method: "PUT", bodyData: beverages[idx] });
+};
 
 const reflectOrder = (props) => {
   const { setOrderInProgress, setInvestment, investment, setAlertMessage, price, title } = props;
@@ -99,5 +118,11 @@ const alertWrongProduct = (setAlertMessage) => {
 const alertBuyingMessage = (setAlertMessage) => {
   const alertMessage = { ...INIT_ALERT_MESSAGE };
   alertMessage.buying = true;
+  setAlertMessage(alertMessage);
+};
+
+const alertSoldOut = (setAlertMessage) => {
+  const alertMessage = { ...INIT_ALERT_MESSAGE };
+  alertMessage.soldOut = true;
   setAlertMessage(alertMessage);
 };

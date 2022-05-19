@@ -54,3 +54,8 @@ export const delay = (time) => {
 };
 
 export const getRandomNumber = (start, end) => Math.floor(Math.random() * (end - start) + start);
+
+export const getAPIById = (url, id) => {
+  const api = `${url}/${id}`;
+  return api;
+};

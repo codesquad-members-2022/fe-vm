@@ -10,6 +10,7 @@ export const INIT_ALERT_MESSAGE = {
   orderTitle: "",
   wrong: false,
   buying: false,
+  soldOut: false,
 };
 
 export const NAV_MENUS = [
