@@ -9,6 +9,7 @@ const colors = {
   offWhite: "#f8f7f7",
   white: "#ffffff",
   baeMint: "#2ac1bc",
+  orange: "#ff8e14",
 };
 
 const theme = { colors };

@@ -8,8 +8,8 @@ export default function Wallet() {
 
   return (
     <WalletWrapper>
-      {Object.entries(amountOfMoney).map(([valueKey, amount]) => (
-        <MoneyAmount key={valueKey} value={Number(valueKey)} amount={amount} />
+      {amountOfMoney.map(({ id, unit, amount }) => (
+        <MoneyAmount key={id} value={unit} amount={amount} />
       ))}
       <div>🔫</div>
       <TotalMoney>{getTotalMoney().toLocaleString()}원</TotalMoney>
@@ -27,5 +27,7 @@ const WalletWrapper = styled.div`
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 `;
 const TotalMoney = styled.div`
+  width: 200px;
   font-size: 40px;
+  text-align: center;
 `;

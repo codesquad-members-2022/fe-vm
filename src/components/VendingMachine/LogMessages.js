@@ -1,7 +1,21 @@
+import { useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
+import { LogContext } from "../../contexts/Log";
 
 export default function LogMessages() {
-  return <LogMessagesWrapper>100000원이 투입되었음</LogMessagesWrapper>;
+  const { logMessages } = useContext(LogContext);
+  const messagesEndRef = useRef();
+  useEffect(() => {
+    messagesEndRef.current.scrollIntoView({ behavior: "auto" });
+  });
+  return (
+    <LogMessagesWrapper>
+      {logMessages.map((logMessage, index) => (
+        <LogMessage key={index}>{logMessage}</LogMessage>
+      ))}
+      <div ref={messagesEndRef} />
+    </LogMessagesWrapper>
+  );
 }
 
 const LogMessagesWrapper = styled.div`
@@ -11,5 +25,10 @@ const LogMessagesWrapper = styled.div`
   border-radius: 4px;
   width: 200px;
   height: 200px;
-  overflow: auto;
+  overflow: scroll;
+  font-size: 12px;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
+const LogMessage = styled.div``;
