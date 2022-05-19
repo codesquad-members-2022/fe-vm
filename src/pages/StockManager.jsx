@@ -1,23 +1,20 @@
 import styled from "styled-components";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ProductsInfo } from "contextProviders/ProductsInfoProvider";
 import ProductStockManager from "components/StockManager/ProductStockManager";
-import SaveButton from "components/StockManager/SaveButton";
 
 const StockManager = () => {
-  const { productsInfo } = useContext(ProductsInfo);
-  const [tempProductsInfo, setTempProductsInfo] = useState(productsInfo);
+  const { productsInfo, updateProductInfo } = useContext(ProductsInfo);
 
   return (
     <StockManagerWrapper>
-      {tempProductsInfo?.map((tempProductInfo) => (
+      {productsInfo?.map((productInfo) => (
         <ProductStockManager
-          key={tempProductInfo.id}
-          tempProductInfo={tempProductInfo}
-          setTempProductsInfo={setTempProductsInfo}
+          key={productInfo.id}
+          productInfo={productInfo}
+          updateProductInfo={updateProductInfo}
         />
       ))}
-      <SaveButton tempProductsInfo={tempProductsInfo} />
     </StockManagerWrapper>
   );
 };

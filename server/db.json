@@ -5,28 +5,28 @@
       "name": "코카콜라",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/168968579-609b8507-4145-4330-9813-1ac87201012e.png",
       "price": 1300,
-      "stock": 4
+      "stock": 9
     },
     {
       "id": 2,
       "name": "코카콜라",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/168968579-609b8507-4145-4330-9813-1ac87201012e.png",
       "price": 1300,
-      "stock": 2
+      "stock": 7
     },
     {
       "id": 3,
       "name": "코카콜라(제로)",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/168968589-8b351153-3bdc-4e17-9a28-b1f8fad6c50a.png",
       "price": 1300,
-      "stock": 3
+      "stock": 8
     },
     {
       "id": 4,
       "name": "코카콜라(제로)",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/168968589-8b351153-3bdc-4e17-9a28-b1f8fad6c50a.png",
       "price": 1300,
-      "stock": 1
+      "stock": 3
     },
     {
       "id": 5,
@@ -91,8 +91,8 @@
     "100": 10,
     "500": 5,
     "1000": 8,
-    "5000": 5,
-    "10000": 1,
+    "5000": 4,
+    "10000": 0,
     "50000": 4
   }
 }

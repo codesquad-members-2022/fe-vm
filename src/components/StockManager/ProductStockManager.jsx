@@ -1,16 +1,26 @@
 import styled from "styled-components";
 
-const ProductStockManager = ({ tempProductInfo, setTempProductsInfo }) => {
-  const changeTempStock = () => {
-    //todo: 기능 구현
+const ProductStockManager = ({ productInfo, updateProductInfo }) => {
+  let timeoutId;
+  let stockChangeNum = 0;
+
+  const handleStockChangeButtonClick = (type) => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    stockChangeNum += type === "increment" ? 1 : -1;
+    const newProductInfo = { ...productInfo };
+    newProductInfo.stock = Math.max(productInfo.stock + stockChangeNum, 0);
+    timeoutId = setTimeout(() => updateProductInfo(productInfo.id, newProductInfo), 1000);
   };
 
   return (
     <ProductStockManagerWrapper>
-      <ProductName>{tempProductInfo.name}</ProductName>
-      <StockChangeButton onClick={changeTempStock}>-</StockChangeButton>
-      <StockDisplay>{tempProductInfo.stock}</StockDisplay>
-      <StockChangeButton onClick={changeTempStock}>+</StockChangeButton>
+      <ProductName>{productInfo.name}</ProductName>
+      <StockChangeButton onClick={() => handleStockChangeButtonClick("decrement")}>-</StockChangeButton>
+      <StockDisplay>{productInfo.stock}</StockDisplay>
+      <StockChangeButton onClick={() => handleStockChangeButtonClick("increment")}>+</StockChangeButton>
     </ProductStockManagerWrapper>
   );
 };
