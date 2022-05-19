@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import HeaderInfoContextStore from "../stores/headerInfoStore";
 
-const HeaderInfoContext = (props) => {
+const HeaderInfoContext = ({ children }) => {
   const [IsHeaderBtnClick, setIsHeaderBtnClick] = useState("");
   const headerInfo = {
     IsHeaderBtnClick,
@@ -10,9 +10,7 @@ const HeaderInfoContext = (props) => {
   };
 
   return (
-    <HeaderInfoContextStore.Provider value={headerInfo}>
-      {props.children}
-    </HeaderInfoContextStore.Provider>
+    <HeaderInfoContextStore.Provider value={headerInfo}>{children}</HeaderInfoContextStore.Provider>
   );
 };
 

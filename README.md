@@ -1,21 +1,9 @@
 # 개인 프로젝트 vending machine
 
-## commit template
+## 5/19 목요일
 
-feat : 새로운 기능 추가
+## 목표
 
-fix : 버그 수정
-
-docs : 문서 관련
-
-style : 스타일 변경 (포매팅 수정, 들여쓰기 추가, …)
-
-refactor : 코드 리팩토링
-
-test : 테스트 관련 코드
-
-build : 빌드 관련 파일 수정
-
-env : 기타 환경 설정
-
-chore : 그 외 자잘한 수정
+1. useReducer 사용해보기
+2. 커스텀 훅 만들기
+3. 컴포넌트 합성

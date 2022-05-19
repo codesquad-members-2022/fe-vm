@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 import Products from "./Products";
 import Info from "./Info";
-import colors from "../../constants/colors";
 
 const VendingMachine = () => {
   return (

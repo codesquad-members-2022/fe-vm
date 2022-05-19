@@ -1,6 +1,7 @@
 const returnMoney = (contextData) => {
   const copyInfo = contextData.moneyInfo.slice();
   let currMoney = contextData.currMoney;
+
   const returnCharge = (typeOfMoney, idx) => {
     let quotient = Math.floor(currMoney / typeOfMoney);
     copyInfo[copyInfo.length - 1 - idx].amount += quotient;

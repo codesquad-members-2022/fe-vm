@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useRef, useContext } from "react";
 
-import { FONT } from "../../constants/fonts";
-import Text from "../../Text";
-import VmWalletContextStore from "../../stores/VmWalletStore";
+import { FONT } from "constants/fonts";
+import Text from "Text";
+import VmWalletContextStore from "stores/VmWalletStore";
 
 const InputCoin = () => {
   const inputRef = useRef();
