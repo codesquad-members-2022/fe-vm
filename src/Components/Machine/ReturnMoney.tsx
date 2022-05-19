@@ -45,9 +45,7 @@ export default function ReturnMoney(): JSX.Element {
       message: `${priceState}원 반환됨`,
     });
 
-    keepTheChange(priceState, walletDispatch);
-
-    priceDispatch({ type: 'DELETE_ALL_PRICE' });
+    keepTheChange(priceState, walletDispatch, priceDispatch);
   };
 
   return (
