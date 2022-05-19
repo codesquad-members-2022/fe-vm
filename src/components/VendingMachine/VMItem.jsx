@@ -29,10 +29,10 @@ const VMItem = memo(
       return isActive ? 'active' : 'default';
     }, [isSoldOut, isActive]);
 
-    const handleClickActiveItem = () => {
+    const handleClickActiveItem = useCallback(() => {
       if (!isActive) return;
       onClickActiveItem({ id, amount, name });
-    };
+    }, []);
 
     return (
       <li>

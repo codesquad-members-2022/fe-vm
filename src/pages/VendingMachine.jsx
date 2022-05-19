@@ -12,6 +12,7 @@ const VendingMachine = () => (
 );
 
 const VMLayout = styled.div`
+  position: relative;
   display: grid;
   grid-template-columns: 6fr 4fr;
   width: 52rem;

@@ -4,17 +4,23 @@ import styled from 'styled-components';
 import VMInputMoney from 'components/VendingMachine/VMInputMoney';
 import VMLogs from 'components/VendingMachine/VMLogs';
 import COLORS from 'constants/colors';
+import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
 import createHoverCss from 'styles/createHoverCss';
 
 const VMController = () => {
-  const { returnInputMoney } = useContext(MoneyContext);
+  const [, insertLog] = useContext(LogContext);
+  const { moneyState, returnInputMoney } = useContext(MoneyContext);
   const hoverCss = createHoverCss({
     bgColor: { base: COLORS.WHITE, hover: COLORS.MAIN_BG },
   });
 
   const handleClickReturnButton = () => {
     returnInputMoney();
+    insertLog({
+      type: 'return',
+      data: moneyState.inputMoney,
+    });
   };
 
   return (

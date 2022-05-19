@@ -7,7 +7,9 @@ import COLORS from 'constants/colors';
 import { MoneyContext } from 'context/MoneyProvider';
 
 const Wallet = () => {
-  const { walletMoney } = useContext(MoneyContext);
+  const {
+    moneyState: { walletMoney },
+  } = useContext(MoneyContext);
 
   const totalMoney = walletMoney?.reduce(
     (sum, { amount, count }) => sum + amount * count,
