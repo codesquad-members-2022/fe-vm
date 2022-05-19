@@ -1,13 +1,12 @@
-import styled from "styled-components";
-import {Flexbox} from "@/styles/util";
+import styled from 'styled-components';
 
-export const InputControllerLayout = styled.div`
-  ${Flexbox};
+export const InputControllerLayout = styled.div<{ dir: string; jc: string; ai: string }>`
+  ${({ theme, dir, jc, ai }) => theme.mixin.flexbox(dir, jc, ai)};
   width: 99%;
 `;
 
 export const InputLayer = styled.div`
-  ${Flexbox};
+  ${({ theme }) => theme.mixin.flexbox()};
   font-size: ${({ theme }) => theme.fontSize.xl};
   height: 30px;
 `;

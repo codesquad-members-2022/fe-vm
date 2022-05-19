@@ -25,7 +25,7 @@ export const Message = styled.p`
 
 export const ContextMenuWrapper = styled.div``;
 
-export const ContextMenuLayer = styled.ol`
+export const ContextMenuLayer = styled.ol<{ top: number; left: number }>`
   position: absolute;
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;

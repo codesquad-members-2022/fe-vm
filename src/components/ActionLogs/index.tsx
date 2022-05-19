@@ -33,11 +33,7 @@ const ActionLogs = ({ className }: LogsProps) => {
       target,
     } = event;
 
-    if (!(target instanceof Node)) {
-      return;
-    }
-
-    if (contextMenuWrapperRef.current?.contains(target)) {
+    if (!(target instanceof Node) || contextMenuWrapperRef.current?.contains(target)) {
       return;
     }
 

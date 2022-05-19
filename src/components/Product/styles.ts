@@ -1,7 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 
 import { SELECT_PRODUCT_THROTTLE_DELAY } from '@/constants/timer';
-import { Flexbox } from '@/styles/util';
 
 export const disabled = css`
   border: 2px solid ${({ theme }) => theme.color.red};
@@ -30,8 +29,8 @@ export const highlight = css`
   }
 `;
 
-export const ProductLayer = styled.span`
-  ${Flexbox};
+export const ProductLayer = styled.span<{ dir: string; purchasable: boolean; outOfStock: boolean }>`
+  ${({ theme, dir }) => theme.mixin.flexbox(dir)};
   background-color: ${({ theme }) => theme.color.primaryBlack};
   border: 2px solid ${({ theme }) => theme.color.black};
   border-radius: 8px;
@@ -68,7 +67,7 @@ export const Price = styled.footer`
 `;
 
 export const Stock = styled.span`
-  ${Flexbox};
+  ${({ theme }) => theme.mixin.flexbox()};
   position: absolute;
   width: 100%;
   height: 100%;
@@ -88,7 +87,7 @@ export const Stock = styled.span`
 `;
 
 export const DisabledMark = styled.span`
-  ${Flexbox};
+  ${({ theme }) => theme.mixin.flexbox()};
   color: ${({ theme }) => theme.color.white};
   position: absolute;
   bottom: 40px;
@@ -96,7 +95,7 @@ export const DisabledMark = styled.span`
   font-weight: bold;
   width: 150%;
   height: 30%;
-  background-color: #ff233d;
+  background-color: ${({ theme }) => theme.color.disabled};
   transform: rotate(-30deg);
 `;
 
@@ -112,7 +111,7 @@ export const progress = keyframes`
 
 export const ProgressBox = styled.div`
   position: absolute;
-  background-color: #93ff3c;
+  background-color: ${({ theme }) => theme.color.purchasable};
   width: 100%;
   height: 100%;
   transform: translate3d(0, 100%, 0);

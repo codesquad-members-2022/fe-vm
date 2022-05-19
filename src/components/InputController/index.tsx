@@ -1,63 +1,60 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 
-import { ACTION, VMContext } from '@/Context/VMContext';
-import { LOG_ACTION, useLog } from '@/Context/VMContext/LogContext';
-import { MACHINE_ACTION, useMachine } from '@/Context/VMContext/MachineContext';
-import { useWallet, WALLET_ACTION } from '@/Context/VMContext/WalletContext';
+import { LOG_ACTION, LogDispatch, useLog } from '@/Context/VMContext/LogContext';
+import { MACHINE_ACTION, MachineDispatch, useMachine } from '@/Context/VMContext/MachineContext';
+import {
+  useWallet,
+  WALLET_ACTION,
+  WalletDispatch,
+  ICalInputToCoins,
+  IWallet,
+} from '@/Context/VMContext/WalletContext';
 
 import * as S from './styles';
 
-export interface Props {
+export interface InputControllerProps {
   className: string;
+}
+
+export interface InputFormProps {
+  walletDispatch: WalletDispatch;
+  machineDispatch: MachineDispatch;
+  logDispatch: LogDispatch;
+  calInputToCoins: ICalInputToCoins;
+  setIsSubmitted: Dispatch<SetStateAction<boolean>>;
+  wallet: IWallet;
 }
 
 // NOTE: Wallet -> 동전수, 총금액 업데이트
 // NOTE: Machine -> 금액 투입, 금액 반환
 // NOTE: Log -> 로그 업데이트
-const InputController = ({ className }: Props) => {
-  const [isSubmitted, setIsSubmitted] = useState(true);
+const InputController = ({ className }: InputControllerProps) => {
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(true);
   const {
-    state: { totalInputAmount },
-    dispatch,
-  } = useContext(VMContext);
-  const {
-    wallet: { state: wState, dispatch: wDispatch },
+    wallet: { state: walletState, dispatch: walletDispatch },
     calInputToCoins,
     calReturnToCoins,
   } = useWallet();
-  const { state: mState, dispatch: mDispatch } = useMachine();
-  const { state: lState, dispatch: lDispatch } = useLog();
+  const { state: machineState, dispatch: machineDispatch } = useMachine();
+  const { dispatch: logDispatch } = useLog();
 
   const onClickInputAmount = () => {
     setIsSubmitted(false);
   };
 
   const onClickReturnButton = () => {
-    // dispatch({
-    //   type: ACTION.RETURN_CHANGE,
-    // });
-    // NOTE: mDispatch: totalInputAmount 업데이트
-    // NOTE: wDispatch: coin개수 업데이트
-    // NOTE: lDispatch: 로그 업데이트
-    const totalInputAmount = mState.totalInputAmount;
+    // NOTE: machineDispatch: totalInputAmount 업데이트
+    // NOTE: walletDispatch: coin개수 업데이트
+    // NOTE: logDispatch: 로그 업데이트
+    const totalInputAmount = machineState.totalInputAmount;
     if (totalInputAmount === 0) {
       return;
     }
 
-    const coinCountInfo = calReturnToCoins(wState, totalInputAmount);
-    mDispatch({ type: MACHINE_ACTION.RETURN_MONEY });
-    wDispatch({
-      type: WALLET_ACTION.RETURN_COINS,
-      payload: {
-        coinCountInfo,
-      },
-    });
-    lDispatch({
-      type: LOG_ACTION.RETURN_MONEY,
-      payload: {
-        amount: totalInputAmount,
-      },
-    });
+    const coinCountInfo = calReturnToCoins(walletState, totalInputAmount);
+    machineDispatch({ type: MACHINE_ACTION.RETURN_MONEY });
+    walletDispatch({ type: WALLET_ACTION.RETURN_COINS, payload: { coinCountInfo } });
+    logDispatch({ type: LOG_ACTION.RETURN_MONEY, payload: { amount: totalInputAmount } });
 
     // dispatch({
     //   type: ACTION.CLEAR_TIMER,
@@ -72,16 +69,16 @@ const InputController = ({ className }: Props) => {
       <S.InputLayer>
         {isSubmitted ? (
           <S.InputAmount onClick={onClickInputAmount}>
-            {mState.totalInputAmount.toLocaleString()}
+            {machineState.totalInputAmount.toLocaleString()}
           </S.InputAmount>
         ) : (
           <InputForm
-            wDispatch={wDispatch}
-            mDispatch={mDispatch}
-            lDispatch={lDispatch}
+            walletDispatch={walletDispatch}
+            machineDispatch={machineDispatch}
+            logDispatch={logDispatch}
             calInputToCoins={calInputToCoins}
             setIsSubmitted={setIsSubmitted}
-            wallet={wState}
+            wallet={walletState}
           />
         )}
         <span>원</span>
@@ -92,39 +89,36 @@ const InputController = ({ className }: Props) => {
 };
 
 const InputForm = ({
-  wDispatch,
-  mDispatch,
-  lDispatch,
+  walletDispatch,
+  machineDispatch,
+  logDispatch,
   calInputToCoins,
   setIsSubmitted,
   wallet,
-}) => {
-  const inputRef = useRef(null);
+}: InputFormProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+
+    if (inputRef === null || inputRef.current === null) {
+      return;
+    }
+
     const inputValue = Number(inputRef.current.value);
 
     setIsSubmitted(true);
 
-    // NOTE: mDispatch: totalInputAmount 업데이트
-    // NOTE: wDispatch: coin개수 업데이트
-    // NOTE: lDispatch: log 업데이트
+    // NOTE: machineDispatch: totalInputAmount 업데이트
+    // NOTE: walletDispatch: coin개수 업데이트
+    // NOTE: logDispatch: log 업데이트
 
     const { realInputAmount, coinCountInfo } = calInputToCoins(wallet, inputValue);
-    console.log(realInputAmount);
 
-    mDispatch({ type: MACHINE_ACTION.INSERT_MONEY, payload: { amount: realInputAmount } });
-    wDispatch({ type: WALLET_ACTION.INSERT_COINS, payload: { coinCountInfo } });
-    lDispatch({ type: LOG_ACTION.INSERT_MONEY, payload: { amount: realInputAmount } });
+    machineDispatch({ type: MACHINE_ACTION.INSERT_MONEY, payload: { amount: realInputAmount } });
+    walletDispatch({ type: WALLET_ACTION.INSERT_COINS, payload: { coinCountInfo } });
+    logDispatch({ type: LOG_ACTION.INSERT_MONEY, payload: { amount: realInputAmount } });
 
-    // dispatch({
-    //   type: ACTION.INSERT_MONEY_BY_TYPING,
-    //   payload: {
-    //     amount: inputValue,
-    //   },
-    // });
-    //
     // dispatch({
     //   type: ACTION.SET_TIMER,
     //   payload: {
@@ -138,7 +132,7 @@ const InputForm = ({
   };
 
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef?.current?.focus();
   }, []);
 
   return (
