@@ -281,4 +281,4 @@ const useWallet = () => {
   return { wallet, calInputToCoins: _calInputToCoins, calReturnToCoins: _calReturnToCoins };
 };
 
-export { useWallet, WalletProvider, WALLET_ACTION, WalletDispatch };
+export { useWallet, WalletProvider, WALLET_ACTION, WalletDispatch, ICalInputToCoins, IWallet };
