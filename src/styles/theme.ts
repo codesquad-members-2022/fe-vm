@@ -1,6 +1,3 @@
-// eslint-disable-next-line import/named
-import { DefaultTheme } from 'styled-components';
-
 const fontSize = {
   sm: '14px',
   base: '16px',
@@ -24,8 +21,8 @@ const color = {
   darkRed: '#fdb6b699',
 };
 
-const theme: DefaultTheme = {
-  colors: color,
+const theme = {
+  color,
   fontSize,
 };
 

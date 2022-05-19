@@ -24,7 +24,7 @@ const DISPLAY_WIDTH = 720;
 
 const HomeLayout = styled.main`
   width: 1080px;
-  border: 1px solid ${({ theme }) => theme.colors.black};
+  border: 1px solid ${({ theme }) => theme.color.black};
 `;
 
 const HomeLayer = styled.div`
@@ -46,7 +46,7 @@ const HomeLayer = styled.div`
 
   .${ACTION_LOGS} {
     margin-right: 4px;
-    border: 1px solid ${({ theme }) => theme.colors.black};
+    border: 1px solid ${({ theme }) => theme.color.black};
   }
 `;
 

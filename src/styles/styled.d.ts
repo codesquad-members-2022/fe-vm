@@ -3,7 +3,7 @@ import { Color, FontSize } from './theme';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    colors: Color;
+    color: Color;
     fontSize: FontSize;
   }
 }

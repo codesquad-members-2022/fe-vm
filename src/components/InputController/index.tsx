@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { RETURN_CHANGE_DELAY } from '@/constants/timer';
 import { ACTION, VMContext } from '@/Provider/VMProvider';
-import { Flexbox } from '@/utils/style';
+import { Flexbox } from '@/styles/util';
 
 const InputController = ({ className }) => {
   const [isSubmitted, setIsSubmitted] = useState(true);
@@ -106,7 +106,7 @@ const Input = styled.input.attrs({ type: 'number', placeholder: '0' })`
   height: 100%;
   text-align: right;
   padding: 0 5px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.black};
+  border-bottom: 1px solid ${({ theme }) => theme.color.black};
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
@@ -121,32 +121,32 @@ const InputAmount = styled.div`
   width: 100%;
   text-align: right;
   padding: 4px;
-  border: 1px solid ${({ theme }) => theme.colors.black};
+  border: 1px solid ${({ theme }) => theme.color.black};
   cursor: pointer;
   transition: background-color 200ms;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.darkBlack};
+    background-color: ${({ theme }) => theme.color.darkBlack};
   }
 
   &:active {
-    background-color: ${({ theme }) => theme.colors.lightBlack};
+    background-color: ${({ theme }) => theme.color.lightBlack};
   }
 `;
 
 const ReturnButton = styled.button.attrs({ type: 'button' })`
   font-size: ${({ theme }) => theme.fontSize.xl};
   padding: 5px;
-  border: 1px solid ${({ theme }) => theme.colors.black};
+  border: 1px solid ${({ theme }) => theme.color.black};
   cursor: pointer;
   transition: background-color 200ms;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.darkBlack};
+    background-color: ${({ theme }) => theme.color.darkBlack};
   }
 
   &:active {
-    background-color: ${({ theme }) => theme.colors.lightBlack};
+    background-color: ${({ theme }) => theme.color.lightBlack};
   }
 `;
 

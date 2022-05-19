@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 import { RETURN_CHANGE_DELAY } from '@/constants/timer';
 import { ACTION, VMContext } from '@/Provider/VMProvider';
-import { Flexbox } from '@/utils/style';
+import { Flexbox } from '@/styles/util';
 
 const Wallet = () => {
   const {
@@ -89,7 +89,7 @@ const CoinList = styled.ol``;
 const Balance = styled.div`
   ${Flexbox};
   padding: 20px;
-  border: 1px solid ${({ theme }) => theme.colors.black};
+  border: 1px solid ${({ theme }) => theme.color.black};
   margin: 20px auto 0;
 `;
 
@@ -110,24 +110,24 @@ const Count = styled.div`
   padding: 10px;
   min-width: 70px;
   height: 55px;
-  border: 1px solid ${({ theme }) => theme.colors.black};
+  border: 1px solid ${({ theme }) => theme.color.black};
   border-radius: 999px;
   margin-left: 10px;
 `;
 
 const buttonCommonStyle = css`
-  border: 1px solid ${({ theme }) => theme.colors.black};
+  border: 1px solid ${({ theme }) => theme.color.black};
   font-size: ${({ theme }) => theme.fontSize.base};
   cursor: pointer;
   transition: all 400ms;
   height: 55px;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.lightBlack};
+    background-color: ${({ theme }) => theme.color.lightBlack};
   }
 
   &:active {
-    background-color: ${({ theme }) => theme.colors.darkBlack};
+    background-color: ${({ theme }) => theme.color.darkBlack};
   }
 `;
 
