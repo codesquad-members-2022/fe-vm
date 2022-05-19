@@ -1,19 +1,34 @@
 import React, { useContext, memo, useRef, useEffect, useState } from 'react';
-import styled from 'styled-components';
 
-import { ACTION, VMContext } from '@/Provider/VMProvider';
+import { ACTION, ActionType, VMContext } from '@/Provider/VMProvider';
 
-const ActionLogs = ({ className }) => {
+import * as S from './styles';
+
+export interface LogsProps {
+  className: string;
+}
+
+export interface LogProps {
+  message: string;
+}
+
+export interface ContextMenuProps {
+  dispatch: React.Dispatch<ActionType>;
+  top: number;
+  left: number;
+}
+
+const ActionLogs = ({ className }: LogsProps) => {
   const {
     state: { logs },
     dispatch,
   } = useContext(VMContext);
-  const actionLogsRef = useRef(null);
-  const contextMenuWrapperRef = useRef(null);
+  const actionLogsRef = useRef<HTMLOListElement | null>(null);
+  const contextMenuWrapperRef = useRef<HTMLDivElement | null>(null);
   const [isContextMenuActive, setIsContextMenuActive] = useState(false);
   const [points, setPoints] = useState({ x: 30, y: 30 });
 
-  const onContextMenu = (event) => {
+  const onContextMenu = (event: React.PointerEvent<HTMLDivElement>) => {
     event.preventDefault();
 
     const {
@@ -21,7 +36,7 @@ const ActionLogs = ({ className }) => {
       target,
     } = event;
 
-    if (contextMenuWrapperRef.current.contains(target)) {
+    if (contextMenuWrapperRef.current?.contains(target)) {
       return;
     }
 
@@ -47,95 +62,41 @@ const ActionLogs = ({ className }) => {
   }, []);
 
   return (
-    <ActionLogsLayout className={className} onContextMenu={onContextMenu}>
-      <ActionLogsLayer ref={actionLogsRef}>
+    <S.ActionLogsLayout className={className} onContextMenu={onContextMenu}>
+      <S.ActionLogsLayer ref={actionLogsRef}>
         {logs.map(({ id, message }) => (
           <ActionLog key={id} message={message} />
         ))}
-      </ActionLogsLayer>
-      <ContextMenuWrapper ref={contextMenuWrapperRef}>
+      </S.ActionLogsLayer>
+      <S.ContextMenuWrapper ref={contextMenuWrapperRef}>
         {isContextMenuActive && <ContextMenu dispatch={dispatch} top={points.y} left={points.x} />}
-      </ContextMenuWrapper>
-    </ActionLogsLayout>
+      </S.ContextMenuWrapper>
+    </S.ActionLogsLayout>
   );
 };
 
-const ActionLog = memo(({ message }) => {
+const ActionLog = memo(({ message }: LogProps) => {
   return (
-    <ActionLogLayer>
-      <Message>{message}</Message>
-    </ActionLogLayer>
+    <S.ActionLogLayer>
+      <S.Message>{message}</S.Message>
+    </S.ActionLogLayer>
   );
 });
 
-const ContextMenu = ({ dispatch, top, left }) => {
+const ContextMenu = ({ dispatch, top, left }: ContextMenuProps) => {
   const onClick = () => {
     dispatch({ type: ACTION.DELETE_ALL_LOGS });
   };
 
   return (
-    <ContextMenuLayer top={top} left={left}>
-      <ContextMenuItem onClick={onClick}>모든 로그 삭제</ContextMenuItem>
-      <ContextMenuItem onClick={onClick}>모든 로그 삭제</ContextMenuItem>
-      <ContextMenuItem onClick={onClick}>모든 로그 삭제</ContextMenuItem>
-      <ContextMenuItem onClick={onClick}>모든 로그 삭제</ContextMenuItem>
-      <ContextMenuItem onClick={onClick}>모든 로그 삭제</ContextMenuItem>
-    </ContextMenuLayer>
+    <S.ContextMenuLayer top={top} left={left}>
+      <S.ContextMenuItem onClick={onClick}>모든 로그 삭제</S.ContextMenuItem>
+      <S.ContextMenuItem onClick={onClick}>모든 로그 삭제</S.ContextMenuItem>
+      <S.ContextMenuItem onClick={onClick}>모든 로그 삭제</S.ContextMenuItem>
+      <S.ContextMenuItem onClick={onClick}>모든 로그 삭제</S.ContextMenuItem>
+      <S.ContextMenuItem onClick={onClick}>모든 로그 삭제</S.ContextMenuItem>
+    </S.ContextMenuLayer>
   );
 };
-
-const ActionLogsLayout = styled.div`
-  position: relative;
-  height: 580px;
-  padding: 10px;
-`;
-
-const ActionLogsLayer = styled.ol`
-  overflow-y: auto;
-  height: 100%;
-`;
-
-const ActionLogLayer = styled.li`
-  pointer-events: none;
-  & + & {
-    margin-top: 10px;
-  }
-`;
-
-const Message = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  line-height: 1.2;
-`;
-
-const ContextMenuWrapper = styled.div``;
-
-const ContextMenuLayer = styled.ol`
-  position: absolute;
-  top: ${({ top }) => top}px;
-  left: ${({ left }) => left}px;
-  background-color: #fff;
-  border: 1px solid #bbb;
-  border-radius: 12px;
-  padding: 6px;
-  width: 70%;
-  transition: opacity 200ms;
-`;
-
-const ContextMenuItem = styled.li`
-  user-select: none;
-  cursor: pointer;
-  padding: 12px;
-  border-radius: 12px;
-  z-index: 999;
-  transition: background-color 300ms;
-
-  &:hover {
-    background-color: #eee;
-  }
-
-  &:active {
-    background-color: #eee9;
-  }
-`;
 
 export default ActionLogs;
