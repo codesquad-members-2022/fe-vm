@@ -18,7 +18,8 @@ const StyledInsertCoin = styled.input`
 `;
 
 function InsertCoin() {
-  const { insertCoin } = useContext(InsertCoinContext);
+  const insertCoin = useContext(InsertCoinContext);
+
   return (
     <StyledInsertCoin
       defaultValue={insertCoin}

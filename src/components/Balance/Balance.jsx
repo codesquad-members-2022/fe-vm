@@ -14,7 +14,7 @@ const StyledBalance = styled.div`
 `;
 
 function Balance() {
-  const { coin } = useContext(CoinContext);
+  const coin = useContext(CoinContext);
   const balance = coin.reduce((acc, cur) => acc + cur.unit * cur.count, 0);
 
   return <StyledBalance>{balance + "원"}</StyledBalance>;

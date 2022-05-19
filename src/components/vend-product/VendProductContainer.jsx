@@ -4,7 +4,7 @@ import { VendProduct } from "./VendProduct";
 
 const StyledVendProductContainer = styled.ul`
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-columns: repeat(4, 1fr);
 
   li {
     background-color: #f2f2f2;
