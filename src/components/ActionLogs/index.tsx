@@ -1,6 +1,5 @@
-import React, { useContext, memo, useRef, useEffect, useState } from 'react';
+import React, { memo, useRef, useEffect, useState } from 'react';
 
-import { ACTION, ActionType, VMContext } from '@/Context/VMContext';
 import { LOG_ACTION, LogDispatch, useLog } from '@/Context/VMContext/LogContext';
 
 import * as S from './styles';
@@ -14,18 +13,13 @@ export interface LogProps {
 }
 
 export interface ContextMenuProps {
-  dispatch: React.Dispatch<ActionType>;
-  lDispatch: LogDispatch;
+  logDispatch: LogDispatch;
   top: number;
   left: number;
 }
 
 const ActionLogs = ({ className }: LogsProps) => {
-  const { state: lState, dispatch: lDispatch } = useLog();
-  const {
-    state: { logs },
-    dispatch,
-  } = useContext(VMContext);
+  const { state: logState, dispatch: logDispatch } = useLog();
   const actionLogsRef = useRef<HTMLOListElement | null>(null);
   const contextMenuWrapperRef = useRef<HTMLDivElement | null>(null);
   const [isContextMenuActive, setIsContextMenuActive] = useState(false);
@@ -52,12 +46,12 @@ const ActionLogs = ({ className }: LogsProps) => {
   };
 
   useEffect(() => {
-    if (actionLogsRef === null) {
+    if (actionLogsRef === null || actionLogsRef.current === null) {
       return;
     }
 
     actionLogsRef.current.scrollTop = actionLogsRef.current.scrollHeight;
-  }, [logs]);
+  }, [logState]);
 
   useEffect(() => {
     const onClick = () => {
@@ -71,13 +65,13 @@ const ActionLogs = ({ className }: LogsProps) => {
   return (
     <S.ActionLogsLayout className={className} onContextMenu={onContextMenu}>
       <S.ActionLogsLayer ref={actionLogsRef}>
-        {lState.map(({ id, message }) => (
+        {logState.map(({ id, message }) => (
           <ActionLog key={id} message={message} />
         ))}
       </S.ActionLogsLayer>
       <S.ContextMenuWrapper ref={contextMenuWrapperRef}>
         {isContextMenuActive && (
-          <ContextMenu lDispatch={lDispatch} dispatch={dispatch} top={points.y} left={points.x} />
+          <ContextMenu logDispatch={logDispatch} top={points.y} left={points.x} />
         )}
       </S.ContextMenuWrapper>
     </S.ActionLogsLayout>
@@ -92,10 +86,9 @@ const ActionLog = memo(({ message }: LogProps) => {
   );
 });
 
-const ContextMenu = ({ lDispatch, dispatch, top, left }: ContextMenuProps) => {
+const ContextMenu = ({ logDispatch, top, left }: ContextMenuProps) => {
   const onClick = () => {
-    // dispatch({ type: ACTION.DELETE_ALL_LOGS });
-    lDispatch({ type: LOG_ACTION.CLEAR });
+    logDispatch({ type: LOG_ACTION.CLEAR });
   };
 
   return (
