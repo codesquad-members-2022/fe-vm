@@ -9,7 +9,10 @@ import {accountReducer} from '../Reducer';
 
 export const Wallet = () => {
   const {account, sinkedAccount} = useContext(UserAccount);
-  const {insertMoney, userMoney} = useAccount(account, accountReducer);
+  const {insertMoney, userMoney, refundMoney} = useAccount(
+    account,
+    accountReducer,
+  );
 
   useEffect(() => {
     sinkedAccount(userMoney);
@@ -21,6 +24,7 @@ export const Wallet = () => {
         handleMoneyBtn={insertMoney}
         insertBtnData={MONEY_BUTTON_DATA}
         walletState={userMoney}
+        refundMoney={refundMoney}
       />
       <TotalMoney>{userMoney.currentMoney}</TotalMoney>
     </WalletWrapper>

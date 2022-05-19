@@ -1,6 +1,8 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
 
+import {useTimer} from '../Store';
+
 const divideCurrentMoney = (moneyList, money) => {
   moneyList.forEach(v => {
     v.count = parseInt(money / v.unit);
@@ -9,26 +11,40 @@ const divideCurrentMoney = (moneyList, money) => {
   return moneyList;
 };
 
-const handleMoneyButton = (unit, currentMoney, insertMoney, count) => () => {
-  if (currentMoney < unit || count === 0) {
-    return;
-  }
-  insertMoney(unit);
-};
+const handleMoneyButton =
+  (unit, currentMoney, insertMoney, count, setTimer, clearTimer, refundMoney) =>
+  () => {
+    if (currentMoney < unit || count === 0) {
+      return;
+    }
+    clearTimer();
+    insertMoney(unit);
+    setTimer(refundMoney, 5000);
+  };
 
 export const InsertButton = ({
   insertBtnData,
   handleMoneyBtn,
   walletState: {currentMoney},
+  refundMoney,
 }) => {
   const insertBtnList = divideCurrentMoney(insertBtnData, currentMoney);
+  const {setTimer, clearTimer} = useTimer();
 
   return insertBtnList.map(({unit, id, count}) => (
     <InsertBtnWrapper>
       <MoneyBtn
         key={id}
         //Todo: 인자값 줄이기 리팩토링
-        onClick={handleMoneyButton(unit, currentMoney, handleMoneyBtn, count)}
+        onClick={handleMoneyButton(
+          unit,
+          currentMoney,
+          handleMoneyBtn,
+          count,
+          setTimer,
+          clearTimer,
+          refundMoney,
+        )}
       >
         {unit + '원'}
       </MoneyBtn>
