@@ -15,7 +15,7 @@ const ProductItem = ({ productData, currentMoney }) => {
         data={{ name }}
         styles={productButtonStyle}
         className="product-button"
-        isAvailableClick={isInStock && isAvailablePurchase}
+        isClickable={isInStock && isAvailablePurchase}
       />
       <p className="product-price">{(isInStock && price) || SOLDOUT_MESSAGE}</p>
     </ProductLi>

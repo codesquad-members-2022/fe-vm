@@ -34,7 +34,7 @@ const ReturnButton = () => {
       }}
       styles={returnButtonStyle}
       onClick={handleClickReturnButton}
-      isAvailableClick={insertedMoney.length && totalMoney}
+      isClickable={insertedMoney.length && totalMoney}
     />
   );
 };

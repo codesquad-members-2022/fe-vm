@@ -4,7 +4,7 @@ const Button = ({
   data,
   styles,
   className,
-  isAvailableClick = true,
+  isClickable = true,
   onClick,
   type,
 }) => {
@@ -12,7 +12,7 @@ const Button = ({
     <StyledButton
       styles={styles}
       className={className}
-      disabled={!isAvailableClick}
+      disabled={!isClickable}
       onClick={onClick}
       type={type || "button"}
     >
