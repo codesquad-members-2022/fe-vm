@@ -23,7 +23,7 @@ const ItemListerWrapper = styled.article`
 `;
 
 interface TimerType {
-  timerId: React.MutableRefObject<any>;
+  timerId: React.MutableRefObject<number>;
 }
 
 export default function ItemList({ timerId }: TimerType): JSX.Element {

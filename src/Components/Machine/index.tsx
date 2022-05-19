@@ -5,7 +5,7 @@ import InfoList from '@/Components/Machine/InfoList';
 import { ItemContextProvider } from '@/Context/ItemContext';
 
 interface TimerType {
-  timerId: React.MutableRefObject<any>;
+  timerId: React.MutableRefObject<number>;
 }
 
 const MachineWrapper = styled.section`

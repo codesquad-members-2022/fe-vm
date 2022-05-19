@@ -1,5 +1,5 @@
 export default function timeOut(
-  callback: any,
+  callback: () => void,
   delay: number | null,
 ): NodeJS.Timeout {
   const timerId = setTimeout(() => callback(), delay);

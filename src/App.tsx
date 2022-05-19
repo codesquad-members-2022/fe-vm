@@ -11,40 +11,24 @@ import { WalletContextProvider } from '@/Context/WalletContext';
 import { MessageContextProvider } from './Context/MessageContext';
 import { PriceContextProvider } from '@/Context/PriceContext';
 
-interface ProviderProps {
-  contexts: Array<React.ElementType | any>;
-  children: React.ReactNode;
-}
-
-const AppProvider = ({ contexts, children }: ProviderProps) =>
-  contexts.reduce(
-    (prev, context) =>
-      React.createElement(context, {
-        children: prev,
-      }),
-    children,
-  );
-
 export default function App(): JSX.Element {
   return (
     <>
-      <AppProvider
-        contexts={[
-          WalletContextProvider,
-          MessageContextProvider,
-          PriceContextProvider,
-        ]}
-      >
-        <ThemeProvider theme={theme}>
-          <GlobalStyles />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="mypage" element={<MyPage />} />
-            </Routes>
-          </BrowserRouter>
-        </ThemeProvider>
-      </AppProvider>
+      <WalletContextProvider>
+        <MessageContextProvider>
+          <PriceContextProvider>
+            <ThemeProvider theme={theme}>
+              <GlobalStyles />
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="mypage" element={<MyPage />} />
+                </Routes>
+              </BrowserRouter>
+            </ThemeProvider>
+          </PriceContextProvider>
+        </MessageContextProvider>
+      </WalletContextProvider>
     </>
   );
 }
