@@ -10,6 +10,7 @@ export default function Menus() {
       name={menu.name}
       price={menu.price}
       imageURL={menu.imageURL}
+      stock={menu.stock}
     />
   ));
   return <StyledMenus>{menuList}</StyledMenus>;
