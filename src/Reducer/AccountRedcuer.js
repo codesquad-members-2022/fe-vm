@@ -80,7 +80,7 @@ export const accountReducer = (state, action) => {
       if (!checkedMoney.change) {
         return {
           currentMoney: state.currentMoney - inputValue,
-          insertedMoney: inputValue,
+          insertedMoney: state.insertedMoney + inputValue,
           history: [...state.history, `${inputValue}원 추가!`],
         };
       }
@@ -92,7 +92,7 @@ export const accountReducer = (state, action) => {
         if (list.count > 0 && list.unit > checkedMoney.change) {
           return {
             currentMoney: state.currentMoney - (checkedMoney.saved + list.unit),
-            insertedMoney: checkedMoney.saved + list.unit,
+            insertedMoney: state.insertedMoney + checkedMoney.saved + list.unit,
             history: [
               ...state.history,
               `${inputValue}원 투입하였지만 지갑 사정으로 인해 ${

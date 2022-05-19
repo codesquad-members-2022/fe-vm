@@ -23,7 +23,7 @@ export const VendingMachineInterface = ({
   return (
     <VM_Wrapper>
       {isInputClicked ? (
-        <VM_MoneyInput ref={moneyInsertInput} onKeyDown={onInputEnter} />
+        <VM_MoneyInput onKeyDown={onInputEnter} />
       ) : (
         <VM_insertedMoney
           onClick={() => {
