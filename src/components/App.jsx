@@ -4,7 +4,6 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import Home from 'pages/Home';
 import Wallet from 'pages/Wallet';
-import Loading from 'components/Loading';
 import COINS from 'mocks/coins';
 import { delay } from 'utils';
 
@@ -24,7 +23,6 @@ function App() {
       <MoneyContext.Provider value={{ curMoney, setMoney }}>
         <CoinContext.Provider value={{ coins, setCoins }}>
           <LoadingContext.Provider value={{ isLoading, setLoading }}>
-            {isLoading ? <Loading /> : null}
             <BrowserRouter>
               <Nav>
                 <Link to="/">자판기</Link>

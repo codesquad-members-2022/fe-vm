@@ -23,8 +23,10 @@ export default Loading;
 const Wrap = styled.div`
   position: fixed;
   background-color: gray;
-  width: 99vw;
-  height: 98.5vh;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   margin: auto auto;
   opacity: 0.5;
 `;
