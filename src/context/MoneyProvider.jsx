@@ -25,10 +25,7 @@ const initMoneyState = {
   walletMoney: initMoneyData,
 };
 
-const moneyReducer = (
-  state,
-  { type, inputMoney, targetMoney, count, amount }
-) => {
+const moneyReducer = (state, { type, targetMoney, count, amount }) => {
   switch (type) {
     case 'INSERT_INPUT_MONEY':
       return {
@@ -45,7 +42,7 @@ const moneyReducer = (
         return oMoney;
       });
       const newState = {
-        inputMoney: inputMoney + amount,
+        inputMoney: state.inputMoney + amount,
         insertedMoney: newInsertedMoney,
         walletMoney: newWalletMoney,
       };
