@@ -20,16 +20,17 @@ const Input = styled.input`
 const InputMoneyTitle = styled.div``;
 
 export default function InputMoney(): JSX.Element {
-  const [price, setPrice] = useState<number | undefined>(undefined);
+  const [inputPrice, setInputPrice] = useState<number | undefined>(undefined);
   const priceState = usePriceState();
   const walletState = useWalletState();
   const walletDispatch = useWalletDispatch();
   const priceDispatch = usePriceDispatch();
   const messageDispatch = useMessageDispatch();
-  let sumPrice = 0;
+
+  let walletSumMoney = 0;
 
   walletState.forEach(wallet => {
-    sumPrice += wallet.unit * wallet.count;
+    walletSumMoney += wallet.unit * wallet.count;
   });
 
   const isCheckUnit = (unit: number) => {
@@ -43,12 +44,12 @@ export default function InputMoney(): JSX.Element {
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = parseInt(e.target.value);
 
-    if (value > sumPrice) {
-      setPrice(sumPrice);
+    if (value > walletSumMoney) {
+      setInputPrice(walletSumMoney);
       return;
     }
 
-    value ? setPrice(value) : setPrice(undefined);
+    value ? setInputPrice(value) : setInputPrice(undefined);
   };
 
   const parsingUnit = (price: number | undefined) => {
@@ -70,26 +71,24 @@ export default function InputMoney(): JSX.Element {
 
   const handleKeyPressEvent = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter') {
-      if (isNaN(price) || price < 0) return;
+      if (isNaN(inputPrice) || inputPrice < 0) return;
       else {
-        const unit = parsingUnit(price);
+        const unit = parsingUnit(inputPrice);
         if (!isCheckUnit(unit)) {
           alert(`${unit}원이 지갑에 존재하지 않습니다.`);
           return;
         }
 
-        if (unit > sumPrice) {
+        if (unit > walletSumMoney) {
           alert('투입된 금액이 초과되었습니다.');
           return;
         }
 
         const message = `${unit}원이 투입됐음`;
-
         priceDispatch({ type: 'ADD_PRICE', price: unit });
         messageDispatch({ type: 'INSERT_MESSAGE', unit, message });
         walletDispatch({ type: 'DECREASE_WALLET_UNIT', unit, count: 1 });
-
-        setPrice(undefined);
+        setInputPrice(undefined);
       }
     }
   };
@@ -103,7 +102,7 @@ export default function InputMoney(): JSX.Element {
         placeholder="금액을 입력해주세요."
         min="10"
         max="10000"
-        value={price ?? ''}
+        value={inputPrice ?? ''}
         onChange={handlePriceChange}
         onKeyPress={handleKeyPressEvent}
       ></Input>
