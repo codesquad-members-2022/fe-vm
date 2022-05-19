@@ -1,8 +1,8 @@
+import OrderBox from "component/OrderBox";
+import Product from "component/Product";
+import * as uiConst from "constant/uiConstant";
+import vendingMachineProductList from "mockData/mockData";
 import styled from "styled-components";
-import * as uiConst from "../constant/uiConstant";
-import vendingMachineProductList from "../mockData/mockData";
-import Product from "../component/Product";
-import OrderBox from "../component/OrderBox";
 
 function VendingMachine() {
     const products = vendingMachineProductList.map((product) => (

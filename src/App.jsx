@@ -1,11 +1,12 @@
-import { Reset } from "styled-reset";
-import { ThemeProvider } from "styled-components";
 import { Routes, Route } from "react-router-dom";
+
+import NavBtn from "component/NavBtn";
+import NotFound from "page/NotFound";
 import VendingMachine from "page/VendingMachine";
 import Wallet from "page/Wallet";
-import NotFound from "page/NotFound";
+import { ThemeProvider } from "styled-components";
+import { Reset } from "styled-reset";
 import theme from "theme";
-import NavBtn from "component/NavBtn";
 
 function App() {
     return (

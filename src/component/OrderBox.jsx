@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-no-bind */
-import styled from "styled-components";
-import returnIcon from "asset/return.png";
-import insertIcon from "asset/insert.png";
 import logo from "asset/codesquad.png";
+import insertIcon from "asset/insert.png";
+import returnIcon from "asset/return.png";
 import VendingMachineDisplay from "component/VendingMachineDisplay";
 import * as uiConst from "constant/uiConstant";
+import styled from "styled-components";
 
 function OrderBox() {
     function handleReturnBtn() {

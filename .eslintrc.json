@@ -6,8 +6,8 @@
     "extends": [
         "plugin:react/recommended",
         "airbnb",
-        "eslint-config-prettier",
         "plugin:import/recommended",
+        "eslint-config-prettier",
         "plugin:prettier/recommended"
     ],
     "parserOptions": {
@@ -32,6 +32,25 @@
                 "printWidth": 100
             },
             { "usePrettierrc": false }
+        ],
+        "import/order": [
+            "error",
+            {
+                "groups": ["builtin", "external", "index", ["parent", "sibling"]],
+                "pathGroups": [
+                    {
+                        "pattern": "react*",
+                        "group": "external",
+                        "position": "before"
+                    }
+                ],
+                "pathGroupsExcludedImportTypes": ["react"],
+                "newlines-between": "always",
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                }
+            }
         ]
     }
 }
