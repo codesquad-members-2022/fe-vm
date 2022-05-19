@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useMemo } from 'react';
+import React, { Dispatch, createContext, useReducer, useContext, useMemo } from 'react';
 
 import { products, coins } from '@/mock/storage';
 
@@ -35,7 +35,7 @@ interface ITimer {
 
 interface IProviderValue {
   state: IVMState;
-  dispatch: React.Dispatch<ActionType>;
+  dispatch: Dispatch<ActionType>;
 }
 
 export type ActionType =
@@ -52,18 +52,26 @@ export type ActionType =
   | { type: ACTION.CLEAR_TIMER; payload: { key: string } };
 
 const initialState: IVMState = {
-  products,
-  coins,
-  logs: [],
-  totalInputAmount: 0,
-  balance: coins.reduce((acc, { amount, count }) => acc + amount * count, 0),
   timer: {},
+
+  // NOTE3: LogContext
+  logs: [],
+
+  // NOTE2: MachineContext
+  products,
+  totalInputAmount: 0,
+
+  // NOTE: WalletContext
+  coins,
+  balance: coins.reduce((acc, { amount, count }) => acc + amount * count, 0),
 };
 
 enum ACTION {
+  // NOTE: WalletContext
   INSERT_MONEY_BY_TYPING = 'INSERT_MONEY_BY_TYPING',
   INSERT_COIN = 'INSERT_COIN',
   INCREMENT_COIN = 'INCREMENT_COIN',
+
   SELECT_PRODUCT = 'SELECT_PRODUCT',
   RETURN_CHANGE = 'RETURN_CHANGE',
   DELETE_ALL_LOGS = 'DELETE_ALL_LOGS',
@@ -74,6 +82,7 @@ enum ACTION {
 const reducer = (state: IVMState, action: ActionType): IVMState => {
   switch (action.type) {
     // PAYLOAD: amount
+    // NOTE: WalletContext
     case ACTION.INSERT_MONEY_BY_TYPING: {
       const { amount } = action.payload;
       const { balance, coins, logs, totalInputAmount } = state;
@@ -126,6 +135,7 @@ const reducer = (state: IVMState, action: ActionType): IVMState => {
     }
 
     // PAYLOAD: amount, count, index
+    // NOTE: WalletContext
     // TODO: amount
     case ACTION.INSERT_COIN: {
       const { amount, count, index } = action.payload;
@@ -147,12 +157,17 @@ const reducer = (state: IVMState, action: ActionType): IVMState => {
       return {
         ...state,
         logs: newLogs,
-        coins: newCoins,
+
+        // NOTE2: MachineContext
         totalInputAmount: newTotalInputAmount,
+
+        // NOTE: WalletContext
+        coins: newCoins,
         balance: newBalance,
       };
     }
 
+    // NOTE: WalletContext
     // PAYLOAD: amount, count, index
     case ACTION.INCREMENT_COIN: {
       const { amount, count, index } = action.payload;
@@ -173,6 +188,7 @@ const reducer = (state: IVMState, action: ActionType): IVMState => {
 
     // PAYLOAD: name, price, stock, index
     // TODO: name
+    // NOTE2: MachineContext
     case ACTION.SELECT_PRODUCT: {
       const { name, price, stock, index } = action.payload;
       const { totalInputAmount, products, logs } = state;
@@ -197,8 +213,10 @@ const reducer = (state: IVMState, action: ActionType): IVMState => {
 
       return {
         ...state,
-        products: newProducts,
         logs: newLogs,
+
+        //NOTE2: MachineContext
+        products: newProducts,
         totalInputAmount: newTotalInputAmount,
       };
     }
@@ -242,6 +260,7 @@ const reducer = (state: IVMState, action: ActionType): IVMState => {
     }
 
     // PAYLOAD: null
+    // NOTE3: LogContext
     case ACTION.DELETE_ALL_LOGS: {
       return {
         ...state,
@@ -249,6 +268,7 @@ const reducer = (state: IVMState, action: ActionType): IVMState => {
       };
     }
 
+    // NOTE: useTimer
     // PAYLOAD: key, delay, callback
     case ACTION.SET_TIMER: {
       const { key, delay, callback } = action.payload;
