@@ -1,4 +1,6 @@
-const INITIAL_MONEY = 0;
+import constants from "utils/constants";
+
+const { INITIAL_MONEY } = constants;
 
 const moneyDataTemplate = [
   { money: 10, count: 0 },
