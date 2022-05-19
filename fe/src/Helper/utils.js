@@ -52,3 +52,5 @@ export const delay = (time) => {
     setTimeout(resolve, time);
   });
 };
+
+export const getRandomNumber = (start, end) => Math.floor(Math.random() * (end - start) + start);

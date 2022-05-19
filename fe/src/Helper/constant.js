@@ -18,3 +18,5 @@ export const NAV_MENUS = [
 ];
 
 export const INVESTMENT_COUNT_TIME = 3000;
+
+export const RANDOM_RANGE_FOR_ID = 1000;

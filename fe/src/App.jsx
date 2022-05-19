@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AlertMessageProvider from "Context/AlertMessageProvider";
 import InvestMentProvider from "Context/InvestmentProvider";
 import WalletMoneyProvider from "Context/WalletMoneyProvider";
-import OrderTimerProvider from "Context/OrderInProgressProvider";
+import OrderInProgressProvider from "Context/OrderInProgressProvider";
 import MessageListProvider from "Context/MessageListProvider";
 import GlobalStyle from "Common/globalStyle";
 import NotFound from "Pages/NotFound/NotFound";
@@ -20,7 +20,7 @@ const providerList = [
   AlertMessageProvider,
   MessageListProvider,
   InvestMentProvider,
-  OrderTimerProvider,
+  OrderInProgressProvider,
   InvestmentTimerProvider,
 ];
 

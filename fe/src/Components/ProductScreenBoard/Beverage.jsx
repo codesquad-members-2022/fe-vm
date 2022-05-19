@@ -27,7 +27,10 @@ export default function Beverage({ title, price, id }) {
       }
 
       resetInvestment(INVESTMENT_COUNT_TIME);
+      // 주문 대기시간 1.5초
       await delay(1500);
+      // 주문 대기시간동안 /wallet 페이지로 이동했다가 돌아왔다면 거스름돈 반환 딜레이를 초기화 해놨기 때문에, 다시 세팅해줌
+      resetInvestment(INVESTMENT_COUNT_TIME);
       const orderProps = { setOrderInProgress, setInvestment, investment, setAlertMessage, price, title };
       reflectOrder(orderProps);
     };
