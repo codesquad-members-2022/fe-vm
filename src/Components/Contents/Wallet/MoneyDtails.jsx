@@ -7,6 +7,7 @@ import {
   F_BetweenCenter,
   Radius10,
 } from '../../../Assets/Common.style';
+import { MessageType } from '../../../Utils/constants';
 import { changeNumToLocalMoney, getMessage } from '../../../Utils/utils';
 import { contentsContext, myMoneyContext } from '../../MainContents';
 
@@ -33,7 +34,7 @@ function Money() {
       return money.unit === moneyInfo.unit ? updateMoney : money;
     });
     const addMessage = getMessage(
-      '투입',
+      MessageType.ADD,
       changeNumToLocalMoney(moneyInfo.unit),
     );
 

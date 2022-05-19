@@ -15,6 +15,7 @@ import {
 } from '../../../Assets/Common.style';
 import soldOutIcon from '../../../Assets/Images/sold-out.svg';
 import { productImgContext } from '.';
+import { MessageType } from '../../../Utils/constants';
 
 export default function Product({ products }) {
   const items = products.map((product) => (
@@ -31,7 +32,7 @@ function Item({ product }) {
   const isActive = payTotal >= product.price;
 
   const buyProductHandler = () => {
-    const addMessage = getMessage('구입', product.title);
+    const addMessage = getMessage(MessageType.BUY, product.title);
     const updateTotal = payTotal - product.price;
 
     setPayTotal(updateTotal);

@@ -8,8 +8,7 @@ import {
   replaceNotNumToSpace,
 } from '../../../Utils/utils';
 import Btn from '../../Btn';
-
-const notPayMoney = 0;
+import { MessageType, RESET_NUM } from '../../../Utils/constants';
 
 export default function AddBtn() {
   const { payTotal, setPayTotal, printMessages, setPrintMessages } =
@@ -18,11 +17,17 @@ export default function AddBtn() {
 
   const addBtnClickHandler = (e) => {
     e.preventDefault();
-    if (payMoney === notPayMoney)
-      return setPrintMessages([...printMessages, getMessage('notPayMoney')]);
+    if (payMoney === RESET_NUM)
+      return setPrintMessages([
+        ...printMessages,
+        getMessage(MessageType.NOT_PAY_MONEY),
+      ]);
     const formatNum = replaceNotNumToSpace(payMoney);
     const updateTotal = payTotal + Number(formatNum);
-    const addMessage = getMessage('투입', changeNumToLocalMoney(formatNum));
+    const addMessage = getMessage(
+      MessageType.ADD,
+      changeNumToLocalMoney(formatNum),
+    );
 
     setPayMoney(0);
     setPayTotal(updateTotal);

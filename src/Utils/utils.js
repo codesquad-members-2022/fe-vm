@@ -1,3 +1,5 @@
+import { MessageType } from './constants';
+
 export function replaceNotNumToSpace(str) {
   return str.replace(/[^0-9]|,/g, ''); // 숫자 아닐때 공백처리
 }
@@ -10,14 +12,14 @@ export function getMessage(type, value) {
   let valueMessage = '';
   const TYPE_MESSAGE = `${type}했습니다.`;
   switch (type) {
-    case '투입':
-    case '반환':
+    case MessageType.ADD:
+    case MessageType.RETURN:
       valueMessage = `${value}원을 `;
       break;
-    case '구입':
+    case MessageType.BUY:
       valueMessage = `상품(${value})을 `;
       break;
-    case 'notPayMoney':
+    case MessageType.NOT_PAY_MONEY:
       return '금액을 입력해주세요';
     default:
       throw new Error('message type error');
