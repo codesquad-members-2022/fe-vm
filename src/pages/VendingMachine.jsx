@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 
-import items from '../store/store';
+import items from '../consts/consts';
 import Button from '../components/Button';
 import AvailableButton from '../components/AvailableButton';
 import Input from '../components/Input';
