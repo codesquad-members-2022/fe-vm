@@ -8,7 +8,6 @@ import { _ } from '../../../constant/constant';
 const Nav = (props) => {
   return (
     <StyledNav>
-      {/* <Button width="100%">STOCK</Button> */}
       <div>
         <Link to="/">
           <Button width="100%">VENDING</Button>
