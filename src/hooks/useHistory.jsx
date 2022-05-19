@@ -28,7 +28,6 @@ export default function useHistory() {
   }, []);
 
   const addSelectHistory = useCallback((selectedProduct, restMoney) => {
-    console.log(selectedProduct, restMoney);
     dispatchHistoryList({ action: 'SELECT', historyState: { selectedProduct, restMoney } });
   }, []);
 
