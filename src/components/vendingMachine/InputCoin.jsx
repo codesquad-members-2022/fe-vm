@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { useEffect, useRef, useContext } from "react";
+import { useRef, useContext } from "react";
 
-import { FONT } from "../../constants/fonts";
-import Text from "../../Text";
-import VmWalletContextStore from "../../stores/VmWalletStore";
+import { FONT } from "constants/fonts";
+import Text from "Text";
+import VmWalletContextStore from "stores/VmWalletStore";
 
 const InputCoin = () => {
   const inputRef = useRef();
@@ -46,25 +46,25 @@ const InfoWrap = styled.div`
   height: 10%;
   margin: 5% auto 0 auto;
   border-radius: 10px;
-  border: 9px solid black;
   font-size: 18px;
   text-align: center;
   background-color: white;
 `;
 const InputCoins = styled.input`
   width: 80%;
-  height: 50%;
   margin-top: 5%;
   font-size: 18px;
   text-align: right;
   border: none;
   outline: none;
+  padding-top: 25px;
 `;
 
 const ShowCoins = styled.div`
   width: 80%;
   height: 50%;
   margin-top: 5%;
+  padding-top: 25px;
   font-size: 18px;
   text-align: right;
 `;

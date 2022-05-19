@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import Text from "../../Text";
 import { FONT } from "../../constants/fonts";
-import { useEffect, useState, useContext, useRef } from "react";
+import { useEffect, useState, useContext } from "react";
 import VmWalletContextStore from "../../stores/VmWalletStore";
 
 const MoneyInfo = ({ money, number }) => {
@@ -31,7 +31,7 @@ const MoneyInfo = ({ money, number }) => {
         <Text font={FONT.MEDIUM_BOLD}>{money.type}원</Text>
       </MoneyWrap>
       <AmountWrap>
-        <Text font={FONT.MEDIUM_BOLD}>{moneyAmount}개</Text>
+        <Text font={FONT.LARGE_BOLD}>{moneyAmount}개</Text>
       </AmountWrap>
     </MoneyInfoWrap>
   );

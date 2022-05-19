@@ -16,9 +16,12 @@ const Products = () => {
 const ProductsWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 65%;
-  border: 10px solid black;
-  border-radius: 10px;
+  height: 75%;
+  width: 90%;
+  border: 5px solid black;
+  margin: auto auto;
+  margin-top: 30px;
+  border-radius: 5px;
   justify-content: space-around;
   align-items: center;
   background-color: #7093df;

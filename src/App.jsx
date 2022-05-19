@@ -1,12 +1,11 @@
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import VendingMachine from "./components/vendingMachine/Machine";
 import Wallet from "./components/wallet/Wallet";
-import { HeaderWrap } from "./components/header/VendingMachineBtn";
 import GlobalStyles from "./globalStyles";
-import VendingMachineBtn from "./components/header/VendingMachineBtn";
-import WalletBtn from "./components/header/WalletBtn";
 import HeaderInfoContext from "./context/HeaderInfoContext";
 import VmWalletContext from "./context/VmWalletContext";
+import Header from "./components/header/Header";
 
 function App() {
   return (
@@ -14,17 +13,7 @@ function App() {
       <GlobalStyles />
       <BrowserRouter>
         <HeaderInfoContext>
-          <nav>
-            <HeaderWrap>
-              <Link to="/vm" style={{ textDecoration: "none" }}>
-                <VendingMachineBtn />
-              </Link>
-
-              <Link to="/wallet" style={{ textDecoration: "none" }}>
-                <WalletBtn />
-              </Link>
-            </HeaderWrap>
-          </nav>
+          <Header />
         </HeaderInfoContext>
         <VmWalletContext>
           <Routes>
