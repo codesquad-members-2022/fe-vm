@@ -8,7 +8,7 @@ const LogBox = ({ logs }) => {
     <S.Container>
       <S.LogBox>
         {logs.map(log => (
-          <Log {...log} />
+          <Log key={log.id} {...log} />
         ))}
       </S.LogBox>
     </S.Container>
