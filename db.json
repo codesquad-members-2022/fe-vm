@@ -1,0 +1,60 @@
+{
+    "itemStock": [
+        { "id": 1, "img": "🥤", "name": "콜라", "quantity": 10, "price": 1900 },
+        { "id": 2, "img": "🍔", "name": "햄버거", "quantity": 10, "price": 4500 },
+        { "id": 3, "img": "🍟", "name": "감자튀김", "quantity": 10, "price": 2800 },
+        { "id": 4, "img": "🌭", "name": "핫도그", "quantity": 10, "price": 3900 },
+
+        { "id": 5, "img": "🌮", "name": "타코", "quantity": 0, "price": 7000 },
+        { "id": 6, "img": "🍕", "name": "피자", "quantity": 10, "price": 5900 },
+        { "id": 7, "img": "🍗", "name": "닭다리", "quantity": 10, "price": 4500 },
+        { "id": 8, "img": "🍭", "name": "막대사탕", "quantity": 0, "price": 800 },
+
+        { "id": 9, "img": "🍿", "name": "팝콘", "quantity": 10, "price": 5000 },
+        { "id": 10, "img": "🍺", "name": "맥주", "quantity": 10, "price": 4000 },
+        { "id": 11, "img": "🧃", "name": "애플주스", "quantity": 10, "price": 2500 },
+        { "id": 12, "img": "🍹", "name": "칵테일", "quantity": 10, "price": 2900 },
+
+        { "id": 13, "img": "🥛", "name": "흰우유", "quantity": 10, "price": 500 },
+        { "id": 14, "img": "🍫", "name": "초콜릿", "quantity": 0, "price": 1200 },
+        { "id": 15, "img": "🍪", "name": "머핀", "quantity": 10, "price": 1000 },
+        { "id": 16, "img": "🍦", "name": "얼음과자", "quantity": 10, "price": 1500 }
+    ],
+    "wallet": [
+        {
+            "id": 1,
+            "value": 10,
+            "quantity": 10
+        },
+        {
+            "id": 2,
+            "value": 50,
+            "quantity": 10
+        },
+        {
+            "id": 3,
+            "value": 100,
+            "quantity": 10
+        },
+        {
+            "id": 4,
+            "value": 500,
+            "quantity": 10
+        },
+        {
+            "id": 5,
+            "value": 1000,
+            "quantity": 10
+        },
+        {
+            "id": 6,
+            "value": 5000,
+            "quantity": 10
+        },
+        {
+            "id": 7,
+            "value": 10000,
+            "quantity": 10
+        }
+    ]
+}

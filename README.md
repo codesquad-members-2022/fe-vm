@@ -25,3 +25,9 @@ web vending machine project
 | notice          | 프로젝트 시작 또는 PR 커밋 등과 같이 개발 외적인 경우 |
 
 ---
+
+# API
+
+[지갑 내 코인](http://localhost:3000/wallet) - http://localhost:3000/wallet
+
+[상품 재고](http://localhost:3000/itemStock) - http://localhost:3000/itemStock
