@@ -1,39 +1,53 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Products from 'components/Products';
 import { useProductContext } from 'context/Product';
 import { useUserContext } from 'context/User';
 import { insertChanges, orderProduct, returnChanges } from 'context/User/action';
 import { getProducts } from 'context/Product/action';
 import { isLogin } from 'utils/cookie';
-import userApi from 'api/user';
 import useSetTimeout from 'hooks/useSetTimeout';
+import productApi from 'api/product';
 import InputMoneyForm from './InputMoneyForm';
 import InsertChangesForm from './InsertChangesForm';
 import ActionLogs from './ActionLogs';
 import * as S from './style';
 
 function VendingMachine() {
-  const { vmDispatch } = useProductContext();
+  const { productDispatch } = useProductContext();
   const { nickname, totalBalance, changesUnits, prevInputChanges, userDispatch, actionLogs } =
     useUserContext();
   const [inputMoney, setInputMoney] = useState(0);
 
   const resetInputMoneny = () => setInputMoney(0);
 
-  const handleOrderProduct = async productId => {
+  const getSumInsertMoney = units => units.reduce((acc, cur) => acc + cur, 0);
+
+  const handleOrderProduct = async productInfo => {
+    const { id, price, ea } = productInfo;
+    const newInputSum = getSumInsertMoney(prevInputChanges);
+    if (newInputSum <= 0) {
+      alert('금액을 투입해주세요.');
+      return;
+    }
+    if (ea <= 0) {
+      alert('주문할 수 있는 상품 수량이 없어요.');
+      return;
+    }
+    if (newInputSum < price) {
+      alert('투입 금액이 상품 가격보다 작아요');
+      return;
+    }
     try {
       const {
         data: { newProducts, ...userInfo },
-      } = await userApi.orderProduct(productId, prevInputChanges);
+      } = await productApi.orderProduct(id, prevInputChanges);
       orderProduct(userDispatch, userInfo);
-      getProducts(vmDispatch, { products: newProducts });
+      getProducts(productDispatch, { products: newProducts });
       resetInputMoneny();
     } catch (error) {
       console.error(error);
     }
   };
-
-  const getSumInsertMoney = units => units.reduce((acc, cur) => acc + cur, 0);
 
   const preventNonLoginUser = useCallback(() => {
     if (!isLogin() || !nickname) {

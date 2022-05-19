@@ -96,6 +96,7 @@ export const orderProduct = (
     error.msg = targetError.msg;
     return [error];
   }
+
   // 주문한 상품의 수량 확인
   if (targetProduct.ea <= 0) {
     error.isError = true;

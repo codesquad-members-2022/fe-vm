@@ -1,13 +1,6 @@
 import { API } from 'constant/route';
 import instance from './core';
 
-const globalApi = {
-  getProducts() {
-    return instance({
-      url: API.GET_PRODUCTS,
-      method: 'get',
-    });
-  },
-};
+const globalApi = {};
 
 export default globalApi;

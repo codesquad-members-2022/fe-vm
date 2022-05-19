@@ -3,7 +3,7 @@ import ChangesUnits from 'pages/VMmangement/ChangesUnits';
 import Products from 'components/Products';
 import { useUserContext } from 'context/User';
 import { addTargetBalance, substractTargetBalance } from 'context/User/action';
-import mangerApi from 'api/manger';
+import userApi from 'api/user';
 import * as S from './style';
 
 function VMmangement() {
@@ -12,7 +12,7 @@ function VMmangement() {
   const fetchAddTargetBalance = useCallback(
     async id => {
       try {
-        const { data } = await mangerApi.addTargetBalance(id);
+        const { data } = await userApi.addTargetBalance(id);
         addTargetBalance(userDispatch, data);
       } catch (error) {
         console.error(error);
@@ -24,7 +24,7 @@ function VMmangement() {
   const fetchSubstractTargetBalance = useCallback(
     async id => {
       try {
-        const { data } = await mangerApi.substractTargetBalance(id);
+        const { data } = await userApi.substractTargetBalance(id);
         substractTargetBalance(userDispatch, data);
       } catch (error) {
         console.error(error);

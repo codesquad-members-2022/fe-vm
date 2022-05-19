@@ -1,23 +1,21 @@
 import { API } from 'constant/route';
 import instance from './core';
 
-const mangerApi = {
-  addTargetBalance(id) {
+const productApi = {
+  getProducts() {
     return instance({
-      url: API.PATCH_ADD_BALANCE,
-      method: 'patch',
-      params: {
-        id,
-      },
+      url: API.GET_PRODUCTS,
+      method: 'get',
     });
   },
-  substractTargetBalance(id) {
+  orderProduct(id, inputChanges) {
     return instance({
-      url: API.PATCH_SUBSTRACT_BALANCE,
+      url: API.PATCH_ORDER_PRODUCT,
       method: 'patch',
       params: {
         id,
       },
+      data: { inputChanges },
     });
   },
   addTargetProduct(id) {
@@ -40,4 +38,4 @@ const mangerApi = {
   },
 };
 
-export default mangerApi;
+export default productApi;

@@ -8,6 +8,8 @@ import {
   USER_LOGOUT,
 } from './type';
 
+// FIXME: dispatch type으로도 충분히 어떤 action인지 유추할 수 있을 거라 생각되는데요! 도리가 느낀 이 방법의 장점은 무엇이었는지 궁금하네요!😄
+
 // global
 export const requestLogin = (dispatch, responseData) =>
   dispatch({ type: USER_LOGIN, payload: responseData });

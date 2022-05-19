@@ -2,14 +2,13 @@ import React, { memo, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useProductContext } from 'context/Product';
 import { addTargetProduct, getProducts, substractTargetProduct } from 'context/Product/action';
-import mangerApi from 'api/manger';
-import globalApi from 'api/globalApi';
+import productApi from 'api/product';
 import MangementForm from './MangementForm';
 import Product from './Product';
 import * as S from './style';
 
 function Products({ isManger, isPriceUnderInputMoney, handleOrderProduct }) {
-  const { products, vmDispatch } = useProductContext();
+  const { products, productDispatch } = useProductContext();
   const [targetProduct, setTargetProduct] = useState(null);
 
   const handleSelectProduct = useCallback(target => {
@@ -19,25 +18,25 @@ function Products({ isManger, isPriceUnderInputMoney, handleOrderProduct }) {
   const fetchAddTargetProduct = useCallback(
     async id => {
       try {
-        const { data } = await mangerApi.addTargetProduct(id);
-        addTargetProduct(vmDispatch, data);
+        const { data } = await productApi.addTargetProduct(id);
+        addTargetProduct(productDispatch, data);
       } catch (error) {
         console.log(error);
       }
     },
-    [vmDispatch],
+    [productDispatch],
   );
 
   const fetchSubstractTargetProduct = useCallback(
     async id => {
       try {
-        const { data } = await mangerApi.substractTargetProduct(id);
-        substractTargetProduct(vmDispatch, data);
+        const { data } = await productApi.substractTargetProduct(id);
+        substractTargetProduct(productDispatch, data);
       } catch (error) {
         console.error(error);
       }
     },
-    [vmDispatch],
+    [productDispatch],
   );
 
   const updateTargetProduct = () => {
@@ -50,8 +49,8 @@ function Products({ isManger, isPriceUnderInputMoney, handleOrderProduct }) {
 
   const fetchProducts = async () => {
     try {
-      const { data } = await globalApi.getProducts();
-      getProducts(vmDispatch, data);
+      const { data } = await productApi.getProducts();
+      getProducts(productDispatch, data);
     } catch (error) {
       console.error(error);
     }

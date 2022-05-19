@@ -15,9 +15,9 @@ export const useProductContext = () => {
 };
 
 export default function ProductContext({ children }) {
-  const [state, vmDispatch] = useReducer(reducer, initState);
+  const [state, productDispatch] = useReducer(reducer, initState);
 
-  const providerValue = useMemo(() => ({ ...state, vmDispatch }), [vmDispatch, state]);
+  const providerValue = useMemo(() => ({ ...state, productDispatch }), [productDispatch, state]);
 
   return <Context.Provider value={providerValue}>{children}</Context.Provider>;
 }

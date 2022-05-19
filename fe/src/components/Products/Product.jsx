@@ -24,7 +24,7 @@ function Product({
       <span>{changeNumberToKoreanLocaleMoney(price)}원</span>
       <span>{ea}개</span>
       {isSelect && !isManger && (
-        <Button variant="contained" onClick={() => handleOrderProduct(id)}>
+        <Button variant="contained" onClick={() => handleOrderProduct(productInfo)}>
           주문하기
         </Button>
       )}
