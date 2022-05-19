@@ -171,14 +171,18 @@ const WalletProvider = ({ children }: { children: React.ReactNode }) => {
   return <WalletContext.Provider value={value}>{children}</WalletContext.Provider>;
 };
 
-interface ICalRequiredCoins {
+interface ICalInputToCoins {
   (wallet: IWallet, inputAmount: number): {
     realInputAmount: number;
     requiredCoinCountInfo: { amount: number; count: number }[];
   };
 }
 
-const calRequiredCoins: ICalRequiredCoins = (wallet, inputAmount) => {
+interface ICalReturnToCoins {
+  (wallet: IWallet, returnAmount: number): { amount: number; count: number }[];
+}
+
+const calInputToCoins: ICalInputToCoins = (wallet, inputAmount) => {
   // inputAmount 받으면 적절하게 분류해서 실제 투입금, 실제 인풋 정보줌
   const { coins, balance } = wallet;
   const requiredCoinCountInfo = wallet.coins.map(({ amount, count }) => {
@@ -210,15 +214,43 @@ const calRequiredCoins: ICalRequiredCoins = (wallet, inputAmount) => {
   return { realInputAmount, requiredCoinCountInfo };
 };
 
+const calReturnToCoins: ICalReturnToCoins = (wallet, returnAmount) => {
+  const { coins } = wallet;
+  const getCoinCountInfo = wallet.coins.map(({ amount, count }) => {
+    return { amount, count: 0 };
+  });
+
+  if (returnAmount === 0) {
+    return getCoinCountInfo;
+  }
+
+  let remain = returnAmount;
+  for (let i = coins.length - 1; i >= 0; i--) {
+    const { amount } = coins[i];
+    if (amount > remain) {
+      continue;
+    }
+
+    const temp = Math.floor(remain / amount);
+    getCoinCountInfo[i].count = Math.floor(remain / amount);
+    remain %= amount;
+    console.log(`%c[${amount}]: ${temp}개 충전`, 'color: #fe2;');
+  }
+  console.log(`----------`);
+
+  return getCoinCountInfo;
+};
+
 const useWallet = () => {
   const wallet = useContext(WalletContext);
-  const _calRequiredCoins = useCallback(() => calRequiredCoins, []);
+  const _calInputToCoins = useCallback(() => calInputToCoins, []);
+  const _calReturnToCoins = useCallback(() => calReturnToCoins, []);
 
   if (!wallet) {
     throw new Error('WalletContext Error');
   }
 
-  return [wallet, _calRequiredCoins];
+  return [wallet, _calInputToCoins, _calReturnToCoins];
 };
 
 export { useWallet, WalletProvider, WALLET_ACTION };
