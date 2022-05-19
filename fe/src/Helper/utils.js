@@ -1,9 +1,15 @@
-export const fetchData = async (url) => {
+export const fetchData = async (url, { method, bodyData } = {}) => {
+  const headers = {
+    "Content-Type": "application/json; charset=utf-8",
+  };
+  const body = JSON.stringify(bodyData);
+  const fetchParams = { method, headers, body };
   try {
-    const data = await fetch(url);
+    const data = await fetch(url, fetchParams);
     return data.json();
   } catch (error) {
     console.log(error);
+    return error;
   }
 };
 
