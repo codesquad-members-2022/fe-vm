@@ -1,12 +1,12 @@
 import React, { useContext, memo } from 'react';
-import styled, { css } from 'styled-components';
 
 import { RETURN_CHANGE_DELAY } from '@/constants/timer';
 import { ACTION, VMContext } from '@/Context/VMContext';
 import { LOG_ACTION, LogDispatch, useLog } from '@/Context/VMContext/LogContext';
 import { MACHINE_ACTION, MachineDispatch, useMachine } from '@/Context/VMContext/MachineContext';
 import { WALLET_ACTION, WalletDispatch, useWallet } from '@/Context/VMContext/WalletContext';
-import { Flexbox } from '@/styles/util';
+
+import * as S from './styles';
 
 const Wallet = () => {
   const {
@@ -22,9 +22,9 @@ const Wallet = () => {
   const { state: lState, dispatch: lDispatch } = useLog();
 
   return (
-    <WalletLayout>
-      <WalletLayer>
-        <CoinList>
+    <S.WalletLayout>
+      <S.WalletLayer>
+        <S.CoinList>
           {wState.coins.map((coin, index) => (
             <Coin
               key={coin.id}
@@ -36,10 +36,10 @@ const Wallet = () => {
               lDispatch={lDispatch}
             />
           ))}
-        </CoinList>
-        <Balance>총 {wState.balance.toLocaleString()}원</Balance>
-      </WalletLayer>
-    </WalletLayout>
+        </S.CoinList>
+        <S.Balance>총 {wState.balance.toLocaleString()}원</S.Balance>
+      </S.WalletLayer>
+    </S.WalletLayout>
   );
 };
 
@@ -91,87 +91,18 @@ const Coin = memo(({ amount, count, index, dispatch, wDispatch, mDispatch, lDisp
   };
 
   return (
-    <CoinLayer>
-      <Amount>
-        <InsertButton as="button" onClick={onClickInsertButton}>
+    <S.CoinLayer>
+      <S.Amount>
+        <S.InsertButton as="button" onClick={onClickInsertButton}>
           {amount}원
-        </InsertButton>
-      </Amount>
-      <Count>{count}개</Count>
-      <IncrementButton as="button" onClick={onClickIncrementButton}>
+        </S.InsertButton>
+      </S.Amount>
+      <S.Count>{count}개</S.Count>
+      <S.IncrementButton as="button" onClick={onClickIncrementButton}>
         +
-      </IncrementButton>
-    </CoinLayer>
+      </S.IncrementButton>
+    </S.CoinLayer>
   );
 });
-
-const WalletLayout = styled.main`
-  ${Flexbox};
-`;
-
-const WalletLayer = styled.div``;
-
-const CoinList = styled.ol``;
-
-const Balance = styled.div`
-  ${Flexbox};
-  padding: 20px;
-  border: 1px solid ${({ theme }) => theme.color.black};
-  margin: 20px auto 0;
-`;
-
-const CoinLayer = styled.li`
-  ${Flexbox};
-  min-width: 200px;
-  & + & {
-    margin-top: 20px;
-  }
-`;
-
-const Amount = styled.div`
-  flex-grow: 1;
-`;
-
-const Count = styled.div`
-  ${Flexbox};
-  padding: 10px;
-  min-width: 70px;
-  height: 55px;
-  border: 1px solid ${({ theme }) => theme.color.black};
-  border-radius: 999px;
-  margin-left: 10px;
-`;
-
-const buttonCommonStyle = css`
-  border: 1px solid ${({ theme }) => theme.color.black};
-  font-size: ${({ theme }) => theme.fontSize.base};
-  cursor: pointer;
-  transition: all 400ms;
-  height: 55px;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.color.lightBlack};
-  }
-
-  &:active {
-    background-color: ${({ theme }) => theme.color.darkBlack};
-  }
-`;
-
-const InsertButton = styled.button`
-  ${Flexbox};
-  ${buttonCommonStyle};
-  width: 150px;
-`;
-
-const IncrementButton = styled.button`
-  ${Flexbox};
-  ${buttonCommonStyle};
-  font-size: 30px;
-  font-weight: bold;
-  width: 55px;
-  border-radius: 999px;
-  margin-left: 5px;
-`;
 
 export default Wallet;

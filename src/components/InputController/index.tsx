@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
 
-import { RETURN_CHANGE_DELAY } from '@/constants/timer';
 import { ACTION, VMContext } from '@/Context/VMContext';
 import { LOG_ACTION, useLog } from '@/Context/VMContext/LogContext';
 import { MACHINE_ACTION, useMachine } from '@/Context/VMContext/MachineContext';
 import { useWallet, WALLET_ACTION } from '@/Context/VMContext/WalletContext';
-import { Flexbox } from '@/styles/util';
+
+import * as S from './styles';
 
 export interface Props {
   className: string;
@@ -41,6 +40,10 @@ const InputController = ({ className }: Props) => {
     // NOTE: wDispatch: coin개수 업데이트
     // NOTE: lDispatch: 로그 업데이트
     const totalInputAmount = mState.totalInputAmount;
+    if (totalInputAmount === 0) {
+      return;
+    }
+
     const coinCountInfo = calReturnToCoins(wState, totalInputAmount);
     mDispatch({ type: MACHINE_ACTION.RETURN_MONEY });
     wDispatch({
@@ -65,12 +68,12 @@ const InputController = ({ className }: Props) => {
   };
 
   return (
-    <InputControllerLayout className={className} dir="column" jc="space-around" ai="unset">
-      <InputLayer>
+    <S.InputControllerLayout className={className} dir="column" jc="space-around" ai="unset">
+      <S.InputLayer>
         {isSubmitted ? (
-          <InputAmount onClick={onClickInputAmount}>
+          <S.InputAmount onClick={onClickInputAmount}>
             {mState.totalInputAmount.toLocaleString()}
-          </InputAmount>
+          </S.InputAmount>
         ) : (
           <InputForm
             wDispatch={wDispatch}
@@ -82,9 +85,9 @@ const InputController = ({ className }: Props) => {
           />
         )}
         <span>원</span>
-      </InputLayer>
-      <ReturnButton onClick={onClickReturnButton}>반환</ReturnButton>
-    </InputControllerLayout>
+      </S.InputLayer>
+      <S.ReturnButton onClick={onClickReturnButton}>반환</S.ReturnButton>
+    </S.InputControllerLayout>
   );
 };
 
@@ -139,75 +142,10 @@ const InputForm = ({
   }, []);
 
   return (
-    <InputFormLayout onSubmit={onSubmit}>
-      <Input ref={inputRef} min={0} max={50000} />
-    </InputFormLayout>
+    <S.InputFormLayout onSubmit={onSubmit}>
+      <S.Input ref={inputRef} min={0} max={50000} />
+    </S.InputFormLayout>
   );
 };
-
-const InputControllerLayout = styled.div`
-  ${Flexbox};
-  width: 99%;
-`;
-
-const InputLayer = styled.div`
-  ${Flexbox};
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  height: 30px;
-`;
-
-const InputFormLayout = styled.form`
-  width: 100%;
-`;
-
-const Input = styled.input.attrs({ type: 'number', placeholder: '0' })`
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  width: 100%;
-  height: 100%;
-  text-align: right;
-  padding: 0 5px;
-  border-bottom: 1px solid ${({ theme }) => theme.color.black};
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  -moz-appearance: textfield;
-`;
-
-const InputAmount = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  width: 100%;
-  text-align: right;
-  padding: 4px;
-  border: 1px solid ${({ theme }) => theme.color.black};
-  cursor: pointer;
-  transition: background-color 200ms;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.color.darkBlack};
-  }
-
-  &:active {
-    background-color: ${({ theme }) => theme.color.lightBlack};
-  }
-`;
-
-const ReturnButton = styled.button.attrs({ type: 'button' })`
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  padding: 5px;
-  border: 1px solid ${({ theme }) => theme.color.black};
-  cursor: pointer;
-  transition: background-color 200ms;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.color.darkBlack};
-  }
-
-  &:active {
-    background-color: ${({ theme }) => theme.color.lightBlack};
-  }
-`;
 
 export default InputController;
