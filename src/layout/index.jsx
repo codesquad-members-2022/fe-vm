@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 
 import Navbar from '@/components/Navbar';
+import { VendorProvider } from '@/context/VendorProvider';
 import * as S from '@/layout/Layout.style';
 
 const Layout = () => {
@@ -10,7 +11,9 @@ const Layout = () => {
       <Navbar />
       <S.OuterContainer>
         <S.InnerContainer>
-          <Outlet />
+          <VendorProvider>
+            <Outlet />
+          </VendorProvider>
         </S.InnerContainer>
       </S.OuterContainer>
     </>

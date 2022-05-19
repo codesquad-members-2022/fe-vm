@@ -3,17 +3,17 @@ import React from 'react';
 
 import * as S from './ItemBlock.style';
 
-const ItemBlock = ({ isMoney, unit, count, name, price, stock, categoryId }) => {
+const ItemBlock = ({ isMoney, unit, count, name, price, stock, category, purchasable }) => {
   return (
     <>
       {isMoney ? (
-        <S.BlockBackground>
+        <S.BlockBackground count={count}>
           <S.InnerText>{count}</S.InnerText>
-          <S.InnerColor isMoney categoryId={count && 'money'}>{`$${unit}`}</S.InnerColor>
+          <S.InnerColor isMoney category={count && 'money'}>{`$${unit}`}</S.InnerColor>
         </S.BlockBackground>
       ) : (
-        <S.BlockBackground>
-          <S.InnerColor categoryId={stock && categoryId}>{name?.toUpperCase()}</S.InnerColor>
+        <S.BlockBackground count={stock} purchasable={purchasable}>
+          <S.InnerColor category={stock && category}>{name?.toUpperCase()}</S.InnerColor>
           <S.InnerText>{stock ? `$${price}` : 'SOLD OUT'}</S.InnerText>
         </S.BlockBackground>
       )}
@@ -28,7 +28,9 @@ ItemBlock.propTypes = {
   name: PropTypes.string,
   price: PropTypes.number,
   stock: PropTypes.number,
+  category: PropTypes.string,
   categoryId: PropTypes.number,
+  purchasable: PropTypes.bool,
 };
 
 export default ItemBlock;

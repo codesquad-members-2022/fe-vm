@@ -9,7 +9,7 @@ import Wallet from '@/pages/Wallet';
 
 const App = () => {
   return (
-    <Router>
+    <Router basename={BASE_URL}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Vendor />} />

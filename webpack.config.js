@@ -5,6 +5,7 @@ const path = require('path');
 const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = env => {
   const { NODE_ENV } = env;
@@ -21,6 +22,10 @@ module.exports = env => {
     : new MiniCssExtractPlugin({ filename: 'css/style.css' });
   const refreshWebpackPlugin = DEV ? new RefreshWebpackPlugin() : { apply: () => {} };
   const refreshBabel = DEV ? 'react-refresh/babel' : {};
+  const BASE_URL = DEV ? '' : 'fe-vm';
+  const definePlugin = new webpack.DefinePlugin({
+    BASE_URL: JSON.stringify(BASE_URL),
+  });
 
   return {
     mode,
@@ -74,6 +79,7 @@ module.exports = env => {
       ],
     },
     plugins: [
+      definePlugin,
       miniCssExtractPlugin,
       new HtmlWebpackPlugin({
         template: path.join(__dirname, 'public', 'index.html'),

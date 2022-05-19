@@ -10,31 +10,31 @@ const BlockBackground = styled(FlexBox)`
   height: 130px;
   justify-content: space-around;
   flex-direction: column;
-  background-color: ${({ theme: { greyScale } }) => greyScale.primaryGrey};
+  background-color: ${({ theme: { color, greyScale }, count, purchasable }) =>
+    count && purchasable ? color.yellow : greyScale.primaryGrey};
   padding: 10px;
   user-select: none;
-  cursor: pointer;
+  cursor: ${({ count }) => (count ? 'pointer' : 'not-allowed')};
+  transition: all 250ms ease-in;
+
+  :active {
+    box-shadow: none;
+  }
 `;
 
-const getCategoryColor = categoryId => {
-  switch (categoryId) {
-    case 1:
-      return theme.color.green;
-    case 2:
-      return theme.color.purple;
-    case 3:
-      return theme.color.pink;
-    case 'money':
-      return theme.color.blue;
-  }
+const categoryObj = {
+  tea: theme.color.green,
+  juice: theme.color.purple,
+  ade: theme.color.pink,
+  money: theme.color.blue,
 };
 
 const InnerColor = styled(FlexBox)`
   width: 110px;
   height: 70px;
   font-size: ${({ theme: { fontSize }, isMoney }) => (isMoney ? fontSize.xLarge : fontSize.medium)};
-  background-color: ${({ theme: { greyScale }, categoryId }) =>
-    categoryId ? getCategoryColor(categoryId) : greyScale.soldOut};
+  background-color: ${({ theme: { greyScale }, category }) =>
+    category ? categoryObj[category] : greyScale.soldOut};
   border-radius: 10px;
   color: ${({ theme: { greyScale } }) => greyScale.white};
   padding: 5px;

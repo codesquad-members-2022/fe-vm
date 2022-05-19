@@ -40,6 +40,8 @@
         },
         "newlines-between": "always"
       }
-    ]
+    ],
+    "react/prop-types": "off",
+    "react/display-name": "off"
   }
 }
