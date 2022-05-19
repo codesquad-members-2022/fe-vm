@@ -1,2 +1,4 @@
-# fe-vm
-web vending machine project
+# 🍔 🥤 자판기
+
+## Pages
+- https://ubeom.github.io/fe-vm/

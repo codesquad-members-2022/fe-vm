@@ -5,13 +5,14 @@ import {
   useReducer,
   createContext,
   useMemo,
+  useCallback,
 } from 'react';
-import Header from './Header';
-import styled from 'styled-components';
-import { FlexCenter, debounce } from '../styled-components/util';
-import VendingMachine from './VendingMachine';
-import Wallet from './Wallet';
+import Header from 'components/Header';
+import { debounce } from 'utils/util';
+import VendingMachine from 'components/VendingMachine';
+import Wallet from 'components/Wallet';
 import { Routes, Route } from 'react-router-dom';
+import { Container } from 'components/App.Styled';
 
 export const myContext = createContext();
 
@@ -233,25 +234,31 @@ const App = () => {
     if (!input.current) handleClickChange();
   }
 
-  function handleClickMoney(money, index) {
-    if (walletInfo[index].number > 0) {
-      setInputMoney(inputMoney + money);
-      setWalletInfo(updateInfo(index, walletInfo, 'wallet'));
-      dispatch({ type: ACTION_TYPE.money, money: money });
-      history.current = history.current.concat(index);
-    }
-  }
+  const handleClickMoney = useCallback(
+    (money, index) => {
+      if (walletInfo[index].number > 0) {
+        setInputMoney(prev => prev + money);
+        setWalletInfo(prev => updateInfo(index, prev, 'wallet'));
+        dispatch({ type: ACTION_TYPE.money, money: money });
+        history.current = history.current.concat(index);
+      }
+    },
+    [updateInfo],
+  );
 
-  function handleClickProduct(name, index) {
-    if (
-      menuInfo[index].number > 0 &&
-      menuInfo[index].price <= inputMoney &&
-      inputMoney > 0
-    ) {
-      input.current = true;
-      productSelectTimer(purchaseProduct.bind(null, name, index), 2000);
-    }
-  }
+  const handleClickProduct = useCallback(
+    (name, index) => {
+      if (
+        menuInfo[index].number > 0 &&
+        menuInfo[index].price <= inputMoney &&
+        inputMoney > 0
+      ) {
+        input.current = true;
+        productSelectTimer(purchaseProduct.bind(null, name, index), 2000);
+      }
+    },
+    [menuInfo, inputMoney, purchaseProduct],
+  );
 
   function updateWalletInfoWhenChange() {
     const copy = JSON.parse(JSON.stringify(walletInfo));
@@ -351,7 +358,5 @@ const App = () => {
     </>
   );
 };
-
-const Container = styled(FlexCenter)``;
 
 export default App;

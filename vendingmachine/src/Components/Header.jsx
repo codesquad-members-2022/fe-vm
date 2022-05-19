@@ -1,7 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import { FlexCenter } from '../styled-components/util';
-import GNB from './GNB';
+import { Container } from 'components/App.Styled';
+import GNB from 'components/GNB';
 
 const Header = () => {
   return (
@@ -10,9 +9,5 @@ const Header = () => {
     </Container>
   );
 };
-
-const Container = styled(FlexCenter)`
-  margin-top: ${({ theme }) => theme.margin.medium};
-`;
 
 export default React.memo(Header);
