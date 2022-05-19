@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ProductBtn, Detail, Price } from 'components/productsArea/Product.style';
 import { addCommasToNumber } from 'utils/util';
-import { TIME_TO_SELCT_PRODUCT, TIME_TO_RESET_HISTORY, TIME_TO_PUT_OUT_PRODUCT } from 'constant/constant';
+import { TIME_TO_SELCT_PRODUCT, TIME_TO_PUT_OUT_PRODUCT } from 'constant/constant';
 import useVMState from 'hooks/useVMState';
 import { FinalPayContext, FinalPaySetContext } from 'contexts/FinalPayProvider';
 import { SelectedProductSetContext } from 'contexts/SelectedProductProvider';
@@ -12,9 +12,9 @@ import { HistoryDispatchContext } from 'contexts/HistoryProvider';
 export default function Product({ productInfo, toggleSelectableStatus }) {
   const setSelectedProduct = useContext(SelectedProductSetContext);
   const [finalPay, setFinalPay] = [useContext(FinalPayContext), useContext(FinalPaySetContext)];
-  const { addSelectHistory, resetHistory } = useContext(HistoryDispatchContext);
+  const { addSelectHistory } = useContext(HistoryDispatchContext);
   const { startVMTimer, stopVMTimer } = useContext(VMTimerSetContext);
-  const { resetVMState } = useVMState();
+  const { returnPay } = useVMState();
 
   const canBuyProduct = () => (finalPay ? finalPay >= productInfo.price : true);
   const isSoldout = () => productInfo.quantity <= 0;
@@ -37,8 +37,7 @@ export default function Product({ productInfo, toggleSelectableStatus }) {
     stopVMTimer();
     startVMTimer([
       [updateOrderState, TIME_TO_PUT_OUT_PRODUCT],
-      [() => resetVMState(totalPay), TIME_TO_SELCT_PRODUCT],
-      [resetHistory, TIME_TO_RESET_HISTORY]
+      [() => returnPay(totalPay), TIME_TO_SELCT_PRODUCT]
     ]);
   };
 

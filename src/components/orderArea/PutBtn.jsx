@@ -1,19 +1,17 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'components/orderArea/PutBtn.style';
-import { TIME_TO_SELCT_PRODUCT, TIME_TO_RESET_HISTORY } from 'constant/constant';
+import { TIME_TO_SELCT_PRODUCT } from 'constant/constant';
 import useVMState from 'hooks/useVMState';
 import { FinalPayContext, FinalPaySetContext } from 'contexts/FinalPayProvider';
 import { HistoryDispatchContext } from 'contexts/HistoryProvider';
-import { VMTimerSetContext } from 'contexts/VMTimerProvider';
 import { WalletContext } from 'contexts/WalletProvider';
 
 export default function PutBtn({ inputPay }) {
   const [finalPay, setFinalPay] = [useContext(FinalPayContext), useContext(FinalPaySetContext)];
-  const { addInputHistory, resetHistory } = useContext(HistoryDispatchContext);
+  const { addInputHistory } = useContext(HistoryDispatchContext);
   const walletState = useContext(WalletContext);
-  const { startVMTimer, stopVMTimer } = useContext(VMTimerSetContext);
-  const { resetVMState } = useVMState();
+  const { returnPay } = useVMState();
 
   const getSumOfUnitCloseToPayment = (sumOfUnit, unit, quantity) => {
     let newSumOfUnit = sumOfUnit;
@@ -40,20 +38,12 @@ export default function PutBtn({ inputPay }) {
     return modifiedPayment;
   };
 
-  const StartTimerToSelectProduct = totalPay => {
-    stopVMTimer();
-    startVMTimer([
-      [() => resetVMState(totalPay), TIME_TO_SELCT_PRODUCT],
-      [resetHistory, TIME_TO_RESET_HISTORY]
-    ]);
-  };
-
   const handlePutBtnClick = () => {
     const modifiedPayment = modifyPayment();
     const totalPay = finalPay + modifiedPayment;
     setFinalPay(totalPay);
     addInputHistory(totalPay);
-    StartTimerToSelectProduct(totalPay);
+    returnPay(totalPay, TIME_TO_SELCT_PRODUCT);
   };
 
   return (

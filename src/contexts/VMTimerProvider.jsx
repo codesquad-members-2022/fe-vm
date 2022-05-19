@@ -10,8 +10,10 @@ export function VMTimerProvider({ children }) {
   const startVMTimer = useCallback(callbackArr => {
     const [newVMTimerID] = callbackArr.reduce(
       ([timerIDArr, accTime], [callback, time]) => {
-        const timerID = setTimeout(callback, accTime + time);
-        return [[...timerIDArr, timerID], accTime + time];
+        const totalTime = time ? accTime + time : accTime;
+        const timerID = setTimeout(callback, totalTime);
+
+        return [[...timerIDArr, timerID], totalTime];
       },
       [[], 0]
     );
