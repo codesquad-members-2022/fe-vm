@@ -5,12 +5,12 @@ import Button from 'components/atoms/Button';
 import * as Styled from 'components/molecules/NavButton/NavButton.style';
 
 const NavButton = ({ unit, count, ...props }) => {
-  const currentUrl = useLocation();
+  const currentPath = useLocation().pathname;
 
   const getButtonStyle = path => ({
     sizeType: 'medium',
     fontType: 'medium',
-    colorType: currentUrl.pathname === path ? 'point' : 'disabled',
+    colorType: currentPath === path ? 'point' : 'disabled',
   });
 
   return (
