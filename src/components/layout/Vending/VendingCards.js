@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import VendingCard from './VendingCard';
 import { DUMMY_DATA, _ } from '../../../constant/constant';
@@ -6,11 +6,27 @@ import AmountContext from '../../../store/AmountContext';
 
 const VendingCards = () => {
   const { money, dispatchMoney, dispatchLog } = useContext(AmountContext);
+  const [clickedProduct, setClickedProduce] = useState({
+    price: null,
+    name: null,
+  });
+
   const onSaveInfo = (price, name) => {
     if (money.TOTAL_AMOUNT < price) return alert('금액이 부족합니다');
-    dispatchMoney({ type: 'BUY', payload: price });
-    dispatchLog({ type: 'BUY', payload: { price, name } });
+    setClickedProduce({ price, name });
   };
+
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      if (!clickedProduct.price) return;
+      dispatchMoney({ type: 'BUY', payload: clickedProduct.price });
+      dispatchLog({ type: 'BUY', payload: clickedProduct });
+    }, 2000);
+
+    return () => {
+      clearTimeout(identifier);
+    };
+  }, [clickedProduct]);
 
   return (
     <VendingCardLists>
