@@ -1,54 +1,67 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
-import WalletItem from '../components/WalletItem';
+import WalletItemList from '../components/WalletItemList';
+import TotalMoney from '../components/TotalMoney';
 import { MoneyContext } from '../context/MoneyProvider';
-import { PriceContext } from '../context/PriceProvider';
 
 export default function Wallet() {
-  const { moneyState, decreaseMoney } = useContext(MoneyContext);
-  const { setInputPrice, updatePrice, remainMoney, setRemainMoney } =
-    useContext(PriceContext);
+  const makeInitialMoneyInfo = (totalPrice) => {
+    const moneyTypes = [10000, 5000, 1000, 500, 100, 50, 10];
+    let money = totalPrice;
+    const initialMoneyInfo = moneyTypes.map((type) => {
+      const num = Math.floor(money / type);
+      money %= type;
+      return {
+        type,
+        num,
+      };
+    });
 
-  const handleClickWon = (won, num) => {
+    initialMoneyInfo.reverse();
+
+    return initialMoneyInfo;
+  };
+
+  const { inputPrice, setInputPrice, totalPrice, setTotalPrice } =
+    useContext(MoneyContext);
+  const [moneyInfos, setMoneyInfos] = useState(
+    makeInitialMoneyInfo(totalPrice)
+  );
+
+  const decreaseMoney = (currentMoneyType) => {
+    const targetMoney = moneyInfos.find(
+      ({ type }) => type === currentMoneyType
+    );
+    const filteredMoney = moneyInfos.filter(
+      ({ type }) => type !== currentMoneyType
+    );
+
+    const { type } = targetMoney;
+    const num = targetMoney.num - 1;
+    setMoneyInfos(
+      [...filteredMoney, { type, num }].sort(
+        (aMoney, bMoney) => aMoney.type - bMoney.type
+      )
+    );
+
+    const decresedMoney = type * 1;
+    setTotalPrice(totalPrice - decresedMoney);
+  };
+
+  const handleClickMoney = (currentMoney, num) => {
     if (num < 1) {
       window.alert('돈이 부족합니다.');
       return;
     }
 
-    decreaseMoney(won);
-    setInputPrice(won);
-    updatePrice(won);
-    setRemainMoney(remainMoney + won);
+    decreaseMoney(currentMoney);
+    setInputPrice([...inputPrice, Number(currentMoney)]);
   };
 
   return (
     <>
-      <ul>
-        {moneyState.map(({ won, num }) => (
-          <WalletItem
-            key={`money-${won}`}
-            icon={`${won}원 `}
-            won={won}
-            num={num}
-            onClick={() => handleClickWon(won, num)}
-          />
-        ))}
-      </ul>
-      <span>
-        {`${`${moneyState
-          .map(({ won, num }) => won * num)
-          .reduce((aMoney, bMoney) => aMoney + bMoney)}`
-          .split('')
-          .reverse()
-          .map((element, index, array) => {
-            if ((index + 1) % 3 === 0 && index + 1 < array.length) {
-              return `,${element}`;
-            }
-            return element;
-          })
-          .reverse()
-          .join('')}원`}
-      </span>
+      <WalletItemList moneyInfos={moneyInfos} onClickMoney={handleClickMoney} />
+      <TotalMoney totalPrice={totalPrice} />
     </>
   );
 }

@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 
 import Button from './Button';
 
-export default function WalletItem({ icon, won, num, onClick }) {
+export default function WalletItem({ icon, type, num, onClick }) {
   return (
     <li>
-      <Button icon={icon} onClick={() => onClick(won)} />
+      <Button icon={icon} onClick={() => onClick(type)} />
       <span>{`${num}개`}</span>
     </li>
   );
@@ -15,7 +15,7 @@ export default function WalletItem({ icon, won, num, onClick }) {
 
 WalletItem.propTypes = {
   icon: PropTypes.string.isRequired,
-  won: PropTypes.number,
+  type: PropTypes.number,
   num: PropTypes.number,
   onClick: PropTypes.func,
 };

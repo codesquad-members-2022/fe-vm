@@ -20,4 +20,5 @@ const items = [
   { title: '감자칩', price: 2000 },
   { title: '칸쵸', price: 1000 },
 ];
+
 export default items;
