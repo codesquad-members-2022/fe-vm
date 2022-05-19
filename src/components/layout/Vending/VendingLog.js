@@ -4,9 +4,18 @@ import { _ } from '../../../constant/constant';
 import Container from '../../UI/container';
 import AmountContext from '../../../store/AmountContext';
 
-const VendingLog = () => {
+const VendingLogLists = () => {
   const { log } = useContext(AmountContext);
+  return (
+    <VendingLogList>
+      {log.map((v, i) => (
+        <li key={i}>{v}</li>
+      ))}
+    </VendingLogList>
+  );
+};
 
+const VendingLog = () => {
   return (
     <Container
       height="60%"
@@ -14,18 +23,14 @@ const VendingLog = () => {
       flexInfo={['column', _, 'space-around']}
     >
       <h3>VENDING LOG</h3>
-      <VendingLogLists>
-        {log.map((v, i) => (
-          <li key={i}>{v}</li>
-        ))}
-      </VendingLogLists>
+      <VendingLogLists />
     </Container>
   );
 };
 
 export default VendingLog;
 
-const VendingLogLists = styled.ul`
+const VendingLogList = styled.ul`
   width: calc(90% - 5px);
   height: calc(90% - 5px);
   padding: 20px;

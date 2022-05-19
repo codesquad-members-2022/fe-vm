@@ -1,5 +1,5 @@
 import AmountContext from './AmountContext';
-import React, { useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { INITAIL_MONEY } from '../constant/constant';
 import { moneyReducer, logReducer } from './reducer';
 

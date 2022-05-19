@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import VendingCard from './VendingCard';
 import { DUMMY_DATA, _ } from '../../../constant/constant';
 import AmountContext from '../../../store/AmountContext';
+import Modal from '../Modal/Modal';
 
 const VendingCards = () => {
   const { money, dispatchMoney, dispatchLog } = useContext(AmountContext);
@@ -10,37 +11,39 @@ const VendingCards = () => {
     price: null,
     name: null,
   });
-
+  const [modal, setModal] = useState(false);
   const onSaveInfo = (price, name) => {
     if (money.TOTAL_AMOUNT < price) return alert('금액이 부족합니다');
     setClickedProduce({ price, name });
   };
 
   useEffect(() => {
-    const identifier = setTimeout(() => {
-      if (!clickedProduct.price) return;
+    if (!clickedProduct.price) return;
+    setModal(true);
+    dispatchLog({ type: 'SELECT', payload: clickedProduct.name });
+    setTimeout(() => {
       dispatchMoney({ type: 'BUY', payload: clickedProduct.price });
       dispatchLog({ type: 'BUY', payload: clickedProduct });
+      setModal(false);
     }, 2000);
-
-    return () => {
-      clearTimeout(identifier);
-    };
   }, [clickedProduct]);
 
   return (
-    <VendingCardLists>
-      {DUMMY_DATA.map(({ id, name, price }) => (
-        <VendingCard
-          id={id}
-          key={id}
-          name={name}
-          price={price}
-          isAffordable={money.TOTAL_AMOUNT >= price}
-          onSave={onSaveInfo}
-        />
-      ))}
-    </VendingCardLists>
+    <>
+      {modal && <Modal />}
+      <VendingCardLists>
+        {DUMMY_DATA.map(({ id, name, price }) => (
+          <VendingCard
+            id={id}
+            key={id}
+            name={name}
+            price={price}
+            isAffordable={money.TOTAL_AMOUNT >= price}
+            onSave={onSaveInfo}
+          />
+        ))}
+      </VendingCardLists>
+    </>
   );
 };
 

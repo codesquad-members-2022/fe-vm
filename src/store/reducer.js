@@ -79,6 +79,13 @@ const logReducer = (state, action) => {
     const newLog = `${name}을 ${price}원으로 구매했습니다.`;
     return [...state, newLog];
   }
+
+  if (action.type === 'SELECT') {
+    const name = action.payload;
+    console.log(name);
+    const newLog = `${name}을 선택했습니다.`;
+    return [...state, newLog];
+  }
 };
 
 export { moneyReducer, logReducer };
