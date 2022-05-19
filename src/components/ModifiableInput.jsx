@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { CoinContext, MoneyContext } from 'components/App';
+import { ErrorContext, CoinContext, MoneyContext } from 'components/App';
 import { copyObject } from 'utils';
+import MESSAGES from 'constants/messages';
 
 function ModifiableInput({ moneyDisplayed, handler, setInputMode }) {
+  const { showErrorMsg } = useContext(ErrorContext);
   const { coins, setCoins } = useContext(CoinContext);
   const { setMoney } = useContext(MoneyContext);
   return (
@@ -18,6 +20,13 @@ function ModifiableInput({ moneyDisplayed, handler, setInputMode }) {
   function handleClickedInputBtn() {
     const moneyRequestedToBeCharged = Number(moneyDisplayed);
     const [newMoney, newCoins] = chargeMoney(moneyRequestedToBeCharged);
+
+    // TODO: 금액을 충전하고 반환되기 전에 추가로 충전하는 경우 분기 처리
+
+    const canChargePreciselyMoneyRequested = moneyRequestedToBeCharged === newMoney;
+    if (!canChargePreciselyMoneyRequested) {
+      showErrorMsg(MESSAGES.ERROR.CANT_CHARGE_PRECISELY);
+    }
 
     setMoney(newMoney);
     setCoins(newCoins);
