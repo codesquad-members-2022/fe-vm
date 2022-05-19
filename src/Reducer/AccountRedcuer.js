@@ -22,6 +22,10 @@ export const accountReducer = (state, action) => {
       };
 
     case 'buy':
+      if (state.insertedMoney < action.incomeMoney) {
+        return state;
+      }
+
       return {
         ...state,
         currentMoney: state.currentMoney,
