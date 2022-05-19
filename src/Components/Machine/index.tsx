@@ -4,16 +4,20 @@ import InfoList from '@/Components/Machine/InfoList';
 
 import { ItemContextProvider } from '@/Context/ItemContext';
 
+interface TimerType {
+  timerId: React.MutableRefObject<any>;
+}
+
 const MachineWrapper = styled.section`
   ${({ theme }) => theme.mixins.flexBox('row', 'stretch', 'start')};
 `;
 
-export default function Machine(): JSX.Element {
+export default function Machine({ timerId }: TimerType): JSX.Element {
   return (
     <>
       <MachineWrapper>
         <ItemContextProvider>
-          <ItemList />
+          <ItemList timerId={timerId} />
         </ItemContextProvider>
         <InfoList />
       </MachineWrapper>
