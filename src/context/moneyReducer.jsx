@@ -1,4 +1,5 @@
 import dataOfwallet from "../data/wallet";
+import ACTION_TYPE from "./actionType";
 
 const getChanges = (totalMoney) => {
     const money = [10000, 5000, 1000, 500, 100, 50, 10];
@@ -26,7 +27,7 @@ const getChanges = (totalMoney) => {
 
 const moneyReducer = (state, action) => {
     switch (action.type) {
-        case "put": {
+        case ACTION_TYPE.PUT: {
             return {
                 wallet: {
                     amount: state.wallet.amount - action.money,
@@ -42,7 +43,7 @@ const moneyReducer = (state, action) => {
                 },
             };
         }
-        case "return": {
+        case ACTION_TYPE.RETURN: {
             const changes = getChanges(action.money);
 
             return {
