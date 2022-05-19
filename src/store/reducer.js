@@ -76,14 +76,13 @@ const logReducer = (state, action) => {
 
   if (action.type === 'BUY') {
     const { price, name } = action.payload;
-    const newLog = `${name}을 ${price}원으로 구매했습니다.`;
+    const newLog = `${name}을/를 ${price}원으로 구매했습니다.`;
     return [...state, newLog];
   }
 
   if (action.type === 'SELECT') {
     const name = action.payload;
-    console.log(name);
-    const newLog = `${name}을 선택했습니다.`;
+    const newLog = `${name}을/를 선택했습니다.`;
     return [...state, newLog];
   }
 };

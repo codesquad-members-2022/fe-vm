@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import AmountContext from '../../../store/AmountContext';
 import Button from '../../UI/Button';
 import Container from '../../UI/container';
 import { _ } from '../../../constant/constant';
-import AmountContext from '../../../store/AmountContext';
 
 const WalletButton = ({ unit, onClick, isDisabled }) => {
   return (

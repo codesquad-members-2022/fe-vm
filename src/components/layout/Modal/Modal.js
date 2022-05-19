@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 const Modal = () => {
@@ -32,4 +33,4 @@ const StyledParagraph = styled.p`
   margin: auto;
   font-size: ${({ theme }) => theme.fontSize.xLarge};
 `;
-export default Modal;
+export default React.memo(Modal);

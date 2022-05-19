@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
-import VendingCard from './VendingCard';
-import { DUMMY_DATA, _ } from '../../../constant/constant';
 import AmountContext from '../../../store/AmountContext';
+import VendingCard from './VendingCard';
 import Modal from '../Modal/Modal';
-
+import { DUMMY_DATA, _ } from '../../../constant/constant';
 const VendingCards = () => {
   const { money, dispatchMoney, dispatchLog } = useContext(AmountContext);
   const [clickedProduct, setClickedProduce] = useState({
