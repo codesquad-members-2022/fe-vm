@@ -6,60 +6,54 @@ const ItemsWrapper = styled.div`
 `;
 
 const ItemsDiv = styled.div`
-	display: flex;
-	justify-content: space-evenly;
-	flex-wrap: wrap;
-	padding: 10px;
-	margin: 10px;
-	flex: 1 1 0;
-	width: 400px;
-	height: 100%;
-	overflow: scroll;
-	${({ theme: { colors } }) => css`
-		border-radius: 20px;
-		border: 2px solid ${colors.black};
+	${({ theme: { distance, width, getBorder } }) => css`
+		padding: ${distance.small};
+		margin: ${distance.small};
+		width: ${width['vm-child']};
+		${getBorder('main', 'black', 'main')}
+		display: flex;
+		justify-content: space-evenly;
+		flex-wrap: wrap;
+		flex: 1 1 0;
+		height: 100%;
+		overflow: scroll;
 	`}
 `;
 
 const ItemDiv = styled.button`
-	align-content: flex-start;
 	flex-basis: 40%;
 	font-size: 18px;
 	line-height: 110%;
-	font-family: 'IBM Plex Sans KR', sans-serif;
-	font-weight: 500;
-	margin: 10px;
-	padding: 10px;
 
-	${({ theme: { colors }, empty }) =>
-		!empty &&
+	${({
+		theme: { distance, getStyledButtonColor, border },
+		empty,
+		isSelectable,
+		count,
+	}) =>
 		css`
-			border: 2px solid ${colors.black};
-			border-radius: 20px;
-		`};
+			margin: ${distance.small};
+			padding: ${distance.small};
 
-	${({ theme: { colors }, isSelectable }) =>
-		isSelectable &&
-		css`
-			border: 2px solid ${colors.green};
-			color: ${colors.green};
-			cursor: pointer;
-			:hover {
-				background-color: ${colors.green};
-				color: ${colors.white};
-			}
-		`}
+			${!empty &&
+			css`
+				border-radius: ${border.radius.main};
+				${getStyledButtonColor('black', 'main', false, true)}
+			`}
 
-	${({ theme: { colors }, count }) =>
-		count === 0 &&
-		css`
-			cursor: not-allowed;
-			border: ${colors.red} 2px solid;
-			color: ${colors.red};
-			:hover {
-				color: ${colors.white};
-				background-color: ${colors.red};
-			}
+			${isSelectable &&
+			css`
+				cursor: pointer;
+				border-radius: ${border.radius.main};
+				${getStyledButtonColor('green', 'main', true, true)}
+			`}
+	
+			${count === 0 &&
+			css`
+				cursor: not-allowed;
+				border-radius: ${border.radius.main};
+				${getStyledButtonColor('red', 'main', true, true)}
+			`}
 		`}
 `;
 
@@ -74,39 +68,38 @@ const ItmePriceDiv = styled.div`
 const ItemWrapper = styled.div``;
 
 const TakingOutDiv = styled.div`
-	${({ theme: { colors } }) => css`
+	${({ theme: { colors, width, getBorder, font, distance } }) => css`
+		${getBorder('main', 'black', 'main')};
+		${font.large};
+		background-color: ${colors.black};
+		width: ${width['vm-child']};
+		color: ${colors.yellow};
+		padding: ${distance.small};
+		margin: ${distance.small};
 		position: absolute;
-		width: 400px;
 		height: 100%;
 		opacity: 70%;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		color: ${colors.yellow};
-		font-size: 25px;
-		padding: 10px;
-		margin: 10px;
-		border: solid 2px ${colors.black};
-		border-radius: 20px;
-		background-color: ${colors.black};
 	}
 	`}
 
 	${({ isTakingOut }) =>
 		!isTakingOut &&
 		css`
-			visibility: hidden;
+			display: none;
 		`}
 `;
 
 const Loading = styled.div`
-	${({ theme: { colors } }) => css`
+	${({ theme: { colors, border } }) => css`
 		position: relative;
 		margin-top: 20px;
 
 		div {
 			margin: 0 auto;
-			border: 10px solid orange;
+			border: ${border.xLarge};
 			border-radius: 50%;
 			border-color: ${colors.yellow} transparent transparent transparent;
 			width: 50px;

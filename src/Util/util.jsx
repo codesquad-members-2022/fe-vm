@@ -1,4 +1,4 @@
-import { UNIT } from 'Components/Common/constant';
+import { UNIT } from 'Util/constant';
 
 const getPriceType = (price, isUnit = false) => {
 	const unit = isUnit ? UNIT : '';

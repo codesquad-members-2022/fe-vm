@@ -1,11 +1,13 @@
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 
-import { VENDINGMACHINE, WALLET } from 'Components/Common/constant';
 import { ContextsProvider } from 'Components/Contexts';
 import { NavigatorDiv, NavigatorListDiv, HomeDiv } from './Home.styled';
 
 const Home = () => {
+	const VENDINGMACHINE = '자판기';
+	const WALLET = '지갑';
+
 	const { pathname } = useLocation();
 	const navigatorInfo = [
 		{ id: 0, to: '/', name: VENDINGMACHINE },

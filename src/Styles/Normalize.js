@@ -1,18 +1,24 @@
 import { createGlobalStyle, css } from 'styled-components';
 
 const Normalize = createGlobalStyle`
-  ${({ theme: { colors } }) =>
+  ${({ theme: { colors, width, distance, font, transition } }) =>
 		css`
-			color: ${colors.black};
+			.App {
+				${font.main};
+				color: ${colors.black};
+				width: ${width.app};
+				padding: ${distance.large};
+				margin: 0 auto;
+			}
+
+			button {
+				${font.main};
+				${transition.main};
+				color: ${colors.black};
+				line-height: 110%;
+			}
 		`}
 
-  .App {
-    width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: 'IBM Plex Sans KR', sans-serif;
-    font-weight: 500;
-  }
 `;
 
 export default Normalize;

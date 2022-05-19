@@ -7,7 +7,11 @@ import {
 	MessagesProvider,
 } from 'Components/Contexts/MessagesContext';
 import { ItemsContext, ItemsProvider } from './ItemsContext';
-import { MoneyContext, MoneyProvider } from './moneyContext';
+import {
+	MoneyContext,
+	ShowedMoneyContext,
+	MoneyProvider,
+} from './moneyContext';
 import { IsTakingOutContext, IsTakingOutProvider } from './IsTakingOutContext';
 
 const providersArr = [
@@ -36,4 +40,5 @@ export {
 	IsTakingOutContext,
 	MessagesDispatchContext,
 	ContextsProvider,
+	ShowedMoneyContext,
 };

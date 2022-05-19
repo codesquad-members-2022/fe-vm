@@ -2,7 +2,7 @@ import { useContext, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 
-import { takingOutTime, BUY } from 'Components/Common/constant';
+import { BUY } from 'Util/constant';
 import {
 	MoneyContext,
 	IsTakingOutContext,
@@ -17,18 +17,19 @@ import {
 } from './Items.styled';
 
 const Item = ({ item }) => {
+	const TAKING_OUT_TIME = 2000;
+
 	const targetItem = item;
 	const { name, price, count } = targetItem;
 	const { setIsTakingOut } = useContext(IsTakingOutContext);
-	const { money, setMoney, setShowedMoney } = useContext(MoneyContext);
+	const { money, setMoneyStates } = useContext(MoneyContext);
 	const messagesDispatch = useContext(MessagesDispatchContext);
 	const difference = money - price;
 	const isSelectable = difference >= 0 && count;
 
 	const handleClick = useCallback(() => {
 		if (!isSelectable) return;
-		setMoney(difference);
-		setShowedMoney(difference);
+		setMoneyStates(difference);
 		setIsTakingOut(false);
 		messagesDispatch({ type: BUY, contents: name });
 
@@ -37,15 +38,14 @@ const Item = ({ item }) => {
 		difference,
 		isSelectable,
 		targetItem,
-		setMoney,
-		setShowedMoney,
+		setMoneyStates,
 		setIsTakingOut,
 		messagesDispatch,
 		name,
 	]);
 
 	const debouncedHandleClick = useMemo(
-		() => debounce(handleClick, takingOutTime),
+		() => debounce(handleClick, TAKING_OUT_TIME),
 		[handleClick]
 	);
 

@@ -5,43 +5,30 @@ const HomeDiv = styled.div`
 `;
 
 const NavigatorDiv = styled.div`
-	${({ theme: { colors, distance } }) => css`
+	${({ theme: { distance, getBorder, width } }) => css`
+		${getBorder('main', 'black', 'main')}
+		width: ${width.navigator};
+		padding: ${distance.small};
 		overflow: auto;
 		margin: 0 auto;
 		display: flex;
 		justify-content: space-around;
-		border-radius: 20px;
-		padding: ${distance.small};
-		border: solid 2px ${colors.black};
-		width: 200px;
 	`};
 `;
 
 const NavigatorListDiv = styled.div`
-	${({ theme: { colors, distance } }) => css`
-		cursor: pointer;
-		border-radius: ${distance.small};
+	${({ theme: { getStyledButtonColor, distance, border } }) => css`
+		${getStyledButtonColor('black', 'main', true, true)};
 		padding: ${distance.small};
+		border-radius: ${border.radius.small};
+		cursor: pointer;
 		display: inline-block;
-		border: 2px solid white;
-
-		:hover {
-			border: 2px solid ${colors.black};
-			background-color: ${colors.black};
-			color: ${colors.white};
-		}
 	`};
 
-	${({ theme: { colors }, pathname, to }) =>
+	${({ theme: { getStyledButtonColor }, pathname, to }) =>
 		pathname === to &&
 		css`
-			:hover {
-				border: 2px solid ${colors.green};
-				background-color: ${colors.green};
-				color: ${colors.white};
-			}
-			border: 2px solid ${colors.green};
-			color: ${colors.green};
+			${getStyledButtonColor('green', 'main', true, true)}
 		`}
 `;
 
