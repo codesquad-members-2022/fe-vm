@@ -5,7 +5,7 @@ import TotalMoney from '../components/TotalMoney';
 import { MoneyContext } from '../context/MoneyProvider';
 
 export default function Wallet() {
-  const { inputPrice, setInputPrice, moneyInfos, decreaseMoney } =
+  const { inputPrice, setInputPrice, moneyInfos, decreaseWalletMoney } =
     useContext(MoneyContext);
 
   const handleClickMoney = (currentMoney, num) => {
@@ -14,7 +14,7 @@ export default function Wallet() {
       return;
     }
 
-    decreaseMoney(currentMoney);
+    decreaseWalletMoney(currentMoney);
     setInputPrice([...inputPrice, Number(currentMoney)]);
   };
 

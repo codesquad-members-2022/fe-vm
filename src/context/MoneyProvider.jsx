@@ -19,7 +19,7 @@ export default function MoneyProvider({ children }) {
   const [inputPrice, setInputPrice] = useState([]);
   const [moneyInfos, setMoneyInfos] = useState(initialMoneyInfos);
 
-  const decreaseMoney = (currentMoneyType) => {
+  const decreaseWalletMoney = (currentMoneyType) => {
     const targetMoney = moneyInfos.find(
       ({ type }) => type === currentMoneyType
     );
@@ -36,15 +36,74 @@ export default function MoneyProvider({ children }) {
     );
   };
 
+  const findTargetMoneyInfo = (price, infos) => {
+    let money = price;
+    infos.reverse();
+    return infos.map(({ type }) => {
+      const num = Math.floor(money / type);
+      money %= type;
+      return {
+        type,
+        num,
+      };
+    });
+  };
+
+  const updateMoneyInfo = ({ targetInfos, isPlus }) => {
+    const newInfos = moneyInfos.map((info, index) => {
+      const { type, num } = targetInfos[index];
+      if (info.type === type && num > 0) {
+        return {
+          type,
+          num: isPlus ? info.num + num : info.num - num,
+        };
+      }
+
+      return { type: info.type, num: info.num };
+    });
+
+    return newInfos;
+  };
+
+  const decreaseWalletMoneyByInput = (price) => {
+    const targetInfos = findTargetMoneyInfo(price, moneyInfos);
+    const newMoneyInfos = updateMoneyInfo({ targetInfos, isPlus: false });
+    newMoneyInfos.reverse();
+
+    return newMoneyInfos;
+  };
+
+  const addRefund2MoneyInfo = (price) => {
+    const refundMoneyInfo = findTargetMoneyInfo(price, moneyInfos);
+
+    const newMoneyInfos = updateMoneyInfo({
+      targetInfos: refundMoneyInfo,
+      isPlus: true,
+    });
+    newMoneyInfos.reverse();
+
+    return newMoneyInfos;
+  };
+
   const value = useMemo(
     () => ({
       inputPrice,
       setInputPrice,
       moneyInfos,
       setMoneyInfos,
-      decreaseMoney,
+      decreaseWalletMoney,
+      decreaseWalletMoneyByInput,
+      addRefund2MoneyInfo,
     }),
-    [inputPrice, setInputPrice, moneyInfos, setMoneyInfos, decreaseMoney]
+    [
+      inputPrice,
+      setInputPrice,
+      moneyInfos,
+      setMoneyInfos,
+      decreaseWalletMoney,
+      decreaseWalletMoneyByInput,
+      addRefund2MoneyInfo,
+    ]
   );
 
   return (
