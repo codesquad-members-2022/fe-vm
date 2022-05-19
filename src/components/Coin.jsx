@@ -13,22 +13,30 @@ function Coin({
 }) {
   const { showErrorMsg } = useContext(ErrorContext);
   const { curMoney, setMoney } = useContext(MoneyContext);
+  const { AMOUNT, CNT } = coin;
 
   return (
     <Wrap>
-      <Amount onClick={handleChargeMoney}>{coin.AMOUNT}원</Amount>
-      <Box>{coin.CNT}개</Box>
+      <Amount onClick={handleChargeMoney}>{AMOUNT}원</Amount>
+      <Box>{CNT}개</Box>
     </Wrap>
   );
+
   function handleChargeMoney() {
-    const hasCoins = coin.CNT >= 1;
+    const hasCoins = CNT >= 1;
     if (!hasCoins) {
       showErrorMsg(MESSAGES.ERROR.NOT_ENOUGH_COINS);
       return;
     }
-    setCurWalletMoney(curWalletMoney - coin.AMOUNT);
-    handleCoinCount(coinIdx);
-    setMoney(curMoney + coin.AMOUNT);
+    chargeMoneyFromWallet();
+
+    function chargeMoneyFromWallet() {
+      const updatedWalletMoney = curWalletMoney - AMOUNT;
+      const updatedCurMoney = curMoney + AMOUNT;
+      setCurWalletMoney(updatedWalletMoney);
+      setMoney(updatedCurMoney);
+      handleCoinCount(coinIdx);
+    }
   }
 }
 

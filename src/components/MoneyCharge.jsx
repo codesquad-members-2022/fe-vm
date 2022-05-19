@@ -2,13 +2,11 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Coins from 'components/Coins';
 import { CoinContext } from 'components/App';
+import getTotalMoneyOfCoins from 'components/utils';
 
 function MoneyCharge() {
   const { coins, setCoins } = useContext(CoinContext);
-  const defaultWalletMoney = coins.reduce(
-    (prev, coin) => prev + coin.AMOUNT * coin.CNT,
-    0,
-  );
+  const defaultWalletMoney = getTotalMoneyOfCoins(coins);
   const [curWalletMoney, setCurWalletMoney] = useState(defaultWalletMoney);
   return (
     <Wrap>

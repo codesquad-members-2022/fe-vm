@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { MoneyContext } from 'components/App';
@@ -10,14 +9,18 @@ function ControlPanel() {
   const [isInputMode, setInputMode] = useState(false);
   const UnmodifiableInput = React.useCallback(
     () => getUnmodifiableInput({ value: curMoney, handler: handleInputMode }),
-    [],
+    [curMoney, handleInputMode],
   );
 
   return (
     <Wrap>
       <Row>
         {isInputMode ? (
-          <ModifiableInput value={inputValue} handler={handleModifiableInput} />
+          <ModifiableInput
+            moneyDisplayed={inputValue}
+            handler={handleModifiableInput}
+            setInputMode={setInputMode}
+          />
         ) : (
           <UnmodifiableInput />
         )}
