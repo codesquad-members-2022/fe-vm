@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyledInput from './Input.style';
+import * as Styled from 'components/atoms/Input/Input.style';
 
 const Input = ({ inputType, placeholder, ...props }) => {
-  return <StyledInput type={inputType} placeholder={placeholder} {...props}></StyledInput>;
+  return <Styled.Input type={inputType} placeholder={placeholder} {...props}></Styled.Input>;
 };
 
 Input.defaultProps = {

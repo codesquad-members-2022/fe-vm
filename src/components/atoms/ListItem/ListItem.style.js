@@ -33,7 +33,7 @@ const Font = {
   large: LargeFont,
 };
 
-const StyledListItem = styled.li`
+const ListItem = styled.li`
   ${({ flexType }) => flexType && Flex[flexType]};
   ${({ sizeType }) => sizeType && Size[sizeType]}
   ${({ fontType }) => fontType && Font[fontType]}
@@ -42,4 +42,4 @@ const StyledListItem = styled.li`
   padding-right: 10px;
 `;
 
-export default StyledListItem;
+export { ListItem };

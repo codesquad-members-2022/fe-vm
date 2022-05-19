@@ -1,13 +1,13 @@
 import React from 'react';
-import logo from './Logo.gif';
+import logo from 'assets/Image/Logo.gif';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 const LogoImage = ({ isFlipped, ...props }) => {
-  return <StyledImage src={logo} isFlipped={isFlipped} />;
+  return <Image src={logo} isFlipped={isFlipped} />;
 };
 
-const StyledImage = styled.img`
+const Image = styled.img`
   width: 180px;
   height: 73px;
   ${({ isFlipped }) => isFlipped && FlippedTransform};

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledInput = styled.input`
+const Input = styled.input`
   width: 260px;
   height: 80px;
   padding-right: 10px;
@@ -11,4 +11,4 @@ const StyledInput = styled.input`
   text-align: right;
 `;
 
-export default StyledInput;
+export { Input };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Icon from 'components/atoms/Icon/Icon';
-import * as Styled from './Selector.style';
-import mockData from './SelectMockData';
+import * as Styled from 'components/molecules/Selector/Selector.style';
+import mockData from 'components/molecules/Selector//SelectMockData';
 import ListItem from 'components/atoms/ListItem/ListItem';
 
 const Selector = ({ initTitle = 'Select', listData = mockData, ...props }) => {

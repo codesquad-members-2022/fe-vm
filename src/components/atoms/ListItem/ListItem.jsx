@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyledListItem from './ListItem.style';
+import * as Styled from 'components/atoms/ListItem/ListItem.style';
 
 const ListItem = ({ flexType, sizeType, fontType, borderType, children, onClick, ...props }) => {
   return (
-    <StyledListItem
+    <Styled.ListItem
       flexType={flexType}
       sizeType={sizeType}
       fontType={fontType}
@@ -13,7 +13,7 @@ const ListItem = ({ flexType, sizeType, fontType, borderType, children, onClick,
       props={props}
     >
       {children}
-    </StyledListItem>
+    </Styled.ListItem>
   );
 };
 

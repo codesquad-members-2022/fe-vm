@@ -1,8 +1,8 @@
-import { NavLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { StyledNavButton } from './NavButton.style';
-import Button from 'components/atoms/Button/Button';
 import { RouteURL } from 'constants/RouteUrl';
+import { NavLink, useLocation } from 'react-router-dom';
+import Button from 'components/atoms/Button/Button';
+import * as Styled from 'components/molecules/NavButton/NavButton.style';
 
 const NavButton = ({ unit, count, ...props }) => {
   const currentUrl = useLocation();
@@ -14,13 +14,13 @@ const NavButton = ({ unit, count, ...props }) => {
   });
 
   return (
-    <StyledNavButton borderType="rounded" flexType="center">
+    <Styled.NavButton borderType="rounded" flexType="center">
       {RouteURL.map((URL, key) => (
         <NavLink key={URL.id} to={URL.path}>
           <Button {...getButtonStyle(URL.path)}>{URL.name}</Button>
         </NavLink>
       ))}
-    </StyledNavButton>
+    </Styled.NavButton>
   );
 };
 

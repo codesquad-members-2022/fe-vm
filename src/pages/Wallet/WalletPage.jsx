@@ -1,6 +1,6 @@
-import VendingMachineController from 'components/organisms/VendingMachineController/VendingMachineController';
 import Wallet from 'components/organisms/Wallet/Wallet';
 import * as Styled from 'pages/Wallet/WalletPage.style';
+import VendingMachineController from 'components/organisms/VendingMachineController/VendingMachineController';
 
 const WalletPage = () => {
   return (

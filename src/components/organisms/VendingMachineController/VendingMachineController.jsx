@@ -3,7 +3,7 @@ import Label from 'components/atoms/Label/Label';
 import LogList from 'components/molecules/LogList/LogList';
 import NavButton from 'components/molecules/NavButton/NavButton';
 import UserInputBox from 'components/molecules/UserInputBox/UserInputBox';
-import * as Styled from './VendingMachineController.style';
+import * as Styled from 'components/organisms/VendingMachineController/VendingMachineController.style';
 
 const VMController = () => {
   const labelStyle = {

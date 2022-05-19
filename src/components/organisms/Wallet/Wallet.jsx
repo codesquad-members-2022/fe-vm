@@ -1,9 +1,9 @@
 import Label from 'components/atoms/Label/Label';
 import Logo from 'components/molecules/Logo/Logo';
 import MoneyBox from 'components/molecules/MoneyBox/MoneyBox';
-import { useEffect } from 'react';
-import * as Styled from './Wallet.style';
-import mockData from './WalletMockData';
+import mockData from 'components/organisms/Wallet/WalletMockData';
+import * as Styled from 'components/organisms/Wallet/Wallet.style';
+
 const Wallet = () => {
   const labelStyle = {
     flexType: 'centerRight',

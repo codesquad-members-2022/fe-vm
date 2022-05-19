@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import mockData from './LogListMockData';
 import ListItem from 'components/atoms/ListItem/ListItem';
-import { LogListWrapper, StyledLogList } from './LogList.style';
+import * as Styled from 'components/molecules/LogList/LogList.style';
 
 const LogList = () => {
   const logListRef = useRef(null);
@@ -11,13 +11,13 @@ const LogList = () => {
   }, []);
 
   return (
-    <LogListWrapper>
-      <StyledLogList ref={logListRef}>
+    <Styled.LogListWrapper>
+      <Styled.LogList ref={logListRef}>
         {mockData.map((v, i) => {
           return <ListItem key={v.id}>{getParsedLog(v.action, v.contents)}</ListItem>;
         })}
-      </StyledLogList>
-    </LogListWrapper>
+      </Styled.LogList>
+    </Styled.LogListWrapper>
   );
 };
 

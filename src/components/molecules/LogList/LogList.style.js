@@ -8,10 +8,10 @@ const LogListWrapper = styled.div`
   padding-left: 10px;
 `;
 
-const StyledLogList = styled.ul`
+const LogList = styled.ul`
   height: 295px;
   overflow: hidden;
   overflow-y: scroll;
 `;
 
-export { LogListWrapper, StyledLogList };
+export { LogListWrapper, LogList };

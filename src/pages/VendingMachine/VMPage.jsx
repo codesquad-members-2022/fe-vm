@@ -1,6 +1,6 @@
+import * as Styled from 'pages/VendingMachine/VMPage.style';
 import VendingMachine from 'components/organisms/VendingMachine/VendingMachine';
 import VendingMachineController from 'components/organisms/VendingMachineController/VendingMachineController';
-import * as Styled from 'pages/VendingMachine/VMPage.style';
 
 const VMPage = () => {
   return (
