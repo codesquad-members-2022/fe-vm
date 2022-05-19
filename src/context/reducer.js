@@ -1,21 +1,5 @@
 import { ACTION } from '@/constants/actionType';
-import { INPUT_STATE, PRODUCT_ICON, TIMER } from '@/constants/constants';
-import cash from '@/mocks/cash';
-import product from '@/mocks/product';
-
-const initialState = {
-  cash,
-  product,
-  userCash: 0, // 유저가 보유한 돈
-  insertedCash: 0, // 유저가 자판기에 현재 투입한 돈
-  balance: 0, // 자판기에 있는 잔액
-  userLog: [],
-  inputState: INPUT_STATE.default,
-  isInsertedCash: false,
-  minutes: TIMER.initialMinites,
-  seconds: TIMER.initialSeconds,
-  timeoutId: null,
-};
+import { INPUT_STATE, PRODUCT_ICON } from '@/constants/constants';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -112,4 +96,4 @@ const reducer = (state, action) => {
   }
 };
 
-export { initialState, reducer };
+export { reducer };
