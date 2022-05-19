@@ -26,6 +26,18 @@ export function WalletMoneyProvider({ children }) {
     setMoneyUnitInfo(updateMoneyUnitInfo);
   };
 
+  const resetWalletMoney = () => {
+    const resetMoneyUnitInfo = walletMoneyUnitInfo.map((money) => {
+      return {
+        type: money.type,
+        unit: money.unit,
+        count: 0,
+      };
+    });
+
+    setMoneyUnitInfo(resetMoneyUnitInfo);
+  };
+
   return (
     <WalletMoneyContext.Provider
       value={{
@@ -33,6 +45,7 @@ export function WalletMoneyProvider({ children }) {
         setMoneyUnitInfo,
         walletMoneyTotal,
         updateWalletMoney,
+        resetWalletMoney,
       }}
     >
       {children}

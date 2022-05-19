@@ -21,6 +21,8 @@ export function getMessage(type, value) {
       break;
     case MessageType.NOT_PAY_MONEY:
       return '금액을 입력해주세요';
+    case MessageType.NO_MONEY:
+      return '지갑에 돈이 없습니다..';
     default:
       throw new Error('message type error');
   }

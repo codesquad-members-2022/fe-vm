@@ -3,6 +3,7 @@ const MessageType = {
   RETURN: '반환',
   BUY: '구입',
   NOT_PAY_MONEY: 'notPayMoney',
+  NO_MONEY: 'noMoney',
 };
 
 const RESET_NUM = 0;

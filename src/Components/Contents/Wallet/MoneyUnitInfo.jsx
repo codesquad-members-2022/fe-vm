@@ -24,13 +24,11 @@ export default function MoneyUnitInfo() {
 function Money() {
   const { printMessages, setPrintMessages } = useContext(MessageContext);
   const { payTotal, setPayTotal } = useContext(PayTotalContext);
-  const { setPayMoney } = useContext(PayMoneyContext);
   const { walletMoneyUnitInfo, updateWalletMoney } =
     useContext(WalletMoneyContext);
 
   const moneyClickHandler = (moneyInfo) => {
     updateWalletMoney(moneyInfo);
-    setPayMoney(moneyInfo.unit);
     setPayTotal(payTotal + moneyInfo.unit);
     const addMessage = getMessage(
       MessageType.ADD,
