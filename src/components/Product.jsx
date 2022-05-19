@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { MoneyContext } from 'components/App';
 
 function Product({ name, price }) {
+  const { curMoney } = useContext(MoneyContext);
+  const canPurchase = curMoney >= price;
   return (
     <div>
-      <Name>{name}</Name>
+      <Name canPurchase={canPurchase}>{name}</Name>
       <Price>{price}</Price>
     </div>
   );
@@ -12,12 +15,16 @@ function Product({ name, price }) {
 
 export default Product;
 
-const Name = styled.div({
-  border: '1px solid black',
-  height: '50px',
-  textAlign: 'center',
-  lineHeight: '50px',
-});
-const Price = styled.div({
-  textAlign: 'center',
-});
+const Name = styled.button`
+  border-color: ${({ canPurchase }) => (canPurchase ? 'red' : 'black')};
+  width: 100px;
+  height: 50px;
+  padding: 0;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+`;
+
+const Price = styled.div`
+  text-align: center;
+`;
