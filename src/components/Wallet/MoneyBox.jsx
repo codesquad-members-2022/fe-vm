@@ -1,14 +1,11 @@
-import { useContext } from 'react';
+import { memo } from 'react';
 import styled from 'styled-components';
 
 import { parseMoneyFormat } from 'common/utils';
 import COLORS from 'constants/colors';
-import { MoneyContext } from 'context/MoneyProvider';
 import createHoverCss from 'styles/createHoverCss';
 
-const MoneyBox = ({ money: { amount, count } }) => {
-  const { insertMoneyByClick } = useContext(MoneyContext);
-
+const MoneyBox = memo(({ money: { amount, count }, onMoneyBoxClick }) => {
   const isActive = count !== 0;
   const hoverCss = createHoverCss({
     bgColor: {
@@ -22,7 +19,7 @@ const MoneyBox = ({ money: { amount, count } }) => {
   });
 
   const handleClickMoneyAmount = () => {
-    insertMoneyByClick(count, amount);
+    onMoneyBoxClick(count, amount);
   };
 
   return (
@@ -37,7 +34,7 @@ const MoneyBox = ({ money: { amount, count } }) => {
       <MoneyCount>{count}개</MoneyCount>
     </Wrapper>
   );
-};
+});
 
 const Wrapper = styled.li`
   display: flex;

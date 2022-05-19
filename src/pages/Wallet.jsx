@@ -16,7 +16,7 @@ const Wallet = () => {
 
   return (
     <WalletLayout>
-      <MoneyBoxes moneyData={walletMoney} />
+      <MoneyBoxes />
       <TotalPrice>{parseMoneyFormat(totalMoney)}</TotalPrice>
     </WalletLayout>
   );
