@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ErrorContext, MoneyContext, CoinContext } from 'components/App';
-import MESSAGES from 'constants/messages';
+import { MESSAGES } from 'constants/messages';
 
 function Coin({ coin, curWalletMoney, setCurWalletMoney }) {
   const { showErrorMsg } = useContext(ErrorContext);

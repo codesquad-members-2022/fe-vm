@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ErrorContext, CoinContext, MoneyContext } from 'components/App';
 import { copyObject } from 'utils';
-import MESSAGES from 'constants/messages';
+import { MESSAGES } from 'constants/messages';
 
 function ModifiableInput({ moneyDisplayed, handler, setInputMode }) {
   const { showErrorMsg } = useContext(ErrorContext);
