@@ -8,7 +8,7 @@ import {
 } from "./Products.style";
 
 function Products() {
-    const { totalMoneyInVendingMachine } = useVendingMachineContext();
+    const { money } = useVendingMachineContext();
 
     return (
         <ProductsContainer>
@@ -16,7 +16,7 @@ function Products() {
                 <ProductContainer key={product.id}>
                     <ProductNameWrapper
                         choosable={
-                            totalMoneyInVendingMachine >= Number(product.price)
+                            money.vendingMachine.amount >= Number(product.price)
                         }
                     >
                         <ProductName>{product.name}</ProductName>

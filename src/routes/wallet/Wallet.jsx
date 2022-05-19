@@ -1,23 +1,33 @@
-import { useWalletContext } from "../../context/WalletContext";
+import { useVendingMachineContext } from "../../context/VendingMachineContext";
 import {
     WalletContainer,
     WalletItemContainer,
     WalletItem,
+    MoneyUnit,
     TotalAmount,
 } from "./Wallet.Style";
 
 function Wallet() {
-    const { wallet, totalAmount } = useWalletContext();
+    const { money, putMoneyIntoVendingMachine } = useVendingMachineContext();
+
+    const takeMoneyFromWallet = (moneyUnit) => {
+        putMoneyIntoVendingMachine(moneyUnit);
+    };
 
     return (
         <WalletContainer>
-            {wallet.map((moneyUnit) => (
+            {money.wallet.money.map((moneyUnit) => (
                 <WalletItemContainer key={moneyUnit.id}>
-                    <WalletItem>{moneyUnit.unit}원</WalletItem>
+                    <MoneyUnit
+                        disabled={!moneyUnit.count}
+                        onClick={() => takeMoneyFromWallet(moneyUnit.unit)}
+                    >
+                        {moneyUnit.unit}원
+                    </MoneyUnit>
                     <WalletItem>{moneyUnit.count}개</WalletItem>
                 </WalletItemContainer>
             ))}
-            <TotalAmount>{totalAmount.toLocaleString()}원</TotalAmount>
+            <TotalAmount>{money.wallet.amount.toLocaleString()}원</TotalAmount>
         </WalletContainer>
     );
 }

@@ -3,11 +3,11 @@ import { useVendingMachineContext } from "../../context/VendingMachineContext";
 import { RecordContainer } from "./RecordBoard.style";
 
 function RecordBoard() {
-    const { record } = useVendingMachineContext();
+    const { money } = useVendingMachineContext();
 
     return (
         <RecordContainer>
-            {record.map((r) => (
+            {money.record.map((r) => (
                 <p key={uuid()}>{r}</p>
             ))}
         </RecordContainer>

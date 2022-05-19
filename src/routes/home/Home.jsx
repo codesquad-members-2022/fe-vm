@@ -1,7 +1,6 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { HomeContainer, TabNav, TabButton } from "./Home.style";
 import VendingMachineProvider from "../../context/VendingMachineContext";
-import WalletProvider from "../../context/WalletContext";
 
 const VM = "vm";
 const WALLET = "wallet";
@@ -21,11 +20,9 @@ function Home() {
                 </TabButton>
             </TabNav>
             {pathname === "/" && <h1>버튼을 클릭하세요</h1>}
-            <WalletProvider>
-                <VendingMachineProvider>
-                    <Outlet />
-                </VendingMachineProvider>
-            </WalletProvider>
+            <VendingMachineProvider>
+                <Outlet />
+            </VendingMachineProvider>
         </HomeContainer>
     );
 }

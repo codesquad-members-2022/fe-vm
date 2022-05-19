@@ -1,38 +1,24 @@
-import React, { useContext, useState, useMemo } from "react";
+import React, { useContext, useReducer } from "react";
+import { reducer, initialState } from "./reducer";
 
 const VendingMachineContext = React.createContext();
 export const useVendingMachineContext = () => useContext(VendingMachineContext);
 
 function VendingMachineProvider({ children }) {
-    const [record, setRecord] = useState([]);
-    const [moneyInVendingMachine, setMoneyInVendingMachine] = useState({});
+    const [money, moneyDispatcher] = useReducer(reducer, initialState);
 
-    const addRecord = (newRecord) => {
-        setRecord([...record, newRecord]);
+    const putMoneyIntoVendingMachine = (amountOfMoney) => {
+        moneyDispatcher({ type: "put", money: amountOfMoney });
     };
 
-    const putMoneyIntoVendingMachine = (money) => {
-        moneyInVendingMachine[money] = moneyInVendingMachine[money]
-            ? moneyInVendingMachine[money] + 1
-            : 1;
-        setMoneyInVendingMachine({ ...moneyInVendingMachine });
+    const returnMoneyFromVendingMachine = (amountOfMoney) => {
+        moneyDispatcher({ type: "return", money: amountOfMoney });
     };
-
-    const totalMoneyInVendingMachine = useMemo(
-        () =>
-            Object.keys(moneyInVendingMachine).reduce(
-                (acc, unit) => acc + moneyInVendingMachine[unit] * Number(unit),
-                0
-            ),
-        [moneyInVendingMachine]
-    );
 
     const vendingMachineProps = {
-        record,
-        addRecord,
-        moneyInVendingMachine,
-        totalMoneyInVendingMachine,
+        money,
         putMoneyIntoVendingMachine,
+        returnMoneyFromVendingMachine,
     };
 
     return (
