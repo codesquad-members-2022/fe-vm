@@ -1,19 +1,19 @@
 import { useContext } from 'react';
-import { FontSize } from '../../../Assets/Common.style';
-import { contentsContext } from '../../MainContents';
-import { payContext } from '../VendingMachine';
+import { MessageContext } from '../../../Context/MessageProvider';
+import { PayMoneyContext, PayTotalContext } from '../../../Context/PayProvider';
+import { MessageType, RESET_NUM } from '../../../Utils/constants';
 import {
   changeNumToLocalMoney,
   getMessage,
   replaceNotNumToSpace,
 } from '../../../Utils/utils';
+import { FontSize } from '../../../Assets/Common.style';
 import Btn from '../../Btn';
-import { MessageType, RESET_NUM } from '../../../Utils/constants';
 
 export default function AddBtn() {
-  const { payTotal, setPayTotal, printMessages, setPrintMessages } =
-    useContext(contentsContext);
-  const { payMoney, setPayMoney } = useContext(payContext);
+  const { printMessages, setPrintMessages } = useContext(MessageContext);
+  const { payTotal, setPayTotal } = useContext(PayTotalContext);
+  const { payMoney, setPayMoney } = useContext(PayMoneyContext);
 
   const addBtnClickHandler = (e) => {
     e.preventDefault();

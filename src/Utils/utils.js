@@ -1,7 +1,7 @@
 import { MessageType } from './constants';
 
-export function replaceNotNumToSpace(str) {
-  return str.replace(/[^0-9]|,/g, ''); // 숫자 아닐때 공백처리
+export function replaceNotNumToSpace(num) {
+  return String(num).replace(/[^0-9]|,/g, ''); // 숫자 아닐때 공백처리
 }
 
 export function changeNumToLocalMoney(num) {

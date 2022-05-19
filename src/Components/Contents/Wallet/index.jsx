@@ -1,20 +1,26 @@
 import styled from 'styled-components';
-import MessageBox from '../MessageBox';
+import { WalletMoneyProvider } from '../../../Context/WalletMoneyProvider';
+import { PayProvider } from '../../../Context/PayProvider';
 import { ContentBox } from '../style';
-import MoneyDtails from './MoneyDtails';
 import MoneyTotal from './MoneyTotal';
+import MoneyUnitInfo from './MoneyUnitInfo';
 import PayInfo from './PayInfo';
+import MessageBox from '../MessageBox';
 
 export default function Wallet() {
   return (
-    <ContentBox>
-      <Inner>
-        <MoneyTotal />
-        <MoneyDtails />
-        <PayInfo />
-        <MessageBox page="wallet" />
-      </Inner>
-    </ContentBox>
+    <WalletMoneyProvider>
+      <ContentBox>
+        <Inner>
+          <MoneyTotal />
+          <PayProvider>
+            <MoneyUnitInfo />
+            <PayInfo />
+          </PayProvider>
+          <MessageBox page="wallet" />
+        </Inner>
+      </ContentBox>
+    </WalletMoneyProvider>
   );
 }
 

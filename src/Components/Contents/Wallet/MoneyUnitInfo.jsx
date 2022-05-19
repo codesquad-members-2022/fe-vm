@@ -1,5 +1,10 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
+import { MessageContext } from '../../../Context/MessageProvider';
+import { PayMoneyContext, PayTotalContext } from '../../../Context/PayProvider';
+import { WalletMoneyContext } from '../../../Context/WalletMoneyProvider';
+import { changeNumToLocalMoney, getMessage } from '../../../Utils/utils';
+import { MessageType } from '../../../Utils/constants';
 import {
   Color,
   FontSize,
@@ -7,11 +12,8 @@ import {
   F_BetweenCenter,
   Radius10,
 } from '../../../Assets/Common.style';
-import { MessageType } from '../../../Utils/constants';
-import { changeNumToLocalMoney, getMessage } from '../../../Utils/utils';
-import { contentsContext, myMoneyContext } from '../../MainContents';
 
-export default function MoneyDtails() {
+export default function MoneyUnitInfo() {
   return (
     <MoneyContainer>
       <Money />
@@ -20,37 +22,31 @@ export default function MoneyDtails() {
 }
 
 function Money() {
-  const { payTotal, setPayTotal, printMessages, setPrintMessages } =
-    useContext(contentsContext);
-  const { myMoneyDetails, setMyMoneyDetails } = useContext(myMoneyContext);
+  const { printMessages, setPrintMessages } = useContext(MessageContext);
+  const { payTotal, setPayTotal } = useContext(PayTotalContext);
+  const { setPayMoney } = useContext(PayMoneyContext);
+  const { walletMoneyUnitInfo, updateWalletMoney } =
+    useContext(WalletMoneyContext);
 
-  const payMoney = (moneyInfo) => {
-    const updateMoney = {
-      type: moneyInfo.type,
-      unit: moneyInfo.unit,
-      count: moneyInfo.count - 1,
-    };
-    const updateMoneyDetails = myMoneyDetails.map((money) => {
-      return money.unit === moneyInfo.unit ? updateMoney : money;
-    });
+  const moneyClickHandler = (moneyInfo) => {
+    updateWalletMoney(moneyInfo);
+    setPayMoney(moneyInfo.unit);
+    setPayTotal(payTotal + moneyInfo.unit);
     const addMessage = getMessage(
       MessageType.ADD,
       changeNumToLocalMoney(moneyInfo.unit),
     );
-
     setPrintMessages([...printMessages, addMessage]);
-    setPayTotal(payTotal + moneyInfo.unit);
-    setMyMoneyDetails(updateMoneyDetails);
   };
 
-  const moneyTags = myMoneyDetails.map((moneyInfo) => {
+  const MoneyItems = walletMoneyUnitInfo.map((moneyInfo) => {
     return (
       <MoneyBox key={moneyInfo.unit} moneyType={moneyInfo.type}>
         <MoneyButton
           type="button"
           moneyType={moneyInfo.type}
           disabled={!moneyInfo.count}
-          onClick={payMoney.bind(null, moneyInfo)}
+          onClick={moneyClickHandler.bind(null, moneyInfo)}
         >
           {changeNumToLocalMoney(moneyInfo.unit)}
         </MoneyButton>
@@ -58,7 +54,7 @@ function Money() {
       </MoneyBox>
     );
   });
-  return moneyTags;
+  return MoneyItems;
 }
 
 const MoneyContainer = styled.ul`

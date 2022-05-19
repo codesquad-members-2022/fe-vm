@@ -1,11 +1,12 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { Color, FontSize, Radius10 } from '../../Assets/Common.style';
+import { MessageContext } from '../../Context/MessageProvider';
 import EnTitle from '../EnTitle';
-import { contentsContext } from '../MainContents';
+import { Color, FontSize, Radius10 } from '../../Assets/Common.style';
 
 export default function MessageBox({ page }) {
-  const { printMessages } = useContext(contentsContext);
+  const { printMessages } = useContext(MessageContext);
+
   const messagesText = printMessages.map((msg, idx) => {
     return <p key={idx}>{msg}</p>;
   });
