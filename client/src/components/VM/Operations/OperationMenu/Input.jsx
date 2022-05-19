@@ -4,13 +4,13 @@ import { InputContext } from "store/InputStore";
 import { MessageContext } from "store/MessageStore";
 import { WalletContext } from "store/WalletStore";
 import { getNeededMoney } from "utils/util";
-import { moneyUnitArr } from "constants/constants";
+import { moneyUnitArr, reversedMoneyUnitArr } from "constants/constants";
 
 export default function Input() {
   const inputContext = useContext(InputContext);
   const { input, setInput } = inputContext;
   const messageContext = useContext(MessageContext);
-  const { message, setMessage } = messageContext;
+  const { setMessage } = messageContext;
   const walletContext = useContext(WalletContext);
   const { wallet, setWallet } = walletContext;
 
@@ -34,22 +34,41 @@ export default function Input() {
     e.preventDefault();
     setIsClicked(false);
     const value = Number(e.target[0].value);
+
+    if (value % 10 > 0) {
+      setInput(temp);
+      setText(temp);
+      setMessage((prev) => [...prev, `1원 단위는 입력할 수 없습니다`]);
+      setCursor(false);
+      return;
+    }
+
+    //가지고 있는 돈을 넘는 값을 입력했을 경우
+    if (!validateInput(value, moneyUnitArr, wallet)) {
+      setInput(temp);
+      setText(temp);
+      setMessage((prev) => [...prev, `충전에 실패하였습니다`]);
+      setCursor(false);
+      return;
+    }
+
     const [newWallet, balanced] = validateInput(value, moneyUnitArr, wallet);
 
     if (newWallet) {
       if (balanced) {
         //보정이 된 경우
         setInput(temp + balanced);
+        setMessage((prev) => [
+          ...prev,
+          `보정된 금액 ${balanced}원이 투입되었습니다`,
+        ]);
       } else {
         //지갑에 알맞게 있어 보정되지 않은 경우
         setInput(temp + value);
+        setMessage((prev) => [...prev, `${value}원이 투입되었습니다`]);
       }
       setWallet(newWallet);
       setTemp(value);
-    } else {
-      //validate를 통과하지 못한 경우 즉 지갑에 돈이 부족한 경우
-      setInput(temp);
-      setText(temp);
     }
     setCursor(false);
   }
@@ -83,8 +102,6 @@ export default function Input() {
     const leftTotal = left.reduce((acc, [unit, amount]) => {
       return acc + unit * amount;
     }, 0);
-
-    const reversedMoneyUnitArr = moneyUnitArr.reverse();
 
     for (let i = 0; i < reversedMoneyUnitArr.length; i++) {
       if (
