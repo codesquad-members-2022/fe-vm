@@ -1,5 +1,6 @@
 import { SetAlertMessage } from "Context/AlertMessageProvider";
-import { COIN_LIST, INIT_ALERT_MESSAGE } from "Helper/constant";
+import { COIN_LIST, INIT_ALERT_MESSAGE, INVESTMENT_API, WALLET_API } from "Helper/constant";
+import { fetchData } from "Helper/utils";
 import { useCallback, useContext } from "react";
 import useInvestment from "./useInvestment";
 import useWallet from "./useWallet";
@@ -28,6 +29,8 @@ export default function useResetInvestment() {
     setAlertMessage(alertMessage);
     setInvestment(newInvestment);
     setWalletMoney(newWalletMoney);
+    fetchData(WALLET_API, { method: "PUT", bodyData: newWalletMoney });
+    fetchData(INVESTMENT_API, { method: "PUT", bodyData: newInvestment });
   }, [investment]);
 
   return handleReset;

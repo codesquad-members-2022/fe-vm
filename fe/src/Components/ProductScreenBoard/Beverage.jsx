@@ -1,7 +1,7 @@
 import { SetAlertMessage } from "Context/AlertMessageProvider";
 import { OrderInProgressContext, SetOrderInProgressContext } from "Context/OrderInProgressProvider";
-import { INIT_ALERT_MESSAGE, INVESTMENT_COUNT_TIME } from "Helper/constant";
-import { delay } from "Helper/utils";
+import { INIT_ALERT_MESSAGE, INVESTMENT_API, INVESTMENT_COUNT_TIME } from "Helper/constant";
+import { delay, fetchData } from "Helper/utils";
 import useInvestment from "Hooks/useInvestment";
 import useInvestmentTimer from "Hooks/useInvestmentTimer";
 import { useCallback, useContext, useEffect } from "react";
@@ -64,6 +64,7 @@ const reflectOrder = (props) => {
   investment.amount -= price;
   const newInvestment = { ...investment };
   setInvestment(newInvestment);
+  fetchData(INVESTMENT_API, { method: "PUT", bodyData: newInvestment });
   alertOrderMessage({ title, setAlertMessage });
 };
 

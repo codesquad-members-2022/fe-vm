@@ -1,5 +1,6 @@
 import { SetAlertMessage } from "Context/AlertMessageProvider";
-import { INIT_ALERT_MESSAGE, INVESTMENT_COUNT_TIME } from "Helper/constant";
+import { INIT_ALERT_MESSAGE, INVESTMENT_API, INVESTMENT_COUNT_TIME, WALLET_API } from "Helper/constant";
+import { fetchData } from "Helper/utils";
 import useInvestment from "Hooks/useInvestment";
 import useInvestmentTimer from "Hooks/useInvestmentTimer";
 import useWallet from "Hooks/useWallet";
@@ -112,6 +113,8 @@ const chargeCash = (props) => {
   setCash(adjustedCash);
   setInvestment(newInvestment);
   setWalletMoney(newWalletMoney);
+  fetchData(WALLET_API, { method: "PUT", bodyData: newWalletMoney });
+  fetchData(INVESTMENT_API, { method: "PUT", bodyData: newInvestment });
 };
 
 const alertChargeMessage = ({ setAlertMessage, adjustedCash }) => {
