@@ -34,7 +34,6 @@ const VMInputMoney = () => {
       targetMoney: +newMoney,
       ...moneyState,
     });
-    console.log(newState);
     insertInputMoney(newState);
     insertLog({
       type: 'insert',

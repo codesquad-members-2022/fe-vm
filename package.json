@@ -95,7 +95,8 @@
       "object-curly-newline": "off",
       "import/prefer-default-export": "off",
       "no-plusplus": "off",
-      "no-promise-executor-return": "off"
+      "no-promise-executor-return": "off",
+      "react-hooks/exhaustive-deps": "off"
     }
   },
   "browserslist": {
