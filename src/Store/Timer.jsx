@@ -14,7 +14,7 @@ export const TimerStore = ({children}) => {
       callback(data);
       Timer.logs = [];
     }, time);
-    Timer.logs = [...Timer.logs, {title: data.title, price: data.price}];
+    // Timer.logs = [...Timer.logs, {title: data.title, price: data.price}];
   };
 
   const clearTimer = () => {

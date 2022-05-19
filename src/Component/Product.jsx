@@ -4,11 +4,6 @@ import styled, {css} from 'styled-components';
 import {useTimer} from '../Store';
 
 export const Product = ({title, price, handleProductCard, walletState}) => {
-  const {setTimer, clearTimer} = useTimer();
-
-  setTimer(1, () => console.log(1), 1000);
-
-  clearTimer(1);
   return (
     <ProductWrapper
       insertedMoney={walletState.insertedMoney}
