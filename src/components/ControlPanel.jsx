@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { MoneyContext } from 'components/App';
 import ModifiableInput from 'components/ModifiableInput';
+import EventLog from 'components/EventLog';
 
 function ControlPanel() {
   const { curMoney } = useContext(MoneyContext);
@@ -16,11 +17,7 @@ function ControlPanel() {
     <Wrap>
       <Row>
         {isInputMode ? (
-          <ModifiableInput
-            moneyDisplayed={inputValue}
-            handler={handleModifiableInput}
-            setInputMode={setInputMode}
-          />
+          <ModifiableInput moneyDisplayed={inputValue} handler={handleModifiableInput} setInputMode={setInputMode} />
         ) : (
           <UnmodifiableInput />
         )}
@@ -76,10 +73,4 @@ const Money = styled.div({
   textAlign: 'right',
   border: '1px solid black',
   paddingRight: '5px',
-});
-
-const EventLog = styled.div({
-  border: '1px solid black',
-  height: '100%',
-  overflowY: 'auto',
 });

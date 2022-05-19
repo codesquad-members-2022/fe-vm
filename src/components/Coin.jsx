@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { ErrorContext, MoneyContext, CoinContext } from 'components/App';
+import { ErrorContext, MoneyContext, CoinContext, EventLogContext } from 'components/App';
 import { MESSAGES } from 'constants/messages';
 
 function Coin({ coin, curWalletMoney, setCurWalletMoney }) {
   const { showErrorMsg } = useContext(ErrorContext);
   const { coins, setCoins } = useContext(CoinContext);
   const { curMoney, setMoney } = useContext(MoneyContext);
+  const { eventLog, setEventLog } = useContext(EventLogContext);
   const { AMOUNT, CNT } = coin;
 
   return (
@@ -30,6 +31,7 @@ function Coin({ coin, curWalletMoney, setCurWalletMoney }) {
     setCurWalletMoney(updatedWalletMoney);
     setMoney(updatedCurMoney);
     setCoins(updatedCoins);
+    setEventLog([...eventLog, { type: 'CHARGE', value: AMOUNT }]);
 
     function updateCoinCnt(eachCoin) {
       const isTargetCoin = AMOUNT === eachCoin.AMOUNT;

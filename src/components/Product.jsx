@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { ErrorContext, MoneyContext, LoadingContext } from 'components/App';
+import { ErrorContext, MoneyContext, LoadingContext, EventLogContext } from 'components/App';
 import { MESSAGES, PHRASES } from 'constants/messages';
 import { copyObject } from 'utils';
 import DELAY_MS from 'constants/delay';
@@ -9,6 +9,7 @@ function Product({ name, price, stock, products, setProducts }) {
   const { curMoney, setMoney } = useContext(MoneyContext);
   const { showErrorMsg } = useContext(ErrorContext);
   const { setLoading } = useContext(LoadingContext);
+  const { eventLog, setEventLog } = useContext(EventLogContext);
   const hasStock = stock >= 1;
   const canPurchase = curMoney >= price && hasStock;
 
@@ -43,7 +44,7 @@ function Product({ name, price, stock, products, setProducts }) {
 
     setProducts(updatedProducts);
     setMoney(updatedMoney);
-    // setLoading(false);
+    setEventLog([...eventLog, { type: 'PURCHASE', value: name }]);
 
     function decreaseStock(product) {
       const isTargetProduct = product.name === name;

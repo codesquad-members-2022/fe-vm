@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { ErrorContext, CoinContext, MoneyContext } from 'components/App';
+import { ErrorContext, CoinContext, MoneyContext, EventLogContext } from 'components/App';
 import { copyObject } from 'utils';
 import { MESSAGES } from 'constants/messages';
 
 function ModifiableInput({ moneyDisplayed, handler, setInputMode }) {
   const { showErrorMsg } = useContext(ErrorContext);
   const { coins, setCoins } = useContext(CoinContext);
+  const { eventLog, setEventLog } = useContext(EventLogContext);
   const { setMoney } = useContext(MoneyContext);
   return (
     <>
@@ -31,6 +32,7 @@ function ModifiableInput({ moneyDisplayed, handler, setInputMode }) {
     setMoney(newMoney);
     setCoins(newCoins);
     setInputMode(false);
+    setEventLog([...eventLog, { type: 'CHARGE', value: newMoney }]);
 
     function chargeMoney(money) {
       let moneyCharged = 0;
