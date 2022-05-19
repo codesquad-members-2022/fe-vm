@@ -9,10 +9,8 @@ import {accountReducer} from '../Reducer';
 
 export const VendingMachine = () => {
   const {account, sinkedAccount} = useContext(UserAccount);
-  const {buyProduct, refundMoney, inputMoney, userMoney} = useAccount(
-    account,
-    accountReducer,
-  );
+  const {buyProduct, refundMoney, inputMoney, userMoney, logHistories} =
+    useAccount(account, accountReducer);
 
   useEffect(() => {
     sinkedAccount(userMoney);
@@ -22,8 +20,9 @@ export const VendingMachine = () => {
     <VendingMachineWrapper>
       <ProductList
         ProductsData={PRODUCTS_DATA}
-        handleProductCard={buyProduct}
+        buyProduct={buyProduct}
         walletState={userMoney}
+        logHistories={logHistories}
       />
       <VendingMachineInterface
         handleRefundBtn={refundMoney}

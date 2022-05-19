@@ -3,22 +3,34 @@ import styled from 'styled-components';
 
 import {Product} from './Product';
 
-export const ProductList = ({ProductsData, handleProductCard, walletState}) => {
+//TODO: naming refactoring
+export const ProductList = ({
+  ProductsData,
+  buyProduct,
+  walletState,
+  logHistories,
+}) => {
   return (
     <ProductListWrapper>
-      {createProducts(ProductsData, handleProductCard, walletState)}
+      {createProducts(ProductsData, buyProduct, walletState, logHistories)}
     </ProductListWrapper>
   );
 };
 
-const createProducts = (ProductsList, eventsHandler, walletState) => {
+const createProducts = (
+  ProductsList,
+  buyProduct,
+  walletState,
+  logHistories,
+) => {
   return ProductsList.map(productData => (
     <Product
       key={productData.id}
       title={productData.title}
       price={productData.price}
-      handleProductCard={eventsHandler}
+      buyProduct={buyProduct}
       walletState={walletState}
+      logHistories={logHistories}
     />
   ));
 };

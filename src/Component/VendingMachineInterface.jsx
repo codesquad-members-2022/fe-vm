@@ -14,11 +14,6 @@ export const VendingMachineInterface = ({
     handleUserInput(e.target.value);
     setIsInputCliked(false);
   };
-  // const moneyInsertInput = useRef(null); // 어떻게 해야 입력 인풋을 focus할 수 있을까?
-
-  useEffect(() => {
-    // moneyInsertInput.current.focus();
-  }, [isInputClicked]);
 
   return (
     <VM_Wrapper>

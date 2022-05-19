@@ -19,7 +19,7 @@ const handleMoneyButton =
     }
     clearTimer();
     insertMoney(unit);
-    setTimer(refundMoney, 5000);
+    setTimer(refundMoney, 'insert');
   };
 
 export const InsertButton = ({

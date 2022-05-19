@@ -9,12 +9,26 @@ export const TimerStore = ({children}) => {
     logs: [],
   };
 
-  const setTimer = (callback, time, data) => {
-    Timer.reservation = setTimeout(() => {
-      callback(data);
-      Timer.logs = [];
-    }, time);
-    // Timer.logs = [...Timer.logs, {title: data.title, price: data.price}];
+  const setTimer = (callback, type, productData) => {
+    switch (type) {
+      case 'insert':
+        Timer.reservation = setTimeout(() => {
+          callback();
+        }, 5000);
+        break;
+
+      // TODO: 투입금액의 상태를 받아 얼마 잔돈 남았는지도 로그에 출력 가능
+      case 'buy':
+        Timer.logs = [...Timer.logs, productData];
+        Timer.reservation = setTimeout(() => {
+          callback(Timer.logs);
+          Timer.logs = [];
+        }, 2000);
+        break;
+
+      default:
+        throw new Error(`타이머 type 에러: ${type}`);
+    }
   };
 
   const clearTimer = () => {

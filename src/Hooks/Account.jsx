@@ -4,39 +4,25 @@ import * as createDispatch from '../Reducer/AccountActions';
 
 export const useAccount = (initial, reducer) => {
   const [userMoney, dispatchUserMoney] = useReducer(reducer, initial);
-  // const [hasInsertedMoney, setHasInsertedMoney] = useState(false);
 
   const insertMoney = createDispatch.insertMoney(dispatchUserMoney);
 
   const refundMoney = createDispatch.refundMoney(dispatchUserMoney);
 
-  const buyProduct = (productPrice, productTitle) => () =>
-    createDispatch.buyProduct(dispatchUserMoney)(productPrice, productTitle);
+  //TODO: refactoring 로직
+  const buyProduct = productPrice =>
+    createDispatch.buyProduct(dispatchUserMoney)(productPrice);
 
   const inputMoney = createDispatch.inputMoney(dispatchUserMoney);
 
-  // const refundTimer = timerState => {
-  //   const timer = setTimeout(
-  //     () => {
-  //       refundMoney();
-  //     },
-  //     timerState === 'inserted' ? 5000 : 2000,
-  //   );
+  const logHistories = createDispatch.logHistories(dispatchUserMoney);
 
-  //   return shouldClear => {
-  //     if (shouldClear) {
-  //       clearTimeout(timer);
-  //     }
-  //   };
-  // };
-
-  // useEffect(() => {
-  //   if (userMoney.insertedMoney > 0) {
-  //     const timerController = refundTimer(5000);
-  //     timerController(hasInsertedMoney);
-  //     setHasInsertedMoney(false);
-  //   }
-  // }, [userMoney]);
-
-  return {insertMoney, refundMoney, buyProduct, inputMoney, userMoney};
+  return {
+    insertMoney,
+    refundMoney,
+    buyProduct,
+    inputMoney,
+    userMoney,
+    logHistories,
+  };
 };

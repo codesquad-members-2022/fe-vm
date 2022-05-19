@@ -3,13 +3,45 @@ import styled, {css} from 'styled-components';
 
 import {useTimer} from '../Store';
 
-export const Product = ({title, price, handleProductCard, walletState}) => {
+const handleProductCard = (
+  price,
+  title,
+  buyProduct,
+  clearTimer,
+  setTimer,
+  logHistories,
+) => {
+  clearTimer();
+  buyProduct(price); //TODO: 로직 변경 요망 -> 클로저 삭제
+  setTimer(logHistories, 'buy', title);
+};
+
+export const Product = ({
+  title,
+  price,
+  buyProduct,
+  walletState,
+  logHistories,
+}) => {
+  const {clearTimer, setTimer} = useTimer();
+
   return (
     <ProductWrapper
       insertedMoney={walletState.insertedMoney}
       productPrice={price}
     >
-      <ProductThumbnail onClick={handleProductCard(price, title)}>
+      <ProductThumbnail
+        onClick={() => {
+          handleProductCard(
+            price,
+            title,
+            buyProduct,
+            clearTimer,
+            setTimer,
+            logHistories,
+          );
+        }}
+      >
         {title}
       </ProductThumbnail>
       <PriceTag>{price}</PriceTag>

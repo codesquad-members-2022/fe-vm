@@ -19,21 +19,25 @@ export const accountReducer = (state, action) => {
           ...state.history,
           `${state.insertedMoney} 원 반환 되엇습니다.`,
         ],
-        timerOn: false,
       };
 
     case 'buy':
       return {
+        ...state,
         currentMoney: state.currentMoney,
         insertedMoney: state.insertedMoney - action.incomeMoney,
-        history: [
-          ...state.history,
-          `${action.product} 를 구매하셨습니다. 현재 투입금액: ${
-            state.insertedMoney - action.incomeMoney
-          }`,
-        ],
-        timerOn: 'buy',
+
+        // history: [
+        //   ...state.history,
+        //   `${action.product} 를 구매하셨습니다. 현재 투입금액: ${
+        //     state.insertedMoney - action.incomeMoney
+        //   }`,
+        // ],
       };
+
+    case 'log':
+      const logs = action.logs.map(title => `${title} 를 구매하셨습니다.`);
+      return {...state, history: [...state.history, ...logs]};
 
     case 'input':
       let currentMoney = state.currentMoney;
