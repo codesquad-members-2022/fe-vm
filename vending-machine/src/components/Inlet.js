@@ -21,19 +21,23 @@ function Inlet() {
     return num1 <= num2;
   }
   function decreaseWallet(inputMoneyArr, value, input) {
+    let newInput = input;
     const newArr = [...value];
     inputMoneyArr.map((currency) => {
       const valueIdx = newArr.findIndex((el) => el.title === currency.title);
       if (currency.amount <= value[valueIdx].amount) {
         newArr[valueIdx].amount -= currency.amount;
       } else {
-        newArr[valueIdx].amount = 0;
-        newArr[valueIdx + 1].amount -= 1;
+        newInput =
+          input - (currency.amount - newArr[valueIdx].amount) * currency.title;
       }
+      newArr[valueIdx].amount = 0;
+      newArr[valueIdx + 1].amount -= 1;
     });
     setSum(budget - input);
-    setInputMoneySum(input);
+    setInputMoneySum(newInput);
     setWalletMoney(newArr);
+    return newInput;
   }
 
   function submitValue(e) {
