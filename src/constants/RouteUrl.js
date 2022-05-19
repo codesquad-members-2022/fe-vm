@@ -1,5 +1,5 @@
-import VMPage from 'pages/VendingMachine/VMPage';
-import WalletPage from 'pages/Wallet/WalletPage';
+import VMPage from 'pages/VendingMachine';
+import WalletPage from 'pages/Wallet';
 
 const BASE_URL = process.env.PUBLIC_URL;
 

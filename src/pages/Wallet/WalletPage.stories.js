@@ -1,4 +1,4 @@
-import WalletPage from 'pages/Wallet/WalletPage';
+import WalletPage from 'pages/Wallet';
 
 export default {
   title: 'Pages/WalletPage',

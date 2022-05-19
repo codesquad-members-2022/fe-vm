@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { RouteURL } from 'constants/RouteUrl';
 import { NavLink, useLocation } from 'react-router-dom';
-import Button from 'components/atoms/Button/Button';
+import Button from 'components/atoms/Button';
 import * as Styled from 'components/molecules/NavButton/NavButton.style';
 
 const NavButton = ({ unit, count, ...props }) => {

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Icon from 'components/atoms/Icon/Icon';
+import Icon from 'components/atoms/Icon';
 import * as Styled from 'components/molecules/Selector/Selector.style';
 import mockData from 'components/molecules/Selector//SelectMockData';
-import ListItem from 'components/atoms/ListItem/ListItem';
+import ListItem from 'components/atoms/ListItem';
 
 const Selector = ({ initTitle = 'Select', listData = mockData, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);

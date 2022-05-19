@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as Styled from 'components/molecules/MoneyBox/MoneyBox.style';
-import Button from 'components/atoms/Button/Button';
-import Label from 'components/atoms/Label/Label';
+import Button from 'components/atoms/Button';
+import Label from 'components/atoms/Label';
 
 const MoneyBox = ({ unit, count, ...props }) => {
   return (

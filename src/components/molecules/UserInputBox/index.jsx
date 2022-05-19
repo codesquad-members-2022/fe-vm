@@ -1,7 +1,7 @@
 import React from 'react';
-import Input from 'components/atoms/Input/Input';
-import Button from 'components/atoms/Button/Button';
-import Selector from 'components/molecules/Selector/Selector';
+import Input from 'components/atoms/Input';
+import Button from 'components/atoms/Button';
+import Selector from 'components/molecules/Selector';
 import * as Styled from 'components/molecules/UserInputBox/UserInputBox.style';
 
 const UserInputBox = ({ title, ...props }) => {

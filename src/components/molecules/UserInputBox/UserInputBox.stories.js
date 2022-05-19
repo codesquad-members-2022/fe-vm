@@ -1,5 +1,5 @@
 import React from 'react';
-import UserInputBox from 'components/molecules/UserInputBox/UserInputBox';
+import UserInputBox from 'components/molecules/UserInputBox';
 
 export default {
   title: 'Molecules/UserInputBox',

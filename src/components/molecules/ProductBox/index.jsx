@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Label from 'components/atoms/Label/Label';
-import Button from 'components/atoms/Button/Button';
+import Label from 'components/atoms/Label';
+import Button from 'components/atoms/Button';
 import * as Styled from 'components/molecules/ProductBox/ProductBox.style';
 
 const ProductBox = ({ icon, cost, ...props }) => {
