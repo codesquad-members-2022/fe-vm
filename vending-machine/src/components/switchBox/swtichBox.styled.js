@@ -8,8 +8,8 @@ export const StyledContainer = styled.div`
 `;
 
 export const StyledBtn = styled.button`
-  ${({ clickedComponent, thisComponent, theme }) => {
-    if (clickedComponent === thisComponent) {
+  ${({ clickedTab, curTab, theme }) => {
+    if (clickedTab === curTab) {
       return `
       backgroundColor:${theme.color.gray};
       color:${theme.color.white};
