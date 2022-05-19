@@ -15,10 +15,15 @@ function VendingMachineProvider({ children }) {
         moneyDispatcher({ type: "return", money: amountOfMoney });
     };
 
+    const selectProduct = (productName) => {
+        moneyDispatcher({ type: "select", product: productName });
+    };
+
     const vendingMachineProps = {
         money,
         putMoneyIntoVendingMachine,
         returnMoneyFromVendingMachine,
+        selectProduct,
     };
 
     return (

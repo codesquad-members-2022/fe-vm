@@ -76,7 +76,21 @@ const reducer = (state, action) => {
                 vendingMachine: {
                     amount: 0,
                 },
-                record: [...state.record, `잔돈 ${action.money}원 반환`],
+                record: [
+                    ...state.record,
+                    action.money ? `잔돈 ${action.money}원 반환` : "",
+                ],
+            };
+        }
+        case "select": {
+            return {
+                wallet: {
+                    ...state.wallet,
+                },
+                vendingMachine: {
+                    ...state.vendingMachine,
+                },
+                record: [...state.record, `${action.product}이/가 선택됨`],
             };
         }
         default: {
