@@ -16,7 +16,7 @@ function Product({ name, price, stock, products, setProducts }) {
   return (
     <div>
       <Name
-        disabled={!hasStock}
+        disabled={!canPurchase}
         canPurchase={canPurchase}
         onClick={() => {
           setLoading(true);
@@ -60,6 +60,7 @@ export default Product;
 
 const Name = styled.button`
   border-color: ${({ canPurchase }) => (canPurchase ? 'red' : 'black')};
+  background-color: ${({ canPurchase }) => (canPurchase ? 'white' : '#bdc3c7')};
   width: 100px;
   height: 50px;
   padding: 0;
