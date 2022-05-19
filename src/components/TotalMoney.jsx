@@ -2,7 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function TotalMoney({ totalPrice }) {
+import makeTotalPrice from '../pages/utils/utils';
+
+export default function TotalMoney({ moneyInfos }) {
   const addUnitNotation = (element, index, array) => {
     const unitPosition = 3;
     const isHighestDigit = index + 1 === array.length;
@@ -10,6 +12,8 @@ export default function TotalMoney({ totalPrice }) {
 
     return hasUnitNotation ? `,${element}` : element;
   };
+
+  const totalPrice = makeTotalPrice(moneyInfos);
 
   const totalPriveWithUnitNotation = `${totalPrice}`
     .split('')
@@ -22,5 +26,5 @@ export default function TotalMoney({ totalPrice }) {
 }
 
 TotalMoney.propTypes = {
-  totalPrice: PropTypes.number.isRequired,
+  moneyInfos: PropTypes.array.isRequired,
 };

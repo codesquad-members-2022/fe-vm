@@ -7,15 +7,65 @@ import AvailableButton from '../components/AvailableButton';
 import Input from '../components/Input';
 import ProgressBoard from '../components/ProgressBoard';
 import { MoneyContext } from '../context/MoneyProvider';
+import makeTotalPrice from './utils/utils';
 
 export default function VendingMachine() {
   const [accumulatedItemPrice, setAccumulatedItemPrice] = useState(0);
-  const { inputPrice, setInputPrice, totalPrice, setTotalPrice } =
+  const { inputPrice, setInputPrice, moneyInfos, setMoneyInfos } =
     useContext(MoneyContext);
   const [content, setContent] = useState(0);
   const [progressMsg, setProgressMsg] = useState(
     inputPrice.map((price) => `${price}원이 투입되었습니다.`)
   );
+
+  const findTargetMoneyInfo = (price, infos) => {
+    let money = price;
+    infos.reverse();
+    return infos.map(({ type }) => {
+      const num = Math.floor(money / type);
+      money %= type;
+      return {
+        type,
+        num,
+      };
+    });
+  };
+
+  const updateMoneyInfo = ({ targetInfos, isPlus }) => {
+    const newInfos = moneyInfos.map((info, index) => {
+      const { type, num } = targetInfos[index];
+      if (info.type === type && num > 0) {
+        return {
+          type,
+          num: isPlus ? info.num + num : info.num - num,
+        };
+      }
+
+      return { type: info.type, num: info.num };
+    });
+
+    return newInfos;
+  };
+
+  const decreaseWalletMoney = (price) => {
+    const targetInfos = findTargetMoneyInfo(price, moneyInfos);
+    const newMoneyInfos = updateMoneyInfo({ targetInfos, isPlus: false });
+    newMoneyInfos.reverse();
+
+    return newMoneyInfos;
+  };
+
+  const addRefund2MoneyInfo = (price) => {
+    const refundMoneyInfo = findTargetMoneyInfo(price, moneyInfos);
+
+    const newMoneyInfos = updateMoneyInfo({
+      targetInfos: refundMoneyInfo,
+      isPlus: true,
+    });
+    newMoneyInfos.reverse();
+
+    return newMoneyInfos;
+  };
 
   const handleChangeInput = ({ currentTarget }) => {
     setContent(currentTarget.textContent);
@@ -35,12 +85,13 @@ export default function VendingMachine() {
     // Todo : 지갑에 요금의 개수가 없거나 지갑 전체 요금보다 큰 경우 예외처리
     const currentPrice = Number(content);
     setInputPrice([...inputPrice, Number(currentPrice)]);
+    setMoneyInfos([...decreaseWalletMoney(Number(currentPrice))]);
     setProgressMsg([...progressMsg, `${currentPrice}원이 투입되었습니다.`]);
   };
 
   const handleSelectItem = (title, price) => {
     const currentRemainMoney =
-      inputPrice[inputPrice.length - 1] - (accumulatedItemPrice + price);
+      makeTotalPrice(moneyInfos) - (accumulatedItemPrice + price);
     if (currentRemainMoney < 0) {
       window.alert('요금을 초과하였습니다.');
       return;
@@ -62,7 +113,8 @@ export default function VendingMachine() {
       ...progressMsg,
       `잔돈 ${currentRemainMoney}원이 반환됩니다.`,
     ]);
-    setTotalPrice(currentRemainMoney + totalPrice);
+    const newMoneyInfos = addRefund2MoneyInfo(currentRemainMoney);
+    setMoneyInfos([...newMoneyInfos]);
   };
 
   return (
@@ -72,8 +124,12 @@ export default function VendingMachine() {
           <StyledItem key={`vm-item-${title}`}>
             <AvailableButton
               icon={title}
-              isAvailabe={inputPrice.length > 0 && totalPrice >= price}
-              disabled={!(inputPrice.length > 0 && totalPrice >= price)}
+              isAvailabe={
+                inputPrice.length > 0 && makeTotalPrice(moneyInfos) >= price
+              }
+              disabled={
+                !(inputPrice.length > 0 && makeTotalPrice(moneyInfos) >= price)
+              }
               onClick={() => handleSelectItem(title, price)}
             />
             <StyledPrice>{price}</StyledPrice>
