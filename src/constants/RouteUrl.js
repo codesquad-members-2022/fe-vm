@@ -1,5 +1,5 @@
-import VMPage from 'pages/VendingMachine';
-import WalletPage from 'pages/Wallet';
+import VendingMachine from 'components/organisms/VendingMachine';
+import Wallet from 'components/organisms/Wallet';
 
 const BASE_URL = process.env.PUBLIC_URL;
 
@@ -8,13 +8,13 @@ const RouteURL = [
     id: 1,
     name: '자판기',
     path: '/',
-    getElement: props => <VMPage {...props} />,
+    getElement: props => <VendingMachine {...props} />,
   },
   {
     id: 2,
     name: '지갑',
     path: '/wallet',
-    getElement: props => <WalletPage {...props} />,
+    getElement: props => <Wallet {...props} />,
   },
 ];
 
