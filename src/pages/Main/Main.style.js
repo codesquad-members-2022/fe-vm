@@ -8,10 +8,15 @@ const Main = styled.div`
   background-color: ${({ theme: { colors } }) => colors.lightBlue};
 `;
 
+const pathWidth = {
+  '/': '960px',
+  '/wallet': '850px',
+};
+
 const ContentsWrapper = styled.div`
   ${Flex.centerBetween}
-  width: 960px;
-  min-width: 960px;
+  width: ${({ path }) => pathWidth[path]};
+  min-width: ${({ path }) => pathWidth[path]};
   background-color: ${({ theme: { colors } }) => colors.lightBlue};
 `;
 

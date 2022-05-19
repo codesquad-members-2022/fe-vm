@@ -10,7 +10,7 @@ const Main = () => {
 
   return (
     <Styled.Main>
-      <Styled.ContentsWrapper>
+      <Styled.ContentsWrapper path={currentPath}>
         {currentPath === vmPage.path && <Outlet />}
         <VendingMachineController currentPathName={currentPath} />
         {currentPath === walletPage.path && <Outlet />}

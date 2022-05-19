@@ -1,4 +1,4 @@
-import { Border, Flex } from 'assets/style/common';
+import { Flex } from 'assets/style/common';
 import styled from 'styled-components';
 
 const StyledVM = styled.div`
