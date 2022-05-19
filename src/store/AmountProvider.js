@@ -6,10 +6,6 @@ import { moneyReducer, logReducer } from './reducer';
 const AmountProvider = (props) => {
   const [money, dispatchMoney] = useReducer(moneyReducer, INITAIL_MONEY);
   const [log, dispatchLog] = useReducer(logReducer, []);
-  useEffect(() => {
-    console.log(money, 'effect');
-    console.log(log);
-  }, [money, log]);
 
   const amountContext = {
     money,
