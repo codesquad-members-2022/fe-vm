@@ -1,29 +1,13 @@
-import { useContext } from "react";
 import styled from "styled-components";
 import icons from "styles/icons";
-import { Balance } from "contextProviders/BalanceProvider";
-import { Records } from "contextProviders/RecordsProvider";
-import { activityType } from "convention";
 
-const Money = ({ moneyType, number }) => {
-  const { wallet, inputSum, updateBalance } = useContext(Balance);
-  const { updateRecord } = useContext(Records);
-
-  const inputMoney = () => {
-    if (!number) return;
-    const newInputSum = inputSum + Number(moneyType);
-    const newWallet = { ...wallet };
-    newWallet[moneyType]--;
-    updateBalance(newWallet, newInputSum);
-    updateRecord(activityType.INPUT_MONEY, Number(moneyType));
-  };
-
+const Money = ({ moneyType, amount, putMoneyIntoVendingMachine }) => {
   return (
     <MoneyWrapper>
-      <MoneyButton moneyType={moneyType} onClick={inputMoney} />
+      <MoneyButton moneyType={moneyType} onClick={() => putMoneyIntoVendingMachine(moneyType)} />
       <MoneyCounter>
         <img src={icons.MULTIPLY} alt="multiply" />
-        <span>{number}</span>
+        <span>{amount}</span>
       </MoneyCounter>
     </MoneyWrapper>
   );
@@ -38,8 +22,7 @@ const MoneyWrapper = styled.div`
 const MoneyButton = styled.div`
   width: 140px;
   height: 70px;
-  background: ${({ moneyType }) => `url(${icons.MONEY_IMG[moneyType]})`}
-    no-repeat center;
+  background: ${({ moneyType }) => `url(${icons.MONEY_IMG[moneyType]})`} no-repeat center;
   background-size: contain;
 `;
 

@@ -9,40 +9,25 @@ const ReturnButton = () => {
   const { inputSum, wallet, updateBalance } = useContext(Balance);
   const { updateRecord } = useContext(Records);
 
-  const handleClick = () => {
+  const handleReturnButtonClick = () => {
     if (!inputSum) return;
-    const change = packChange();
-    const newWallet = putChangeIntoWallet(change);
+    const newWallet = packChange();
     updateBalance(newWallet, 0);
     updateRecord(activityType.RETURN_MONEY, inputSum);
   };
 
-  const putChangeIntoWallet = (change) => {
-    const newWallet = {};
-    moneyOrder.forEach((moneyType) => {
-      newWallet[moneyType] = wallet[moneyType] + change[moneyType];
-    });
-    return newWallet;
-  };
-
   const packChange = () => {
-    const change = {};
+    const newWallet = {};
     moneyOrder.reduce((remainInputSum, moneyType) => {
-      const currMoneyNumber = parseInt(remainInputSum / Number(moneyType));
-      change[moneyType] = currMoneyNumber;
+      const currMoneyAmount = parseInt(remainInputSum / Number(moneyType));
+      newWallet[moneyType] = wallet[moneyType] + currMoneyAmount;
       return remainInputSum % Number(moneyType);
     }, inputSum);
 
-    return change;
+    return newWallet;
   };
 
-  return (
-    <Button
-      styles={returnButtonStyles}
-      content={"return"}
-      onClick={handleClick}
-    />
-  );
+  return <Button styles={returnButtonStyles} content={"return"} onClick={handleReturnButtonClick} />;
 };
 
 const returnButtonStyles = css`

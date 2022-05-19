@@ -1,18 +1,33 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { Balance } from "contextProviders/BalanceProvider";
+import { Records } from "contextProviders/RecordsProvider";
 import Money from "./Money";
-import { moneyOrder } from "convention";
+import { activityType, moneyOrder } from "convention";
+import { v4 as uuidv4 } from "uuid";
 
 const Wallet = () => {
-  const { wallet } = useContext(Balance);
+  const { wallet, inputSum, updateBalance } = useContext(Balance);
+  const { updateRecord } = useContext(Records);
 
   const calTotalBalance = () => {
     const totalBalance = moneyOrder.reduce(
-      (balance, moneyType) => balance + wallet[moneyType] * Number(moneyType),
+      (balance, moneyType) => balance + moneyType * wallet[moneyType],
       0
     );
     return totalBalance;
+  };
+
+  const putMoneyIntoVendingMachine = (targetMoneyType) => {
+    const targetMoneyAmount = wallet[targetMoneyType];
+    if (!targetMoneyAmount) return;
+
+    const newInputSum = inputSum + Number(targetMoneyType);
+    const newWallet = { ...wallet };
+    newWallet[targetMoneyType] = targetMoneyAmount - 1;
+
+    updateBalance(newWallet, newInputSum);
+    updateRecord(activityType.INPUT_MONEY, targetMoneyType);
   };
 
   return (
@@ -20,9 +35,10 @@ const Wallet = () => {
       <WalletWrapper>
         {moneyOrder.map((moneyType) => (
           <Money
-            key={moneyType}
+            key={uuidv4()}
             moneyType={moneyType}
-            number={wallet[moneyType]}
+            amount={wallet[moneyType]}
+            putMoneyIntoVendingMachine={putMoneyIntoVendingMachine}
           />
         ))}
         <TotalBalance>총액: {calTotalBalance()}</TotalBalance>
