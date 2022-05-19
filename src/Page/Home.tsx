@@ -8,7 +8,8 @@ import { usePriceState, usePriceDispatch } from '@/Context/PriceContext';
 
 import { responseDelay } from '@/Constants';
 import keepTheChange from '@/Utils/keepTheChange';
-import useTimeout from '@/Utils/useTimeout';
+import timeOut from '@/Utils/timeOut';
+import { useMessageDispatch } from '@/Context/MessageContext';
 
 export default function Home(): JSX.Element {
   const [tab, toggleTab] = useState('자판기');
@@ -17,14 +18,21 @@ export default function Home(): JSX.Element {
   const priceState = usePriceState();
   const walletDispatch = useWalletDispatch();
   const priceDispatch = usePriceDispatch();
+  const messageDispatch = useMessageDispatch();
 
   const timerId = useRef(null);
 
   const timeOutCallback = () => {
     if (timerId.current) clearTimeout(timerId.current);
 
-    timerId.current = useTimeout(
-      () => keepTheChange(priceState, walletDispatch, priceDispatch),
+    timerId.current = timeOut(
+      () =>
+        keepTheChange(
+          priceState,
+          walletDispatch,
+          priceDispatch,
+          messageDispatch,
+        ),
       responseDelay,
     );
   };

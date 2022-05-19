@@ -1,4 +1,4 @@
-export default function useTimeout(
+export default function timeOut(
   callback: any,
   delay: number | null,
 ): NodeJS.Timeout {

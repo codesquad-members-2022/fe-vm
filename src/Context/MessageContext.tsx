@@ -5,7 +5,7 @@ interface IMessage {
   message: string;
 }
 
-type MessageAction =
+export type MessageAction =
   | { type: 'SELECT_PRICE' }
   | { type: 'ADD_PRICE'; unit: number }
   | { type: 'SELECT_MESSAGE'; unit: number; message: string }

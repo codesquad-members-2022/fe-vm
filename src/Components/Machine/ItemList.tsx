@@ -9,7 +9,7 @@ import { usePriceState, usePriceDispatch } from '@/Context/PriceContext';
 
 import { itemOutputDelay } from '@/Constants';
 import keepTheChange from '@/Utils/keepTheChange';
-import useTimeout from '@/Utils/useTimeout';
+import timeOut from '@/Utils/timeOut';
 
 const ItemListerWrapper = styled.article`
   display: grid;
@@ -59,18 +59,18 @@ export default function ItemList({ timerId }: TimerType): JSX.Element {
     clearTimeout(timerId.current);
 
     // 2초 뒤 상품 배출
-    disposeTimerId.current = useTimeout(() => {
+    disposeTimerId.current = timeOut(() => {
       messageDispatch({
         type: 'INSERT_MESSAGE',
         unit: 0,
         message: `${item.text}가 선택 됨`,
       });
-      keepTheChange(priceState - item.price, walletDispatch, priceDispatch);
-      messageDispatch({
-        type: 'INSERT_MESSAGE',
-        unit: 0,
-        message: `${priceState - item.price}원 반환됨`,
-      });
+      keepTheChange(
+        priceState - item.price,
+        walletDispatch,
+        priceDispatch,
+        messageDispatch,
+      );
       itemDispatch({ type: 'UPDATE_ITEM', item, count: 1 });
     }, itemOutputDelay);
   };

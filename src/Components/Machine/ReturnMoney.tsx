@@ -39,13 +39,8 @@ export default function ReturnMoney(): JSX.Element {
       alert('반환할 금액이 없습니다.');
       return;
     }
-    messageDispatch({
-      type: 'INSERT_MESSAGE',
-      unit: 0,
-      message: `${priceState}원 반환됨`,
-    });
 
-    keepTheChange(priceState, walletDispatch, priceDispatch);
+    keepTheChange(priceState, walletDispatch, priceDispatch, messageDispatch);
   };
 
   return (
