@@ -31,18 +31,19 @@ const checkValid = (wallet, money) => {
 const VendingForm = () => {
   const amountInputRef = useRef();
   const { money, dispatchMoney, dispatchLog } = useContext(AmountContext);
-  const [isInputValid, setIsInputValid] = useState(false);
+  const [isInputValid, setIsInputValid] = useState(true);
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const insertedMoney = amountInputRef.current.value;
+    const insertedMoney = Number(amountInputRef.current.value);
+    if (!insertedMoney) return;
     const [isValid, newInsertedMoneyObj] = checkValid(
       money.WALLET,
       insertedMoney
     );
     setIsInputValid(isValid);
 
-    if (isInputValid) {
+    if (isValid) {
       dispatchMoney({
         type: 'INSERT',
         payload: newInsertedMoneyObj,

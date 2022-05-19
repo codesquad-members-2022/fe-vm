@@ -8,8 +8,8 @@ const VendingCards = () => {
   const { money, dispatchMoney, dispatchLog } = useContext(AmountContext);
   const onSaveInfo = (price, name) => {
     if (money.TOTAL_AMOUNT < price) return alert('금액이 부족합니다');
-    console.log(money.INSERTED);
-    dispatchLog({ type: 'BUY', item: { price, name } });
+    dispatchMoney({ type: 'BUY', payload: price });
+    dispatchLog({ type: 'BUY', payload: { price, name } });
   };
 
   return (
