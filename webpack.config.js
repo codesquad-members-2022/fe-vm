@@ -71,6 +71,9 @@ module.exports = (env) => {
       ],
     },
     plugins: [
+      new webpack.ProvidePlugin({
+        React: 'react',
+      }),
       definePlugin,
       miniCssExtractPlugin,
       new HtmlWebpackPlugin({
