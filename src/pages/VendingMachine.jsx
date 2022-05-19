@@ -14,9 +14,9 @@ const VendingMachine = () => (
 const VMLayout = styled.div`
   display: grid;
   grid-template-columns: 6fr 4fr;
-  width: 700px;
-  height: 500px;
-  padding: 30px;
+  width: 52rem;
+  height: 40rem;
+  padding: 2rem;
   background-color: ${COLORS.WHITE};
   border: 0.5rem solid ${COLORS.DARK_GREY};
 `;

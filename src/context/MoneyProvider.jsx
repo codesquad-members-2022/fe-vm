@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useReducer } from 'react';
 
+import {
+  calcWalletMoney,
+  getCoinsByAmount,
+  getDiffInsertedMoney,
+} from 'common/vmServices';
 import moneyData from 'mocks/moneyData';
+
+import { LogContext } from './LogProvider';
 
 const moneyAmount = [10000, 5000, 1000, 500, 100, 50, 10];
 
@@ -12,89 +19,118 @@ const initInsertedMoney = moneyAmount.reduce((acc, amount) => {
 
 export const MoneyContext = React.createContext();
 
-const sortByAmountWallet = (wallet) =>
-  [...wallet].sort(
-    ({ amount: amountA }, { amount: amountB }) => amountB - amountA
-  );
+const initMoneyState = {
+  inputMoney: 0,
+  insertedMoney: initInsertedMoney,
+  walletMoney: initMoneyData,
+};
 
-const calcWalletMoney = (target, insertedMoney, inputMoney, wallet) => {
-  let myInputMoney = inputMoney;
-  const sortedWallet = sortByAmountWallet(wallet);
-  const newInsertedMoney = { ...insertedMoney };
-
-  const newWallet = sortedWallet.map((moneyInfo, idx) => {
-    const amount = moneyAmount[idx];
-    let newCount = moneyInfo.count;
-    for (let i = 0; i < moneyInfo.count; i++) {
-      const nextInputMoney = myInputMoney + amount;
-      const curDiff = Math.abs(target - myInputMoney);
-      const nextDiff = Math.abs(target - nextInputMoney);
-      if (nextDiff >= curDiff) {
-        break;
-      }
-      newCount -= 1;
-      newInsertedMoney[amount] += 1;
-      myInputMoney = nextInputMoney;
+const moneyReducer = (state, { type, targetMoney, count, amount }) => {
+  switch (type) {
+    case 'INSERT_INPUT_MONEY':
+      return {
+        ...state,
+        ...calcWalletMoney({ targetMoney, ...state }),
+      };
+    case 'INSERT_MONEY_BY_CLICK': {
+      const newInsertedMoney = { ...state.insertedMoney };
+      const newWalletMoney = state.walletMoney.map((oMoney) => {
+        if (amount === oMoney.amount) {
+          newInsertedMoney[amount] += 1;
+          return { ...oMoney, count: count - 1 };
+        }
+        return oMoney;
+      });
+      const newState = {
+        inputMoney: state.inputMoney + amount,
+        insertedMoney: newInsertedMoney,
+        walletMoney: newWalletMoney,
+      };
+      return {
+        ...state,
+        ...newState,
+      };
     }
-    return {
-      ...moneyInfo,
-      count: newCount,
-    };
-  });
-  return [myInputMoney, newWallet, newInsertedMoney];
+    case 'RETURN_INPUT_MONEY': {
+      const newWalletMoney = state.walletMoney.map((money) => {
+        const newMoney = {
+          ...money,
+          count: money.count + state.insertedMoney[money.amount],
+        };
+        return newMoney;
+      });
+      const newState = {
+        inputMoney: 0,
+        insertedMoney: initInsertedMoney,
+        walletMoney: newWalletMoney,
+      };
+      return {
+        ...state,
+        ...newState,
+      };
+    }
+    case 'BUY_VM_ITEM': {
+      const newInputMoney = state.inputMoney - amount;
+      const itemRequiredCoins = getCoinsByAmount(amount);
+      const newInsertedMoney = getDiffInsertedMoney(
+        state.insertedMoney,
+        itemRequiredCoins
+      );
+      const newState = {
+        inputMoney: newInputMoney,
+        insertedMoney: newInsertedMoney,
+      };
+      return {
+        ...state,
+        ...newState,
+      };
+    }
+    default:
+      return state;
+  }
 };
 
 export const MoneyProvider = (props) => {
-  const [inputMoney, setInputMoney] = useState(0);
-  const [walletMoney, setWalletMoney] = useState(initMoneyData);
-  const [insertedMoney, setInsertedMoney] = useState(initInsertedMoney);
+  const [, insertLog] = useContext(LogContext);
+  const [moneyState, dispatchMoney] = useReducer(moneyReducer, initMoneyState);
 
-  const insertInputMoney = (newInsert) => {
-    const [calcMoney, newWallet, newInsertedMoney] = calcWalletMoney(
-      newInsert,
-      insertedMoney,
-      inputMoney,
-      walletMoney
-    );
-    setInsertedMoney(newInsertedMoney);
-    setInputMoney(calcMoney);
-    setWalletMoney(newWallet);
-    return calcMoney;
+  const insertInputMoney = (targetMoney) => {
+    const newState = dispatchMoney({ type: 'INSERT_INPUT_MONEY', targetMoney });
+    insertLog({
+      type: 'insert',
+      data: newState.inputMoney - moneyState.inputMoney,
+    });
   };
 
   const insertMoneyByClick = (count, amount) => {
     if (count === 0) return;
-    const newInsertedMoney = { ...insertedMoney };
-    const newMoney = walletMoney.map((oMoney) => {
-      if (amount === oMoney.amount) {
-        newInsertedMoney[amount] += 1;
-        return { ...oMoney, count: count - 1 };
-      }
-      return oMoney;
+    dispatchMoney({ type: 'INSERT_MONEY_BY_CLICK', count, amount });
+    insertLog({
+      type: 'insert',
+      data: amount,
     });
-    setInsertedMoney(newInsertedMoney);
-    setInputMoney(inputMoney + amount);
-    setWalletMoney(newMoney);
   };
 
   const returnInputMoney = () => {
-    const newWalletMoney = walletMoney.map((money) => {
-      const newMoney = {
-        ...money,
-        count: money.count + insertedMoney[money.amount],
-      };
-      return newMoney;
+    dispatchMoney({ type: 'RETURN_INPUT_MONEY' });
+    insertLog({
+      type: 'return',
+      data: moneyState.inputMoney,
     });
-    setWalletMoney(newWalletMoney);
-    setInsertedMoney(initInsertedMoney);
-    setInputMoney(0);
+  };
+
+  const buyVMItem = (amount, name) => {
+    dispatchMoney({ type: 'BUY_VM_ITEM', amount });
+    insertLog({
+      type: 'select',
+      data: name,
+    });
   };
 
   const moneyInfo = {
-    walletMoney,
-    setWalletMoney,
-    inputMoney,
-    setInputMoney,
+    inputMoney: moneyState.inputMoney,
+    walletMoney: moneyState.walletMoney,
+    buyVMItem,
     insertInputMoney,
     insertMoneyByClick,
     returnInputMoney,

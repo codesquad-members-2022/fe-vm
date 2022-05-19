@@ -2,7 +2,7 @@ const moneyData = [
   {
     id: 21,
     amount: 10,
-    count: 0,
+    count: 30,
   },
   {
     id: 22,

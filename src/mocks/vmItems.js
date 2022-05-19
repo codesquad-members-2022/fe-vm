@@ -14,7 +14,7 @@ const vmItems = [
   {
     id: 3,
     name: '환타 파인',
-    amount: 400,
+    amount: 1330,
     count: 1,
   },
   {

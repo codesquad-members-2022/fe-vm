@@ -4,13 +4,11 @@ import styled from 'styled-components';
 import { parseMoneyFormat } from 'common/utils';
 import VMInputBox from 'components/VendingMachine/VMInputBox';
 import COLORS from 'constants/colors';
-import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
 import createHoverCss from 'styles/createHoverCss';
 
 const VMInputMoney = () => {
   const { inputMoney, insertInputMoney } = useContext(MoneyContext);
-  const [, insertLog] = useContext(LogContext);
   const [isInputSelected, setIsInputSelected] = useState(false);
   const hoverCss = createHoverCss({
     bgColor: { base: COLORS.WHITE, hover: COLORS.MAIN_BG },
@@ -26,12 +24,8 @@ const VMInputMoney = () => {
       setIsInputSelected(false);
       return;
     }
-    const newInsertMoney = insertInputMoney(+newMoney);
+    insertInputMoney(+newMoney);
     setIsInputSelected(false);
-    insertLog({
-      type: 'insert',
-      data: newInsertMoney - inputMoney,
-    });
   };
 
   return (
