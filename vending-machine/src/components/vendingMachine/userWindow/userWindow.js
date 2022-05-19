@@ -28,7 +28,7 @@ export function UserWindow() {
     if (inProgress) return;
     if (e.key !== 'Enter') return;
     const inputValue = e.target.value.replace(',', '');
-    const currentInputMoney = parseInt(inputValue / 100) * 100;
+    const currentInputMoney = Math.floor(Number(inputValue) / 100) * 100;
     e.target.value = null;
 
     printInputMoney(currentInputMoney);
@@ -58,12 +58,15 @@ export function UserWindow() {
   }
 
   function startPaybackTimer() {
-    const payback = setTimeout(() => {
-      logPaybackMoney();
-      setInputMoney(0);
-      setPaybackTimer(null);
-    }, PAYBACK_TIME);
-    setPaybackTimer(payback);
+    const getPaybackTimer = () => {
+      let timer = setTimeout(() => {
+        logPaybackMoney();
+        setInputMoney(0);
+        setPaybackTimer(null);
+      }, PAYBACK_TIME);
+      return timer;
+    };
+    setPaybackTimer(getPaybackTimer());
   }
 
   function stopPaybackTimer() {
