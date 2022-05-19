@@ -18,9 +18,11 @@ const ProductStockManager = ({ productInfo, updateProductInfo }) => {
   return (
     <ProductStockManagerWrapper>
       <ProductName>{productInfo.name}</ProductName>
-      <StockChangeButton onClick={() => handleStockChangeButtonClick("decrement")}>-</StockChangeButton>
-      <StockDisplay>{productInfo.stock}</StockDisplay>
-      <StockChangeButton onClick={() => handleStockChangeButtonClick("increment")}>+</StockChangeButton>
+      <UtilWrapper>
+        <StockChangeButton onClick={() => handleStockChangeButtonClick("decrement")}>-</StockChangeButton>
+        <StockDisplay>{productInfo.stock}</StockDisplay>
+        <StockChangeButton onClick={() => handleStockChangeButtonClick("increment")}>+</StockChangeButton>
+      </UtilWrapper>
     </ProductStockManagerWrapper>
   );
 };
@@ -34,6 +36,12 @@ const ProductStockManagerWrapper = styled.div`
 const ProductName = styled.span`
   font-size: 1.5rem;
   font-weight: 700;
+`;
+
+const UtilWrapper = styled.div`
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const StockChangeButton = styled.button`

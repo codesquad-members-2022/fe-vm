@@ -21,7 +21,6 @@ const StockManager = () => {
 
 const StockManagerWrapper = styled.div`
   width: 400px;
-  height: 900px;
   margin: 100px 0;
   background-color: ${({ theme }) => theme.colors.grey4};
 `;
