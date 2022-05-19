@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const VendingCard = ({ isAffordable, name, price, onSave }) => {
   const onClickHandler = () => {
     onSave(price, name);
   };
+
   return (
     <VendingCardList
       isAffordable={isAffordable}
@@ -19,7 +20,6 @@ const VendingCard = ({ isAffordable, name, price, onSave }) => {
 
 const VendingCardList = styled.li`
   ${({ theme }) => theme.mixin.flexMixin('column')};
-  background: ${({ isClicked }) => isClicked && 'yellow'};
   border: 1px solid ${({ isAffordable }) => (isAffordable ? 'red' : 'black')};
   width: 23%;
   height: 18%;

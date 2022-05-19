@@ -3,7 +3,9 @@ import styled from 'styled-components';
 const Modal = () => {
   return (
     <Backdrop>
-      <ModalContainer>LOADING</ModalContainer>
+      <ModalContainer>
+        <StyledParagraph>구매중입니다.</StyledParagraph>
+      </ModalContainer>
     </Backdrop>
   );
 };
@@ -13,16 +15,21 @@ const Backdrop = styled.div`
   place-content: center;
   position: absolute;
   background: transparent;
-  width: 100vw;
-  height: 100vh;
+  width: 80vw;
+  height: 80vh;
   z-index: 1;
 `;
 
 const ModalContainer = styled.div`
-  background: red;
+  display: grid;
+  place-content: center;
+  background: ${({ theme }) => theme.colors.deepNavy};
+  color: #fff;
   width: 40vw;
   height: 30vh;
-  background: red;
 `;
 
+const StyledParagraph = styled.p`
+  font-size: ${({ theme }) => theme.fontSize.xLarge};
+`;
 export default Modal;

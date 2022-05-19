@@ -1,5 +1,5 @@
 import AmountContext from './AmountContext';
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { INITAIL_MONEY } from '../constant/constant';
 import { moneyReducer, logReducer } from './reducer';
 
@@ -9,13 +9,13 @@ const AmountProvider = (props) => {
 
   useEffect(() => {
     if (!money.TOTAL_AMOUNT) return;
-    const identifier = setTimeout(() => {
+    const dispatchTimer = setTimeout(() => {
       dispatchMoney({ type: 'WITHDRAW' });
       dispatchLog({ type: 'WITHDRAW', payload: money.TOTAL_AMOUNT });
     }, 4000);
 
     return () => {
-      clearTimeout(identifier);
+      clearTimeout(dispatchTimer);
     };
   }, [money]);
 
