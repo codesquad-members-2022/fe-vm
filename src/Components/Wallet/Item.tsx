@@ -35,12 +35,9 @@ export default function Item({ unit, count }: ItemType): JSX.Element {
   const messageDispatch = useMessageDispatch();
   const priceDispatch = usePriceDispatch();
 
-  const decreaseUnitCount = (unit: number, count: number) =>
-    walletDispatch({ type: 'DECREASE_WALLET_UNIT', unit, count });
-
   const handleUnitClick = (unit: number, count: number) => {
     if (count <= 0) return;
-    decreaseUnitCount(unit, 1);
+    walletDispatch({ type: 'DECREASE_WALLET_UNIT', unit, count: 1 });
     priceDispatch({ type: 'ADD_PRICE', price: unit });
     messageDispatch({
       type: 'INSERT_MESSAGE',
