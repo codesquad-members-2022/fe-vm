@@ -1,29 +1,28 @@
 import PropTypes from 'prop-types';
-import React, { useContext, useRef } from 'react';
+import React, { useRef } from 'react';
 
 import { ACTION } from '@/constants/actionType';
-import { VendorContext } from '@/context/VendorProvider';
+import { useVendorState, useVendorDispatch } from '@/context/VendorProvider';
 
 import * as S from './CashDisplay.style';
 
 const CashDisplay = ({ isBalance, small }) => {
   const inputRef = useRef(null);
-  const {
-    state: { balance, userLog, userCash, inputState, insertedCash },
-    dispatch,
-  } = useContext(VendorContext);
+  const { userCash, inputState, insertedCash } = useVendorState();
+  const dispatch = useVendorDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
     const currentCash = Number(inputRef.current.value);
 
+    if (currentCash <= 0) {
+      return;
+    }
+
     dispatch({
       type: ACTION.INSERT_CASH,
       payload: {
         currentCash,
-        balance,
-        userLog,
-        userCash,
       },
     });
   };

@@ -1,14 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import * as S from '@/components/UserLog/Userlog.style';
 import { PRODUCT_ICON } from '@/constants/constants';
-import { VendorContext } from '@/context/VendorProvider';
+import { useVendorState } from '@/context/VendorProvider';
 
 const UserLog = ({ isStock }) => {
-  const {
-    state: { userLog, product },
-  } = useContext(VendorContext);
+  const { userLog, product } = useVendorState();
   const userLogRef = useRef(null);
 
   useEffect(() => {

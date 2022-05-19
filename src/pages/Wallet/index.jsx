@@ -1,20 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import CashDisplay from '@/components/CashDisplay';
 import ItemBlock from '@/components/ItemBlock';
 import { ACTION } from '@/constants/actionType';
-import { VendorContext } from '@/context/VendorProvider';
+import { useVendorState, useVendorDispatch } from '@/context/VendorProvider';
 import { Title, SubTitle } from '@/styles/common';
 
 import * as S from './Wallet.style';
 
 const Wallet = () => {
-  const {
-    state: { cash, userCash },
-    dispatch,
-  } = useContext(VendorContext);
+  const { cash, userCash } = useVendorState();
+  const dispatch = useVendorDispatch();
 
-  const handleItemBlockClick = unit => {
+  const addMoney = unit => {
     const selectedUnit = cash.find(m => m.unit === unit);
     if (!selectedUnit.count) {
       return;
@@ -24,8 +22,6 @@ const Wallet = () => {
     dispatch({
       type: ACTION.ADD_MONEY,
       payload: {
-        userCash,
-        cash,
         unit,
       },
     });
@@ -43,7 +39,7 @@ const Wallet = () => {
         <SubTitle>ADD MONEY</SubTitle>
         <S.MoneyItemWrapper>
           {cash.map(({ id, unit, count }) => (
-            <li key={id} onClick={() => handleItemBlockClick(unit)}>
+            <li key={id} onClick={() => addMoney(unit)}>
               <ItemBlock isMoney unit={unit} count={count} />
             </li>
           ))}

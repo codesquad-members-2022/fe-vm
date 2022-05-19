@@ -1,18 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import CashDisplay from '@/components/CashDisplay';
 import ItemBlock from '@/components/ItemBlock';
+import Timer from '@/components/Timer';
 import UserLog from '@/components/UserLog';
 import { ACTION } from '@/constants/actionType';
 import { INPUT_STATE } from '@/constants/constants';
-import { VendorContext } from '@/context/VendorProvider';
+import { useVendorState, useVendorDispatch } from '@/context/VendorProvider';
 import * as S from '@/pages/Vendor/Vendor.style';
 
 const Vendor = () => {
-  const {
-    state: { userCash, inputState, balance, userLog, product, insertedCash },
-    dispatch,
-  } = useContext(VendorContext);
+  const { userCash, inputState, balance, product, isInsertedCash, minutes, seconds } =
+    useVendorState();
+  const dispatch = useVendorDispatch();
 
   const handleReturnBtnClick = () => {
     if (inputState === INPUT_STATE.default) {
@@ -21,11 +21,6 @@ const Vendor = () => {
 
     dispatch({
       type: ACTION.RETURN_CASH,
-      payload: {
-        userCash,
-        userLog,
-        insertedCash,
-      },
     });
   };
 
@@ -44,7 +39,6 @@ const Vendor = () => {
         selectedItem,
         price,
         currentUserBalance,
-        userLog,
       },
     });
   };
@@ -52,6 +46,7 @@ const Vendor = () => {
   return (
     <>
       <S.VendorWrapper>
+        <Timer isInsertedCash={isInsertedCash} minutes={minutes} seconds={seconds} />
         <CashDisplay isBalance small balance={userCash} />
         <S.ProductGrid>
           {product.map(({ id, name, price, stock, category, categoryId }) => (
