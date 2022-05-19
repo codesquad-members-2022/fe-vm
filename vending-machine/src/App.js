@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import WalletProvider from "./contexts/walletContext";
 import ProductProvider from "./contexts/productContext";
+import MessageProvider from "./contexts/messageContext";
 
 function App() {
   return (
@@ -16,17 +17,19 @@ function App() {
       <BrowserRouter>
         <AppWrap>
           <Nav></Nav>
-          <WalletProvider>
-            <ProductProvider>
-              <Routes>
-                <Route
-                  path="/"
-                  element={<VendingMachine></VendingMachine>}
-                ></Route>
-                <Route path="/wallet" element={<Wallet></Wallet>}></Route>
-              </Routes>
-            </ProductProvider>
-          </WalletProvider>
+          <MessageProvider>
+            <WalletProvider>
+              <ProductProvider>
+                <Routes>
+                  <Route
+                    path="/"
+                    element={<VendingMachine></VendingMachine>}
+                  ></Route>
+                  <Route path="/wallet" element={<Wallet></Wallet>}></Route>
+                </Routes>
+              </ProductProvider>
+            </WalletProvider>
+          </MessageProvider>
         </AppWrap>
       </BrowserRouter>
     </ThemeProvider>

@@ -10,7 +10,7 @@ export const products = [
     amount: 2,
   },
   {
-    title: "파인애플맛 환타",
+    title: "펩시",
     price: 400,
     amount: 0,
   },
@@ -35,7 +35,7 @@ export const products = [
     amount: 7,
   },
   {
-    title: "코카콜라 제로",
+    title: "에델바이스",
     price: 500,
     amount: 2,
   },
