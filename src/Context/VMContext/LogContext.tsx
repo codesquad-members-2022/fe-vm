@@ -4,6 +4,7 @@ enum LOG_ACTION {
   SELECT_PRODUCT = 'SELECT_PRODUCT',
   INSERT_MONEY = 'INSERT_MONEY',
   RETURN_MONEY = 'RETURN_MONEY',
+  CLEAR = 'CLEAR',
 }
 
 interface ILog {
@@ -14,7 +15,8 @@ interface ILog {
 type LogAction =
   | { type: LOG_ACTION.SELECT_PRODUCT; payload: { name: string } }
   | { type: LOG_ACTION.INSERT_MONEY; payload: { amount: number } }
-  | { type: LOG_ACTION.RETURN_MONEY; payload: { amount: number } };
+  | { type: LOG_ACTION.RETURN_MONEY; payload: { amount: number } }
+  | { type: LOG_ACTION.CLEAR };
 type LogDispatch = Dispatch<LogAction>;
 
 const LogContext = createContext<{ state: ILog[]; dispatch: LogDispatch } | null>(null);
@@ -30,13 +32,23 @@ const logReducer = (state: ILog[], action: LogAction): ILog[] => {
     case LOG_ACTION.INSERT_MONEY: {
       const { amount } = action.payload;
 
-      return [...state, { id: state.length.toString(), message: `${amount}원이 투입됨` }];
+      return [
+        ...state,
+        { id: state.length.toString(), message: `${amount.toLocaleString()}원이 투입됨` },
+      ];
     }
 
     case LOG_ACTION.RETURN_MONEY: {
       const { amount } = action.payload;
 
-      return [...state, { id: state.length.toString(), message: `${amount}원을 반환받음` }];
+      return [
+        ...state,
+        { id: state.length.toString(), message: `${amount.toLocaleString()}원을 반환받음` },
+      ];
+    }
+
+    case LOG_ACTION.CLEAR: {
+      return [];
     }
 
     default: {
@@ -69,4 +81,4 @@ const useLog = () => {
   return log;
 };
 
-export { useLog, LogProvider, LOG_ACTION };
+export { useLog, LogProvider, LOG_ACTION, LogDispatch };

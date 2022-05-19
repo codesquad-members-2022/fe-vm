@@ -27,7 +27,7 @@ type MachineAction =
   | { type: MACHINE_ACTION.SELECT_PRODUCT; payload: { product: IProduct; index: number } }
   | { type: MACHINE_ACTION.INSERT_MONEY; payload: { amount: number } }
   | { type: MACHINE_ACTION.RETURN_MONEY };
-type MachineDispatch = Dispatch<MachineAction>;
+export type MachineDispatch = Dispatch<MachineAction>;
 
 const MachineContext = createContext<{ state: IMachine; dispatch: MachineDispatch } | null>(null);
 

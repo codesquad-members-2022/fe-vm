@@ -14,6 +14,7 @@ enum WALLET_ACTION {
   INSERT_COINS = 'INSERT_COINS',
   INSERT_MONEY_BY_TYPING = 'INSERT_MONEY_BY_TYPING',
   INCREMENT_COIN = 'INCREMENT_COIN',
+  RETURN_COINS = 'RETURN_COINS',
 }
 
 interface ICoin {
@@ -31,7 +32,7 @@ type WalletAction =
   | { type: WALLET_ACTION.INSERT_COIN; payload: { amount: number; count: number; index: number } }
   | {
       type: WALLET_ACTION.INSERT_COINS;
-      payload: { coinCountInfo: { coins: Omit<ICoin, 'id'>[] } };
+      payload: { coinCountInfo: Omit<ICoin, 'id'>[] };
     }
   | {
       type: WALLET_ACTION.INSERT_MONEY_BY_TYPING;
@@ -40,6 +41,10 @@ type WalletAction =
   | {
       type: WALLET_ACTION.INCREMENT_COIN;
       payload: { amount: number; count: number; index: number };
+    }
+  | {
+      type: WALLET_ACTION.RETURN_COINS;
+      payload: { coinCountInfo: Omit<ICoin, 'id'>[] };
     };
 type WalletDispatch = Dispatch<WalletAction>;
 
@@ -71,7 +76,7 @@ const walletReducer = (state: IWallet, action: WalletAction): IWallet => {
 
       let inputAmount = 0;
       coins.forEach((coin, index, coins) => {
-        const { count: requestedCount } = coinCountInfo.coins[index];
+        const { count: requestedCount } = coinCountInfo[index];
         if (requestedCount === 0) {
           return;
         }
@@ -85,6 +90,29 @@ const walletReducer = (state: IWallet, action: WalletAction): IWallet => {
         ...state,
         coins,
         balance: balance - inputAmount,
+      };
+    }
+
+    case WALLET_ACTION.RETURN_COINS: {
+      const { coinCountInfo } = action.payload;
+      const { coins, balance } = state;
+
+      let returnAmount = 0;
+      coins.forEach((coin, index, coins) => {
+        const { count: requestedCount } = coinCountInfo[index];
+        if (requestedCount === 0) {
+          return;
+        }
+
+        const newCount = coins[index].count + requestedCount;
+        returnAmount += coins[index].amount * requestedCount;
+        coins[index] = { ...coins[index], count: newCount };
+      });
+
+      return {
+        ...state,
+        coins,
+        balance: balance - returnAmount,
       };
     }
 
@@ -174,18 +202,18 @@ const WalletProvider = ({ children }: { children: React.ReactNode }) => {
 interface ICalInputToCoins {
   (wallet: IWallet, inputAmount: number): {
     realInputAmount: number;
-    requiredCoinCountInfo: { amount: number; count: number }[];
+    coinCountInfo: { amount: number; count: number }[];
   };
 }
 
 interface ICalReturnToCoins {
-  (wallet: IWallet, returnAmount: number): { amount: number; count: number }[];
+  (wallet: IWallet, returnAmount: number): Omit<ICoin, 'id'>[];
 }
 
 const calInputToCoins: ICalInputToCoins = (wallet, inputAmount) => {
   // inputAmount 받으면 적절하게 분류해서 실제 투입금, 실제 인풋 정보줌
   const { coins, balance } = wallet;
-  const requiredCoinCountInfo = wallet.coins.map(({ amount, count }) => {
+  const coinCountInfo = wallet.coins.map(({ amount }) => {
     return { amount, count: 0 };
   });
 
@@ -203,7 +231,7 @@ const calInputToCoins: ICalInputToCoins = (wallet, inputAmount) => {
     // 실제로는 requiredCount 만큼 넣을 수 있어도, 가지고 있는 동전 개수가 적을 수도 있음
     const requiredCount = Math.floor(surplus / amount);
     const realRequiredCount = requiredCount > count ? count : requiredCount;
-    requiredCoinCountInfo[i].count = realRequiredCount;
+    coinCountInfo[i].count = realRequiredCount;
     surplus -= realRequiredCount * amount;
 
     console.log(`%c[${amount}]: ${realRequiredCount}개 사용`, 'color: #fe2;');
@@ -211,17 +239,17 @@ const calInputToCoins: ICalInputToCoins = (wallet, inputAmount) => {
 
   const realInputAmount = requestedInputAmount - surplus;
 
-  return { realInputAmount, requiredCoinCountInfo };
+  return { realInputAmount, coinCountInfo };
 };
 
 const calReturnToCoins: ICalReturnToCoins = (wallet, returnAmount) => {
   const { coins } = wallet;
-  const getCoinCountInfo = wallet.coins.map(({ amount, count }) => {
+  const coinCountInfo = wallet.coins.map(({ amount }) => {
     return { amount, count: 0 };
   });
 
   if (returnAmount === 0) {
-    return getCoinCountInfo;
+    return coinCountInfo;
   }
 
   let remain = returnAmount;
@@ -232,25 +260,25 @@ const calReturnToCoins: ICalReturnToCoins = (wallet, returnAmount) => {
     }
 
     const temp = Math.floor(remain / amount);
-    getCoinCountInfo[i].count = Math.floor(remain / amount);
+    coinCountInfo[i].count = Math.floor(remain / amount);
     remain %= amount;
     console.log(`%c[${amount}]: ${temp}개 충전`, 'color: #fe2;');
   }
   console.log(`----------`);
 
-  return getCoinCountInfo;
+  return coinCountInfo;
 };
 
 const useWallet = () => {
   const wallet = useContext(WalletContext);
-  const _calInputToCoins = useCallback(() => calInputToCoins, []);
-  const _calReturnToCoins = useCallback(() => calReturnToCoins, []);
+  const _calInputToCoins = useMemo(() => calInputToCoins, []);
+  const _calReturnToCoins = useMemo(() => calReturnToCoins, []);
 
   if (!wallet) {
     throw new Error('WalletContext Error');
   }
 
-  return [wallet, _calInputToCoins, _calReturnToCoins];
+  return { wallet, calInputToCoins: _calInputToCoins, calReturnToCoins: _calReturnToCoins };
 };
 
-export { useWallet, WalletProvider, WALLET_ACTION };
+export { useWallet, WalletProvider, WALLET_ACTION, WalletDispatch };
