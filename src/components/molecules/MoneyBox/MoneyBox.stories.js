@@ -1,5 +1,5 @@
 import React from 'react';
-import MoneyBox from './MoneyBox';
+import MoneyBox from 'components/molecules/MoneyBox';
 
 export default {
   title: 'Molecules/MoneyBox',

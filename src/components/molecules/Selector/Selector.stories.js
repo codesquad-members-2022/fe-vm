@@ -1,5 +1,5 @@
 import React from 'react';
-import Selector from './Selector';
+import Selector from 'components/molecules/Selector';
 
 export default {
   title: 'Molecules/Selector',

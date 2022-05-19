@@ -1,6 +1,6 @@
 import { defaultTheme } from 'assets/style/default';
 import styled, { css } from 'styled-components';
-import { darken, lighten } from 'polished';
+import { darken } from 'polished';
 import { Border } from 'assets/style/common';
 
 /* SizeType : width, height */
@@ -102,11 +102,11 @@ const Font = {
   logo: LogoFont,
 };
 
-const StyledButton = styled.button`
+const Button = styled.button`
   ${({ sizeType }) => sizeType && Size[sizeType]}
   ${({ borderType }) => borderType && Border[borderType]}
   ${({ fontType }) => fontType && Font[fontType]}
   ${ColorStyle};
 `;
 
-export default StyledButton;
+export { Button };

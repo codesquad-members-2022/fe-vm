@@ -1,5 +1,5 @@
 import React from 'react';
-import Label from './Label';
+import Label from 'components/atoms/Label';
 
 export default {
   title: 'Atoms/Label',

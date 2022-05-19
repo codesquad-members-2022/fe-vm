@@ -1,13 +1,13 @@
-import VendingMachineController from 'components/organisms/VendingMachineController/VendingMachineController';
-import Wallet from 'components/organisms/Wallet/Wallet';
+import Wallet from 'components/organisms/Wallet';
 import * as Styled from 'pages/Wallet/WalletPage.style';
+import VendingMachineController from 'components/organisms/VendingMachineController';
 
 const WalletPage = () => {
   return (
     <Styled.WalletPage>
       <Styled.WalletPageWrapper>
-        <VendingMachineController />
         <Wallet />
+        <VendingMachineController />
       </Styled.WalletPageWrapper>
     </Styled.WalletPage>
   );

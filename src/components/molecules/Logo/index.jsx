@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LogoTitle from 'components/atoms/LogoTitle/LogoTitle';
-import LogoImage from 'components/atoms/LogoImage/LogoImage';
-import { StyledLogo } from './Logo.style';
+import LogoTitle from 'components/atoms/LogoTitle';
+import LogoImage from 'components/atoms/LogoImage';
+import * as Styled from 'components/molecules/Logo/Logo.style';
 
 const LogoImageIsFlipped = {
   store: false,
@@ -16,11 +16,11 @@ const LogoTitleContents = {
 
 const Logo = ({ type, ...props }) => {
   return (
-    <StyledLogo type={type} flexType="centerAround">
+    <Styled.Logo type={type} flexType="centerAround">
       {!LogoImageIsFlipped[type] && <LogoImage isFlipped={LogoImageIsFlipped[type]} />}
       <LogoTitle contents={LogoTitleContents[type]} />
       {LogoImageIsFlipped[type] && <LogoImage isFlipped={LogoImageIsFlipped[type]} />}
-    </StyledLogo>
+    </Styled.Logo>
   );
 };
 

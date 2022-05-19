@@ -1,7 +1,7 @@
 import { Border, Flex } from 'assets/style/common';
 import styled from 'styled-components';
 
-const StyledProductBox = styled.div`
+const ProductBox = styled.div`
   width: 102px;
   height: 125px;
   ${({ borderType }) => borderType && Border[borderType]}
@@ -11,4 +11,4 @@ const StyledProductBox = styled.div`
   background-color: ${({ theme: { colors } }) => colors.white}; ;
 `;
 
-export { StyledProductBox };
+export { ProductBox };

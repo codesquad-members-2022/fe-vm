@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import * as Styled from './UserInputBox.style';
-import Input from 'components/atoms/Input/Input';
-import Selector from '../Selector/Selector';
-import Button from 'components/atoms/Button/Button';
+import Input from 'components/atoms/Input';
+import Button from 'components/atoms/Button';
+import Selector from 'components/molecules/Selector';
+import * as Styled from 'components/molecules/UserInputBox/UserInputBox.style';
 
 const UserInputBox = ({ title, ...props }) => {
   const buttonStyle = {
@@ -22,9 +21,5 @@ const UserInputBox = ({ title, ...props }) => {
     </Styled.UserInputBox>
   );
 };
-
-UserInputBox.defaultProps = {};
-
-UserInputBox.propTypes = {};
 
 export default UserInputBox;

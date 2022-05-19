@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyledButton from './Button.style';
+import * as Styled from 'components/atoms/Button/Button.style';
 
 const Button = ({ sizeType, borderType, colorType, fontType, children, onClick, disabled = false, ...props }) => {
   return (
-    <StyledButton
+    <Styled.Button
       onClick={onClick}
       sizeType={sizeType}
       borderType={borderType}
@@ -14,13 +14,12 @@ const Button = ({ sizeType, borderType, colorType, fontType, children, onClick, 
       props={props}
     >
       {children}
-    </StyledButton>
+    </Styled.Button>
   );
 };
 
 Button.defaultProps = {
   sizeType: 'thin',
-  // borderType: 'default',
   colorType: 'default',
   children: 'Button',
   disabled: false,

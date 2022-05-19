@@ -1,4 +1,4 @@
-import VMController from './VendingMachineController';
+import VMController from 'components/organisms/VendingMachineController';
 
 export default {
   title: 'Organisms/VMController',

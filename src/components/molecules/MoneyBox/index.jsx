@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyledMoneyBox } from './MoneyBox.style';
-import Button from 'components/atoms/Button/Button';
-import Label from 'components/atoms/Label/Label';
+import * as Styled from 'components/molecules/MoneyBox/MoneyBox.style';
+import Button from 'components/atoms/Button';
+import Label from 'components/atoms/Label';
 
 const MoneyBox = ({ unit, count, ...props }) => {
   return (
-    <StyledMoneyBox flexType={'centerBetween'}>
+    <Styled.MoneyBox flexType={'centerBetween'}>
       <Button sizeType="xLarge" borderType="rounded" fontType="large">
         {unit}
       </Button>
       <Label flexType="center" sizeType="small" fontType="medium" borderType="rounded">
         {count} 개
       </Label>
-    </StyledMoneyBox>
+    </Styled.MoneyBox>
   );
 };
 

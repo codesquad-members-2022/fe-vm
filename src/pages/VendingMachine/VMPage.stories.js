@@ -1,4 +1,4 @@
-import VMPage from './VMPage';
+import VMPage from 'pages/VendingMachine';
 
 export default {
   title: 'Pages/VMPage',

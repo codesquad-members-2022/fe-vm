@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyledTitle } from './LogoTitle.style';
+import * as Styled from 'components/atoms/LogoTitle/LogoTitle.style';
 
 const LogoTitle = ({ contents, ...props }) => {
-  return <StyledTitle>{contents}</StyledTitle>;
+  return <Styled.Title>{contents}</Styled.Title>;
 };
 
 LogoTitle.defaultProps = {

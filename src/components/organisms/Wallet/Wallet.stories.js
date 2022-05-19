@@ -1,4 +1,4 @@
-import Wallet from './Wallet';
+import Wallet from 'components/organisms/Wallet';
 
 export default {
   title: 'Organisms/Wallet',

@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { StyledVM, ProductWrapper } from './VendingMachine.style';
-import ProductBox from 'components/molecules/ProductBox/ProductBox';
-import Logo from 'components/molecules/Logo/Logo';
+import Logo from 'components/molecules/Logo';
+import ProductBox from 'components/molecules/ProductBox';
 import mockData from 'components/organisms/VendingMachine/ProductMockData';
+import { StyledVM, ProductWrapper } from 'components/organisms/VendingMachine/VendingMachine.style';
 
 const VendingMachine = ({ title, ...props }) => {
   return (
@@ -17,9 +16,5 @@ const VendingMachine = ({ title, ...props }) => {
     </StyledVM>
   );
 };
-
-VendingMachine.defaultProps = {};
-
-VendingMachine.propTypes = {};
 
 export default VendingMachine;

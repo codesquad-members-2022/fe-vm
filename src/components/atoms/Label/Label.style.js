@@ -66,7 +66,7 @@ const Font = {
   digital: DigitalFont,
 };
 
-const StyledLabel = styled.li`
+const Label = styled.li`
   ${DragDisable}
   ${({ flexType }) => flexType && Flex[flexType]}
   ${({ sizeType }) => sizeType && Size[sizeType]}
@@ -74,4 +74,4 @@ const StyledLabel = styled.li`
   ${({ borderType }) => borderType && Border[borderType]}
 `;
 
-export default StyledLabel;
+export { Label };
