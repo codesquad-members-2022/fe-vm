@@ -32,6 +32,7 @@ const VendingForm = () => {
   const amountInputRef = useRef();
   const { money, dispatchMoney, dispatchLog } = useContext(AmountContext);
   const [isInputValid, setIsInputValid] = useState(true);
+
   const submitHandler = (event) => {
     event.preventDefault();
     const insertedMoney = Number(amountInputRef.current.value);

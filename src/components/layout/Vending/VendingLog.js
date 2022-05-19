@@ -6,6 +6,7 @@ import { _ } from '../../../constant/constant';
 
 const VendingLogLists = () => {
   const { log } = useContext(AmountContext);
+
   return (
     <VendingLogList>
       {log.map((v, i) => (
@@ -28,7 +29,7 @@ const VendingLog = () => {
   );
 };
 
-export default VendingLog;
+export default React.memo(VendingLog);
 
 const VendingLogList = styled.ul`
   width: calc(90% - 5px);

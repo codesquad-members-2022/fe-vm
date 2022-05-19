@@ -14,7 +14,7 @@ const CurrentInsertMoney = () => {
   );
 };
 
-export default CurrentInsertMoney;
+export default React.memo(CurrentInsertMoney);
 
 const WalletTitle = styled.h3`
   font-size: ${({ theme }) => theme.fontSize.large};

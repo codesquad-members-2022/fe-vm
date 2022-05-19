@@ -2,7 +2,7 @@ import Header from './components/layout/Header/Header';
 import Nav from './components/layout/Nav/Nav';
 import theme from './style/theme.js';
 import GlobalStyle from './style/GlobalStyle';
-import styled, { css, ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import AmountProvider from './store/AmountProvider';
 import Container from './components/UI/container';
 import Vending from './components/layout/Vending/Vending';
