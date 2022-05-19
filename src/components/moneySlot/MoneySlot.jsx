@@ -23,6 +23,7 @@ function MoneySlot() {
                 max="10000"
                 onKeyDown={inputMoney}
                 placeholder="0"
+                step="10"
             ></Slot>
             <span>원</span>
         </SlotContainer>
