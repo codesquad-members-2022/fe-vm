@@ -19,7 +19,9 @@ const VendingMachine = () => {
 
   return (
     <S.Container>
-      {products && <ProductList products={products} clickHandler={changeProductQuantity} />}
+      {products && (
+        <ProductList products={products} changeProductQuantity={changeProductQuantity} />
+      )}
       <VendingMachineInfo />
     </S.Container>
   );

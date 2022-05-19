@@ -11,7 +11,7 @@ export default {
     name: products[0].name,
     price: products[0].price,
     quantity: products[0].quantity,
-    clickHandler: () => {},
+    changeProductQuantity: () => {},
   },
   argTypes: {
     emoji: {

@@ -8,7 +8,7 @@ export default {
   component: ProductList,
   args: {
     products: products,
-    clickHandler: () => {},
+    changeProductQuantity: () => {},
   },
 };
 
