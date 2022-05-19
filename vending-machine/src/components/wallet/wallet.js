@@ -2,6 +2,7 @@ import { walletData } from '../../db/data';
 import { useEffect, useState } from 'react';
 import { StyledWalletContainer } from './wallet.styled';
 import { CoinWindow } from './coinWindow/coinWindow';
+import { MyMoneyMonitor } from './myMoneyMonitor/myMoneyMonitor';
 
 export function Wallet() {
   const [walletInfo, setWalletInfo] = useState([]);
@@ -11,8 +12,8 @@ export function Wallet() {
   });
   return (
     <StyledWalletContainer>
-      <CoinWindow walletInfo={walletInfo}></CoinWindow>
-      {/*<myMoneyMonitor></myMoneyMonitor>*/}
+      <CoinWindow walletInfo={walletInfo} />
+      <MyMoneyMonitor walletInfo={walletInfo} />
     </StyledWalletContainer>
   );
 }
