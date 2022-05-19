@@ -11,24 +11,25 @@ export default function OrderLog({ log }) {
       case 'DROP':
         return `이(가) 배출되었습니다.`;
       default:
-        return;
+        throw new Error();
     }
   };
 
-  if (typeof log.value === 'object') {
-    return (
-      <Order>
-        <strong>{setLocalString(log.value.unit)}원</strong>이 <strong>{log.value.amount}개</strong>
-        {message(log)}
-      </Order>
-    );
-  }
-
   return (
-    <Order>
-      <strong>{log.value}</strong>
-      {message(log)}
-    </Order>
+    <>
+      {typeof log.value === 'object' ? (
+        <Order>
+          <strong>{setLocalString(log.value.unit)}원</strong>이{' '}
+          <strong>{log.value.amount}개</strong>
+          {message(log)}
+        </Order>
+      ) : (
+        <Order>
+          <strong>{log.value}</strong>
+          {message(log)}
+        </Order>
+      )}
+    </>
   );
 }
 

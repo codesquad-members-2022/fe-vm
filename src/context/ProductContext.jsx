@@ -30,15 +30,13 @@ export const ProductsProvider = ({ children }) => {
 const ProductsReducer = (state, action) => {
   switch (action.type) {
     case 'STOCK_CONSUME':
-      const updateStock = state.map(producut => {
-        return producut.name === action.payload
-          ? (producut = { ...producut, stock: --producut.stock })
-          : producut;
+      const updateStock = state.map(product => {
+        return product.name === action.payload ? { ...product, stock: product.stock - 1 } : product;
       });
       return updateStock;
     case 'STOCK_UP':
       return;
     default:
-      return state;
+      throw new Error();
   }
 };

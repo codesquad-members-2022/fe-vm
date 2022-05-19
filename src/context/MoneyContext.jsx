@@ -52,16 +52,15 @@ const moneyReducer = (state, action) => {
   switch (action.type) {
     case 'BUTTON_INSERT_MONEY':
       const updateWalletMoney = state.walletMoneyData.map(money => {
-        return money.unit === action.payload
-          ? (money = { ...money, amount: --money.amount })
-          : money;
+        return money.unit === action.payload ? { ...money, amount: money.amount - 1 } : money;
       });
 
       const updateMachineMoney = state.insertMoneyData + action.payload;
 
       return { walletMoneyData: updateWalletMoney, insertMoneyData: updateMachineMoney };
     case 'INPUT_INSERT_MONEY':
-      const updateWalletMoney2 = state.walletMoneyData.map(money => {
+      const newState = { ...state };
+      const updateWalletMoney2 = newState.walletMoneyData.map(money => {
         action.payload.forEach(el => {
           el.id === money.id && (money = { ...money, amount: money.amount - el.amount });
         });
@@ -69,7 +68,7 @@ const moneyReducer = (state, action) => {
         return money;
       });
 
-      const updateMachineMoney2 = state.insertMoneyData + calculateTotalMoney(action.payload);
+      const updateMachineMoney2 = newState.insertMoneyData + calculateTotalMoney(action.payload);
 
       return { walletMoneyData: updateWalletMoney2, insertMoneyData: updateMachineMoney2 };
     case 'BUY_PRODUCT':
@@ -78,6 +77,6 @@ const moneyReducer = (state, action) => {
     case 'RETURN_MONEY':
       return;
     default:
-      return state;
+      throw new Error();
   }
 };

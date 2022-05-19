@@ -43,31 +43,38 @@ export const LogProvider = ({ children }) => {
 };
 
 const logReducer = (state, action) => {
+  const newState = [...state];
+
   switch (action.type) {
     case 'INSERT':
       action.payload.forEach(money => {
-        state.push({
-          id: state.length + 1,
+        const newLog = {
+          id: newState.length + 1,
           type: action.type,
           value: {
             unit: money.unit,
             amount: money.amount,
           },
-        });
+        };
+
+        newState.push(newLog);
       });
 
-      return state;
+      return newState;
     case 'BUY':
     case 'DROP':
-      state.push({
+      const newLog = {
         id: state.length + 1,
         type: action.type,
         value: action.payload,
-      });
-      return [...state];
+      };
+
+      newState.push(newLog);
+
+      return newState;
     case 'RETURN':
       return;
     default:
-      return;
+      throw new Error();
   }
 };

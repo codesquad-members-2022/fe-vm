@@ -12,7 +12,7 @@ export default function UserOrder() {
   const totalInsertMoney = insertMoneyData;
 
   const orderLog = machineLog.map(log => {
-    return <OrderLog key={log.id} log={log}></OrderLog>;
+    return <OrderLog key={log.id} log={log} />;
   });
 
   return (

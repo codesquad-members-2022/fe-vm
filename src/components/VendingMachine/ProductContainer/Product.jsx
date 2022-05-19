@@ -37,10 +37,10 @@ export default function Product({ info, totalMoney }) {
         {info.name}
       </ProductName>
       <PriceWrapper stock={info.stock} isAvailable={isAvailable}>
-        <span className="price_state"></span>
-        <button className="push_btn" disabled={!isAvailable || !info.stock} onClick={handleClick}>
+        <PriceState stock={info.stock} isAvailable={isAvailable} />
+        <PushBtn stock={info.stock} disabled={!isAvailable || !info.stock} onClick={handleClick}>
           {info.stock ? setLocalString(info.price) + '원' : '품절'}
-        </button>
+        </PushBtn>
       </PriceWrapper>
     </ProductWrapper>
   );
@@ -76,48 +76,57 @@ const PriceWrapper = styled.div`
   background: ${({ theme }) => theme.colors.gray3};
   cursor: default;
 
-  .price_state {
-    display: inline-block;
-    padding: 4px;
-    margin-right: 6px;
-    border-radius: 50%;
-  }
+  border: ${({ isAvailable, stock }) => {
+    if (!stock) {
+      return css`2px solid ${({ theme }) => theme.colors.red};`;
+    }
 
-  .push_btn {
-    ${({ theme }) => theme.fontStyles.xSmallBold};
-    color: ${({ theme }) => theme.colors.gray1};
-  }
+    if (isAvailable) {
+      return css`2px solid ${({ theme }) => theme.colors.green};`;
+    }
 
-  ${({ stock }) =>
+    return css`2px solid ${({ theme }) => theme.colors.gray4};`;
+  }};
+`;
+
+const PriceState = styled.span`
+  display: inline-block;
+  padding: 4px;
+  margin-right: 6px;
+  border-radius: 50%;
+
+  background: ${({ isAvailable, stock }) => {
+    if (isAvailable && stock) {
+      return css`
+        ${({ theme }) => theme.colors.green}
+      `;
+    }
+
+    if (!stock) {
+      return css`
+        ${({ theme }) => theme.colors.red}
+      `;
+    }
+
+    return css`
+      ${({ theme }) => theme.colors.gray4}
+    `;
+  }};
+`;
+
+const PushBtn = styled.button`
+  ${({ theme }) => theme.fontStyles.xSmallBold};
+
+  color: ${({ stock }) =>
     !stock
       ? css`
-          border: 2px solid ${({ theme }) => theme.colors.red};
-
-          .price_state {
-            background: ${({ theme }) => theme.colors.red};
-          }
-
-          .push_btn {
-            color: ${({ theme }) => theme.colors.red};
-            cursor: default;
-          }
+          ${({ theme }) => theme.colors.red};
         `
       : css`
-          border: 2px solid ${({ theme }) => theme.colors.gray4};
+          ${({ theme }) => theme.colors.gray1};
+        `}
 
-          .price_state {
-            background: ${({ theme }) => theme.colors.green};
-          }
-        `};
-
-  ${({ isAvailable, stock }) =>
-    isAvailable &&
-    stock &&
-    css`
-      border: 2px solid ${({ theme }) => theme.colors.green};
-
-      .price_state {
-        background: ${({ theme }) => theme.colors.green};
-      }
-    `}
+  &:disabled {
+    cursor: default;
+  }
 `;
