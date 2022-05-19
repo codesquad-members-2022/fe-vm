@@ -2,11 +2,7 @@ import { useContext, useRef, useState } from "react";
 
 import Button from "components/common/form/Button/Button";
 import Input from "components/common/form/Input/Input";
-import {
-  MoneyContext,
-  SetInsertedMoneyContext,
-  SetMoneyContext,
-} from "contexts/moneyContext";
+import { MoneyContext, MoneyActionsContext } from "contexts/moneyContext";
 import { SetProgressContext } from "contexts/progressContext";
 import moneyHelper from "helper/moneyHelper";
 import constants from "utils/constants";
@@ -46,8 +42,7 @@ const InsertMoneyArea = ({ value }) => {
   const [message, setMessage] = useState(alertMessages.initialMessage);
 
   const updateProgress = useContext(SetProgressContext);
-  const decreaseCashCount = useContext(SetMoneyContext);
-  const { insertTotalMoney } = useContext(SetInsertedMoneyContext);
+  const { insertTotalMoney } = useContext(MoneyActionsContext);
   const { cashData } = useContext(MoneyContext);
 
   const inputRef = useRef(null);
@@ -74,8 +69,7 @@ const InsertMoneyArea = ({ value }) => {
 
     if (!isWithinBaseMoney(inputNumber, totalMoney)) {
       setMessage(alertMessages.overBaseMoney);
-      cashData.forEach(({ money, count }) => decreaseCashCount(money, count));
-      insertTotalMoney();
+      insertTotalMoney(cashData);
       updateProgress("insert", totalMoney);
     }
   };
