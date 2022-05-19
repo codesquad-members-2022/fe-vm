@@ -25,7 +25,7 @@ const MoneyItem = ({ money, count }) => {
         className="money"
         data={{ name: money }}
         styles={moneyButtonStyle}
-        isDisabled={!count}
+        isAvailableClick={count}
         onClick={handleClickMoney}
       />
       <Count data={count} />

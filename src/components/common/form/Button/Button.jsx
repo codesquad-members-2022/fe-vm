@@ -1,11 +1,18 @@
 import StyledButton from "./Button.styled";
 
-const Button = ({ data, styles, className, isDisabled, onClick, type }) => {
+const Button = ({
+  data,
+  styles,
+  className,
+  isAvailableClick = true,
+  onClick,
+  type,
+}) => {
   return (
     <StyledButton
       styles={styles}
       className={className}
-      disabled={isDisabled}
+      disabled={!isAvailableClick}
       onClick={onClick}
       type={type || "button"}
     >
