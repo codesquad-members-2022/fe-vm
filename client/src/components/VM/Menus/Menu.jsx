@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import MenuImage from "./Menu/MenuImage";
 import MenuPrice from "./Menu/MenuPrice";
@@ -14,25 +14,29 @@ export default function Menu({ name, price, imageURL, stock }) {
   const menuContext = useContext(MenuContext);
   const { menu, setMenu } = menuContext;
 
-  function getNewMenu(menu) {
-    const newMenu = [...menu];
-    newMenu.forEach((menu) => {
-      if (menu.name === name) {
-        menu.stock -= 1;
-      }
-    });
-    return newMenu;
-  }
+  const [timer, setTimer] = useState(false);
+
+  useEffect(() => {
+    if (!timer) return;
+    const timerId = setTimeout(() => {
+      setMessage((prev) => [...prev, `${name}가 선택되었습니다 \n`]);
+      setMenu(getNewMenu(menu, name));
+    }, 2000);
+
+    return () => {
+      clearTimeout(timerId);
+      setTimer(false);
+    };
+  }, [timer]);
 
   return (
     <>
       {stock ? (
         <StyledMenu
           onClick={() => {
-            if (input - price < 0) return;
+            if (input < price) return;
             setInput(input - price);
-            setMessage((prev) => [...prev, `${name}가 선택되었습니다 \n`]);
-            setMenu(getNewMenu(menu));
+            setTimer(true);
           }}
         >
           <MenuImage imageURL={imageURL} name={name}></MenuImage>
@@ -46,6 +50,16 @@ export default function Menu({ name, price, imageURL, stock }) {
       )}
     </>
   );
+}
+
+function getNewMenu(menu, name) {
+  const newMenu = [...menu];
+  newMenu.forEach((menu) => {
+    if (menu.name === name) {
+      menu.stock -= 1;
+    }
+  });
+  return newMenu;
 }
 
 const StyledMenu = styled.li`
