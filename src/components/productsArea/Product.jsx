@@ -51,12 +51,15 @@ export default function Product({ productInfo, toggleSelectableStatus }) {
 }
 
 Product.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  productInfo: PropTypes.object,
+  productInfo: PropTypes.shape({
+    detail: PropTypes.string,
+    price: PropTypes.number,
+    quantity: PropTypes.number
+  }),
   toggleSelectableStatus: PropTypes.func
 };
 
 Product.defaultProps = {
-  productInfo: {},
+  productInfo: { detail: null, price: null, quantity: null },
   toggleSelectableStatus: () => {}
 };
