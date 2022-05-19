@@ -1,8 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import { HistoryList, HistoryItem } from 'components/orderArea/History.style';
+import { HistoryContext } from 'Context/HistoryProvider';
 
-export default function History({ historyList }) {
+export default function History() {
+  const historyList = useContext(HistoryContext);
+
   return (
     <HistoryList>
       {historyList.map((item, idx) => (
@@ -11,11 +13,3 @@ export default function History({ historyList }) {
     </HistoryList>
   );
 }
-
-History.propTypes = {
-  historyList: PropTypes.arrayOf(PropTypes.string)
-};
-
-History.defaultProps = {
-  historyList: []
-};

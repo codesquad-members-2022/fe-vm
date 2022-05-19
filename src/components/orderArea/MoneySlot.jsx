@@ -2,36 +2,22 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Container, MoneyInput, Unit } from 'components/orderArea/MoneySlot.style';
-import { FinalPayContext } from 'pages/VendingMachine';
+import { addCommasToNumber } from 'utils/util';
+import { FinalPayContext } from 'Context/FinalPayProvider';
 
-const MAX_PAYMENT = 100000;
+export default function MoneySlot({ inputPay, updateInputPay, resetInputPay }) {
+  const finalPay = useContext(FinalPayContext);
 
-export default function MoneySlot({ useInputPayState, canOrderState }) {
-  const [inputPay, setInputPay] = useInputPayState;
-  const finalPay = useContext(FinalPayContext)[0];
+  const handleChangeMoneyInput = ({ target }) => updateInputPay(target.value);
 
-  const isRightPayMent = inputValue => {
-    if (isNaN(inputValue)) return false;
-    if (inputValue >= MAX_PAYMENT) return false;
-    return true;
-  };
-
-  const handleChangeMoneyInput = ({ target }) => {
-    const inputValue = target.value;
-    const numPay = parseFloat(inputValue.replace(/[,]/gim, ''));
-    if (!inputValue) setInputPay(0);
-    if (isRightPayMent(numPay)) setInputPay(numPay);
-  };
-
-  useEffect(() => setInputPay(0), [finalPay]);
+  useEffect(() => resetInputPay(0), [finalPay]);
 
   return (
     <Container>
       <MoneyInput
         type="text"
-        value={inputPay > 0 ? inputPay.toLocaleString('en') : ''}
+        value={inputPay > 0 ? addCommasToNumber(inputPay) : ''}
         onChange={handleChangeMoneyInput}
-        readOnly={!canOrderState}
       />
       <Unit>원</Unit>
     </Container>
@@ -39,11 +25,13 @@ export default function MoneySlot({ useInputPayState, canOrderState }) {
 }
 
 MoneySlot.propTypes = {
-  useInputPayState: PropTypes.arrayOf(PropTypes.number, PropTypes.func),
-  canOrderState: PropTypes.bool
+  inputPay: PropTypes.number,
+  updateInputPay: PropTypes.func,
+  resetInputPay: PropTypes.func
 };
 
 MoneySlot.defaultProps = {
-  useInputPayState: [],
-  canOrderState: true
+  inputPay: 0,
+  updateInputPay: () => {},
+  resetInputPay: () => {}
 };

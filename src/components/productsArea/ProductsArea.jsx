@@ -1,24 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { Container } from 'components/productsArea/ProductsArea.style';
-import { ProductsContext, FinalPayContext } from 'pages/VendingMachine';
+import productsData from 'data/products';
 import Product from 'components/productsArea/Product';
 
 export default function ProductsArea() {
-  const [productsState] = useContext(ProductsContext);
-  const [finalPay] = useContext(FinalPayContext);
+  const [selectalbeStatus, setSelectableStatus] = useState(true);
 
-  const canBuyProduct = price => (finalPay ? price <= finalPay : true);
+  const toggleSelectableStatus = isSelectalbe => setSelectableStatus(isSelectalbe);
 
   return (
-    <Container>
-      {productsState.map(({ id, detail, price, quantity }) => (
-        <Product
-          key={id}
-          detail={detail}
-          price={price}
-          quantity={quantity}
-          disabled={!canBuyProduct(price) || quantity <= 0}
-        />
+    <Container selectalbeStatus={selectalbeStatus}>
+      {productsData.map(productInfo => (
+        <Product key={productInfo.id} productInfo={productInfo} toggleSelectableStatus={toggleSelectableStatus} />
       ))}
     </Container>
   );

@@ -1,12 +1,19 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'components/orderArea/PutBtn.style';
-import { FinalPayContext } from 'pages/VendingMachine';
-import { WalletContext } from 'App';
+import { TIME_TO_SELCT_PRODUCT, TIME_TO_RESET_HISTORY } from 'constant/constant';
+import useVMState from 'hooks/useVMState';
+import { FinalPayContext, FinalPaySetContext } from 'Context/FinalPayProvider';
+import { HistoryDispatchContext } from 'Context/HistoryProvider';
+import { VMTimerSetContext } from 'Context/VMTimerProvider';
+import { WalletContext } from 'Context/WalletProvider';
 
-export default function PutBtn({ inputPay, startTimerToSelectProduct }) {
-  const [finalPay, setFinalPay] = useContext(FinalPayContext);
-  const walletState = useContext(WalletContext)[0];
+export default function PutBtn({ inputPay }) {
+  const [finalPay, setFinalPay] = [useContext(FinalPayContext), useContext(FinalPaySetContext)];
+  const { addInputHistory, resetHistory } = useContext(HistoryDispatchContext);
+  const walletState = useContext(WalletContext);
+  const { startVMTimer, stopVMTimer } = useContext(VMTimerSetContext);
+  const { resetVMState } = useVMState();
 
   const getSumOfUnitCloseToPayment = (sumOfUnit, unit, quantity) => {
     let newSumOfUnit = sumOfUnit;
@@ -33,10 +40,20 @@ export default function PutBtn({ inputPay, startTimerToSelectProduct }) {
     return modifiedPayment;
   };
 
+  const StartTimerToSelectProduct = totalPay => {
+    stopVMTimer();
+    startVMTimer([
+      [() => resetVMState(totalPay), TIME_TO_SELCT_PRODUCT],
+      [resetHistory, TIME_TO_RESET_HISTORY]
+    ]);
+  };
+
   const handlePutBtnClick = () => {
     const modifiedPayment = modifyPayment();
-    setFinalPay(finalPay + modifiedPayment);
-    startTimerToSelectProduct();
+    const totalPay = finalPay + modifiedPayment;
+    setFinalPay(totalPay);
+    addInputHistory(totalPay);
+    StartTimerToSelectProduct(totalPay);
   };
 
   return (
@@ -47,11 +64,9 @@ export default function PutBtn({ inputPay, startTimerToSelectProduct }) {
 }
 
 PutBtn.propTypes = {
-  inputPay: PropTypes.number,
-  startTimerToSelectProduct: PropTypes.func
+  inputPay: PropTypes.number
 };
 
 PutBtn.defaultProps = {
-  inputPay: 0,
-  startTimerToSelectProduct: () => {}
+  inputPay: 0
 };
