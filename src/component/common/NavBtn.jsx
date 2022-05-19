@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+
 import styled from "styled-components";
 
 function NavBtn() {
@@ -9,6 +10,9 @@ function NavBtn() {
             </NavBtnItem>
             <NavBtnItem>
                 <StyledNavLink to="/wallet">지갑</StyledNavLink>
+            </NavBtnItem>
+            <NavBtnItem>
+                <StyledNavLink to="/item-stock">재고</StyledNavLink>
             </NavBtnItem>
         </NavBtnList>
     );
@@ -21,7 +25,7 @@ const NavBtnList = styled.ul`
 `;
 
 const NavBtnItem = styled.li`
-    margin: ${({ theme }) => theme.margins.medium};
+    margin: ${({ theme }) => theme.margins.small};
 `;
 
 const StyledNavLink = styled(NavLink)`
