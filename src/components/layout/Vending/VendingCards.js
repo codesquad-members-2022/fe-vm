@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import VendingCard from './VendingCard';
 import { DUMMY_DATA, _ } from '../../../constant/constant';
@@ -30,7 +31,8 @@ const VendingCards = () => {
 
   return (
     <>
-      {modal && <Modal />}
+      {modal &&
+        ReactDOM.createPortal(<Modal />, document.getElementById('overlay'))}
       <VendingCardLists>
         {DUMMY_DATA.map(({ id, name, price }) => (
           <VendingCard
