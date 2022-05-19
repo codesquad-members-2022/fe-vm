@@ -1,5 +1,5 @@
 import React from 'react';
-import ListItem from './ListItem';
+import ListItem from 'components/atoms/ListItem/ListItem';
 
 export default {
   title: 'Atoms/ListItem',

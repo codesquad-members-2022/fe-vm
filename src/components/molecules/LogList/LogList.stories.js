@@ -1,5 +1,5 @@
 import React from 'react';
-import LogList from './LogList';
+import LogList from 'components/molecules/LogList/LogList';
 
 export default {
   title: 'Molecules/LogList',

@@ -1,5 +1,5 @@
 import React from 'react';
-import LogoImage from './LogoImage';
+import LogoImage from 'components/atoms/LogoImage/LogoImage';
 
 export default {
   title: 'Atoms/LogoImage',

@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from './Input';
+import Input from 'components/atoms/Input/Input';
 
 export default {
   title: 'Atoms/Input',
