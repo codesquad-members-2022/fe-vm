@@ -1,40 +1,51 @@
-import {
-  SetWalletMoneyContext,
-  WalletMoneyContext,
-  InvestmentContext,
-  SetInvestmentContext,
-  SetAlertMessage,
-} from 'App';
-import { INIT_ALERT_MESSAGE } from 'Helper/constant';
-import { useContext } from 'react';
-import { CoinBoxContainer, Count, Money, CoinBox, TotalBox } from './Coins.styled';
+import { AlertMessage, SetAlertMessage } from "Context/AlertMessageProvider";
+import useInvestment from "Hooks/useInvestment";
+import useWallet from "Hooks/useWallet";
+import { INIT_ALERT_MESSAGE, INVESTMENT_COUNT_TIME } from "Helper/constant";
+import { useCallback, useContext, useEffect } from "react";
+import { CoinBoxContainer, Count, Money, CoinBox, TotalBox } from "./Coins.styled";
+import addMessageList from "Helper/message";
+import useMessageList from "Hooks/useMessageList";
+import useInvestmentTimer from "Hooks/useInvestmentTimer";
 
 export default function Coins() {
-  const walletMoney = useContext(WalletMoneyContext);
-  const setWalletMoney = useContext(SetWalletMoneyContext);
-  const investment = useContext(InvestmentContext);
-  const setInvestment = useContext(SetInvestmentContext);
+  const [investment, setInvestment] = useInvestment();
+  const [walletMoney, setWalletMoney] = useWallet();
   const setAlertMessage = useContext(SetAlertMessage);
-  const coinBoxs = getCoinBox({ walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage });
+  const alertMessage = useContext(AlertMessage);
+  const [messageList, setMessageList] = useMessageList([]);
+  const resetInvestment = useInvestmentTimer();
+  const coinBoxsProps = { walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage };
+
+  const coinBoxs = getCoinBox(coinBoxsProps);
+
+  useEffect(() => {
+    const reflectNewMessageProps = { alertMessage, setMessageList, messageList, setAlertMessage };
+    reflectNewMessage(reflectNewMessageProps);
+    resetInvestment(INVESTMENT_COUNT_TIME);
+  }, [alertMessage]);
 
   return <CoinBoxContainer>{coinBoxs}</CoinBoxContainer>;
 }
 
-const getCoinBox = ({ walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage }) => {
+const getCoinBox = (props) => {
+  const { walletMoney } = props;
   if (!walletMoney) {
     return;
   }
 
   const totalMoney = calculateTotalMoney(walletMoney.amount);
   const coinBoxs = Object.entries(walletMoney.amount).map((wallet) => {
-    return createCoinBox({ wallet, walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage });
+    const coinBoxProps = { ...props, wallet };
+    return createCoinBox(coinBoxProps);
   });
   const totalBox = createTotalBox(totalMoney);
   coinBoxs.push(totalBox);
   return coinBoxs;
 };
 
-const createCoinBox = ({ wallet, walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage }) => {
+const createCoinBox = (props) => {
+  const { wallet } = props;
   const [coin, cnt] = wallet;
   const id = createKeyForNoHasId(coin, cnt);
   return (
@@ -44,7 +55,7 @@ const createCoinBox = ({ wallet, walletMoney, setWalletMoney, investment, setInv
         justify="center"
         align="center"
         onClick={() => {
-          handleCoinClick({ wallet, walletMoney, setWalletMoney, investment, setInvestment, setAlertMessage });
+          handleCoinClick(props);
         }}
       >
         {coin}
@@ -72,7 +83,8 @@ const calculateTotalMoney = (walletMoneyAmount) => {
   return total;
 };
 
-const handleCoinClick = ({ wallet, walletMoney, investment, setWalletMoney, setInvestment, setAlertMessage }) => {
+const handleCoinClick = (props) => {
+  const { wallet, walletMoney, investment, setWalletMoney, setInvestment, setAlertMessage } = props;
   const [coin, count] = wallet.map(Number);
 
   if (count === 0) {
@@ -92,4 +104,11 @@ const handleCoinClick = ({ wallet, walletMoney, investment, setWalletMoney, setI
 
 const createKeyForNoHasId = (coin, cnt) => {
   return `${coin}+${cnt}}`;
+};
+
+const reflectNewMessage = (props) => {
+  const { alertMessage, setMessageList, messageList, setAlertMessage } = props;
+  const addMessageListProps = { alertMessage, setMessageList, messageList };
+  addMessageList(addMessageListProps);
+  setAlertMessage(INIT_ALERT_MESSAGE);
 };

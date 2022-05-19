@@ -1,10 +1,11 @@
-import { applyFlex } from 'Helper/utils';
-import styled from 'styled-components';
+import { applyFlex } from "Helper/utils";
+import styled from "styled-components";
 
 export const ChargeForm = styled.form`
   ${({ theme }) => theme};
   ${({ flex }) => applyFlex({ flex })};
   padding: 5px;
+  box-shadow: 0px 0px 20px 1px rgb(200, 200, 200);
 `;
 
 export const CashInput = styled.input`
