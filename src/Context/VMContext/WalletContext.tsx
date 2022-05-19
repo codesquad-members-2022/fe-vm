@@ -11,6 +11,7 @@ import { coins } from '@/mock/storage';
 
 enum WALLET_ACTION {
   INSERT_COIN = 'INSERT_COIN',
+  INSERT_COINS = 'INSERT_COINS',
   INSERT_MONEY_BY_TYPING = 'INSERT_MONEY_BY_TYPING',
   INCREMENT_COIN = 'INCREMENT_COIN',
 }
@@ -28,6 +29,10 @@ interface IWallet {
 
 type WalletAction =
   | { type: WALLET_ACTION.INSERT_COIN; payload: { amount: number; count: number; index: number } }
+  | {
+      type: WALLET_ACTION.INSERT_COINS;
+      payload: { coinCountInfo: { coins: Omit<ICoin, 'id'>[] } };
+    }
   | {
       type: WALLET_ACTION.INSERT_MONEY_BY_TYPING;
       payload: { amount: number };
@@ -56,6 +61,30 @@ const walletReducer = (state: IWallet, action: WalletAction): IWallet => {
         ...state,
         coins: newCoins,
         balance: newBalance,
+      };
+    }
+
+    // TODO: INSET_MONEY_BY_TYPING 지우기
+    case WALLET_ACTION.INSERT_COINS: {
+      const { coinCountInfo } = action.payload;
+      const { coins, balance } = state;
+
+      let inputAmount = 0;
+      coins.forEach((coin, index, coins) => {
+        const { count: requestedCount } = coinCountInfo.coins[index];
+        if (requestedCount === 0) {
+          return;
+        }
+
+        const newCount = coins[index].count - requestedCount;
+        inputAmount += coins[index].amount * requestedCount;
+        coins[index] = { ...coins[index], count: newCount };
+      });
+
+      return {
+        ...state,
+        coins,
+        balance: balance - inputAmount,
       };
     }
 
