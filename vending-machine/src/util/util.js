@@ -8,3 +8,21 @@ export function decreaseAmount(value, amount, setFunction, title) {
   });
   setFunction(newObj);
 }
+
+export function devideInputMoney(money) {
+  const currencies = [10000, 5000, 1000, 500, 100, 50, 10];
+  const inputMoneyArr = [];
+  let i = 0;
+  while (i < currencies.length) {
+    const currency = currencies[i];
+    if (money >= currency) {
+      inputMoneyArr.push({
+        title: currency,
+        amount: parseInt(money / currency, 10),
+      });
+      money = money - currency * parseInt(money / currency, 10);
+    }
+    i++;
+  }
+  return inputMoneyArr;
+}
