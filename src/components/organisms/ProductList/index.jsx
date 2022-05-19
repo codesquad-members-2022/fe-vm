@@ -1,18 +1,23 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import ProductBox from '@components/molecules/ProductBox';
 import * as S from '@components/organisms/ProductList/ProductList.style';
-import products from '@data/products';
 
-// TODO: 상품 데이터 상태 관리
-const ProductList = () => {
+const ProductList = ({ products, clickHandler }) => {
   return (
     <S.Container>
       {products.map(product => (
-        <ProductBox key={product.id} {...product} />
+        <ProductBox key={product.id} {...product} clickHandler={clickHandler(product.id)} />
       ))}
     </S.Container>
   );
+};
+
+ProductList.propTypes = {
+  products: PropTypes.array,
+  clickHandler: PropTypes.func,
 };
 
 export default ProductList;

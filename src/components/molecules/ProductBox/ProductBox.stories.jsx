@@ -10,6 +10,8 @@ export default {
     emoji: products[0].emoji,
     name: products[0].name,
     price: products[0].price,
+    quantity: products[0].quantity,
+    clickHandler: () => {},
   },
   argTypes: {
     emoji: {
@@ -23,6 +25,11 @@ export default {
       },
     },
     price: {
+      control: {
+        type: 'number',
+      },
+    },
+    quantity: {
       control: {
         type: 'number',
       },
