@@ -19,9 +19,6 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
     max-height: ${({ selectalbeStatus }) => (selectalbeStatus ? 0 : '100%')};
-    background: linear-gradient(to bottom left, #4facd3, #ffffff, #4facd3);
-    opacity: 0.6;
-    transition: all 0.2s ease-in;
   }
 `;
 
