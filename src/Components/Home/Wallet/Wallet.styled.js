@@ -1,17 +1,16 @@
 import styled, { css } from 'styled-components';
 
 const WalletDiv = styled.div`
-	${({ theme: { colors } }) => css`
+	${({ theme: { font, width, distance, getBorder } }) => css`
+		${font.medium};
+		${getBorder('main', 'black', 'main')};
 		display: flex;
 		justify-content: space-around;
-		font-size: 20px;
 		margin: 0 auto;
-		width: 50%;
+		width: ${width.wallet};
 		height: 100%;
-		margin-top: 50px;
-		padding: 20px;
-		border: 2px solid ${colors.black};
-		border-radius: 20px;
+		margin-top: ${distance.xLarge};
+		padding: ${distance.large};
 
 		> div {
 			flex-basis: 40%; // devide area by 2
@@ -20,28 +19,27 @@ const WalletDiv = styled.div`
 `;
 
 const CoinsSumDiv = styled.div`
-	${({ theme: { colors } }) => css`
-		box-sizing: border-box;
+	${({ theme: { colors, getBorder, width } }) => css`
+		${getBorder('main', 'black', 'main')};
 		background-color: ${colors.yellow};
-		border: 2px solid ${colors.black};
-		border-radius: 20px;
-		width: 190px;
-		height: 190px;
-		line-height: 190px;
+		width: ${width['wallet-child']};
+		height: ${width['wallet-child']};
+		line-height: ${width['wallet-child']};
+		box-sizing: border-box;
 		margin-top: 5px;
 	`}
 `;
 
 const WalletMessagesDiv = styled.div`
-	${({ theme: { colors } }) => css`
+	${({ theme: { colors, width, getBorder, font, distance } }) => css`
+		${getBorder('main', 'black', 'main')};
+		${font.xSmall};
 		background-color: ${colors.lightRed};
-		border: 2px solid ${colors.black};
+		width: ${width['wallet-child']};
+		height: ${width['wallet-child']};
+		padding: ${distance.small};
+		margin-top: ${distance.large};
 		box-sizing: border-box;
-		border-radius: 20px;
-		width: 190px;
-		height: 190px;
-		padding: 10px;
-		margin-top: 20px;
 		overflow: scroll;
 		text-align: left;
 	`}
@@ -49,7 +47,6 @@ const WalletMessagesDiv = styled.div`
 
 const WalletMessageDiv = styled.div`
 	margin-top: 5px;
-	font-size: 15px;
 `;
 
 export { WalletDiv, CoinsSumDiv, WalletMessagesDiv, WalletMessageDiv };

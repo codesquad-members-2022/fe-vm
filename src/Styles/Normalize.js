@@ -1,21 +1,21 @@
 import { createGlobalStyle, css } from 'styled-components';
 
 const Normalize = createGlobalStyle`
-  ${({ theme: { colors, width, distance, font } }) =>
+  ${({ theme: { colors, width, distance, font, transition } }) =>
 		css`
 			.App {
+				${font.main};
 				color: ${colors.black};
 				width: ${width.app};
-				margin: 0 auto;
 				padding: ${distance.large};
-				${font.main};
+				margin: 0 auto;
 			}
 
 			button {
-				line-height: 110%;
-				color: ${colors.black};
 				${font.main};
-				${font.small};
+				${transition.main};
+				color: ${colors.black};
+				line-height: 110%;
 			}
 		`}
 

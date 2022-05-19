@@ -2,7 +2,7 @@ import { useContext, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 
-import { takingOutTime, BUY } from 'Components/Common/constant';
+import { BUY } from 'Util/constant';
 import {
 	MoneyContext,
 	IsTakingOutContext,
@@ -17,6 +17,8 @@ import {
 } from './Items.styled';
 
 const Item = ({ item }) => {
+	const TAKING_OUT_TIME = 2000;
+
 	const targetItem = item;
 	const { name, price, count } = targetItem;
 	const { setIsTakingOut } = useContext(IsTakingOutContext);
@@ -43,7 +45,7 @@ const Item = ({ item }) => {
 	]);
 
 	const debouncedHandleClick = useMemo(
-		() => debounce(handleClick, takingOutTime),
+		() => debounce(handleClick, TAKING_OUT_TIME),
 		[handleClick]
 	);
 

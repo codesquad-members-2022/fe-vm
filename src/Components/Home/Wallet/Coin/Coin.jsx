@@ -7,7 +7,7 @@ import {
 } from 'Components/Contexts';
 
 import { getPriceType } from 'Util/util';
-import { MINUS } from 'Components/Common/constant';
+import { MINUS } from 'Util/constant';
 import { CoinDiv, CoinCountBtn, CoinPriceDiv } from './Coin.styled';
 
 const Coin = ({ coin }) => {

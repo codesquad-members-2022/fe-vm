@@ -31,6 +31,7 @@ const CoinCountBtn = styled.button`
 		cursor: ${count ? 'pointer' : 'not-allowed'};
 		width: ${width.coin};
 		height: ${height.coin};
+		padding-top: 3px;
 		margin: 5px;
 	`}
 `;

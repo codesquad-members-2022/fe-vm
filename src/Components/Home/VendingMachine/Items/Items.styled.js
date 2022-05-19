@@ -70,7 +70,7 @@ const ItemWrapper = styled.div``;
 const TakingOutDiv = styled.div`
 	${({ theme: { colors, width, getBorder, font, distance } }) => css`
 		${getBorder('main', 'black', 'main')};
-		${font.medium};
+		${font.large};
 		background-color: ${colors.black};
 		width: ${width['vm-child']};
 		color: ${colors.yellow};
