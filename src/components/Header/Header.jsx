@@ -5,16 +5,16 @@ import { HeaderBlock, VendingMachineButton, WalletButton } from "./Header.styled
 function Header() {
   return (
     <HeaderBlock>
-      <VendingMachineButton>
-        <Link to="/vendingmachine" style={{ textDecoration: "none" }}>
-          자판기
-        </Link>
-      </VendingMachineButton>
-      <WalletButton>
-        <Link to="/wallet" style={{ textDecoration: "none" }}>
-          지갑
-        </Link>
-      </WalletButton>
+      <Link to="/vendingmachine" style={{ textDecoration: "none" }}>
+        <VendingMachineButton>
+          <p>자판기</p>
+        </VendingMachineButton>
+      </Link>
+      <Link to="/wallet" style={{ textDecoration: "none" }}>
+        <WalletButton>
+          <p>지갑</p>
+        </WalletButton>
+      </Link>
     </HeaderBlock>
   );
 }
