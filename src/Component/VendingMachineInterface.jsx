@@ -36,7 +36,7 @@ export const VendingMachineInterface = ({
       <VM_RefundBtn onClick={handleRefundBtn}>잔액 반환</VM_RefundBtn>
       <VM_History>
         {history.map(historyLog => {
-          return <div>{historyLog}</div>;
+          return <VM_HistoryLog>{historyLog}</VM_HistoryLog>;
         })}
       </VM_History>
     </VM_Wrapper>
@@ -86,7 +86,11 @@ const VM_History = styled.div`
   padding: 10px;
 `;
 
-const VM_HistoryLog = styled.div``;
+const VM_HistoryLog = styled.div`
+  margin-bottom: 5px;
+  border-bottom: 0.5px solid black;
+  padding: 5px 0;
+`;
 
 const VM_insertedMoney = styled.div`
   display: flex;

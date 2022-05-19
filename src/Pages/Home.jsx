@@ -3,6 +3,7 @@ import {Outlet} from 'react-router-dom';
 
 import {UiChangeBtn} from '../Component';
 import {UserAccountContext} from '../Store';
+import {TimerStore} from '../Store';
 
 const DEFAULT_PAGE = 'vendingMachine';
 const USER_WALLET = 'wallet';
@@ -32,9 +33,11 @@ export const Home = () => {
   return (
     <>
       <UiChangeBtn handleChangeBtn={changeUiState} currentPage={currentPage} />
-      <UserAccountContext currentPage={currentPage}>
-        <Outlet />
-      </UserAccountContext>
+      <TimerStore>
+        <UserAccountContext currentPage={currentPage}>
+          <Outlet />
+        </UserAccountContext>
+      </TimerStore>
     </>
   );
 };

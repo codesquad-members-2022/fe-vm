@@ -8,6 +8,7 @@ export const accountReducer = (state, action) => {
         currentMoney: state.currentMoney - action.incomeMoney,
         insertedMoney: state.insertedMoney + action.incomeMoney,
         history: [...state.history, `${action.incomeMoney} 원 추가!`],
+        timerOn: 'inserted',
       };
 
     case 'refund':
@@ -18,6 +19,7 @@ export const accountReducer = (state, action) => {
           ...state.history,
           `${state.insertedMoney} 원 반환 되엇습니다.`,
         ],
+        timerOn: false,
       };
 
     case 'buy':
@@ -30,6 +32,7 @@ export const accountReducer = (state, action) => {
             state.insertedMoney - action.incomeMoney
           }`,
         ],
+        timerOn: 'buy',
       };
 
     case 'input':
@@ -48,6 +51,7 @@ export const accountReducer = (state, action) => {
             ...state.history,
             `${inputValue}원 은 현재금액 ${state.currentMoney}원 보다 높은 금액입니다.`,
           ],
+          timerOn: 'inserted',
         };
       }
 
@@ -82,6 +86,7 @@ export const accountReducer = (state, action) => {
           currentMoney: state.currentMoney - inputValue,
           insertedMoney: state.insertedMoney + inputValue,
           history: [...state.history, `${inputValue}원 추가!`],
+          timerOn: 'inserted',
         };
       }
 
