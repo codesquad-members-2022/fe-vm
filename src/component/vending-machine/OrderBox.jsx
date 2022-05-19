@@ -19,12 +19,13 @@ function OrderBox() {
     const inputRef = useRef(false);
 
     function adjustCoinType(value) {
-        // TODO: 금액 보정 알고리즘
+        // TODO: 금액 보정 알고리즘 - 개수도 확인해야함, 맞는 금액 없음 nill 반환
         return +value;
     }
 
-    function handleReturnBtn() {
+    function handleInsertBtn() {
         const correctCoinType = adjustCoinType(inputRef.current.value);
+        if (!correctCoinType) return;
         setInsertedCoin((prev) => {
             return { ...prev, [correctCoinType]: (prev[correctCoinType] || 0) + 1 };
         });
@@ -40,7 +41,7 @@ function OrderBox() {
         inputRef.current.value = "";
     }
 
-    function handleInsertBtn() {
+    function handleReturnBtn() {
         const newCoinList = [...coinList];
         const keyOfCoins = Object.keys(insertedCoin);
 
@@ -53,7 +54,6 @@ function OrderBox() {
         });
 
         setCoinList(newCoinList);
-        console.log(newCoinList);
         setInsertedCoin({});
     }
 

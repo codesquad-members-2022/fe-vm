@@ -37,7 +37,6 @@ const ItemStockBox = styled.div`
 `;
 
 const ItemTitle = styled.span`
-    /* border: 1px solid black; */
     display: inline-block;
     width: 150px;
     margin: 20px;
@@ -45,7 +44,6 @@ const ItemTitle = styled.span`
 `;
 
 const ItemQuantity = styled.span`
-    /* border: 1px solid black; */
     display: inline-block;
     width: 100px;
     font-size: 2rem;
