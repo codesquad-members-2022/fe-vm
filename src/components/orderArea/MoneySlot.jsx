@@ -5,7 +5,7 @@ import { Container, MoneyInput, Unit } from 'components/orderArea/MoneySlot.styl
 import { addCommasToNumber } from 'utils/util';
 import { FinalPayContext } from 'Context/FinalPayProvider';
 
-export default function MoneySlot({ inputPay, updateInputPay, resetInputPay, canOrderState }) {
+export default function MoneySlot({ inputPay, updateInputPay, resetInputPay }) {
   const finalPay = useContext(FinalPayContext);
 
   const handleChangeMoneyInput = ({ target }) => updateInputPay(target.value);
@@ -18,7 +18,6 @@ export default function MoneySlot({ inputPay, updateInputPay, resetInputPay, can
         type="text"
         value={inputPay > 0 ? addCommasToNumber(inputPay) : ''}
         onChange={handleChangeMoneyInput}
-        readOnly={!canOrderState}
       />
       <Unit>원</Unit>
     </Container>
@@ -28,13 +27,11 @@ export default function MoneySlot({ inputPay, updateInputPay, resetInputPay, can
 MoneySlot.propTypes = {
   inputPay: PropTypes.number,
   updateInputPay: PropTypes.func,
-  resetInputPay: PropTypes.func,
-  canOrderState: PropTypes.bool
+  resetInputPay: PropTypes.func
 };
 
 MoneySlot.defaultProps = {
   inputPay: 0,
   updateInputPay: () => {},
-  resetInputPay: () => {},
-  canOrderState: true
+  resetInputPay: () => {}
 };
