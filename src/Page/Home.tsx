@@ -10,10 +10,12 @@ import { responseDelay } from '@/Constants';
 import keepTheChange from '@/Utils/keepTheChange';
 import timeOut from '@/Utils/timeOut';
 import { useMessageDispatch } from '@/Context/MessageContext';
+import Loading from '@/Components/Common/Loading';
 
 export default function Home(): JSX.Element {
   const [tab, toggleTab] = useState('자판기');
   const texts = ['자판기', '지갑'];
+  const [loading, setLoading] = useState(false);
 
   const priceState = usePriceState();
   const walletDispatch = useWalletDispatch();
@@ -23,7 +25,9 @@ export default function Home(): JSX.Element {
   const timerId = useRef(null);
 
   const timeOutCallback = () => {
-    if (timerId.current) clearTimeout(timerId.current);
+    if (timerId.current) {
+      clearTimeout(timerId.current);
+    }
 
     timerId.current = timeOut(
       () =>
@@ -38,6 +42,12 @@ export default function Home(): JSX.Element {
   };
 
   useEffect(() => {
+    if (priceState === 0) {
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+
     timeOutCallback();
   }, [priceState]);
 
@@ -45,6 +55,7 @@ export default function Home(): JSX.Element {
     <>
       <Header texts={texts} tab={tab} toggleTab={toggleTab} />
       {tab === '자판기' ? <Machine timerId={timerId} /> : <Wallet />}
+      {loading === true ? <Loading /> : ''}
     </>
   );
 }
