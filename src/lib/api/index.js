@@ -12,11 +12,13 @@ const productsApi = {
 
 const walletApi = {
   getAllMoney: () => getData(API.WALLET),
-  reduceMoneyQuantity: ({ id, data }) =>
-    patchData({
-      url: `${API.WALLET}/${id}`,
+  reduceMoneyQuantity: ({ id, data }) => {
+    const url = id ? `${API.WALLET}/${id}` : API.WALLET;
+    return patchData({
+      url,
       data,
-    }),
+    });
+  },
 };
 
 export { productsApi, walletApi };

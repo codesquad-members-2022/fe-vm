@@ -5,15 +5,7 @@ import Select from '@components/atoms/Select';
 import * as S from '@components/molecules/SelectForm/SelectForm.style';
 import money from '@data/money';
 
-export const options = money.map(item => {
-  return {
-    id: item.id,
-    value: item.unit,
-    label: `${item.unit}원`,
-  };
-});
-
-const SelectForm = () => {
+const SelectForm = ({ options, onClick }) => {
   const [selectValue, setSelectValue] = useState(options[0]);
 
   const isButtonDisabled = money.every(item => !item.quantity);
@@ -23,10 +15,6 @@ const SelectForm = () => {
     setSelectValue(selected);
   };
 
-  const putMoney = () => {
-    // TODO: 지갑 구현 후 마무리
-  };
-
   return (
     <S.Form>
       <Select options={options} selectValue={selectValue} setSelectValue={changeSelectValue} />
@@ -34,7 +22,7 @@ const SelectForm = () => {
         theme={BUTTON_THEME.DEFAULT}
         size={BUTTON_SIZE.SMALL}
         disabled={isButtonDisabled}
-        onClick={putMoney}
+        onClick={onClick(selectValue.id)}
       >
         추가
       </Button>

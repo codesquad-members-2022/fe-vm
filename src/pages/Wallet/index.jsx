@@ -1,26 +1,25 @@
+import React, { useContext } from 'react';
+
 import VendingMachineInfo from '@components/organisms/VendingMachineInfo';
 import WalletInfo from '@components/organisms/WalletInfo';
-import { walletApi } from '@lib/api';
-import useAsync from '@lib/hooks/useAsync';
+import { MoneyContext } from '@context/money/provider';
 import * as S from '@pages/Wallet/Wallet.style';
 
 const Wallet = () => {
-  const [state, refetch] = useAsync(walletApi.getAllMoney);
-
-  // TODO: loading, error 처리
-  const { data: wallet } = state;
-
-  const changeMoneyQuantity = id => () => {
-    const money = wallet.find(product => product.id === id);
-    walletApi
-      .reduceMoneyQuantity({ id, data: { quantity: money.quantity - 1 } })
-      .then(() => refetch());
-  };
+  const { state, options, changeMoneyQuantity } = useContext(MoneyContext);
 
   return (
     <S.Container>
-      <VendingMachineInfo />
-      {wallet && <WalletInfo wallet={wallet} changeMoneyQuantity={changeMoneyQuantity} />}
+      {state && (
+        <>
+          <VendingMachineInfo
+            options={options}
+            insertedMoney={state.insertedMoney}
+            changeMoneyQuantity={changeMoneyQuantity}
+          />
+          <WalletInfo wallet={state.wallet} changeMoneyQuantity={changeMoneyQuantity} />
+        </>
+      )}
     </S.Container>
   );
 };
