@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import MenuImage from "./Menu/MenuImage";
 import MenuPrice from "./Menu/MenuPrice";
@@ -6,6 +6,7 @@ import { InputContext } from "store/InputStore";
 import { MessageContext } from "store/MessageStore";
 import { MenuContext } from "store/MenuStore";
 import { SELECT_COUNT } from "constants/constants";
+import { throttle } from "utils/util";
 
 export default function Menu({ name, price, imageURL, stock }) {
   const context = useContext(InputContext);
@@ -16,33 +17,44 @@ export default function Menu({ name, price, imageURL, stock }) {
   const { menu, setMenu } = menuContext;
 
   const [timer, setTimer] = useState(false);
+  const [selected, setSelected] = useState(false);
+
+  const selectFn = useCallback(
+    throttle(() => {
+      setMessage((prev) => [...prev, `${name}가 선택되었습니다 \n`]);
+      setMenu(getNewMenu(menu, name));
+      setSelected(false);
+    }, SELECT_COUNT),
+    [selected]
+  );
 
   useEffect(() => {
     if (!timer) return;
-    const timerId = setTimeout(() => {
-      setMessage((prev) => [...prev, `${name}가 선택되었습니다 \n`]);
-      setMenu(getNewMenu(menu, name));
-    }, SELECT_COUNT);
-
-    return () => {
-      clearTimeout(timerId);
-      setTimer(false);
-    };
+    selectFn(); //실행까지는 되지만 안의 내용이 실행안됨 결국 쓰로틀 함수 문제?
+    setTimer(false);
   }, [timer]);
 
   return (
     <>
       {stock ? (
-        <StyledMenu
-          onClick={() => {
-            if (input < price) return;
-            setInput(input - price);
-            setTimer(true);
-          }}
-        >
-          <MenuImage imageURL={imageURL} name={name}></MenuImage>
-          <MenuPrice price={price} outOfStock={false}></MenuPrice>
-        </StyledMenu>
+        !selected ? (
+          <StyledMenu
+            onClick={() => {
+              if (input < price) return;
+              setInput(input - price);
+              setTimer(true);
+              setSelected(true);
+            }}
+          >
+            <MenuImage imageURL={imageURL} name={name}></MenuImage>
+            <MenuPrice price={price} outOfStock={false}></MenuPrice>
+          </StyledMenu>
+        ) : (
+          <StyledSelectedMenu>
+            <MenuImage imageURL={imageURL} name={name}></MenuImage>
+            <MenuPrice price={price} outOfStock={false}></MenuPrice>
+          </StyledSelectedMenu>
+        )
       ) : (
         <StyledOutOfStock>
           <MenuImage imageURL={imageURL} name={name}></MenuImage>
@@ -85,7 +97,15 @@ const StyledOutOfStock = styled.li`
   align-items: center;
   cursor: pointer;
   background-color: red;
-  &:hover {
-    box-shadow: 0 0 20px 0 rgb(0 0 0 / 10%);
-  }
+`;
+
+const StyledSelectedMenu = styled.li`
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  height: 150px;
+  margin: 10px;
+  align-items: center;
+  cursor: pointer;
+  background-color: gray;
 `;

@@ -22,7 +22,7 @@ export function getNeededMoney(inputMoney, unitArr) {
   return addedMoney;
 }
 
-export function debounce(fn, interval) {
+export function debounce(fn, ms) {
   let lastDebounceSymbol;
 
   return (...args) => {
@@ -31,6 +31,18 @@ export function debounce(fn, interval) {
     setTimeout(() => {
       if (lastDebounceSymbol !== symbol) return;
       fn(...args);
-    }, interval);
+    }, ms);
+  };
+}
+
+export function throttle(fn, ms) {
+  let timer = null;
+
+  return (...args) => {
+    if (!timer) {
+      timer = setTimeout(() => {
+        fn(...args);
+      }, ms);
+    }
   };
 }
