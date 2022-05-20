@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   height: calc(100% - 13rem);
   max-height: calc(100% - 13rem);
   overflow-y: auto;
+  white-space: pre-wrap;
 `;
 
 const ProgressList = styled.ol`
