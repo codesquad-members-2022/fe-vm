@@ -1,9 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 
-import { LogProvider } from '@/Context/VMContext/LogContext';
-import { MachineProvider } from '@/Context/VMContext/MachineContext';
-import { WalletProvider } from '@/Context/VMContext/WalletContext';
+import { VMProvider } from '@/Context/VMContext';
 import Home from '@/routes/Home';
 import Wallet from '@/routes/Wallet';
 
@@ -14,16 +12,14 @@ const Index = () => {
     <BrowserRouter basename={BASE_URL}>
       <S.Container>
         <NavBar />
-        <LogProvider>
-          <MachineProvider>
-            <WalletProvider>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/wallet" element={<Wallet />} />
-              </Routes>
-            </WalletProvider>
-          </MachineProvider>
-        </LogProvider>
+        {/*<TimerProvider>*/}
+        <VMProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/wallet" element={<Wallet />} />
+          </Routes>
+        </VMProvider>
+        {/*</TimerProvider>*/}
       </S.Container>
     </BrowserRouter>
   );
