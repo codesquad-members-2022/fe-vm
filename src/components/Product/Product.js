@@ -9,9 +9,17 @@ const Product = () => {
   const { setMessage } = useContext(MessageContext);
 
   const selectProductHandler = (event) => {
-    insertMessage(event.target.innerText);
     let productPrice = getProductPrice(event.target.innerText);
+    checkAccunulatedPrice(productPrice, event.target.innerText);
+  };
+
+  const checkAccunulatedPrice = (productPrice, productName) => {
+    if (productPrice > accumulatedPrice) {
+      setAccumulatedPrice(accumulatedPrice);
+      return;
+    }
     setAccumulatedPrice(accumulatedPrice - productPrice);
+    insertMessage(productName);
   };
 
   const insertMessage = (product) => {
