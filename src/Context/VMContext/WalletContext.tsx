@@ -1,18 +1,10 @@
-import React, {
-  Dispatch,
-  createContext,
-  useReducer,
-  useMemo,
-  useContext,
-  useCallback,
-} from 'react';
+import React, { Dispatch, createContext, useReducer, useMemo, useContext } from 'react';
 
 import { coins } from '@/mock/storage';
 
 enum WALLET_ACTION {
   INSERT_COIN = 'INSERT_COIN',
   INSERT_COINS = 'INSERT_COINS',
-  INSERT_MONEY_BY_TYPING = 'INSERT_MONEY_BY_TYPING',
   INCREMENT_COIN = 'INCREMENT_COIN',
   RETURN_COINS = 'RETURN_COINS',
 }
@@ -33,10 +25,6 @@ type WalletAction =
   | {
       type: WALLET_ACTION.INSERT_COINS;
       payload: { coinCountInfo: Omit<ICoin, 'id'>[] };
-    }
-  | {
-      type: WALLET_ACTION.INSERT_MONEY_BY_TYPING;
-      payload: { amount: number };
     }
   | {
       type: WALLET_ACTION.INCREMENT_COIN;
@@ -69,7 +57,6 @@ const walletReducer = (state: IWallet, action: WalletAction): IWallet => {
       };
     }
 
-    // TODO: INSET_MONEY_BY_TYPING 지우기
     case WALLET_ACTION.INSERT_COINS: {
       const { coinCountInfo } = action.payload;
       const { coins, balance } = state;
@@ -113,49 +100,6 @@ const walletReducer = (state: IWallet, action: WalletAction): IWallet => {
         ...state,
         coins,
         balance: balance - returnAmount,
-      };
-    }
-
-    case WALLET_ACTION.INSERT_MONEY_BY_TYPING: {
-      const { amount: typingAmount } = action.payload; // TODO: 네이밍 다시하기
-      const { coins, balance } = state; // TODO: logs, totalInputAmount 분리하기
-      const requestedInputAmount = balance < typingAmount ? balance : typingAmount;
-      const newCoins = [...coins];
-
-      if (requestedInputAmount === 0) {
-        return state;
-      }
-
-      let surplus = requestedInputAmount;
-
-      /* NOTE: 각 동전이 총 몇개 사용될 수 있는지 외부에서 파악하고
-         NOTE: 알고리즘 적용 후 realInputAmount와 동전개수 넣어주는 방식?
-       */
-
-      for (let i = newCoins.length - 1; i >= 0; i--) {
-        if (surplus === 0) {
-          break;
-        }
-
-        const { amount, count } = newCoins[i];
-
-        const requiredCount = Math.floor(surplus / amount);
-        const realRequiredCount = requiredCount > count ? count : requiredCount;
-        const newCount = count - realRequiredCount;
-        surplus -= realRequiredCount * amount;
-        newCoins[i] = { ...newCoins[i], count: newCount };
-
-        console.log(`%c[${amount}]: ${realRequiredCount}개 사용`, 'color: #fe2;');
-      }
-      console.log(`----------`);
-
-      // NOTE: log, totalInputAmount 변경시 realInputAmount가 필요함
-      const realInputAmount = requestedInputAmount - surplus;
-      const newBalance = balance - realInputAmount;
-
-      return {
-        ...state,
-        balance: newBalance,
       };
     }
 
@@ -281,4 +225,12 @@ const useWallet = () => {
   return { wallet, calInputToCoins: _calInputToCoins, calReturnToCoins: _calReturnToCoins };
 };
 
-export { useWallet, WalletProvider, WALLET_ACTION, WalletDispatch, ICalInputToCoins, IWallet };
+export {
+  useWallet,
+  WalletProvider,
+  WALLET_ACTION,
+  WalletDispatch,
+  ICalInputToCoins,
+  IWallet,
+  ICoin,
+};
