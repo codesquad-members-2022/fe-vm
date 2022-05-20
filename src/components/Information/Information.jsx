@@ -6,7 +6,7 @@ import { getTotalAmount } from "utils";
 function Information() {
   const { inputMoney, setInputMoney } = useContext(MoneyContext);
   const { logs, setLogs } = useContext(LogContext);
-  const { walletMoney, setWalletMoney } = useContext(WalletContext);
+  const { walletMoney } = useContext(WalletContext);
 
   const convertInputMoney = (money) => {
     let surplus = Math.min(money, getTotalAmount(walletMoney));
@@ -17,7 +17,7 @@ function Information() {
         const convertedQuantity = Math.min(Math.floor(surplus / price), quantity);
         surplus -= convertedQuantity * price;
         walletMoney[i] = { ...walletMoney[i], quantity: quantity - convertedQuantity };
-        // setWalletMoney(walletMoney);
+        // TODO: setter 함수로 변경
       }
     }
 
@@ -34,16 +34,16 @@ function Information() {
 
   const addInsertLog = (money) => {
     const newLog = { idx: logs.length + 1, type: "insert", data: money + "원이 투입됨" };
-    setLogs([...logs, newLog]);
+    setLogs((logs) => [...logs, newLog]);
   };
 
   const addReturnLog = (money) => {
     const newLog = { idx: logs.length + 1, type: "return", data: money + "원이 반환됨" };
-    setLogs([...logs, newLog]);
+    setLogs((logs) => [...logs, newLog]);
   };
 
-  const returnChange = () => {
-    let change = inputMoney;
+  const returnChange = (money) => {
+    let change = money;
     setInputMoney(inputMoney - change);
     addReturnLog(change);
 
@@ -53,7 +53,7 @@ function Information() {
         const returnedCoinQuantity = Math.floor(change / price);
         change %= price;
         walletMoney[i] = { ...walletMoney[i], quantity: quantity + returnedCoinQuantity };
-        // setWalletMoney(walletMoney);
+        // TODO: setter 함수로 변경
       }
     }
   };
@@ -62,7 +62,7 @@ function Information() {
     <StyledInformation>
       <InputPrice onKeyPress={getMoney} placeholder="금액을 입력하세요"></InputPrice>
       <TotalInputPrice>투입 금액: {inputMoney}</TotalInputPrice>
-      <ChangeButton onClick={returnChange}>
+      <ChangeButton onClick={() => returnChange(inputMoney)}>
         <p>반환</p>
       </ChangeButton>
       <ActionLog>
