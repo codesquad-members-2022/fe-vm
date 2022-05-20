@@ -1,34 +1,31 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
+
 import { useProductContext } from 'context/Product';
 import { useUserContext } from 'context/User';
 import { useNotification } from 'context/Notification';
 import { insertChanges, orderProduct, returnChanges } from 'context/User/action';
 import { notifyNewMessage } from 'context/Notification/action';
 import { getProducts } from 'context/Product/action';
+
+import Products from 'components/Products';
+
 import useSetTimeout from 'hooks/useSetTimeout';
 import productApi from 'api/product';
-import ProductFallback from 'components/Products/ProductFallback';
-import Products from 'components/Products';
 import NOTIFY_TYPE from 'constant/notification';
 import { isLogin } from 'utils/cookie';
+
 import InputMoneyForm from './InputMoneyForm';
 import InsertChangesForm from './InsertChangesForm';
 import ActionLogs from './ActionLogs';
 import * as S from './style';
 
 function VendingMachine() {
-  const { productDispatch } = useProductContext();
+  const { targetProduct, productDispatch } = useProductContext();
   const { nickname, totalBalance, changesUnits, prevInputChanges, userDispatch, actionLogs } =
     useUserContext();
   const { notifyDispatch } = useNotification();
   const [inputMoney, setInputMoney] = useState(0);
-  const [targetProduct, setTargetProduct] = useState(null);
   const [canOrderTigger, setCanOrderTigger] = useState(false);
-
-  const handleSelectProduct = useCallback(target => {
-    setTargetProduct(target);
-  }, []);
 
   const resetInputMoneny = () => setInputMoney(0);
 
@@ -51,6 +48,9 @@ function VendingMachine() {
 
   const handleClickTriggerOrder = useCallback(
     productInfo => {
+      if (preventNonLoginUser()) {
+        return;
+      }
       const { price, ea } = productInfo;
       const newInputSum = getSumInsertMoney(prevInputChanges);
       if (newInputSum <= 0) {
@@ -167,15 +167,11 @@ function VendingMachine() {
 
   return (
     <S.Container>
-      <ErrorBoundary FallbackComponent={ProductFallback}>
-        <Products
-          isManger={false}
-          isPriceUnderInputMoney={isPriceUnderInputMoney}
-          handleClickTriggerOrder={handleClickTriggerOrder}
-          targetProduct={targetProduct}
-          handleSelectProduct={handleSelectProduct}
-        />
-      </ErrorBoundary>
+      <Products
+        isManger={false}
+        canSelectContidition={isPriceUnderInputMoney}
+        handleClickTriggerOrder={handleClickTriggerOrder}
+      />
       <S.InputContanier>
         <InputMoneyForm
           inputMoney={inputMoney}

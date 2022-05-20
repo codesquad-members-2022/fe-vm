@@ -1,94 +1,47 @@
-import React, { memo, useCallback, useEffect } from 'react';
-import { useErrorHandler } from 'react-error-boundary';
+import React, { memo, Suspense, useMemo } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import PropTypes from 'prop-types';
-import { useProductContext } from 'context/Product';
-import { addTargetProduct, getProducts, substractTargetProduct } from 'context/Product/action';
 import productApi from 'api/product';
+import suspenseFetcher from 'api/suspenseFetcher';
 import MangementForm from './MangementForm';
-import Product from './Product';
+import ProductsGrid from './ProductsGrid';
+import ProductFallback from './ProductFallback';
 import * as S from './style';
 
-function Products({
-  isManger,
-  isPriceUnderInputMoney,
-  handleClickTriggerOrder,
-  targetProduct,
-  handleSelectProduct,
-}) {
-  const { products, productDispatch } = useProductContext();
-  const handleError = useErrorHandler();
-
-  const fetchAddTargetProduct = useCallback(
-    id => {
-      productApi
-        .addTargetProduct(id)
-        .then(response => addTargetProduct(productDispatch, response.data), handleError);
-    },
-    [handleError, productDispatch],
+function Products({ isManger, canSelectContidition, handleClickTriggerOrder }) {
+  const suspensProducts = useMemo(
+    () =>
+      suspenseFetcher({
+        axiosInstance: productApi.getProducts,
+        params: null,
+        option: null,
+      }),
+    [],
   );
-
-  const fetchSubstractTargetProduct = useCallback(
-    id => {
-      productApi
-        .substractTargetProduct(id)
-        .then(response => substractTargetProduct(productDispatch, response.data), handleError);
-    },
-    [handleError, productDispatch],
-  );
-
-  const updateTargetProduct = () => {
-    if (!targetProduct) {
-      return;
-    }
-    const newTargetProduct = products.find(product => product.id === targetProduct.id);
-    handleSelectProduct(newTargetProduct);
-  };
-
-  const fetchProducts = () => {
-    productApi
-      .getProducts()
-      .then(response => getProducts(productDispatch, response.data), handleError);
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  useEffect(() => {
-    updateTargetProduct();
-  }, [products]);
 
   return (
     <S.Container>
-      {isManger && (
-        <MangementForm
-          targetProduct={targetProduct}
-          fetchAddTargetProduct={fetchAddTargetProduct}
-          fetchSubstractTargetProduct={fetchSubstractTargetProduct}
-        />
-      )}
-      <S.ProductsGrid>
-        {products.map(product => (
-          <Product
-            key={product.id}
-            productInfo={product}
+      <ErrorBoundary FallbackComponent={ProductFallback}>
+        {isManger && <MangementForm />}
+      </ErrorBoundary>
+      <ErrorBoundary FallbackComponent={ProductFallback}>
+        <Suspense fallback={<h1>loading...</h1>}>
+          <ProductsGrid
+            resource={suspensProducts}
             isManger={isManger}
-            isSelect={targetProduct?.id === product.id} // TODO: 변수로 빼기
-            isPriceUnderInputMoney={isPriceUnderInputMoney}
-            handleSelectProduct={handleSelectProduct}
+            canSelectContidition={canSelectContidition}
             handleClickTriggerOrder={handleClickTriggerOrder}
           />
-        ))}
-      </S.ProductsGrid>
+        </Suspense>
+      </ErrorBoundary>
     </S.Container>
   );
 }
 
 Products.propTypes = {
   isManger: PropTypes.bool.isRequired,
-  isPriceUnderInputMoney: PropTypes.func.isRequired,
+  canSelectContidition: PropTypes.func.isRequired,
   handleClickTriggerOrder: PropTypes.func.isRequired,
-  handleSelectProduct: PropTypes.func.isRequired,
   // eslint-disable-next-line react/require-default-props
   targetProduct: PropTypes.shape({
     id: PropTypes.string.isRequired,

@@ -8,7 +8,7 @@ function Product({
   productInfo,
   isManger,
   isSelect,
-  isPriceUnderInputMoney,
+  canSelectContidition,
   handleSelectProduct,
   handleClickTriggerOrder,
 }) {
@@ -17,7 +17,7 @@ function Product({
     <S.ProductCard
       type={type}
       isSelect={isSelect}
-      canBuy={isPriceUnderInputMoney(price)}
+      canBuy={canSelectContidition(price)}
       onClick={() => handleSelectProduct(productInfo)}
     >
       <h5>{productName}</h5>
@@ -42,7 +42,7 @@ Product.propTypes = {
   }).isRequired,
   isManger: PropTypes.bool.isRequired,
   isSelect: PropTypes.bool.isRequired,
-  isPriceUnderInputMoney: PropTypes.func.isRequired,
+  canSelectContidition: PropTypes.func.isRequired,
   handleSelectProduct: PropTypes.func.isRequired,
   handleClickTriggerOrder: PropTypes.func.isRequired,
 };

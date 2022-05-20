@@ -3,16 +3,21 @@ import { DELETE_TOAST, NOTIFY_TOAST } from './type';
 
 export const initState = {
   toastList: [
-    // {
-    //   id: 1,
-    //   type: 'Success',
-    //   description: 'This is a success toast component',
-    // },
-    // {
-    //   id: 2,
-    //   type: 'Error',
-    //   description: 'This is an error toast component',
-    // },
+    {
+      id: 1,
+      type: 'Success',
+      description: 'This is a success toast component',
+    },
+    {
+      id: 2,
+      type: 'Error',
+      description: 'This is an error toast component',
+    },
+    {
+      id: 3,
+      type: 'Warning',
+      description: 'This is an error toast component',
+    },
   ],
 };
 

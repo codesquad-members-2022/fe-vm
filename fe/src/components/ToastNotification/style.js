@@ -22,7 +22,6 @@ export const Notification = styled.div`
   width: 300px;
   border-radius: 3px 3px 3px 3px;
   box-shadow: 0 0 10px #999;
-  opacity: 0.9;
   background-position: 15px;
   background-repeat: no-repeat;
   background-color: ${({ type }) => backgroundColor[type]};
@@ -33,7 +32,7 @@ export const Notification = styled.div`
 
   &:hover {
     box-shadow: 0 0 12px #fff;
-    opacity: 1;
+    opacity: 0.9;
     cursor: pointer;
   }
 
@@ -67,6 +66,10 @@ export const Image = styled.div`
   margin-right: 15px;
   width: 30px;
   height: 30px;
+  > img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const Info = styled.div`

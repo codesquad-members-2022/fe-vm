@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTE } from 'constant/route';
 import { Button } from '@mui/material';
 
-function NotFound(props) {
+function NotFound() {
   const navigate = useNavigate();
   const backToMain = () => {
     navigate(ROUTE.HOME);

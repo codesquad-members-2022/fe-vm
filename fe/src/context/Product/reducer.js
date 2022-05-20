@@ -1,7 +1,8 @@
-import { ADD_TARGET_PRODUCT, GET_PRODUCTS, SUBSTRACT_TARGET_PRODUCT } from './type';
+import { ADD_TARGET_PRODUCT, GET_PRODUCTS, SELECT_PRODUCT, SUBSTRACT_TARGET_PRODUCT } from './type';
 
 export const initState = {
   products: [],
+  targetProduct: null,
 };
 
 export const reducer = (state, action) => {
@@ -14,11 +15,16 @@ export const reducer = (state, action) => {
         products,
       };
     }
+    case SELECT_PRODUCT: {
+      const { targetProduct } = payload;
+      return { ...state, targetProduct };
+    }
     case ADD_TARGET_PRODUCT: {
       const { targetProduct } = payload;
       const newProducts = getNewTargetProduct(state.products, targetProduct);
       return {
         ...state,
+        targetProduct,
         products: newProducts,
       };
     }
@@ -27,6 +33,7 @@ export const reducer = (state, action) => {
       const newProducts = getNewTargetProduct(state.products, targetProduct);
       return {
         ...state,
+        targetProduct,
         products: newProducts,
       };
     }

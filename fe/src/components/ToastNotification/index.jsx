@@ -1,4 +1,3 @@
-/* eslint-disable react/button-has-type */
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import checkIcon from 'assets/check.svg';
@@ -38,7 +37,9 @@ function ToastNotification({ toastList, col, row, autoDelete, autoDeleteTime, de
             <h3>{type}</h3>
             <p>{description}</p>
           </S.Info>
-          <button onClick={() => deleteCallback(id)}>X</button>
+          <button type="button" onClick={() => deleteCallback(id)}>
+            X
+          </button>
         </S.Notification>
       ))}
     </S.Container>
