@@ -131,7 +131,6 @@ export const reducer = (state, action) => {
   }
 };
 
-// FIXME: 현재 logs배열에서 id를 배열 길이로 주고 있는데 좀 의아해보임. 액션로그마다 고유 id가 있어야할까?
 const logAction = (prevLogs, actionMessage) => {
   const logsLength = prevLogs.length;
   const newLogs = [...prevLogs, { id: logsLength, msg: actionMessage }];

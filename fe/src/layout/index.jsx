@@ -9,7 +9,7 @@ import * as S from './style';
 
 function Layout() {
   const { toastList, notifyDispatch } = useNotification();
-  const deleteCallback = id => {
+  const deleteToastCallback = id => {
     deleteMessage(notifyDispatch, id);
   };
   return (
@@ -30,7 +30,7 @@ function Layout() {
         row="right"
         autoDelete
         autoDeleteTime={2000}
-        deleteCallback={deleteCallback}
+        deleteCallback={deleteToastCallback}
       />
     </S.AppContainer>
   );

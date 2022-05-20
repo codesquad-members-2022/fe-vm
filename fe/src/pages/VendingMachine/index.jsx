@@ -1,19 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
-
 import { useProductContext } from 'context/Product';
 import { useUserContext } from 'context/User';
 import { useNotification } from 'context/Notification';
 import { insertChanges, orderProduct, returnChanges } from 'context/User/action';
 import { notifyNewMessage } from 'context/Notification/action';
 import { getProducts } from 'context/Product/action';
-
 import Products from 'components/Products';
-
 import useSetTimeout from 'hooks/useSetTimeout';
 import productApi from 'api/product';
 import NOTIFY_TYPE from 'constant/notification';
 import { isLogin } from 'utils/cookie';
-
+import { getSumInsertMoney } from 'utils/vendingMachine';
 import InputMoneyForm from './InputMoneyForm';
 import InsertChangesForm from './InsertChangesForm';
 import ActionLogs from './ActionLogs';
@@ -28,8 +25,6 @@ function VendingMachine() {
   const [canOrderTigger, setCanOrderTigger] = useState(false);
 
   const resetInputMoneny = () => setInputMoney(0);
-
-  const getSumInsertMoney = units => units.reduce((acc, cur) => acc + cur, 0);
 
   const requestOrderProduct = async () => {
     const { id } = targetProduct;
@@ -117,11 +112,6 @@ function VendingMachine() {
     [preventNonLoginUser],
   );
 
-  const isPriceUnderInputMoney = useCallback(
-    targetPrice => targetPrice <= inputMoney,
-    [inputMoney],
-  );
-
   const insertChangeIntoInputMoney = useCallback(
     unitId => {
       if (preventNonLoginUser()) {
@@ -167,11 +157,7 @@ function VendingMachine() {
 
   return (
     <S.Container>
-      <Products
-        isManger={false}
-        canSelectContidition={isPriceUnderInputMoney}
-        handleClickTriggerOrder={handleClickTriggerOrder}
-      />
+      <Products isManger={false} handleClickTriggerOrder={handleClickTriggerOrder} />
       <S.InputContanier>
         <InputMoneyForm
           inputMoney={inputMoney}

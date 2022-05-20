@@ -8,7 +8,7 @@ import * as S from './style';
 function VMmangement() {
   return (
     <S.Container>
-      <Products isManger canSelectContidition={() => {}} handleClickTriggerOrder={() => {}} />
+      <Products isManger handleClickTriggerOrder={() => {}} />
       <ErrorBoundary FallbackComponent={ChangeUnitFallback}>
         <ChangesUnits />
       </ErrorBoundary>

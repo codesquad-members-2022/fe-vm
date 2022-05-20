@@ -8,7 +8,7 @@ function Product({
   productInfo,
   isManger,
   isSelect,
-  canSelectContidition,
+  canBuy,
   handleSelectProduct,
   handleClickTriggerOrder,
 }) {
@@ -17,13 +17,13 @@ function Product({
     <S.ProductCard
       type={type}
       isSelect={isSelect}
-      canBuy={canSelectContidition(price)}
+      canBuy={canBuy}
       onClick={() => handleSelectProduct(productInfo)}
     >
       <h5>{productName}</h5>
       <span>{changeNumberToKoreanLocaleMoney(price)}원</span>
       <span>{ea}개</span>
-      {isSelect && !isManger && (
+      {canBuy && isSelect && !isManger && (
         <Button variant="contained" onClick={() => handleClickTriggerOrder(productInfo)}>
           주문하기
         </Button>
@@ -42,7 +42,7 @@ Product.propTypes = {
   }).isRequired,
   isManger: PropTypes.bool.isRequired,
   isSelect: PropTypes.bool.isRequired,
-  canSelectContidition: PropTypes.func.isRequired,
+  canBuy: PropTypes.bool.isRequired,
   handleSelectProduct: PropTypes.func.isRequired,
   handleClickTriggerOrder: PropTypes.func.isRequired,
 };

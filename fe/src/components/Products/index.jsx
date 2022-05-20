@@ -8,8 +8,8 @@ import ProductsGrid from './ProductsGrid';
 import ProductFallback from './ProductFallback';
 import * as S from './style';
 
-function Products({ isManger, canSelectContidition, handleClickTriggerOrder }) {
-  const suspensProducts = useMemo(
+function Products({ isManger, handleClickTriggerOrder }) {
+  const suspenseProducts = useMemo(
     () =>
       suspenseFetcher({
         axiosInstance: productApi.getProducts,
@@ -27,9 +27,8 @@ function Products({ isManger, canSelectContidition, handleClickTriggerOrder }) {
       <ErrorBoundary FallbackComponent={ProductFallback}>
         <Suspense fallback={<h1>loading...</h1>}>
           <ProductsGrid
-            resource={suspensProducts}
+            resource={suspenseProducts}
             isManger={isManger}
-            canSelectContidition={canSelectContidition}
             handleClickTriggerOrder={handleClickTriggerOrder}
           />
         </Suspense>
@@ -40,16 +39,7 @@ function Products({ isManger, canSelectContidition, handleClickTriggerOrder }) {
 
 Products.propTypes = {
   isManger: PropTypes.bool.isRequired,
-  canSelectContidition: PropTypes.func.isRequired,
   handleClickTriggerOrder: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/require-default-props
-  targetProduct: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    product_name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    ea: PropTypes.number.isRequired,
-  }),
 };
 
 export default memo(Products);

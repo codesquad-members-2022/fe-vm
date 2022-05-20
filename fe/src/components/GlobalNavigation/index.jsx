@@ -8,8 +8,6 @@ import { isLogin } from 'utils/cookie';
 import { ROUTE } from 'constant/route';
 import * as S from './style';
 
-// TODO: 로그인 관련 창 토글로 분리하기
-
 function GlobalNavigation() {
   const [isModalOpen, handleOpenModal] = useModal();
   const { nickname, isManager } = useUserContext();

@@ -4,7 +4,7 @@ import NotAllow from 'pages/NotAllow';
 import { isLogin } from 'utils/cookie';
 
 // restricted = false  => public route
-// restricted = true => 로그인한 유저는 못들어감
+// restricted = true => 로그인한 유저는 못들어감 (회원가입 페이지, 로그인 페이지)
 function PublicRoute({ Component, restricted }) {
   return isLogin() && restricted ? (
     <NotAllow warnMessage="로그인한 유저는 접근할 수 없어요" />
