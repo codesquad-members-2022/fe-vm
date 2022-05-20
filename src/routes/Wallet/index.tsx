@@ -1,71 +1,64 @@
-import React, { useContext, memo } from 'react';
+import React, { memo } from 'react';
 
-import { RETURN_CHANGE_DELAY } from '@/constants/timer';
-import { ACTION, VMContext } from '@/Context/VMContext';
-import { LOG_ACTION, LogDispatch, useLog } from '@/Context/VMContext/LogContext';
-import { MACHINE_ACTION, MachineDispatch, useMachine } from '@/Context/VMContext/MachineContext';
-import { WALLET_ACTION, WalletDispatch, useWallet } from '@/Context/VMContext/WalletContext';
+import { RETURN_MONEY_DELAY } from '@/constants/timer';
+import { LOG_ACTION, useLog } from '@/Context/VMContext/LogContext';
+import { MACHINE_ACTION, useMachine } from '@/Context/VMContext/MachineContext';
+import { ICoin, useWallet, WALLET_ACTION } from '@/Context/VMContext/WalletContext';
+import { useTimer } from '@/hooks/useTimer';
 
 import * as S from './styles';
 
+interface CoinProps {
+  coin: ICoin;
+  index: number;
+}
+
 const Wallet = () => {
   const {
-    state: { balance, coins },
-    dispatch,
-  } = useContext(VMContext);
-
-  const {
-    wallet: { state: wState, dispatch: wDispatch },
+    wallet: { state: walletState },
   } = useWallet();
-
-  const { state: mState, dispatch: mDispatch } = useMachine();
-  const { state: lState, dispatch: lDispatch } = useLog();
 
   return (
     <S.WalletLayout>
       <S.WalletLayer>
         <S.CoinList>
-          {wState.coins.map((coin, index) => (
-            <Coin
-              key={coin.id}
-              {...coin}
-              index={index}
-              dispatch={dispatch}
-              wDispatch={wDispatch}
-              mDispatch={mDispatch}
-              lDispatch={lDispatch}
-            />
+          {walletState.coins.map((coin, index) => (
+            <Coin key={coin.id} coin={coin} index={index} />
           ))}
         </S.CoinList>
-        <S.Balance>총 {wState.balance.toLocaleString()}원</S.Balance>
+        <S.Balance>총 {walletState.balance.toLocaleString()}원</S.Balance>
       </S.WalletLayer>
     </S.WalletLayout>
   );
 };
 
-const Coin = memo(({ amount, count, index, dispatch, wDispatch, mDispatch, lDispatch }) => {
+const Coin = memo(({ coin, index }: CoinProps) => {
+  const { amount, count } = coin;
+  const {
+    wallet: { dispatch: walletDispatch },
+  } = useWallet();
+  const { state: machineState, dispatch: machineDispatch } = useMachine();
+  const { state: logState, dispatch: logDispatch } = useLog();
+  const [setTimer, clearTimer] = useTimer('insertMoney');
+
   const onClickInsertButton = () => {
     if (count === 0) {
       return;
     }
 
-    // NOTE: wState: 코인개수, balance 업데이트
-    // NOTE: mState: totalInputAmount 업데이트
-    // NOTE: lState: log 업데이트
+    // NOTE: walletState: 코인개수, balance 업데이트
+    // NOTE: machineState: totalInputAmount 업데이트
+    // NOTE: logState: log 업데이트
 
-    wDispatch({ type: WALLET_ACTION.INSERT_COIN, payload: { amount, count, index } });
-    mDispatch({ type: MACHINE_ACTION.INSERT_MONEY, payload: { amount } });
-    lDispatch({ type: LOG_ACTION.INSERT_MONEY, payload: { amount } });
-
-    // dispatch({
-    //   type: ACTION.INSERT_COIN,
-    //   payload: {
-    //     amount,
-    //     count,
-    //     index,
-    //   },
-    // });
-
+    walletDispatch({ type: WALLET_ACTION.INSERT_COIN, payload: { amount, count, index } });
+    machineDispatch({ type: MACHINE_ACTION.INSERT_MONEY, payload: { amount } });
+    logDispatch({ type: LOG_ACTION.INSERT_MONEY, payload: { amount } });
+    setTimer(() => {
+      const returnAmount = machineState.totalInputAmount + amount;
+      machineDispatch({ type: MACHINE_ACTION.RETURN_MONEY });
+      // walletDispatch({ type: WALLET_ACTION.RETURN_COINS})
+      logDispatch({ type: LOG_ACTION.RETURN_MONEY, payload: { amount: returnAmount } });
+    }, RETURN_MONEY_DELAY);
     // dispatch({
     //   type: ACTION.SET_TIMER,
     //   payload: {
@@ -79,15 +72,7 @@ const Coin = memo(({ amount, count, index, dispatch, wDispatch, mDispatch, lDisp
   };
 
   const onClickIncrementButton = () => {
-    // dispatch({
-    //   type: ACTION.INCREMENT_COIN,
-    //   payload: {
-    //     amount,
-    //     count,
-    //     index,
-    //   },
-    // });
-    wDispatch({ type: WALLET_ACTION.INCREMENT_COIN, payload: { amount, count, index } });
+    walletDispatch({ type: WALLET_ACTION.INCREMENT_COIN, payload: { amount, count, index } });
   };
 
   return (
