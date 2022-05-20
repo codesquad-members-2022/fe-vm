@@ -13,6 +13,7 @@ import NotFound from "Pages/NotFound/NotFound";
 
 import { composeProvider } from "Helper/utils";
 import InvestmentTimerProvider from "Context/InvestmentTimerProvider";
+import { handleManager } from "Helper/manager";
 
 const providerList = [
   WalletMoneyProvider,
@@ -28,7 +29,7 @@ const Provider = composeProvider(providerList);
 
 export default function App() {
   return (
-    <div className="App">
+    <div className="App" onKeyPress={handleManager}>
       <GlobalStyle />
       <Provider>
         <BrowserRouter>

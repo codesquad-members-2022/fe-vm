@@ -21,3 +21,7 @@ export const NAV_MENUS = [
 export const INVESTMENT_COUNT_TIME = 3000;
 
 export const RANDOM_RANGE_FOR_ID = 1000;
+
+export const ORDER_DELAY = 1500;
+
+export const MANAGER_MODE_KEYS = ["1", "3", "5"];
