@@ -102,6 +102,7 @@ const GlobalStyle = createGlobalStyle`
   input[type="password"],
   input[type="submit"],
   input[type="image"],
+  input[type="number"],
   button,
   select {
     -webkit-appearance: none;

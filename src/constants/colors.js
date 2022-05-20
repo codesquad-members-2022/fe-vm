@@ -5,6 +5,7 @@ const COLORS = {
   GRAY_3: '#DEE2E6',
   GRAY_7: '#495057',
   BLUE: '#1B64DA',
+  RED: '#FF0000',
 };
 
 export default COLORS;

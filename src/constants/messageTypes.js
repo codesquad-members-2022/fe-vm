@@ -1,0 +1,13 @@
+const MESSAGE_TYPES = {
+  INFO: '안내',
+  CASH_INSERTED: '금액투입',
+  CASH_RETRUNED: '금액반환',
+  CASH_AUTO_RETURNED: '금액자동반환',
+  CASH_INSERTED_SCOPE_FAILED: '금액투입실패',
+  CASH_INSERTED_UNIT_FAILED: '금액투입실패',
+  CASH_INSERTED_BALANCE_FAILED: '금액투입실패',
+  PRODUCT_SELECTED: '상품선택',
+  PRODUCT_SHIPPED: '상품출고',
+};
+
+export default MESSAGE_TYPES;

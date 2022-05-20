@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 
-import { COLORS, TYPOGRAPHY } from 'constants';
+import { COLORS, TYPOGRAPHY, PRODUCT_STATUS } from 'constants';
 import { formatPrice } from 'util/util';
 
-const ProductCard = ({ name, price, count, url }) => {
+const ProductCard = ({ product: { id, name, price, count, url }, status, clickActiveProduct }) => {
+  const handleCardClick = () => {
+    if (status !== PRODUCT_STATUS.ACTIVE) return;
+    clickActiveProduct({ id, name, price });
+  };
+
   return (
-    <ProductCardContainer>
+    <ProductCardContainer status={status} onClick={handleCardClick}>
       <HiddenName>{name}</HiddenName>
       <CountBadge>{count}</CountBadge>
       <Thumbnail src={url} alt={name} />
@@ -23,13 +28,21 @@ const ProductCardContainer = styled.div`
   gap: 8px;
   border-radius: 12px;
   background: ${COLORS.WHITE};
-  box-shadow: 10px 20px 20px rgba(24, 25, 27, 0.08);
   font-size: ${TYPOGRAPHY.SIZE.MEDIUM};
   font-weight: ${TYPOGRAPHY.WEIGHT.MEDIUM};
-  cursor: pointer;
+  opacity: ${({ status }) => (status === PRODUCT_STATUS.SOLDOUT ? 0.5 : 1)};
+  box-shadow: ${({ status }) =>
+    status === PRODUCT_STATUS.SOLDOUT ? null : '10px 20px 20px rgba(24, 25, 27, 0.08)'};
+  border: 2px solid
+    ${({ status }) => (status === PRODUCT_STATUS.ACTIVE ? COLORS.BLUE : COLORS.WHITE)};
+  ${({ status }) => status === PRODUCT_STATUS.ACTIVE && 'cursor: pointer'};
+  &:hover {
+    ${({ status }) => status === PRODUCT_STATUS.ACTIVE && 'transform:translateY(-12px)'};
+  }
+  transition: all 0.1s ease-in-out;
 `;
 
-const HiddenName = styled.span`
+const HiddenName = styled.h4`
   content-visibility: hidden;
 `;
 

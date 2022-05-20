@@ -3,22 +3,23 @@ import styled from 'styled-components';
 
 import { WalletCashesContext } from 'context';
 import { COLORS, TYPOGRAPHY, ICON_TYPE } from 'constants';
-import { formatPrice, getTotalCash } from 'util/util';
+import { formatPrice } from 'util/util';
 import IconButton from 'components/Wallet/IconButton';
 
 const CashCard = ({ id, unit, count, order }) => {
-  const { cashes, setCashes, setTotalCash } = useContext(WalletCashesContext);
+  const { cashes, setCashes, totalCash, setTotalCash } = useContext(WalletCashesContext);
   const [cashCount, setCashCount] = useState(count);
 
   const getNewCashes = newCount =>
     cashes.map(cash => (id === cash.id ? { ...cash, count: newCount } : cash));
 
   const adjustCashCount = type => {
-    const newCount = type ? cashCount + 1 : cashCount - 1;
+    const newCount = type ? count + 1 : count - 1;
     if (newCount < 0) return;
 
+    const newTotalCash = type ? totalCash + unit : totalCash - unit;
+
     const newCashes = getNewCashes(newCount);
-    const newTotalCash = getTotalCash(newCashes);
 
     setCashCount(newCount);
     setCashes(newCashes);
@@ -55,4 +56,6 @@ const CountAdjuster = styled.div`
   gap: 12px;
 `;
 
-export default CashCard;
+const areEqualCount = (prevProps, nextProps) => prevProps.count === nextProps.count;
+
+export default React.memo(CashCard, areEqualCount);
