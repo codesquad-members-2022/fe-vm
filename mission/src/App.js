@@ -1,31 +1,46 @@
 import { Link, Routes, Route, Outlet } from "react-router-dom";
-import "./App.css";
 import { VendingMachine } from "./vending_machine/vendingMachine.jsx";
+import { Wallet } from "./wallet/wallet.jsx";
+import {
+    AppDiv,
+    AppHeader,
+    AppHeaderNav,
+    AppHeaderTitle,
+    LinkStyle,
+} from "./App_styled.jsx";
 
 function Layout() {
     return (
-        <div>
-            <header className="App-header">
-                <h2>Mission : Vending Machine</h2>
-                <nav>
-                    <Link to="/">자판기</Link> | <Link to="/wallet">지갑</Link>
-                </nav>
-            </header>
+        <>
+            <AppHeader>
+                <AppHeaderTitle>Mission : Vending Machine</AppHeaderTitle>
+                <AppHeaderNav>
+                    <Link style={LinkStyle} to="/">
+                        자판기
+                    </Link>{" "}
+                    |{" "}
+                    <Link style={LinkStyle} to="/wallet">
+                        지갑
+                    </Link>
+                </AppHeaderNav>
+            </AppHeader>
             <Outlet />
-        </div>
+        </>
     );
 }
 
 function App() {
     return (
-        <div className="App">
-            <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<VendingMachine />}></Route>
-                    <Route path="wallet"></Route>
-                </Route>
-            </Routes>
-        </div>
+        <>
+            <AppDiv>
+                <Routes>
+                    <Route path="/" element={<Layout />}>
+                        <Route index element={<VendingMachine />}></Route>
+                        <Route path="wallet" element={<Wallet />}></Route>
+                    </Route>
+                </Routes>
+            </AppDiv>
+        </>
     );
 }
 
