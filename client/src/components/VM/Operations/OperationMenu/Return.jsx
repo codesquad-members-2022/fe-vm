@@ -42,7 +42,7 @@ const StyledReturn = styled.button`
   background-color: lightgray;
 `;
 
-function getAddedWallet(wallet, moneyArr) {
+export function getAddedWallet(wallet, moneyArr) {
   const newWallet = { ...wallet };
   moneyArr.forEach(([unit, count]) => {
     newWallet[unit] += count;

@@ -1,10 +1,22 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
 import { InputContext } from "store/InputStore";
 import { MessageContext } from "store/MessageStore";
 import { WalletContext } from "store/WalletStore";
-import { getNeededMoney } from "utils/util";
-import { moneyUnitArr, reversedMoneyUnitArr } from "constants/constants";
+import { debounce, getNeededMoney } from "utils/util";
+import {
+  moneyUnitArr,
+  RETURN_COUNT,
+  reversedMoneyUnitArr,
+} from "constants/constants";
+import { getAddedWallet } from "./Return";
+import { TimerContext } from "store/TimerStore";
 
 export default function Input() {
   const inputContext = useContext(InputContext);
@@ -13,12 +25,34 @@ export default function Input() {
   const { setMessage } = messageContext;
   const walletContext = useContext(WalletContext);
   const { wallet, setWallet } = walletContext;
+  const timerContext = useContext(TimerContext);
+  const { timer, setTimer } = timerContext;
 
   const [text, setText] = useState(input);
   const [cursor, setCursor] = useState(true);
   const [temp, setTemp] = useState(null);
   const [isClicked, setIsClicked] = useState(false);
   const inputRef = useRef();
+
+  const returnFn = useCallback(
+    debounce((currentInput) => {
+      setWallet(
+        getAddedWallet(wallet, getNeededMoney(currentInput, moneyUnitArr))
+      );
+      setMessage((prev) => [
+        ...prev,
+        `잔돈 ${currentInput}원이 반환되었습니다 \n`,
+      ]);
+      setInput(0);
+    }, RETURN_COUNT),
+    []
+  );
+
+  useEffect(() => {
+    if (!timer) return;
+    returnFn(input);
+    setTimer(false);
+  }, [timer]);
 
   function onChangeHandler(e) {
     setText(e.target.value);
@@ -51,7 +85,7 @@ export default function Input() {
       setCursor(false);
       return;
     }
-
+    // setTimer(true);
     const [newWallet, balanced] = validateInput(value, moneyUnitArr, wallet);
 
     if (newWallet) {
@@ -87,6 +121,7 @@ export default function Input() {
 
   useEffect(() => {
     setText(input);
+    if (input !== 0) setTimer(true);
   }, [input]);
 
   useEffect(() => {
