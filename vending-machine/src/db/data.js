@@ -57,37 +57,37 @@ export const itemData = [
 
 export const walletData = [
   {
-    id: 1,
+    id: 0,
     coin: 10,
     quantity: 5,
   },
   {
-    id: 2,
+    id: 1,
     coin: 50,
     quantity: 5,
   },
   {
-    id: 3,
+    id: 2,
     coin: 100,
     quantity: 5,
   },
   {
-    id: 4,
+    id: 3,
     coin: 500,
     quantity: 5,
   },
   {
-    id: 5,
+    id: 4,
     coin: 1000,
     quantity: 5,
   },
   {
-    id: 6,
+    id: 5,
     coin: 5000,
     quantity: 5,
   },
   {
-    id: 7,
+    id: 6,
     coin: 10000,
     quantity: 5,
   },
