@@ -2,10 +2,13 @@ import { ReturnButton } from "./CashReturnButton.styled";
 import useResetInvestment from "Hooks/useResetInvestment";
 import { useContext } from "react";
 import { OrderInProgressContext } from "Context/OrderInProgressProvider";
+import useSetAlertMessage from "Hooks/useSetAlertMessage";
 
 export default function CashReturnButton() {
   const handleResetInvestment = useResetInvestment();
   const orderInProgress = useContext(OrderInProgressContext);
+  const applyAlertMessage = useSetAlertMessage();
+
   return (
     <ReturnButton
       flex
@@ -13,6 +16,7 @@ export default function CashReturnButton() {
       align="center"
       onClick={() => {
         if (orderInProgress) {
+          applyAlertMessage("buying");
           return;
         }
         handleResetInvestment();

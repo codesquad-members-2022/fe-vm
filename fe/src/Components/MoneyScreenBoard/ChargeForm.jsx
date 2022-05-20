@@ -1,8 +1,10 @@
 import { SetAlertMessage } from "Context/AlertMessageProvider";
+import { OrderInProgressContext } from "Context/OrderInProgressProvider";
 import { INIT_ALERT_MESSAGE, INVESTMENT_API, INVESTMENT_COUNT_TIME, WALLET_API } from "Helper/constant";
 import { fetchData } from "Helper/utils";
 import useInvestment from "Hooks/useInvestment";
 import useInvestmentTimer from "Hooks/useInvestmentTimer";
+import useSetAlertMessage from "Hooks/useSetAlertMessage";
 import useWallet from "Hooks/useWallet";
 import { useContext, useEffect, useState } from "react";
 import { CashInput, Button, ChargeForm } from "./ChargeForm.styled";
@@ -16,6 +18,8 @@ export default function ChargeScreen() {
   const [walletMoney, setWalletMoney] = useWallet();
   const setAlertMessage = useContext(SetAlertMessage);
   const resetInvestment = useInvestmentTimer();
+  const orderInProgress = useContext(OrderInProgressContext);
+  const applyAlertMessage = useSetAlertMessage();
 
   useEffect(() => {
     resetInvestment(INVESTMENT_COUNT_TIME);
@@ -23,6 +27,10 @@ export default function ChargeScreen() {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    if (orderInProgress) {
+      applyAlertMessage("buying");
+      return;
+    }
     const coins = walletMoney.amount;
     const adjustedCash = adjustCash(coins, cash);
 
