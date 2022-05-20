@@ -1,9 +1,12 @@
-import { createContext, useCallback, useMemo, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 
+import moneyHelper from "helper/moneyHelper";
 import cash from "mockData/money";
 import constants from "utils/constants";
 
-const { DECREASE_COUNT } = constants;
+const { INCREASE_COUNT, DECREASE_COUNT, MONEY_ARR_DESC_ORDER, INITIAL_COUNT } =
+  constants;
+const { computeTotalMoney } = moneyHelper;
 
 export const MoneyContext = createContext(() => {});
 export const MoneyActionsContext = createContext({});
@@ -45,8 +48,7 @@ const MoneyProvider = ({ children }) => {
     ]);
   };
 
-  // 아무것도 구매하지 않고 반환버튼을 누른경우 그대로 돌려주는 함수
-  const resetInsertedMoney = useCallback((moneyCount) => {
+  const resetInsertedMoney = (moneyCount) => {
     setCashData((prevCashData) =>
       prevCashData.map((currentData) =>
         moneyCount
@@ -58,7 +60,38 @@ const MoneyProvider = ({ children }) => {
       )
     );
     setInsertedMoney([]);
-  }, []);
+  };
+
+  const spendInsertedMoney = (productPrice) => {
+    setInsertedMoney((prevInsertedMoney) => {
+      const totalMoney = computeTotalMoney(prevInsertedMoney);
+      let restInsertedMoney = totalMoney - productPrice;
+
+      const newInsertedMoney = MONEY_ARR_DESC_ORDER.map((currentMoney) => {
+        let moneyCount = INITIAL_COUNT;
+
+        if (!restInsertedMoney || restInsertedMoney < currentMoney) {
+          return { money: currentMoney, count: moneyCount };
+        }
+
+        if (!(restInsertedMoney % currentMoney)) {
+          while (restInsertedMoney) {
+            moneyCount += INCREASE_COUNT;
+            restInsertedMoney -= currentMoney;
+          }
+          return { money: currentMoney, count: moneyCount };
+        }
+
+        while (restInsertedMoney >= currentMoney) {
+          moneyCount += INCREASE_COUNT;
+          restInsertedMoney -= currentMoney;
+        }
+        return { money: currentMoney, count: moneyCount };
+      });
+
+      return newInsertedMoney;
+    });
+  };
 
   const moneyData = useMemo(
     () => ({
@@ -72,6 +105,8 @@ const MoneyProvider = ({ children }) => {
       insertMoney,
       insertTotalMoney,
       resetInsertedMoney,
+      spendInsertedMoney,
+      decreaseCashCount,
     }),
     []
   );
@@ -83,11 +118,11 @@ const MoneyProvider = ({ children }) => {
 
   return (
     <MoneyActionsContext.Provider value={moneyActions}>
-      <MoneyContext.Provider value={moneyData}>
-        <InsertedMoneyContext.Provider value={totalInsertedMoney}>
+      <InsertedMoneyContext.Provider value={totalInsertedMoney}>
+        <MoneyContext.Provider value={moneyData}>
           {children}
-        </InsertedMoneyContext.Provider>
-      </MoneyContext.Provider>
+        </MoneyContext.Provider>
+      </InsertedMoneyContext.Provider>
     </MoneyActionsContext.Provider>
   );
 };

@@ -10,12 +10,9 @@ const { DECREASE_COUNT } = constants;
 const ProgressProvider = ({ children }) => {
   const [progress, setProgress] = useState([]);
 
-  const updateProgress = useCallback((type, newProgress) => {
+  const updateProgress = useCallback((type, money, product) => {
     setProgress((prevProgress) => {
-      return [
-        ...prevProgress,
-        { type, money: newProgress, count: DECREASE_COUNT },
-      ];
+      return [...prevProgress, { type, money, count: DECREASE_COUNT, product }];
     });
   }, []);
 
