@@ -15,7 +15,10 @@ function Wallet() {
     const { putMoneyIntoVendingMachine } = useVendingMachineDispatchContext();
 
     const takeMoneyFromWallet = (moneyUnit) => {
-        putMoneyIntoVendingMachine(moneyUnit);
+        if (!moneyUnit.count) {
+            return;
+        }
+        putMoneyIntoVendingMachine(moneyUnit.unit);
     };
 
     return (
@@ -24,7 +27,7 @@ function Wallet() {
                 <WalletItemContainer key={moneyUnit.id}>
                     <MoneyUnit
                         disabled={!moneyUnit.count}
-                        onClick={() => takeMoneyFromWallet(moneyUnit.unit)}
+                        onClick={() => takeMoneyFromWallet(moneyUnit)}
                     >
                         {moneyUnit.unit}원
                     </MoneyUnit>

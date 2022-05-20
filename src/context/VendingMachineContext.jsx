@@ -35,6 +35,9 @@ function VendingMachineProvider({ children }) {
 
     const putMoneyIntoVendingMachine = (amountOfMoney) => {
         const moneyUnit = getMoneyUnitFromWallet(amountOfMoney);
+        if (!moneyUnit) {
+            return;
+        }
         moneyDispatcher({ type: ACTION_TYPE.PUT, money: moneyUnit });
         recordDispatcher({ type: ACTION_TYPE.PUT, money: moneyUnit });
     };
