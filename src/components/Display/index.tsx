@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 
 import Product from '@/components/Product';
-import { useLog } from '@/Context/VMContext/LogContext';
 import { useMachine } from '@/Context/VMContext/MachineContext';
 
 export interface Props {
@@ -9,8 +8,8 @@ export interface Props {
 }
 
 const Display = ({ className }: Props) => {
-  const { state: machineState, dispatch: machineDispatch } = useMachine();
-  const { dispatch: logDispatch } = useLog();
+  const { state: machineState } = useMachine();
+
   const isInProcess = useRef<boolean>(false);
 
   return (
@@ -22,8 +21,6 @@ const Display = ({ className }: Props) => {
           index={index}
           purchasable={machineState.totalInputAmount >= product.price}
           isInProcess={isInProcess}
-          machineDispatch={machineDispatch}
-          logDispatch={logDispatch}
         />
       ))}
     </div>

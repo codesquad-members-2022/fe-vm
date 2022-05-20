@@ -1,6 +1,6 @@
 import React, { memo, useRef, useEffect, useState } from 'react';
 
-import { LOG_ACTION, LogDispatch, useLog } from '@/Context/VMContext/LogContext';
+import { LOG_ACTION, useLog } from '@/Context/VMContext/LogContext';
 
 import * as S from './styles';
 
@@ -13,16 +13,15 @@ export interface LogProps {
 }
 
 export interface ContextMenuProps {
-  logDispatch: LogDispatch;
   top: number;
   left: number;
 }
 
 const ActionLogs = ({ className }: LogsProps) => {
-  const { state: logState, dispatch: logDispatch } = useLog();
+  const { state: logState } = useLog();
   const actionLogsRef = useRef<HTMLOListElement | null>(null);
   const contextMenuWrapperRef = useRef<HTMLDivElement | null>(null);
-  const [isContextMenuActive, setIsContextMenuActive] = useState(false);
+  const [isContextMenuActive, setIsContextMenuActive] = useState<boolean>(false);
   const [points, setPoints] = useState({ x: 0, y: 0 });
 
   const onContextMenu = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -50,12 +49,12 @@ const ActionLogs = ({ className }: LogsProps) => {
   }, [logState]);
 
   useEffect(() => {
-    const onClick = () => {
+    const onClickOutsideOfContextMenu = () => {
       setIsContextMenuActive(false);
     };
 
-    window.addEventListener('click', onClick);
-    return () => window.removeEventListener('click', onClick);
+    window.addEventListener('click', onClickOutsideOfContextMenu);
+    return () => window.removeEventListener('click', onClickOutsideOfContextMenu);
   }, []);
 
   return (
@@ -66,9 +65,7 @@ const ActionLogs = ({ className }: LogsProps) => {
         ))}
       </S.ActionLogsLayer>
       <S.ContextMenuWrapper ref={contextMenuWrapperRef}>
-        {isContextMenuActive && (
-          <ContextMenu logDispatch={logDispatch} top={points.y} left={points.x} />
-        )}
+        {isContextMenuActive && <ContextMenu top={points.y} left={points.x} />}
       </S.ContextMenuWrapper>
     </S.ActionLogsLayout>
   );
@@ -82,14 +79,16 @@ const ActionLog = memo(({ message }: LogProps) => {
   );
 });
 
-const ContextMenu = ({ logDispatch, top, left }: ContextMenuProps) => {
-  const onClick = () => {
+const ContextMenu = ({ top, left }: ContextMenuProps) => {
+  const { dispatch: logDispatch } = useLog();
+
+  const onClickClearLogButton = () => {
     logDispatch({ type: LOG_ACTION.CLEAR });
   };
 
   return (
     <S.ContextMenuLayer top={top} left={left}>
-      <S.ContextMenuItem onClick={onClick}>모든 로그 삭제</S.ContextMenuItem>
+      <S.ContextMenuItem onClick={onClickClearLogButton}>모든 로그 삭제</S.ContextMenuItem>
     </S.ContextMenuLayer>
   );
 };
