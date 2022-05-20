@@ -1,14 +1,13 @@
 import "./walletmachine.css";
 import { walletData } from "../../datas/WalletData";
-import WalletPrice from "./WalletPrice";
-import WalletAmount from "./WalletAmount";
+import WalletInfo from "./WalletInfo";
+
 const WalletMachine = () => {
   return (
     <div>
       {walletData.map((v) => (
-        <div className="walletmachine-wrapper">
-          <WalletPrice price={v.price} />
-          <WalletAmount amount={v.amount} />
+        <div key={v.id} className="walletmachine-wrapper">
+          <WalletInfo price={v.price} amount={v.amount} />
         </div>
       ))}
     </div>
