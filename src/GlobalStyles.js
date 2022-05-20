@@ -180,6 +180,9 @@ const GlobalStyles = createGlobalStyle`
     border: 0;
     outline: none;
     cursor: pointer;
+    &:disabled {
+      cursor: default;
+    }
   }
 
   i,
