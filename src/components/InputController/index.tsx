@@ -4,11 +4,12 @@ import { RETURN_MONEY_DELAY } from '@/constants/timer';
 import { LOG_ACTION, LogDispatch, useLog } from '@/Context/VMContext/LogContext';
 import { MACHINE_ACTION, useMachine } from '@/Context/VMContext/MachineContext';
 import {
+  ICalInputToCoins,
+  ICalReturnToCoins,
+  IWallet,
   useWallet,
   WALLET_ACTION,
   WalletDispatch,
-  ICalInputToCoins,
-  IWallet,
 } from '@/Context/VMContext/WalletContext';
 import { useTimer } from '@/hooks/useTimer';
 
@@ -19,11 +20,12 @@ export interface InputControllerProps {
 }
 
 export interface InputFormProps {
+  walletState: IWallet;
   walletDispatch: WalletDispatch;
   logDispatch: LogDispatch;
   calInputToCoins: ICalInputToCoins;
+  calReturnToCoins: ICalReturnToCoins;
   setIsSubmitted: Dispatch<SetStateAction<boolean>>;
-  wallet: IWallet;
 }
 
 // NOTE: Wallet -> 동전수, 총금액 업데이트
@@ -75,11 +77,12 @@ const InputController = ({ className }: InputControllerProps) => {
           </S.InputAmount>
         ) : (
           <InputForm
+            walletState={walletState}
             walletDispatch={walletDispatch}
             logDispatch={logDispatch}
             calInputToCoins={calInputToCoins}
+            calReturnToCoins={calReturnToCoins}
             setIsSubmitted={setIsSubmitted}
-            wallet={walletState}
           />
         )}
         <span>원</span>
@@ -90,14 +93,16 @@ const InputController = ({ className }: InputControllerProps) => {
 };
 
 const InputForm = ({
+  walletState,
   walletDispatch,
   logDispatch,
   calInputToCoins,
+  calReturnToCoins,
   setIsSubmitted,
-  wallet,
 }: InputFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { dispatch: machineDispatch } = useMachine();
+  const { state: machineState, dispatch: machineDispatch } = useMachine();
+  const [setTimer, clearTimer] = useTimer('returnMoney');
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -114,24 +119,25 @@ const InputForm = ({
     // NOTE: walletDispatch: coin개수 업데이트
     // NOTE: logDispatch: log 업데이트
 
-    const { realInputAmount, coinCountInfo } = calInputToCoins(wallet, inputValue);
+    const { realInputAmount, coinCountInfo } = calInputToCoins(walletState, inputValue);
 
     machineDispatch({ type: MACHINE_ACTION.INSERT_MONEY, payload: { amount: realInputAmount } });
     walletDispatch({ type: WALLET_ACTION.INSERT_COINS, payload: { coinCountInfo } });
     logDispatch({ type: LOG_ACTION.INSERT_MONEY, payload: { amount: realInputAmount } });
 
-    /*setTimer(() => {
+    // NOTE2: totalInputAmount + realInputAmount = returnAmount (반환금액)
+    // NOTE2: 5초뒤 반환(returnAmount), 로깅(returnAmount), 코인업데이트(returnAmount)
+    setTimer(() => {
       const returnAmount = machineState.totalInputAmount + realInputAmount;
       if (returnAmount === 0) {
         return;
       }
 
+      const coinCountInfo = calReturnToCoins(walletState, returnAmount);
       machineDispatch({ type: MACHINE_ACTION.RETURN_MONEY });
-      logDispatch({
-        type: LOG_ACTION.RETURN_MONEY,
-        payload: { amount: returnAmount },
-      });
-    }, RETURN_MONEY_DELAY);*/
+      walletDispatch({ type: WALLET_ACTION.RETURN_COINS, payload: { coinCountInfo } });
+      logDispatch({ type: LOG_ACTION.RETURN_MONEY, payload: { amount: returnAmount } });
+    }, RETURN_MONEY_DELAY);
   };
 
   useEffect(() => {
