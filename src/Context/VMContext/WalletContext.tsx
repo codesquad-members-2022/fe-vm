@@ -93,7 +93,7 @@ const walletReducer = (state: IWallet, action: WalletAction): IWallet => {
       return {
         ...state,
         coins,
-        balance: balance - returnAmount,
+        balance: balance + returnAmount,
       };
     }
 
@@ -225,6 +225,7 @@ export {
   WALLET_ACTION,
   WalletDispatch,
   ICalInputToCoins,
+  ICalReturnToCoins,
   IWallet,
   ICoin,
 };
