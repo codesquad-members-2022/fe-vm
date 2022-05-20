@@ -14,12 +14,14 @@ import { InputMoneyContext } from '../../../context/inputMoneyProvider';
 import { LogContext } from '../../../context/logProvider';
 import { ProgressContext } from '../../../context/progressProvider';
 import { PaybackTimerContext } from '../../../context/paybackTimerProvider';
+import { WalletContext } from '../../../context/walletProvider';
 
 export function UserWindow() {
   const { inputMoney, setInputMoney } = useContext(InputMoneyContext);
   const { setLogList } = useContext(LogContext);
   const { inProgress } = useContext(ProgressContext);
   const { paybackTimer, setPaybackTimer } = useContext(PaybackTimerContext);
+  const { walletInfo, decrementCoin } = useContext(WalletContext);
 
   useEffect(() => {
     if (inputMoney === 0) return;
@@ -31,11 +33,58 @@ export function UserWindow() {
     if (inProgress) return;
     if (e.key !== 'Enter') return;
     const inputValue = e.target.value.replace(',', '');
-    const currentInputMoney = Math.floor(Number(inputValue) / 100) * 100;
-    e.target.value = null;
-
-    printInputMoney(currentInputMoney);
+    const currentPossibleCoinObj = getPossibleCoin(Number(inputValue));
+    const currentInputMoney = getCurrentInputMoney(currentPossibleCoinObj);
+    takeMoneyOutOfWallet(currentPossibleCoinObj);
+    setInputMoney(inputMoney => inputMoney + currentInputMoney);
     logInputMoney(currentInputMoney);
+
+    e.target.value = null;
+  }
+
+  function getPossibleCoin(inputMoney) {
+    let changedMoney;
+    // 1의 자리 제거
+    changedMoney = Math.floor(inputMoney / 10) * 10;
+
+    const possibleCoinObj = {
+      10: 0,
+      100: 0,
+      500: 0,
+      1000: 0,
+      5000: 0,
+      10000: 0,
+    };
+
+    for (let i = walletInfo.length - 1; i >= 0; i--) {
+      let curCoin = walletInfo[i].coin;
+      if (curCoin > changedMoney) continue;
+      let requiredNumOfCurCoin = Math.floor(changedMoney / curCoin);
+      let possibleNumOfCurCoin =
+        requiredNumOfCurCoin > walletInfo[i].quantity ? walletInfo[i].quantity : requiredNumOfCurCoin;
+      possibleCoinObj[curCoin] = possibleNumOfCurCoin;
+      changedMoney -= curCoin * possibleNumOfCurCoin;
+    }
+
+    return possibleCoinObj;
+  }
+
+  function takeMoneyOutOfWallet(coinObj) {
+    for (let coin in coinObj) {
+      let requiredNum = coinObj[coin];
+      for (let i = 0; i < requiredNum; i++) {
+        decrementCoin(Number(coin));
+      }
+    }
+  }
+
+  function getCurrentInputMoney(coinObj) {
+    let currentInputMoney = 0;
+    for (let coin in coinObj) {
+      let requiredNum = coinObj[coin];
+      currentInputMoney += coin * requiredNum;
+    }
+    return currentInputMoney;
   }
 
   function handleInputChange(e) {
@@ -48,10 +97,6 @@ export function UserWindow() {
   function logInputMoney(currentInputMoney) {
     const log = `${getWonTemplate(currentInputMoney)} 투입됨.`;
     setLogList(logList => [...logList, log]);
-  }
-
-  function printInputMoney(currentInputMoney) {
-    setInputMoney(inputMoney => inputMoney + currentInputMoney);
   }
 
   function handleClickRepaymentBtn() {
