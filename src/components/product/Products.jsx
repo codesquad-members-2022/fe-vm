@@ -1,6 +1,9 @@
 import { ProductsContainer } from "./Products.style";
 import dataOfProducts from "../../data/products";
-import { useVendingMachineContext } from "../../context/VendingMachineContext";
+import {
+    useVendingMachineDispatchContext,
+    useVendingMachineStateContext,
+} from "../../context/VendingMachineContext";
 import {
     ProductContainer,
     ProductNameWrapper,
@@ -8,8 +11,8 @@ import {
 } from "./Products.style";
 
 function Products() {
-    const { money, selectProduct, returnMoneyFromVendingMachine } =
-        useVendingMachineContext();
+    const { money } = useVendingMachineStateContext();
+    const { selectProduct } = useVendingMachineDispatchContext();
 
     const isChoosable = (price) => {
         return money.vendingMachine.amount >= Number(price);
@@ -20,9 +23,7 @@ function Products() {
             return;
         }
 
-        selectProduct(product.name);
-        const changes = money.vendingMachine.amount - product.price;
-        returnMoneyFromVendingMachine(changes);
+        selectProduct(product);
     };
 
     return (

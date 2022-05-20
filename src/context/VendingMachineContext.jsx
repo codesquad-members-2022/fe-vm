@@ -3,8 +3,13 @@ import recordReducer from "./recordReducer";
 import { moneyReducer, initialStateOfMoney } from "./moneyReducer";
 import ACTION_TYPE from "./actionType";
 
-const VendingMachineContext = React.createContext();
-export const useVendingMachineContext = () => useContext(VendingMachineContext);
+const VendingMachineStateContext = React.createContext();
+const VendingMachineDispatchContext = React.createContext();
+
+export const useVendingMachineStateContext = () =>
+    useContext(VendingMachineStateContext);
+export const useVendingMachineDispatchContext = () =>
+    useContext(VendingMachineDispatchContext);
 
 function VendingMachineProvider({ children }) {
     const [money, moneyDispatcher] = useReducer(
@@ -39,22 +44,31 @@ function VendingMachineProvider({ children }) {
         recordDispatcher({ type: ACTION_TYPE.RETURN, money: amountOfMoney });
     };
 
-    const selectProduct = (productName) => {
-        recordDispatcher({ type: ACTION_TYPE.SELECT, product: productName });
+    const selectProduct = (product) => {
+        recordDispatcher({ type: ACTION_TYPE.SELECT, product: product.name });
+        const changes = money.vendingMachine.amount - product.price;
+        returnMoneyFromVendingMachine(changes);
     };
 
-    const vendingMachineProps = {
+    const vendingMachineStateProps = {
         money,
         record,
+    };
+
+    const vendingMachineDispatchProps = {
         putMoneyIntoVendingMachine,
         returnMoneyFromVendingMachine,
         selectProduct,
     };
 
     return (
-        <VendingMachineContext.Provider value={vendingMachineProps}>
-            {children}
-        </VendingMachineContext.Provider>
+        <VendingMachineStateContext.Provider value={vendingMachineStateProps}>
+            <VendingMachineDispatchContext.Provider
+                value={vendingMachineDispatchProps}
+            >
+                {children}
+            </VendingMachineDispatchContext.Provider>
+        </VendingMachineStateContext.Provider>
     );
 }
 

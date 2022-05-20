@@ -1,4 +1,7 @@
-import { useVendingMachineContext } from "../../context/VendingMachineContext";
+import {
+    useVendingMachineStateContext,
+    useVendingMachineDispatchContext,
+} from "../../context/VendingMachineContext";
 import {
     WalletContainer,
     WalletItemContainer,
@@ -8,7 +11,8 @@ import {
 } from "./Wallet.Style";
 
 function Wallet() {
-    const { money, putMoneyIntoVendingMachine } = useVendingMachineContext();
+    const { money } = useVendingMachineStateContext();
+    const { putMoneyIntoVendingMachine } = useVendingMachineDispatchContext();
 
     const takeMoneyFromWallet = (moneyUnit) => {
         putMoneyIntoVendingMachine(moneyUnit);

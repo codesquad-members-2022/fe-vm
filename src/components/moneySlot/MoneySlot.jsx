@@ -1,8 +1,8 @@
 import { SlotContainer, Slot } from "./MoneySlot.style";
-import { useVendingMachineContext } from "../../context/VendingMachineContext";
+import { useVendingMachineDispatchContext } from "../../context/VendingMachineContext";
 
 function MoneySlot() {
-    const { putMoneyIntoVendingMachine } = useVendingMachineContext();
+    const { putMoneyIntoVendingMachine } = useVendingMachineDispatchContext();
 
     const inputMoney = (event) => {
         if (event.key !== "Enter") {
