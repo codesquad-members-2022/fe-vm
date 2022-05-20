@@ -1,22 +1,6 @@
 import { product } from "data";
-import styled from "styled-components";
-import { VendProduct } from "./VendProduct";
-
-const StyledVendProductContainer = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-
-  li {
-    background-color: #f2f2f2;
-    border: 1px solid;
-    padding: 10px;
-
-    button {
-      border: 1px solid;
-      border-color: #2fc4b2;
-    }
-  }
-`;
+import { VendProduct } from "components";
+import { StyledVendProductContainer } from "./VendProduct.styled";
 
 function VendProductContainer() {
   return (

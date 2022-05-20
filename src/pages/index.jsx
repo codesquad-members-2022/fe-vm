@@ -1,4 +1,4 @@
 export * from "./Home";
-export * from "./VendingMachine";
-export * from "./Wallet";
+export * from "./VendingMachine/VendingMachine";
+export * from "./Wallet/Wallet";
 export * from "./NotFound";

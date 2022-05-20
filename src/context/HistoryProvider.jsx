@@ -1,41 +1,20 @@
-import { useCallback } from "react";
-
-const { createContext, useReducer } = require("react");
+import { useCallback, createContext, useReducer } from "react";
 
 function historyReducer(histories, { type, history }) {
-  const historyTemplate = {
-    id: histories.history.length + 1,
-    comment: "",
+  const comment = {
+    INSERT_COIN: `${history.coin}원이 투입되었습니다.`,
+    PURCHASE_PRODUCT: `${history.product}를(을) 구매합니다.`,
+    RETURN_COIN: `잔돈 ${history.change}를(을) 반환합니다.`,
   };
 
-  switch (type) {
-    case "INSERT_COIN":
-      return {
-        history: histories.history.concat({
-          ...historyTemplate,
-          comment: `${history.coin}원이 투입되었습니다.`,
-        }),
-      };
+  const historyTemplate = {
+    history: histories.history.concat({
+      id: histories.history.length + 1,
+      comment: comment[type],
+    }),
+  };
 
-    case "PURCHASE_PRODUCT":
-      return {
-        history: histories.history.concat({
-          ...historyTemplate,
-          comment: `${history.product}를(을) 구매했습니다.`,
-        }),
-      };
-
-    case "RETURN_COIN":
-      return {
-        history: histories.history.concat({
-          ...historyTemplate,
-          comment: `잔돈 ${history.change}원을 반환합니다.`,
-        }),
-      };
-
-    default:
-      return histories;
-  }
+  return historyTemplate;
 }
 
 const initialHistory = {

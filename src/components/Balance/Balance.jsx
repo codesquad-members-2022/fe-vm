@@ -1,17 +1,6 @@
 import { useContext } from "react";
-import styled from "styled-components";
 import { CoinContext } from "context";
-
-const StyledBalance = styled.div`
-  width: 100%;
-  background-color: #c0eda6;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70px;
-  border: none;
-  margin-top: 10px;
-`;
+import { StyledBalance } from "./Balance.styled";
 
 function Balance() {
   const coin = useContext(CoinContext);

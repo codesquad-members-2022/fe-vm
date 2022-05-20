@@ -1,11 +1,5 @@
-import styled from "styled-components";
-import { SelectButton } from "./SelectButton";
-
-const PriceLabel = styled.span`
-  display: grid;
-  place-items: center;
-  margin-top: 30px;
-`;
+import { SelectButton } from "components";
+import { PriceLabel } from "./VendProduct.styled";
 
 function VendProduct({ name, price, stocked }) {
   return (

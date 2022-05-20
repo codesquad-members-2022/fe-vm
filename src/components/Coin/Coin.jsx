@@ -10,7 +10,7 @@ function Coin({ unit, count }) {
   const handleCoinClick = () => {
     if (!count) return;
     selectCoin(unit);
-    setInsertCoin((prevCoin) => prevCoin + unit);
+    setInsertCoin((prevInsertCoin) => prevInsertCoin + unit);
     addHistory("INSERT_COIN", {
       coin: unit,
     });
@@ -26,10 +26,7 @@ function Coin({ unit, count }) {
   );
 }
 
-const areEqual = (prevProps, nextProps) => {
-  return prevProps.count === nextProps.count;
-};
-
+const areEqual = (prevProps, nextProps) => prevProps.count === nextProps.count;
 const MemoizedCoin = memo(Coin, areEqual);
 
 export { MemoizedCoin };

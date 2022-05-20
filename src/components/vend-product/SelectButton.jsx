@@ -15,10 +15,13 @@ function SelectButton({ name, price, stocked }) {
   const handleSelectButtonClick = () => {
     if (!insertCoin) return;
     const change = insertCoin - price;
-    setInsertCoin(change);
-    addHistory("PURCHASE_PRODUCT", { product: name });
-    //Todo: ChangeOutlet Component로 이동
-    addHistory("RETURN_COIN", { change });
+
+    const purchaseProduct = () => {
+      addHistory("PURCHASE_PRODUCT", { product: name });
+      setInsertCoin(change);
+    };
+
+    purchaseProduct();
   };
 
   return (
