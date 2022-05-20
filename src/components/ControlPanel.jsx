@@ -3,19 +3,20 @@ import styled from 'styled-components';
 import { MoneyContext } from 'components/App';
 import ModifiableInput from 'components/ModifiableInput';
 import EventLog from 'components/EventLog';
+import UnModifiableInput from 'components/UnModifiableInput';
 
 function ControlPanel() {
   const { curMoney, handleReturn } = useContext(MoneyContext);
   const [isInputMode, setInputMode] = useState(false);
-  const UnmodifiableInput = React.useCallback(
-    () => getUnmodifiableInput({ value: curMoney, handler: handleInputMode }),
-    [curMoney, handleInputMode],
-  );
 
   return (
     <Wrap>
       <Row>
-        {isInputMode ? <ModifiableInput setInputMode={setInputMode} /> : <UnmodifiableInput />}
+        {isInputMode ? (
+          <ModifiableInput setInputMode={setInputMode} />
+        ) : (
+          <UnModifiableInput value={curMoney} handler={handleInputMode} />
+        )}
       </Row>
       <button type="button" onClick={handleReturn}>
         반환하기
@@ -33,19 +34,6 @@ function ControlPanel() {
   }
 }
 
-function getUnmodifiableInput({ value, handler }) {
-  return (
-    <>
-      <Money onClick={handler}>{value}</Money>
-      <Unit value="원" />
-    </>
-  );
-}
-
-function Unit({ value }) {
-  return <span>{value}</span>;
-}
-
 export default ControlPanel;
 
 const Wrap = styled.div({
@@ -58,11 +46,4 @@ const Wrap = styled.div({
 
 const Row = styled.div({
   display: 'flex',
-});
-
-const Money = styled.div({
-  width: '100%',
-  textAlign: 'right',
-  border: '1px solid black',
-  paddingRight: '5px',
 });
