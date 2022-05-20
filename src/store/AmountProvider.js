@@ -17,7 +17,7 @@ const AmountProvider = (props) => {
     return () => {
       clearTimeout(dispatchTimer);
     };
-  }, [money]);
+  }, [money, log]);
 
   const amountContext = {
     money,
