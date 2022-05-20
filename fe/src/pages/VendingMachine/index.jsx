@@ -1,12 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Products from 'components/Products';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useProductContext } from 'context/Product';
 import { useUserContext } from 'context/User';
+import { useNotification } from 'context/Notification';
 import { insertChanges, orderProduct, returnChanges } from 'context/User/action';
+import { notifyNewMessage } from 'context/Notification/action';
 import { getProducts } from 'context/Product/action';
-import { isLogin } from 'utils/cookie';
 import useSetTimeout from 'hooks/useSetTimeout';
 import productApi from 'api/product';
+import ProductFallback from 'components/Products/ProductFallback';
+import Products from 'components/Products';
+import NOTIFY_TYPE from 'constant/notification';
+import { isLogin } from 'utils/cookie';
 import InputMoneyForm from './InputMoneyForm';
 import InsertChangesForm from './InsertChangesForm';
 import ActionLogs from './ActionLogs';
@@ -16,27 +21,21 @@ function VendingMachine() {
   const { productDispatch } = useProductContext();
   const { nickname, totalBalance, changesUnits, prevInputChanges, userDispatch, actionLogs } =
     useUserContext();
+  const { notifyDispatch } = useNotification();
   const [inputMoney, setInputMoney] = useState(0);
+  const [targetProduct, setTargetProduct] = useState(null);
+  const [canOrderTigger, setCanOrderTigger] = useState(false);
+
+  const handleSelectProduct = useCallback(target => {
+    setTargetProduct(target);
+  }, []);
 
   const resetInputMoneny = () => setInputMoney(0);
 
   const getSumInsertMoney = units => units.reduce((acc, cur) => acc + cur, 0);
 
-  const handleOrderProduct = async productInfo => {
-    const { id, price, ea } = productInfo;
-    const newInputSum = getSumInsertMoney(prevInputChanges);
-    if (newInputSum <= 0) {
-      alert('금액을 투입해주세요.');
-      return;
-    }
-    if (ea <= 0) {
-      alert('주문할 수 있는 상품 수량이 없어요.');
-      return;
-    }
-    if (newInputSum < price) {
-      alert('투입 금액이 상품 가격보다 작아요');
-      return;
-    }
+  const requestOrderProduct = async () => {
+    const { id } = targetProduct;
     try {
       const {
         data: { newProducts, ...userInfo },
@@ -44,18 +43,40 @@ function VendingMachine() {
       orderProduct(userDispatch, userInfo);
       getProducts(productDispatch, { products: newProducts });
       resetInputMoneny();
+      setCanOrderTigger(false);
     } catch (error) {
-      console.error(error);
+      notifyNewMessage(notifyDispatch, error.errorMessage, NOTIFY_TYPE.Error);
     }
   };
 
+  const handleClickTriggerOrder = useCallback(
+    productInfo => {
+      const { price, ea } = productInfo;
+      const newInputSum = getSumInsertMoney(prevInputChanges);
+      if (newInputSum <= 0) {
+        notifyNewMessage(notifyDispatch, '금액을 투입해주세요.', NOTIFY_TYPE.Warning);
+        return;
+      }
+      if (ea <= 0) {
+        notifyNewMessage(notifyDispatch, '주문할 수 있는 상품 수량이 없어요.', NOTIFY_TYPE.Warning);
+        return;
+      }
+      if (newInputSum < price) {
+        notifyNewMessage(notifyDispatch, '투입 금액이 상품 가격보다 작아요', NOTIFY_TYPE.Warning);
+        return;
+      }
+      setCanOrderTigger(true);
+    },
+    [notifyDispatch, prevInputChanges],
+  );
+
   const preventNonLoginUser = useCallback(() => {
     if (!isLogin() || !nickname) {
-      alert('로그인 이후 이용해주세요.');
+      notifyNewMessage(notifyDispatch, '로그인 이후에 이용해주세요', NOTIFY_TYPE.Warning);
       return true;
     }
     return false;
-  }, [nickname]);
+  }, [nickname, notifyDispatch]);
 
   const handleSubmitInputMoney = useCallback(
     event => {
@@ -65,7 +86,7 @@ function VendingMachine() {
         return;
       }
       if (totalBalance <= 0) {
-        alert('잔고가 없어요');
+        notifyNewMessage(notifyDispatch, '잔고가 없어요.', NOTIFY_TYPE.Warning);
         return;
       }
       const submitInputMoney = event.target.inputMoney.value;
@@ -74,14 +95,14 @@ function VendingMachine() {
         submitInputMoney,
       );
       if (error.isError) {
-        alert(error.msg);
+        notifyNewMessage(notifyDispatch, error.msg, NOTIFY_TYPE.Error);
         return;
       }
       const { id } = closestUnit;
       resetInputMoneny();
       insertChanges(userDispatch, id, submitOnlyNumber);
     },
-    [changesUnits, preventNonLoginUser, totalBalance, userDispatch],
+    [changesUnits, notifyDispatch, preventNonLoginUser, totalBalance, userDispatch],
   );
 
   const onChangeInputMoney = useCallback(
@@ -106,10 +127,15 @@ function VendingMachine() {
       if (preventNonLoginUser()) {
         return;
       }
+      const targetUnit = changesUnits.find(unit => unit.id === unitId);
+      if (targetUnit.count <= 0) {
+        notifyNewMessage(notifyDispatch, '투입할 잔돈이 없어요.', NOTIFY_TYPE.Warning);
+        return;
+      }
       resetInputMoneny();
       insertChanges(userDispatch, unitId);
     },
-    [preventNonLoginUser, userDispatch],
+    [changesUnits, notifyDispatch, preventNonLoginUser, userDispatch],
   );
 
   const handleClickReturnChanges = useCallback(() => {
@@ -127,18 +153,29 @@ function VendingMachine() {
 
   useSetTimeout({
     delay: RESET_TIME,
-    tigger: prevInputChanges,
-    triggerCondition: getSumInsertMoney(prevInputChanges) > 0,
+    tigger: [prevInputChanges, targetProduct?.id],
+    triggerCondition: getSumInsertMoney(prevInputChanges) > 0 && !canOrderTigger,
     callback: handleClickReturnChanges,
+  });
+
+  useSetTimeout({
+    delay: DELAY_ORDER,
+    tigger: [canOrderTigger],
+    triggerCondition: canOrderTigger,
+    callback: requestOrderProduct,
   });
 
   return (
     <S.Container>
-      <Products
-        isManger={false}
-        isPriceUnderInputMoney={isPriceUnderInputMoney}
-        handleOrderProduct={handleOrderProduct}
-      />
+      <ErrorBoundary FallbackComponent={ProductFallback}>
+        <Products
+          isManger={false}
+          isPriceUnderInputMoney={isPriceUnderInputMoney}
+          handleClickTriggerOrder={handleClickTriggerOrder}
+          targetProduct={targetProduct}
+          handleSelectProduct={handleSelectProduct}
+        />
+      </ErrorBoundary>
       <S.InputContanier>
         <InputMoneyForm
           inputMoney={inputMoney}
@@ -160,6 +197,7 @@ function VendingMachine() {
 export default VendingMachine;
 
 const RESET_TIME = 5000;
+const DELAY_ORDER = 2000;
 
 // 사용자 소지하고 있는 잔고에 가장 가까운 단위로 변환
 const adjustingWithExistUnit = (existsUnits, submitNumber) => {

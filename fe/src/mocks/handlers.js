@@ -19,6 +19,9 @@ const Users = [
   rest.get(API_ROOT_URL + API.LOGIN, (req, res, ctx) => {
     const { changesUnits, totalBalance } = userBalanceObj;
     const userInfo = { ...userDefaultInfo, changesUnits, totalBalance };
+    if (tiggerErrorRandomlyInDevMode(0.5)) {
+      return res(ctx.delay(1000), ctx.status(406), ctx.json({ errorMessage: '로그인 실패!' }));
+    }
     if (userInfo.isManager) {
       const { changesUnits: mangerUnits, totalBalance: managerTotalBalance } = mangerBalanceObj;
       const mangerInfo = {
@@ -26,16 +29,33 @@ const Users = [
         changesUnits: mangerUnits,
         totalBalance: managerTotalBalance,
       };
-      return res(ctx.status(200), ctx.cookie('auth-token', 'temp jwt'), ctx.json(mangerInfo));
+      return res(
+        ctx.delay(1000),
+        ctx.status(200),
+        ctx.cookie('auth-token', 'temp jwt'),
+        ctx.json(mangerInfo),
+      );
     }
-    return res(ctx.status(200), ctx.cookie('auth-token', 'temp jwt'), ctx.json(userInfo));
+    return res(
+      ctx.delay(1000),
+      ctx.status(200),
+      ctx.cookie('auth-token', 'temp jwt'),
+      ctx.json(userInfo),
+    );
   }),
   rest.patch(API_ROOT_URL + API.PATCH_ADD_BALANCE, (req, res, ctx) => {
     const unitId = Number(req.url.searchParams.get('id'));
     const { changesUnits, totalBalance } = mangerBalanceObj;
     const [newChangesUnits, newTotalBalance] = addTargetUnit(changesUnits, totalBalance, unitId);
     setManagerBalanceObj(newChangesUnits, newTotalBalance);
-    return res(ctx.status(200), ctx.json({ newChangesUnits, newTotalBalance }));
+    if (tiggerErrorRandomlyInDevMode(0.5)) {
+      return res(
+        ctx.delay(1000),
+        ctx.status(406),
+        ctx.json({ errorMessage: '거스름돈을 최신화하는 과정에서 에러가 발생했습니다.' }),
+      );
+    }
+    return res(ctx.delay(1000), ctx.status(200), ctx.json({ newChangesUnits, newTotalBalance }));
   }),
   rest.patch(API_ROOT_URL + API.PATCH_SUBSTRACT_BALANCE, (req, res, ctx) => {
     const unitId = Number(req.url.searchParams.get('id'));
@@ -46,10 +66,63 @@ const Users = [
       unitId,
     );
     if (error.isError) {
-      return res(ctx.status(406), ctx.json({ errorMessage: error.msg }));
+      return res(ctx.delay(1000), ctx.status(406), ctx.json({ errorMessage: error.msg }));
     }
     setManagerBalanceObj(newChangesUnits, newTotalBalance);
-    return res(ctx.status(200), ctx.json({ newChangesUnits, newTotalBalance }));
+    if (tiggerErrorRandomlyInDevMode(0.5)) {
+      return res(
+        ctx.delay(1000),
+        ctx.status(406),
+        ctx.json({ errorMessage: '거스름돈을 최신화하는 과정에서 에러가 발생했습니다.' }),
+      );
+    }
+    return res(ctx.delay(1000), ctx.status(200), ctx.json({ newChangesUnits, newTotalBalance }));
+  }),
+];
+
+const Products = [
+  rest.get(API_ROOT_URL + API.GET_PRODUCTS, (req, res, ctx) => {
+    const { products } = globalProductsObj;
+    if (tiggerErrorRandomlyInDevMode(0.5)) {
+      return res(
+        ctx.delay(1000),
+        ctx.status(406),
+        ctx.json({ errorMessage: '상품 데이터를 가져올 수 없어요.' }),
+      );
+    }
+    return res(ctx.delay(1000), ctx.status(200), ctx.json({ products }));
+  }),
+  rest.patch(API_ROOT_URL + API.PATCH_ADD_PRODUCT, (req, res, ctx) => {
+    const { products } = globalProductsObj;
+    const productId = req.url.searchParams.get('id');
+    const [error, targetProduct] = updateProduct(products, productId, addTargetProduct);
+    if (error.isError) {
+      return res(ctx.delay(1000), ctx.status(406), ctx.json({ errorMessage: error.msg }));
+    }
+    if (tiggerErrorRandomlyInDevMode(0.5)) {
+      return res(
+        ctx.delay(1000),
+        ctx.status(406),
+        ctx.json({ errorMessage: '상품 수량을 최신화하는 과정에서 에러가 발생했습니다.' }),
+      );
+    }
+    return res(ctx.delay(1000), ctx.status(200), ctx.json({ targetProduct }));
+  }),
+  rest.patch(API_ROOT_URL + API.PATCH_SUBSTRACT_PRODUCT, (req, res, ctx) => {
+    const { products } = globalProductsObj;
+    const productId = req.url.searchParams.get('id');
+    const [error, targetProduct] = updateProduct(products, productId, substractTargetProduct);
+    if (error.isError) {
+      return res(ctx.delay(1000), ctx.status(406), ctx.json({ errorMessage: error.msg }));
+    }
+    if (tiggerErrorRandomlyInDevMode(0.5)) {
+      return res(
+        ctx.delay(1000),
+        ctx.status(406),
+        ctx.json({ errorMessage: '상품 수량을 최신화하는 과정에서 에러가 발생했습니다.' }),
+      );
+    }
+    return res(ctx.delay(1000), ctx.status(200), ctx.json({ targetProduct }));
   }),
   rest.patch(API_ROOT_URL + API.PATCH_ORDER_PRODUCT, (req, res, ctx) => {
     const { inputChanges } = req.body;
@@ -69,9 +142,21 @@ const Users = [
       substractTargetProduct,
     );
     if (updateProductError.isError) {
-      return res(ctx.status(406), ctx.json({ errorMessage: updateProductError.msg }));
+      return res(
+        ctx.delay(1000),
+        ctx.status(406),
+        ctx.json({ errorMessage: updateProductError.msg }),
+      );
+    }
+    if (tiggerErrorRandomlyInDevMode(0.5)) {
+      return res(
+        ctx.delay(1000),
+        ctx.status(406),
+        ctx.json({ errorMessage: '상품 데이터를 가져올 수 없어요.' }),
+      );
     }
     return res(
+      ctx.delay(1000),
       ctx.status(200),
       ctx.json({
         newChangesUnits: newUserUnits,
@@ -83,34 +168,13 @@ const Users = [
   }),
 ];
 
-const Products = [
-  rest.get(API_ROOT_URL + API.GET_PRODUCTS, (req, res, ctx) => {
-    const { products } = globalProductsObj;
-    return res(ctx.status(200), ctx.json({ products }));
-  }),
-  rest.patch(API_ROOT_URL + API.PATCH_ADD_PRODUCT, (req, res, ctx) => {
-    const { products } = globalProductsObj;
-    const productId = req.url.searchParams.get('id');
-    const [error, targetProduct] = updateProduct(products, productId, addTargetProduct);
-    if (error.isError) {
-      return res(ctx.status(406), ctx.json({ errorMessage: error.msg }));
-    }
-    return res(ctx.status(200), ctx.json({ targetProduct }));
-  }),
-  rest.patch(API_ROOT_URL + API.PATCH_SUBSTRACT_PRODUCT, (req, res, ctx) => {
-    const { products } = globalProductsObj;
-    const productId = req.url.searchParams.get('id');
-    const [error, targetProduct] = updateProduct(products, productId, substractTargetProduct);
-    if (error.isError) {
-      return res(ctx.status(406), ctx.json({ errorMessage: error.msg }));
-    }
-    return res(ctx.status(200), ctx.json({ targetProduct }));
-  }),
-];
-
 const handlers = [...Products, ...Users];
 
 export default handlers;
+
+function tiggerErrorRandomlyInDevMode(percentage) {
+  return Math.random() <= percentage;
+}
 
 function setGlobalProducts(products) {
   globalProductsObj.products = products;

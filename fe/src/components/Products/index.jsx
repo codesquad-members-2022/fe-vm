@@ -1,4 +1,5 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
+import { useErrorHandler } from 'react-error-boundary';
 import PropTypes from 'prop-types';
 import { useProductContext } from 'context/Product';
 import { addTargetProduct, getProducts, substractTargetProduct } from 'context/Product/action';
@@ -7,36 +8,32 @@ import MangementForm from './MangementForm';
 import Product from './Product';
 import * as S from './style';
 
-function Products({ isManger, isPriceUnderInputMoney, handleOrderProduct }) {
+function Products({
+  isManger,
+  isPriceUnderInputMoney,
+  handleClickTriggerOrder,
+  targetProduct,
+  handleSelectProduct,
+}) {
   const { products, productDispatch } = useProductContext();
-  const [targetProduct, setTargetProduct] = useState(null);
-
-  const handleSelectProduct = useCallback(target => {
-    setTargetProduct(target);
-  }, []);
+  const handleError = useErrorHandler();
 
   const fetchAddTargetProduct = useCallback(
-    async id => {
-      try {
-        const { data } = await productApi.addTargetProduct(id);
-        addTargetProduct(productDispatch, data);
-      } catch (error) {
-        console.log(error);
-      }
+    id => {
+      productApi
+        .addTargetProduct(id)
+        .then(response => addTargetProduct(productDispatch, response.data), handleError);
     },
-    [productDispatch],
+    [handleError, productDispatch],
   );
 
   const fetchSubstractTargetProduct = useCallback(
-    async id => {
-      try {
-        const { data } = await productApi.substractTargetProduct(id);
-        substractTargetProduct(productDispatch, data);
-      } catch (error) {
-        console.error(error);
-      }
+    id => {
+      productApi
+        .substractTargetProduct(id)
+        .then(response => substractTargetProduct(productDispatch, response.data), handleError);
     },
-    [productDispatch],
+    [handleError, productDispatch],
   );
 
   const updateTargetProduct = () => {
@@ -44,16 +41,13 @@ function Products({ isManger, isPriceUnderInputMoney, handleOrderProduct }) {
       return;
     }
     const newTargetProduct = products.find(product => product.id === targetProduct.id);
-    setTargetProduct(newTargetProduct);
+    handleSelectProduct(newTargetProduct);
   };
 
-  const fetchProducts = async () => {
-    try {
-      const { data } = await productApi.getProducts();
-      getProducts(productDispatch, data);
-    } catch (error) {
-      console.error(error);
-    }
+  const fetchProducts = () => {
+    productApi
+      .getProducts()
+      .then(response => getProducts(productDispatch, response.data), handleError);
   };
 
   useEffect(() => {
@@ -82,7 +76,7 @@ function Products({ isManger, isPriceUnderInputMoney, handleOrderProduct }) {
             isSelect={targetProduct?.id === product.id} // TODO: 변수로 빼기
             isPriceUnderInputMoney={isPriceUnderInputMoney}
             handleSelectProduct={handleSelectProduct}
-            handleOrderProduct={handleOrderProduct}
+            handleClickTriggerOrder={handleClickTriggerOrder}
           />
         ))}
       </S.ProductsGrid>
@@ -93,7 +87,16 @@ function Products({ isManger, isPriceUnderInputMoney, handleOrderProduct }) {
 Products.propTypes = {
   isManger: PropTypes.bool.isRequired,
   isPriceUnderInputMoney: PropTypes.func.isRequired,
-  handleOrderProduct: PropTypes.func.isRequired,
+  handleClickTriggerOrder: PropTypes.func.isRequired,
+  handleSelectProduct: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  targetProduct: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    product_name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    ea: PropTypes.number.isRequired,
+  }),
 };
 
 export default memo(Products);

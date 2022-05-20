@@ -24,7 +24,7 @@ const useSetTimeout = ({ delay, tigger, triggerCondition, callback }) => {
     }
     startTimeTriggerEvent();
     return () => clearTimeTiggerEvent();
-  }, [tigger]);
+  }, [tigger.join('')]);
 };
 
 export default useSetTimeout;
