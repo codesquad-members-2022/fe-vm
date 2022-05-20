@@ -1,7 +1,8 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 
+import { RETURN_MONEY_DELAY } from '@/constants/timer';
 import { LOG_ACTION, LogDispatch, useLog } from '@/Context/VMContext/LogContext';
-import { MACHINE_ACTION, MachineDispatch, useMachine } from '@/Context/VMContext/MachineContext';
+import { MACHINE_ACTION, useMachine } from '@/Context/VMContext/MachineContext';
 import {
   useWallet,
   WALLET_ACTION,
@@ -9,6 +10,7 @@ import {
   ICalInputToCoins,
   IWallet,
 } from '@/Context/VMContext/WalletContext';
+import { useTimer } from '@/hooks/useTimer';
 
 import * as S from './styles';
 
@@ -18,7 +20,6 @@ export interface InputControllerProps {
 
 export interface InputFormProps {
   walletDispatch: WalletDispatch;
-  machineDispatch: MachineDispatch;
   logDispatch: LogDispatch;
   calInputToCoins: ICalInputToCoins;
   setIsSubmitted: Dispatch<SetStateAction<boolean>>;
@@ -37,6 +38,7 @@ const InputController = ({ className }: InputControllerProps) => {
   } = useWallet();
   const { state: machineState, dispatch: machineDispatch } = useMachine();
   const { dispatch: logDispatch } = useLog();
+  const [, clearTimer] = useTimer('insertMoney');
 
   const onClickInputAmount = () => {
     setIsSubmitted(false);
@@ -55,7 +57,7 @@ const InputController = ({ className }: InputControllerProps) => {
     machineDispatch({ type: MACHINE_ACTION.RETURN_MONEY });
     walletDispatch({ type: WALLET_ACTION.RETURN_COINS, payload: { coinCountInfo } });
     logDispatch({ type: LOG_ACTION.RETURN_MONEY, payload: { amount: totalInputAmount } });
-
+    clearTimer();
     // dispatch({
     //   type: ACTION.CLEAR_TIMER,
     //   payload: {
@@ -74,7 +76,6 @@ const InputController = ({ className }: InputControllerProps) => {
         ) : (
           <InputForm
             walletDispatch={walletDispatch}
-            machineDispatch={machineDispatch}
             logDispatch={logDispatch}
             calInputToCoins={calInputToCoins}
             setIsSubmitted={setIsSubmitted}
@@ -90,13 +91,13 @@ const InputController = ({ className }: InputControllerProps) => {
 
 const InputForm = ({
   walletDispatch,
-  machineDispatch,
   logDispatch,
   calInputToCoins,
   setIsSubmitted,
   wallet,
 }: InputFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const { dispatch: machineDispatch } = useMachine();
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -119,16 +120,18 @@ const InputForm = ({
     walletDispatch({ type: WALLET_ACTION.INSERT_COINS, payload: { coinCountInfo } });
     logDispatch({ type: LOG_ACTION.INSERT_MONEY, payload: { amount: realInputAmount } });
 
-    // dispatch({
-    //   type: ACTION.SET_TIMER,
-    //   payload: {
-    //     key: 'returnChange',
-    //     delay: RETURN_CHANGE_DELAY,
-    //     callback: () => {
-    //       dispatch({ type: ACTION.RETURN_CHANGE });
-    //     },
-    //   },
-    // });
+    /*setTimer(() => {
+      const returnAmount = machineState.totalInputAmount + realInputAmount;
+      if (returnAmount === 0) {
+        return;
+      }
+
+      machineDispatch({ type: MACHINE_ACTION.RETURN_MONEY });
+      logDispatch({
+        type: LOG_ACTION.RETURN_MONEY,
+        payload: { amount: returnAmount },
+      });
+    }, RETURN_MONEY_DELAY);*/
   };
 
   useEffect(() => {
