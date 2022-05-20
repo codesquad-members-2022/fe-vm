@@ -1,34 +1,12 @@
-import { useState, useEffect, useContext } from 'react';
-import { LogContext } from 'context/LogContext';
-import { MoneyContext } from 'context/MoneyContext';
-import { ProductsContext } from 'context/ProductContext';
+import { useState, useEffect, memo } from 'react';
 
 import styled, { css } from 'styled-components';
 import setLocalString from 'utils/setLocalString';
 
-export default function Product({ info, totalMoney }) {
-  const { buyProduct } = useContext(MoneyContext);
-  const { buyProductLog, dropProductLog } = useContext(LogContext);
-  const { stockConsume } = useContext(ProductsContext);
-  const [isAvailable, setIsAvailable] = useState(false);
-
-  useEffect(() => {
-    if (totalMoney >= info.price) {
-      setIsAvailable(true);
-    }
-
-    if (totalMoney === 0 || totalMoney < info.price) {
-      setIsAvailable(false);
-    }
-  }, [totalMoney, info.price]);
-
+const ProductContainer = memo(({ info, isAvailable, stockConsume, buyProduct }) => {
   const handleClick = () => {
-    buyProduct(info.price);
-    buyProductLog(info.name);
+    buyProduct(info);
     stockConsume(info.name);
-    setTimeout(() => {
-      dropProductLog(info.name);
-    }, 2000);
   };
 
   return (
@@ -44,9 +22,35 @@ export default function Product({ info, totalMoney }) {
       </PriceWrapper>
     </ProductWrapper>
   );
-}
+});
+
+const Product = ({ info, totalMoney, stockConsume, buyProduct }) => {
+  const [isAvailable, setIsAvailable] = useState(false);
+
+  useEffect(() => {
+    if (totalMoney >= info.price) {
+      setIsAvailable(true);
+    }
+
+    if (totalMoney === 0 || totalMoney < info.price) {
+      setIsAvailable(false);
+    }
+  }, [totalMoney, info.price]);
+
+  return (
+    <ProductContainer
+      info={info}
+      isAvailable={isAvailable}
+      stockConsume={stockConsume}
+      buyProduct={buyProduct}
+    />
+  );
+};
+
+export default memo(Product);
 
 const ProductWrapper = styled.div`
+  width: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,7 +74,7 @@ const ProductName = styled.div`
 `;
 
 const PriceWrapper = styled.div`
-  width: 70%;
+  width: 84px;
   padding: 4px 8px;
   border-radius: 999px;
   background: ${({ theme }) => theme.colors.gray3};

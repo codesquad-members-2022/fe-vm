@@ -1,49 +1,15 @@
-import { useEffect, useContext, useState } from 'react';
-import { LogContext } from 'context/LogContext';
-import { MoneyContext } from 'context/MoneyContext';
+import { useEffect, useState } from 'react';
+import { useMoneyState } from 'context/MoneyContext';
+
 import styled from 'styled-components';
 import setLocalString from 'utils/setLocalString';
 import calculateTotalMoney from 'utils/calculateTotalMoney';
+import insertWalletMoney from 'utils/insertMoney';
 
 export default function UserInput() {
-  const { insertMoneyLog } = useContext(LogContext);
-  const { walletMoneyData, inputInsertMoney } = useContext(MoneyContext);
+  const { walletMoneyData, inputInsertMoney } = useMoneyState();
   const [inputValue, setInputValue] = useState('');
   const totalMoney = calculateTotalMoney(walletMoneyData);
-
-  const insertWalletMoney = num => {
-    const insertLog = [];
-
-    // 자동보정
-    let money = Math.floor(num / 10) * 10;
-    if (totalMoney < money) {
-      insertMoneyLog(walletMoneyData);
-      return walletMoneyData;
-    }
-
-    walletMoneyData.forEach(item => {
-      // 천원 투입시 만원이 사용되지않도록, 해당하는 금액의 수량이 없으면 리턴
-      if (!Math.floor(money / item.unit) || !item.amount) return;
-
-      // 15000원을 투입했는데 5000원권이 2개밖에 없다면?
-      if (item.unit * item.amount < money) {
-        const 투입가능금액 = item.unit * item.amount;
-        const 투입가능횟수 = Math.floor(투입가능금액 / item.unit);
-        insertLog.push({ ...item, amount: 투입가능횟수 });
-        money -= 투입가능금액;
-        return;
-      }
-
-      const 투입가능횟수 = Math.floor(money / item.unit);
-      insertLog.push({ ...item, amount: 투입가능횟수 });
-      money - item.unit < item.unit && money <= 0
-        ? (money -= item.unit)
-        : (money -= item.unit * 투입가능횟수);
-    });
-
-    insertMoneyLog(insertLog);
-    return insertLog;
-  };
 
   const handleChange = e => {
     if (e.target.value.length > 6) return;
@@ -65,7 +31,8 @@ export default function UserInput() {
     }
 
     const removeLocalString = Number(inputValue.replace(',', ''));
-    inputInsertMoney(insertWalletMoney(removeLocalString));
+    const insertLog = insertWalletMoney(walletMoneyData, removeLocalString, totalMoney);
+    inputInsertMoney(insertLog);
     setInputValue('');
   };
 
