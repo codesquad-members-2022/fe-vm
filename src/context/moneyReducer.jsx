@@ -30,25 +30,25 @@ const moneyReducer = (state, action) => {
         case ACTION_TYPE.PUT: {
             return {
                 wallet: {
-                    amount: state.wallet.amount - action.money,
+                    amount: state.wallet.amount - action.payload.money,
                     moneyArray: state.wallet.moneyArray.map((m) => {
-                        if (m.unit === action.money) {
+                        if (m.unit === action.payload.money) {
                             m.count -= 1;
                         }
                         return m;
                     }),
                 },
                 vendingMachine: {
-                    amount: state.vendingMachine.amount + action.money,
+                    amount: state.vendingMachine.amount + action.payload.money,
                 },
             };
         }
         case ACTION_TYPE.RETURN: {
-            const changes = getChanges(action.money);
+            const changes = getChanges(action.payload.money);
 
             return {
                 wallet: {
-                    amount: state.wallet.amount + action.money,
+                    amount: state.wallet.amount + action.payload.money,
                     moneyArray: state.wallet.moneyArray.map((m) => {
                         m.count += changes[m.unit];
                         return m;

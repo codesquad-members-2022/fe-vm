@@ -6,6 +6,16 @@ import { ACTION_TYPE, PAGE } from "../constants";
 const VendingMachineStateContext = React.createContext();
 const VendingMachineDispatchContext = React.createContext();
 
+const putActionCreator = (money) => {
+    return { type: ACTION_TYPE.PUT, payload: { money } };
+};
+const returnActionCreator = (changes) => {
+    return { type: ACTION_TYPE.RETURN, payload: { money: changes } };
+};
+const selectActionCreator = (product) => {
+    return { type: ACTION_TYPE.SELECT, payload: { product } };
+};
+
 export const useVendingMachineStateContext = () =>
     useContext(VendingMachineStateContext);
 export const useVendingMachineDispatchContext = () =>
@@ -41,17 +51,17 @@ function VendingMachineProvider({ children }) {
         if (!moneyUnit) {
             return;
         }
-        moneyDispatcher({ type: ACTION_TYPE.PUT, money: moneyUnit });
-        recordDispatcher({ type: ACTION_TYPE.PUT, money: moneyUnit });
+        moneyDispatcher(putActionCreator(moneyUnit));
+        recordDispatcher(putActionCreator(moneyUnit));
     };
 
     const returnMoneyFromVendingMachine = (amountOfMoney) => {
-        moneyDispatcher({ type: ACTION_TYPE.RETURN, money: amountOfMoney });
-        recordDispatcher({ type: ACTION_TYPE.RETURN, money: amountOfMoney });
+        moneyDispatcher(returnActionCreator(amountOfMoney));
+        recordDispatcher(returnActionCreator(amountOfMoney));
     };
 
     const selectProduct = (product) => {
-        recordDispatcher({ type: ACTION_TYPE.SELECT, product: product.name });
+        recordDispatcher(selectActionCreator(product.name));
         const changes = money.vendingMachine.amount - product.price;
         returnMoneyFromVendingMachine(changes);
     };
