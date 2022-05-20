@@ -83,7 +83,7 @@ const Users = [
 const Products = [
   rest.get(API_ROOT_URL + API.GET_PRODUCTS, (req, res, ctx) => {
     const { products } = globalProductsObj;
-    if (tiggerErrorRandomlyInDevMode(0)) {
+    if (tiggerErrorRandomlyInDevMode(0.5)) {
       return res(
         ctx.delay(1000),
         ctx.status(406),
