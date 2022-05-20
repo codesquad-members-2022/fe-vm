@@ -1,3 +1,5 @@
+import { useCallback, useEffect } from "react";
+
 export const calculateTotal = (keysArr, json) => {
   const total = keysArr.reduce((acc, key) => acc + Number(key) * json[key], 0);
 
@@ -18,4 +20,17 @@ export function getNeededMoney(inputMoney, unitArr) {
   });
 
   return addedMoney;
+}
+
+export function debounce(fn, interval) {
+  let lastDebounceSymbol;
+
+  return (...args) => {
+    const symbol = Symbol();
+    lastDebounceSymbol = symbol;
+    setTimeout(() => {
+      if (lastDebounceSymbol !== symbol) return;
+      fn(...args);
+    }, interval);
+  };
 }
