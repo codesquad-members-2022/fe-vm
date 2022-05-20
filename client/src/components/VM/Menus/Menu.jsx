@@ -5,6 +5,7 @@ import MenuPrice from "./Menu/MenuPrice";
 import { InputContext } from "store/InputStore";
 import { MessageContext } from "store/MessageStore";
 import { MenuContext } from "store/MenuStore";
+import { SELECT_COUNT } from "constants/constants";
 
 export default function Menu({ name, price, imageURL, stock }) {
   const context = useContext(InputContext);
@@ -21,7 +22,7 @@ export default function Menu({ name, price, imageURL, stock }) {
     const timerId = setTimeout(() => {
       setMessage((prev) => [...prev, `${name}가 선택되었습니다 \n`]);
       setMenu(getNewMenu(menu, name));
-    }, 2000);
+    }, SELECT_COUNT);
 
     return () => {
       clearTimeout(timerId);
