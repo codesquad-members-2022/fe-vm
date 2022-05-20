@@ -16,7 +16,7 @@ function Wallet() {
 
     return (
         <WalletContainer>
-            {money.wallet.money.map((moneyUnit) => (
+            {money.wallet.moneyArray.map((moneyUnit) => (
                 <WalletItemContainer key={moneyUnit.id}>
                     <MoneyUnit
                         disabled={!moneyUnit.count}

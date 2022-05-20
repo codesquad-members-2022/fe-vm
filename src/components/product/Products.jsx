@@ -8,17 +8,31 @@ import {
 } from "./Products.style";
 
 function Products() {
-    const { money } = useVendingMachineContext();
+    const { money, selectProduct, returnMoneyFromVendingMachine } =
+        useVendingMachineContext();
+
+    const isChoosable = (price) => {
+        return money.vendingMachine.amount >= Number(price);
+    };
+
+    const clickProduct = (product) => {
+        if (!isChoosable(product.price)) {
+            return;
+        }
+
+        selectProduct(product.name);
+        const changes = money.vendingMachine.amount - product.price;
+        returnMoneyFromVendingMachine(changes);
+    };
 
     return (
         <ProductsContainer>
             {dataOfProducts.map((product) => (
-                <ProductContainer key={product.id}>
-                    <ProductNameWrapper
-                        choosable={
-                            money.vendingMachine.amount >= Number(product.price)
-                        }
-                    >
+                <ProductContainer
+                    key={product.id}
+                    onClick={() => clickProduct(product)}
+                >
+                    <ProductNameWrapper choosable={isChoosable(product.price)}>
                         <ProductName>{product.name}</ProductName>
                     </ProductNameWrapper>
                     <p>{product.price}</p>
