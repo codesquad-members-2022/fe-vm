@@ -6,10 +6,10 @@ export const WalletContext = createContext([]);
 export const WalletSetContext = createContext(null);
 
 export function WalletProvider({ children }) {
-  const [wallet, setWalletState] = useState(walletData);
+  const [walletState, setWalletState] = useState(walletData);
 
   return (
-    <WalletContext.Provider value={wallet}>
+    <WalletContext.Provider value={walletState}>
       <WalletSetContext.Provider value={setWalletState}>{children}</WalletSetContext.Provider>
     </WalletContext.Provider>
   );

@@ -2,7 +2,9 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'components/orderArea/PutBtn.style';
 import { TIME_TO_SELCT_PRODUCT } from 'constant/constant';
+import { calcPaymentToBeUsed } from 'utils/util';
 import useVMState from 'hooks/useVMState';
+import useWalletState from 'hooks/useWalletState';
 import { FinalPayContext, FinalPaySetContext } from 'contexts/FinalPayProvider';
 import { HistoryDispatchContext } from 'contexts/HistoryProvider';
 import { WalletContext } from 'contexts/WalletProvider';
@@ -12,36 +14,13 @@ export default function PutBtn({ inputPay }) {
   const { addInputHistory } = useContext(HistoryDispatchContext);
   const walletState = useContext(WalletContext);
   const { startTimerToReset } = useVMState();
-
-  const getSumOfUnitCloseToPayment = (sumOfUnit, unit, quantity) => {
-    let newSumOfUnit = sumOfUnit;
-    let usedAmount = 1;
-
-    while (usedAmount <= quantity) {
-      newSumOfUnit += unit;
-      if (newSumOfUnit + unit > inputPay) break;
-      usedAmount += 1;
-    }
-
-    return newSumOfUnit;
-  };
-
-  const modifyPayment = () => {
-    const modifiedPayment = walletState.reduceRight((sumOfUnit, { unit, quantity }) => {
-      if (sumOfUnit + unit > inputPay || !quantity) return sumOfUnit;
-
-      const newSumOfUnit = getSumOfUnitCloseToPayment(sumOfUnit, unit, quantity);
-
-      return newSumOfUnit;
-    }, 0);
-
-    return modifiedPayment;
-  };
+  const { decreaseUnitsToBeUsed } = useWalletState();
 
   const handlePutBtnClick = () => {
-    const modifiedPayment = modifyPayment();
-    const totalPay = finalPay + modifiedPayment;
+    const paymentToBeUsed = calcPaymentToBeUsed(walletState, inputPay);
+    const totalPay = finalPay + paymentToBeUsed.total;
     setFinalPay(totalPay);
+    decreaseUnitsToBeUsed(paymentToBeUsed.unitsToBeUsed);
     addInputHistory(totalPay);
     startTimerToReset(totalPay, TIME_TO_SELCT_PRODUCT);
   };

@@ -4,13 +4,15 @@ import { Container, MoneyBtn, MoneyQuantity } from 'components/wallet/MoneyItem.
 import { addCommasToNumber } from 'utils/util';
 import { TIME_TO_SELCT_PRODUCT } from 'constant/constant';
 import useVMState from 'hooks/useVMState';
+import useWalletState from 'hooks/useWalletState';
 import { FinalPayContext, FinalPaySetContext } from 'contexts/FinalPayProvider';
 import { HistoryDispatchContext } from 'contexts/HistoryProvider';
 
-export default function QuantityBtnWrap({ info, coin, decreaseQuantity }) {
+export default function QuantityBtnWrap({ info, coin }) {
   const [finalPay, setFinalPay] = [useContext(FinalPayContext), useContext(FinalPaySetContext)];
   const { addInputHistory } = useContext(HistoryDispatchContext);
   const { startTimerToReset } = useVMState();
+  const { decreaseQuantity } = useWalletState();
 
   const handleClickQuantityBtn = () => {
     const totalPay = finalPay + info.unit;
@@ -37,8 +39,7 @@ QuantityBtnWrap.propTypes = {
     quantity: PropTypes.number,
     color: PropTypes.string
   }),
-  coin: PropTypes.bool,
-  decreaseQuantity: PropTypes.func
+  coin: PropTypes.bool
 };
 
 QuantityBtnWrap.defaultProps = {
@@ -48,6 +49,5 @@ QuantityBtnWrap.defaultProps = {
     quantity: 0,
     color: '#fff'
   },
-  coin: false,
-  decreaseQuantity: () => {}
+  coin: false
 };

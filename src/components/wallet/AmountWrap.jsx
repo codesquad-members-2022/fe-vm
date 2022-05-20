@@ -1,19 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Container, Amount } from 'components/wallet/AmountWrap.style';
+import useWalletState from 'hooks/useWalletState';
 
-export default function AmountWrap({ amount }) {
+export default function AmountWrap() {
+  const { getAmount } = useWalletState();
   return (
     <Container>
-      총<Amount>{amount}</Amount>원
+      총<Amount>{getAmount()}</Amount>원
     </Container>
   );
 }
-
-AmountWrap.propTypes = {
-  amount: PropTypes.string
-};
-
-AmountWrap.defaultProps = {
-  amount: ''
-};
