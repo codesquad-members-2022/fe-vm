@@ -8,9 +8,12 @@ import {
   StyledRepaymentBtn,
 } from './userWindow.styled';
 import { useContext, useEffect } from 'react';
-import { InputMoneyContext, LogContext, PaybackTimerContext, ProgressContext } from '../vendingMachine';
 import { LogMonitor } from '../userWindowLogMonitor/logMonitor';
 import { PAYBACK_TIME } from '../../../common/constants';
+import { InputMoneyContext } from '../../../context/inputMoneyProvider';
+import { LogContext } from '../../../context/logProvider';
+import { ProgressContext } from '../../../context/progressProvider';
+import { PaybackTimerContext } from '../../../context/paybackTimerProvider';
 
 export function UserWindow() {
   const { inputMoney, setInputMoney } = useContext(InputMoneyContext);

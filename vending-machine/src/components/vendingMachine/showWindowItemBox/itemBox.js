@@ -1,8 +1,11 @@
 import { StyledItemContainer, StyledItemName, StyledItemPrice } from './itemBox.styled';
 import { getWonTemplate, delay } from '../../../helper/utils';
 import { useContext, useState, useEffect } from 'react';
-import { InputMoneyContext, LogContext, PaybackTimerContext, ProgressContext } from '../vendingMachine';
 import { ITEM_DROP_TIME } from '../../../common/constants';
+import { InputMoneyContext } from '../../../context/inputMoneyProvider';
+import { LogContext } from '../../../context/logProvider';
+import { ProgressContext } from '../../../context/progressProvider';
+import { PaybackTimerContext } from '../../../context/paybackTimerProvider';
 
 export function ItemBox({ item }) {
   const { inputMoney, setInputMoney } = useContext(InputMoneyContext);
