@@ -10,16 +10,6 @@ const Container = styled.div`
   width: 55%;
   height: fit-content;
   padding: 40px 30px;
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    max-height: ${({ selectalbeStatus }) => (selectalbeStatus ? 0 : '100%')};
-  }
 `;
 
 export { Container };
