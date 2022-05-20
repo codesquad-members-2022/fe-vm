@@ -1,24 +1,118 @@
-# 아이 목말라-! 자판기! 🥤
+# 🍒🍋 Dony's Fruit Vending Machine 🥝🫐
 
-## 구현 내용
+코드스쿼드 개인 프로젝트이다.  
+사용자가 지갑에 있는 돈을 입력 또는 클릭하여, 원하는 제품을 선택할 수 있다.  
+실제 자판기의 작동 원리와 비슷하게 작동하도록 구현하는 것이 목표였다.  
+<br>
+2022.05.09 ~ 05.20 까지 약 2주간 진행되었다.  
+자세한 내용은 [Wiki](https://github.com/jindonyy/fe-vm/wiki)에서도 확일할 수 있다.  
+<br>
+<br>
 
-- 금액(10 ~ 10,000원)을 입력하면 내역 화면에 금액이 표시된다.
-- 동전/제폐의 개수와 일치하지 않는 금액이 입력되면 가장 가까운 금액으로 자동보정되어 입력된다.
-- 투입된 금액이 만족되면 구매할 수 있는 상품의 테두리 색상이 다른 색으로 변한다.
-- 상품이 없을 때는 상품 선택이 안된다.
-- 모든 이벤트는 우측 하단 메시지 창 화면에 표시되어야 한다.
-- 상품을 선택하면 상품이 2초 뒤에 배출되고, 잔돈이 반환된다.
-- 돈 투입 후 5초 동안 입력이 없으면 투입된 금액은 자동 반환되고, 지갑에 다시 돈이 채워진다.
-- 5초 안에 상품을 선택하면 상품이 나오고, 투입 금액을 추가로 넣으면 자동반환 되기까지 다시 5초 동안 기다린다.
-- 지갑 속 내용은 실시간으로 반영되어 보여진다.
-- 좌측 금액 버튼을 입력하면 자판기에 금액이 입력되고, 돈의 개수는 그만큼 줄어든다.
+## 🛠 Skills
 
-## 프로그래밍 요구 사항
+<br>
 
-- React 에서 Routing 하는 방법을 찾아서 적용한다.
-- 상태관리
-  - useState를 기본으로 사용하고,
-  - Context API를 활용해서 props drilling 현상을 개선한다.
-  - 조금 더 복잡한 상태에 대한 관리가 필요한 경우 useReducer 를 활용해본다.
-- 커스텀 훅을 한 개 이상 만든다.
-  - (선택) NPM 저장소에 등록한다.
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"/> <img src="https://img.shields.io/badge/Styled components-DB7093?style=flat-square&logo=styled-components&logoColor=white"/>  
+<br>
+
+### React
+
+- 캡슐화된 컴포넌트로 상태관리를 할 수 있어 복잡한 UI도 효과적으로 구성할 수 있다.
+- Router의 기능으로 SPA(Single Page Application)가능하다.  
+  <br>
+
+### Styled Components
+
+- Scss라이브러리 설치 없이 Scss 문법을 사용할 수 있다.
+- 자유로운 CSS 커스텀 컴포넌트를 만들 수 있다.
+- 컴포넌트의 props를 참조할 수 있으며, props의 값에 따라 스타일을 다르게 코딩 할 수 있다.  
+  <br>
+  <br>
+
+## ✅ Demo
+
+### site
+
+[dony vending machine 🍒](https://jindonyy.github.io/fe-vm/)
+
+### video
+
+https://user-images.githubusercontent.com/17706346/169586825-c8c57756-0cb7-4995-8070-e6a009d7bb70.mov  
+<br>
+<br>
+
+## ✨ Feature
+
+- [x] Context, useReducer 등을 이용하여 상태 관리하기
+- [x] Router를 사용하여 SPA 구현
+- [x] custom Hook 사용해보기  
+       <br>
+      <br>
+
+## 📂 Directory
+
+```
+├── 📂 src
+│   ├── App.jsx
+│   ├── App.style.js
+│   ├── GlobalStyles.js
+│   ├── 📂 components
+│   │   ├── 📂 orderArea
+│   │   │   ├── History.jsx
+│   │   │   ├── History.style.js
+│   │   │   ├── MoneySlot.jsx
+│   │   │   ├── MoneySlot.style.js
+│   │   │   ├── OrderArea.jsx
+│   │   │   ├── OrderArea.style.js
+│   │   │   ├── ProductHole.jsx
+│   │   │   ├── ProductHole.style.js
+│   │   │   ├── PutBtn.jsx
+│   │   │   ├── PutBtn.style.js
+│   │   │   ├── ReturnBtn.jsx
+│   │   │   └── ReturnBtn.style.js
+│   │   ├── 📂 productsArea
+│   │   │   ├── Product.jsx
+│   │   │   ├── Product.style.js
+│   │   │   ├── ProductsArea.jsx
+│   │   │   └── ProductsArea.style.js
+│   │   └── 📂 wallet
+│   │       ├── AmountWrap.jsx
+│   │       ├── AmountWrap.style.js
+│   │       ├── MoneyItem.jsx
+│   │       └── MoneyItem.style.js
+│   ├── 📂 constant
+│   │   └── constant.js
+│   ├── 📂 contexts
+│   │   ├── FinalPayProvider.jsx
+│   │   ├── HistoryProvider.jsx
+│   │   ├── SelectedProductProvider.jsx
+│   │   ├── VMTimerProvider.jsx
+│   │   └── WalletProvider.jsx
+│   ├── 📂 data
+│   │   ├── products.js
+│   │   └── wallet.js
+│   ├── 📂 hooks
+│   │   ├── useHistory.jsx
+│   │   ├── useInputPay.jsx
+│   │   ├── useVMState.js
+│   │   └── useWalletState.js
+│   ├── index.jsx
+│   ├── 📂 layout
+│   │   └── GNB
+│   │       ├── GNB.jsx
+│   │       └── GNB.style.js
+│   ├── 📂 pages
+│   │   ├── VendingMachine.jsx
+│   │   ├── VendingMachine.style.js
+│   │   ├── Wallet.jsx
+│   │   └── Wallet.style.js
+│   └── 📂 utils
+│       └── util.js
+├── .gitignore
+├── .prettierrc
+├── jsconfig.json
+├── package.json
+├── package.lock.json
+└── README.md
+```
