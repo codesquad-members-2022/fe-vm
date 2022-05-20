@@ -5,28 +5,51 @@ import { MessageContext } from "../../context/MessageContext";
 import { MoneyContext } from "../../context/MoneyContext";
 
 const Product = () => {
-  const { accumulatedPrice } = useContext(MoneyContext);
+  const { accumulatedPrice, setAccumulatedPrice } = useContext(MoneyContext);
   const { setMessage } = useContext(MessageContext);
+
   const selectProductHandler = (event) => {
-    setMessage((prev) => [event.target.innerText, ...prev]);
+    let productPrice = getProductPrice(event.target.innerText);
+    checkAccunulatedPrice(productPrice, event.target.innerText);
   };
+
+  const checkAccunulatedPrice = (productPrice, productName) => {
+    if (productPrice > accumulatedPrice) {
+      setAccumulatedPrice(accumulatedPrice);
+      return;
+    }
+    setAccumulatedPrice(accumulatedPrice - productPrice);
+    insertMessage(productName);
+  };
+
+  const insertMessage = (product) => {
+    const newMessage = {
+      content: product + "선택",
+    };
+    setMessage((prev) => [newMessage.content, ...prev]);
+  };
+
+  const getProductPrice = (productPrice) => {
+    let arr = productData.find((v) => v.name === productPrice);
+    return arr.price;
+  };
+
   return (
     <div className="product-wrapper">
-      <div className="product-info" onClick={selectProductHandler}>
+      <div className="product-info">
         {productData.map((v) => (
           <div
             key={v.id}
-            id={v.id}
             style={
               v.price <= accumulatedPrice
                 ? { color: "red" }
                 : { color: "black" }
             }
           >
-            <div className="product">
+            <div className="product" onClick={selectProductHandler}>
               <div>{v.name}</div>
-              <div>{v.price}</div>
             </div>
+            <div>{v.price}</div>
           </div>
         ))}
       </div>

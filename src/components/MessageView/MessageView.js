@@ -7,7 +7,9 @@ const MessageView = () => {
   return (
     <div className="message-view">
       {message.map((v, i) => (
-        <div key={i}>{v}</div>
+        <div key={i}>
+          <p>{v}</p>
+        </div>
       ))}
     </div>
   );

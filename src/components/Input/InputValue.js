@@ -6,7 +6,7 @@ import "./InputValue.css";
 
 const InputValue = () => {
   const { inputPrice, setInputPrice } = useContext(InputContext);
-  const { message, setMessage } = useContext(MessageContext);
+  const { setMessage } = useContext(MessageContext);
   const { accumulatedPrice, setAccumulatedPrice } = useContext(MoneyContext);
 
   const writePriceHandler = (event) => {
@@ -15,9 +15,16 @@ const InputValue = () => {
 
   const insertPriceHandler = (event) => {
     event.preventDefault();
-    setMessage((prev) => [inputPrice, ...prev]);
+    insertMessage(inputPrice);
     setAccumulatedPrice(accumulatedPrice + inputPrice);
     setInputPrice("");
+  };
+
+  const insertMessage = (inputPrice) => {
+    const newMessage = {
+      content: inputPrice + "투입",
+    };
+    setMessage((prev) => [newMessage.content, ...prev]);
   };
 
   return (
