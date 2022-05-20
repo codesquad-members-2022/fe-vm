@@ -1,17 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import StyledDiv from './PageLink.style';
 
 function PageLink({ pageName }) {
   return (
-    <NavLink
-      to={pageName}
-      style={({ isActive }) => ({
-        color: isActive ? 'white' : 'black',
-        background: isActive ? 'black' : 'white',
-      })}
-    >
-      {pageName}
-    </NavLink>
+    <StyledDiv>
+      <NavLink to={pageName}>{pageName}</NavLink>
+    </StyledDiv>
   );
 }
 

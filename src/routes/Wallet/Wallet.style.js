@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 const StyledWallet = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 20px;
 `;
 
 export default StyledWallet;

@@ -3,10 +3,10 @@ import styled from 'styled-components';
 const StyledNav = styled.nav`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 200px;
   height: 30px;
-  border: 1px solid black;
-  margin: 0 auto;
+  margin: 10px auto;
   gap: 10px;
 `;
 
