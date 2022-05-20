@@ -8,4 +8,9 @@ const MessageType = {
 
 const RESET_NUM = 0;
 
-export { MessageType, RESET_NUM };
+const MatchType = {
+  ADD: '투입',
+  RETURN: '반환',
+};
+
+export { MessageType, RESET_NUM, MatchType };

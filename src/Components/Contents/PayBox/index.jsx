@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
+import { WalletMoneyContext } from '../../../Context/WalletMoneyProvider';
 import {
   F_BetweenCenter,
   FontSize,
@@ -11,6 +13,8 @@ import PayTotal from './Total';
 import ReturnBtn from './ReturnBtn';
 
 export default function PayBox() {
+  const { matchPayMoneyToWalletBalnace } = useContext(WalletMoneyContext);
+
   return (
     <>
       <TotalBox>
@@ -18,9 +22,9 @@ export default function PayBox() {
       </TotalBox>
       <Flex>
         <PayInput />
-        <AddBtn />
+        <AddBtn matchBalance={matchPayMoneyToWalletBalnace} />
       </Flex>
-      <ReturnBtn />
+      <ReturnBtn matchBalance={matchPayMoneyToWalletBalnace} />
     </>
   );
 }

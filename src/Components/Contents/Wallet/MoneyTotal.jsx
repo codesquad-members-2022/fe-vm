@@ -10,12 +10,12 @@ import {
 } from '../../../Assets/Common.style';
 
 export default function MoneyTotal() {
-  const { walletMoneyTotal } = useContext(WalletMoneyContext);
+  const { convertMoneyTotal } = useContext(WalletMoneyContext);
   return (
     <MoneyContainer>
       <span>총액</span>
       <Flex>
-        <Money>{walletMoneyTotal}</Money>
+        <Money>{convertMoneyTotal}</Money>
         <span>원</span>
       </Flex>
     </MoneyContainer>

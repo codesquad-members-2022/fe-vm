@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 import { MessageContext } from '../../../Context/MessageProvider';
-import { PayMoneyContext, PayTotalContext } from '../../../Context/PayProvider';
+import { PayTotalContext } from '../../../Context/PayProvider';
 import { WalletMoneyContext } from '../../../Context/WalletMoneyProvider';
 import { changeNumToLocalMoney, getMessage } from '../../../Utils/utils';
 import { MessageType } from '../../../Utils/constants';
