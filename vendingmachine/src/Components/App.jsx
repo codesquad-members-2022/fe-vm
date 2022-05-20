@@ -204,35 +204,37 @@ const App = () => {
     autoChangeTimer(changeWhenNotBehavior, 5000);
   }, [inputMoney]);
 
-  function updateTotalMoney(copy, index, str) {
-    switch (str) {
-      case 'wallet':
-        return setTotalMoney(totalMoney - copy[index].unit);
-      case 'menu':
-        return setInputMoney(inputMoney - copy[index].price);
-      default:
-        return;
-    }
-  }
+  const updateTotalMoney = useCallback(
+    (copy, index, str) => {
+      switch (str) {
+        case 'wallet':
+          return setTotalMoney(totalMoney - copy[index].unit);
+        case 'menu':
+          return setInputMoney(inputMoney - copy[index].price);
+        default:
+          return;
+      }
+    },
+    [totalMoney, inputMoney],
+  );
 
-  function updateInfo(index, info, str) {
-    const copy = JSON.parse(JSON.stringify(info));
+  const updateInfo = useCallback(
+    (index, info, str) => {
+      const copy = JSON.parse(JSON.stringify(info));
 
-    copy[index] =
-      copy[index].number > 0
-        ? {
-            ...info[index],
-            number: info[index].number - 1,
-          }
-        : { ...info[index] };
-    updateTotalMoney(copy, index, str);
+      copy[index] =
+        copy[index].number > 0
+          ? {
+              ...info[index],
+              number: info[index].number - 1,
+            }
+          : { ...info[index] };
+      updateTotalMoney(copy, index, str);
 
-    return copy;
-  }
-
-  function changeWhenNotBehavior() {
-    if (!input.current) handleClickChange();
-  }
+      return copy;
+    },
+    [updateTotalMoney],
+  );
 
   const handleClickMoney = useCallback(
     (money, index) => {
@@ -243,8 +245,12 @@ const App = () => {
         history.current = history.current.concat(index);
       }
     },
-    [updateInfo],
+    [walletInfo, updateInfo],
   );
+
+  function changeWhenNotBehavior() {
+    if (!input.current) handleClickChange();
+  }
 
   const handleClickProduct = useCallback(
     (name, index) => {
