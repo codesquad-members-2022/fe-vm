@@ -26,8 +26,6 @@ function ModifiableInput({ setInputMode }) {
     const moneyRequestedToBeCharged = Number(inputValue);
     const [newMoney, newCoins] = chargeMoney(moneyRequestedToBeCharged);
 
-    // TODO: 금액을 충전하고 반환되기 전에 추가로 충전하는 경우 분기 처리
-
     const canChargePreciselyMoneyRequested = moneyRequestedToBeCharged === newMoney;
     if (!canChargePreciselyMoneyRequested) {
       showErrorMsg(MESSAGES.ERROR.CANT_CHARGE_PRECISELY);

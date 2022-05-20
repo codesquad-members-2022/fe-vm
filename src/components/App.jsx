@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Home from 'pages/Home';
 import Wallet from 'pages/Wallet';
 import COINS from 'mocks/coins';
-import { delay } from 'utils';
+import { delay, copyObject } from 'utils';
 import DELAY_MS from 'constants/delay';
 
 export const MoneyContext = React.createContext();
@@ -23,7 +23,7 @@ function App() {
 
   return (
     <ErrorContext.Provider value={{ showErrorMsg }}>
-      <MoneyContext.Provider value={{ curMoney, setMoney }}>
+      <MoneyContext.Provider value={{ curMoney, setMoney, handleReturn }}>
         <CoinContext.Provider value={{ coins, setCoins }}>
           <LoadingContext.Provider value={{ isLoading, setLoading }}>
             <EventLogContext.Provider value={{ eventLog, setEventLog }}>
@@ -50,6 +50,29 @@ function App() {
     setErrorMsg(msg);
     await delay(DELAY_MS.ERROR_MSG);
     setErrorMsg('');
+  }
+
+  function handleReturn() {
+    const newCoins = updateCoins();
+
+    setCoins(newCoins);
+    setMoney(0);
+    setEventLog([...eventLog, { type: 'RETURN', value: curMoney }]);
+
+    function updateCoins() {
+      let leftMoney = curMoney;
+      const copiedCoins = coins.map(copyObject);
+      const updatedCoins = copiedCoins.map((coin) => {
+        const quotient = Math.floor(leftMoney / coin.AMOUNT);
+        if (quotient) {
+          leftMoney -= coin.AMOUNT * quotient;
+          return { ...coin, CNT: coin.CNT + quotient };
+        }
+        return coin;
+      });
+
+      return updatedCoins;
+    }
   }
 }
 

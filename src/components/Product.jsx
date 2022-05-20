@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ErrorContext, MoneyContext, LoadingContext, EventLogContext } from 'components/App';
@@ -6,7 +7,7 @@ import { copyObject } from 'utils';
 import DELAY_MS from 'constants/delay';
 
 function Product({ name, price, stock, products, setProducts }) {
-  const { curMoney, setMoney } = useContext(MoneyContext);
+  const { curMoney, setMoney, handleReturn } = useContext(MoneyContext);
   const { showErrorMsg } = useContext(ErrorContext);
   const { setLoading } = useContext(LoadingContext);
   const { eventLog, setEventLog } = useContext(EventLogContext);
@@ -32,7 +33,7 @@ function Product({ name, price, stock, products, setProducts }) {
     </div>
   );
 
-  function handlePurchaseProduct() {
+  async function handlePurchaseProduct() {
     if (!canPurchase) {
       showErrorMsg(MESSAGES.ERROR.NOT_ENOUGH_MONEY);
       return;
