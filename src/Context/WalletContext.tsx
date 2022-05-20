@@ -2,14 +2,14 @@ import { createContext, Dispatch, useReducer, useContext } from 'react';
 
 interface IWallet {
   uuid: number;
-  unit: number;
+  unit: 10 | 50 | 100 | 500 | 1000 | 5000 | 10000;
   count: number;
 }
 
 // ducks pattern -> 액션타입, 액션생성함수, 리듀서를 모두 한 파일에 작성
 
 // 모든 액션 객체들에 대한 타입 준비
-type WalletAction =
+export type WalletAction =
   | { type: 'INCREASE_WALLET_UNIT'; unit: number; count: number }
   | { type: 'DECREASE_WALLET_UNIT'; unit: number; count: number }
   | { type: 'UPDATE_WALLET_UNIT'; unit: number; count: number };

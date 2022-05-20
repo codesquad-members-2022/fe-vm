@@ -10,7 +10,8 @@ export interface IItem {
 
 type ItemAction =
   | { type: 'SELECT_ITEM' }
-  | { type: 'INSERT_ITEM'; count: number };
+  | { type: 'INSERT_ITEM'; count: number }
+  | { type: 'UPDATE_ITEM'; item: IItem; count: number };
 
 type ItemDispatch = Dispatch<ItemAction>;
 type ItemState = IItem[];
@@ -23,13 +24,19 @@ function itemReducer(state: ItemState, action: ItemAction): ItemState {
     case 'SELECT_ITEM':
       return state;
     case 'INSERT_ITEM':
-    // return {};
+      return state;
+    case 'UPDATE_ITEM':
+      return state.map(item => {
+        return item.uuid === action.item.uuid
+          ? { ...item, count: (item.count -= action.count) }
+          : item;
+      });
     default:
       throw new Error('Unhandled action');
   }
 }
 
-export function itemContextProvider({
+export function ItemContextProvider({
   children,
 }: {
   children: React.ReactNode;

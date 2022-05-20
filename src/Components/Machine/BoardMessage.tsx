@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useMachineState } from '@/Context/MachineContext';
+import { useMessageState } from '@/Context/MessageContext';
 
 const MessageWrapper = styled.div`
   width: 100%;
@@ -14,14 +14,14 @@ const Message = styled.p`
 `;
 
 export default function StackMessage(): JSX.Element {
-  const machineState = useMachineState();
+  const messageState = useMessageState();
 
   return (
     <>
       <MessageWrapper>
         <>
-          {machineState.map(machine => {
-            return <Message>{machine.message}</Message>;
+          {messageState.map((message, index) => {
+            return <Message key={index}>{message.message}</Message>;
           })}
         </>
       </MessageWrapper>
