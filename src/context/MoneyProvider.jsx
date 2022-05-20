@@ -1,11 +1,13 @@
 import React, { useContext, useReducer } from 'react';
 
-import { getCoinsByAmount, getDiffInsertedMoney } from 'common/vmServices';
+import {
+  moneyAmount,
+  getCoinsByAmount,
+  getDiffInsertedMoney,
+} from 'common/vmServices';
 import moneyData from 'mocks/moneyData';
 
 import { LogContext } from './LogProvider';
-
-const moneyAmount = [10000, 5000, 1000, 500, 100, 50, 10];
 
 const initMoneyData = moneyData;
 const initInsertedMoney = moneyAmount.reduce((acc, amount) => {
