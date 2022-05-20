@@ -14,6 +14,7 @@ const VMInputMoney = () => {
   const [, setLastCountTime] = useContext(CountContext);
   const { inputMoney } = moneyState;
 
+  const [isRetrying, setIsRetrying] = useState(false);
   const [isInputSelected, setIsInputSelected] = useState(false);
   const hoverCss = createHoverCss({
     bgColor: { base: COLORS.WHITE, hover: COLORS.MAIN_BG },
@@ -25,9 +26,7 @@ const VMInputMoney = () => {
 
   const updateInputMoney = (newMoney) => {
     if (newMoney <= inputMoney) {
-      // TODO: 현재 InputMoney 보다 작게 넣는다면 false
-      // 다시 시도하게 코드 조정
-      setIsInputSelected(false);
+      setIsRetrying(true);
       return;
     }
     const newState = calcWalletMoney({
@@ -37,15 +36,22 @@ const VMInputMoney = () => {
     insertInputMoney(newState);
     setLastCountTime(new Date());
     setIsInputSelected(false);
+    setIsRetrying(false);
   };
 
   return (
     <VMInputMoneyWrapper>
       {isInputSelected ? (
-        <VMInputBox
-          defaultInput={inputMoney}
-          updateInputMoney={updateInputMoney}
-        />
+        <>
+          <VMInputBox
+            defaultInput={inputMoney}
+            isRetrying={isRetrying}
+            updateInputMoney={updateInputMoney}
+          />
+          {isRetrying && (
+            <RetrySpan>현재 금액보다 큰 금액을 넣어주세요</RetrySpan>
+          )}
+        </>
       ) : (
         <TextBox onClick={handleClickTextBox} hoverCss={hoverCss}>
           <span>{parseMoneyFormat(inputMoney)}</span>
@@ -56,6 +62,7 @@ const VMInputMoney = () => {
 };
 
 const VMInputMoneyWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: right;
   align-items: center;
@@ -71,6 +78,13 @@ const TextBox = styled.div`
   padding: 0px 10px;
   cursor: pointer;
   ${({ hoverCss }) => hoverCss};
+`;
+
+const RetrySpan = styled.span`
+  position: absolute;
+  font-size: 0.1rem;
+  bottom: 1.6em;
+  left: 30em;
 `;
 
 export default VMInputMoney;
