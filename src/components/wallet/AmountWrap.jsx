@@ -1,17 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Container, Amount } from 'components/wallet/AmountWrap.style';
-import walletData from 'data/wallet';
-import { addCommasToNumber } from 'utils/util';
 
-export default function AmountWrap() {
-  const getAmout = () => {
-    const amount = walletData.reduce((acc, { unit, quantity }) => acc + unit * quantity, 0);
-    return addCommasToNumber(amount);
-  };
-
+export default function AmountWrap({ amount }) {
   return (
     <Container>
-      총<Amount>{getAmout()}</Amount>원
+      총<Amount>{amount}</Amount>원
     </Container>
   );
 }
+
+AmountWrap.propTypes = {
+  amount: PropTypes.string
+};
+
+AmountWrap.defaultProps = {
+  amount: ''
+};
