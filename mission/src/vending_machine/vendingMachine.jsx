@@ -84,6 +84,7 @@ function VendingMachineInputForm({ addValue }) {
             value={userInput}
             placeholder="동전을 투입하세요!"
         />
+
     );
 }
 
@@ -196,6 +197,7 @@ function VendingMachine() {
                 </VendingMachineInputBox>
             </VendingMachineDiv>
         </>
+
     );
 }
 
