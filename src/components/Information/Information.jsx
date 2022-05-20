@@ -1,11 +1,5 @@
 import React, { useContext } from "react";
-import {
-  StyledInformation,
-  InputPrice,
-  TotalInputPrice,
-  ChangeButton,
-  ActionLog,
-} from "./Information.styled";
+import { StyledInformation, InputPrice, TotalInputPrice, ChangeButton, ActionLog } from "./Information.styled";
 import { MoneyContext, LogContext, WalletContext } from "../../App.js";
 import { getTotalAmount } from "utils";
 
@@ -15,7 +9,7 @@ function Information() {
   const { walletMoney } = useContext(WalletContext);
 
   const convertInputMoney = (money) => {
-    let surplus = money > getTotalAmount(walletMoney) ? getTotalAmount(walletMoney) : money;
+    let surplus = Math.min(money, getTotalAmount(walletMoney));
 
     for (let i = walletMoney.length - 1; i >= 0; i--) {
       const { price, quantity } = walletMoney[i];
@@ -23,6 +17,7 @@ function Information() {
         const convertedQuantity = Math.min(Math.floor(surplus / price), quantity);
         surplus -= convertedQuantity * price;
         walletMoney[i] = { ...walletMoney[i], quantity: quantity - convertedQuantity };
+        // TODO: setter 함수로 변경
       }
     }
 
@@ -39,16 +34,16 @@ function Information() {
 
   const addInsertLog = (money) => {
     const newLog = { idx: logs.length + 1, type: "insert", data: money + "원이 투입됨" };
-    setLogs([...logs, newLog]);
+    setLogs((logs) => [...logs, newLog]);
   };
 
   const addReturnLog = (money) => {
     const newLog = { idx: logs.length + 1, type: "return", data: money + "원이 반환됨" };
-    setLogs([...logs, newLog]);
+    setLogs((logs) => [...logs, newLog]);
   };
 
-  const returnChange = () => {
-    let change = inputMoney;
+  const returnChange = (money) => {
+    let change = money;
     setInputMoney(inputMoney - change);
     addReturnLog(change);
 
@@ -57,7 +52,8 @@ function Information() {
       if (change >= price) {
         const returnedCoinQuantity = Math.floor(change / price);
         change %= price;
-        walletMoney[i] = { ...walletMoney[i], quantity: quantity + returnedCoinQuantity }; // set함수 안 쓰고 이렇게도 변경해도 되나
+        walletMoney[i] = { ...walletMoney[i], quantity: quantity + returnedCoinQuantity };
+        // TODO: setter 함수로 변경
       }
     }
   };
@@ -66,7 +62,7 @@ function Information() {
     <StyledInformation>
       <InputPrice onKeyPress={getMoney} placeholder="금액을 입력하세요"></InputPrice>
       <TotalInputPrice>투입 금액: {inputMoney}</TotalInputPrice>
-      <ChangeButton onClick={returnChange}>
+      <ChangeButton onClick={() => returnChange(inputMoney)}>
         <p>반환</p>
       </ChangeButton>
       <ActionLog>
