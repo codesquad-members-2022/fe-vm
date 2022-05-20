@@ -2,24 +2,25 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 
 import { VMProvider } from '@/Context/VMContext';
+import { TimerProvider } from '@/hooks/useTimer';
 import Home from '@/routes/Home';
 import Wallet from '@/routes/Wallet';
 
 import * as S from './styles';
 
-const Index = () => {
+const Router = () => {
   return (
     <BrowserRouter basename={BASE_URL}>
       <S.Container>
         <NavBar />
-        {/*<TimerProvider>*/}
-        <VMProvider>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/wallet" element={<Wallet />} />
-          </Routes>
-        </VMProvider>
-        {/*</TimerProvider>*/}
+        <TimerProvider>
+          <VMProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/wallet" element={<Wallet />} />
+            </Routes>
+          </VMProvider>
+        </TimerProvider>
       </S.Container>
     </BrowserRouter>
   );
@@ -48,4 +49,4 @@ const NavBar = () => {
   );
 };
 
-export default Index;
+export default Router;
