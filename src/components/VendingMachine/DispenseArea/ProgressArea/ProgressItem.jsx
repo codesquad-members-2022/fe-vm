@@ -14,7 +14,7 @@ const getProgressString = ({ type, money, product }) => {
     case "insert":
       return `${currentMoney} 투입`;
     case "purchase":
-      return `${product} 구입 (${currentMoney} 사용)`;
+      return `${product} 구입💰\n(${currentMoney} 사용)`;
     case "return":
       if (product) {
         progressString += `${product} 배출🎉`;
