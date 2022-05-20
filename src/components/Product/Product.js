@@ -6,10 +6,19 @@ import { MoneyContext } from "../../context/MoneyContext";
 
 const Product = () => {
   const { accumulatedPrice, setAccumulatedPrice } = useContext(MoneyContext);
+  const { setMessage } = useContext(MessageContext);
 
   const selectProductHandler = (event) => {
+    insertMessage(event.target.innerText);
     let productPrice = getProductPrice(event.target.innerText);
     setAccumulatedPrice(accumulatedPrice - productPrice);
+  };
+
+  const insertMessage = (product) => {
+    const newMessage = {
+      content: product + "선택",
+    };
+    setMessage((prev) => [newMessage.content, ...prev]);
   };
 
   const getProductPrice = (productPrice) => {
