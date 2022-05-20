@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { InputContext } from "store/InputStore";
 import { MessageContext } from "store/MessageStore";
 import { WalletContext } from "store/WalletStore";
+import { TimerContext } from "store/TimerStore";
 
 export default function MoneyAmount({ amount, unit }) {
   const inputContext = useContext(InputContext);
@@ -11,6 +12,8 @@ export default function MoneyAmount({ amount, unit }) {
   const { setMessage } = messageContext;
   const walletContext = useContext(WalletContext);
   const { setWallet } = walletContext;
+  const timerContext = useContext(TimerContext);
+  const { setTimer } = timerContext;
 
   const moneyAmountClickHandler = (amount, unit) => {
     {
@@ -22,6 +25,7 @@ export default function MoneyAmount({ amount, unit }) {
         });
         setInput(input + Number(unit));
         setMessage((prev) => [...prev, `${unit}원이 투입되었습니다`]);
+        setTimer(true);
       }
     }
   };

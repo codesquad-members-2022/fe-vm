@@ -12,13 +12,13 @@ import TimerStore from "store/TimerStore";
 function App() {
   return (
     <BrowserRouter>
-      <TimerStore>
-        <NavBar />
+      <NavBar />
 
-        <WalletStore>
-          <InputStore>
-            <MessageStore>
-              <MenuStore>
+      <WalletStore>
+        <InputStore>
+          <MessageStore>
+            <MenuStore>
+              <TimerStore>
                 <Routes>
                   <Route path="/" element={<VM />} />
                   <Route path="/wallet" element={<Wallet />} />
@@ -26,11 +26,11 @@ function App() {
                   {/* <Route path="/*" element={<NotFound />} /> */}
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
-              </MenuStore>
-            </MessageStore>
-          </InputStore>
-        </WalletStore>
-      </TimerStore>
+              </TimerStore>
+            </MenuStore>
+          </MessageStore>
+        </InputStore>
+      </WalletStore>
     </BrowserRouter>
   );
 }
