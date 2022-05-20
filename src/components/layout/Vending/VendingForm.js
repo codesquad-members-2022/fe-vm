@@ -37,6 +37,7 @@ const VendingForm = () => {
     event.preventDefault();
     const insertedMoney = Number(amountInputRef.current.value);
     if (!insertedMoney) return;
+    
     const [isValid, newInsertedMoneyObj] = checkValid(
       money.WALLET,
       insertedMoney
