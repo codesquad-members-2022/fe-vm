@@ -1,49 +1,53 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
 
 import { ProgressContext } from '../App';
 import { color, fontSize } from '../style/variables';
-import { changeKoreanLocalMoney } from '../utility/util';
+import {
+  changeKoreanLocalMoney,
+  changeStrMoneyToNumMoney,
+} from '../utility/util';
 
 const InputForm = ({ totalMoney, setTotalMoney }) => {
-  const [inputValue, setInputValue] = useState(0);
   const inputTag = useRef();
 
   const { addMoneyMessage } = useContext(ProgressContext);
 
-  const changeTotalMoney = (e) => {
-    e.preventDefault();
-    setInputValue(0);
-    setTotalMoney(Number(totalMoney) + Number(inputValue));
-    addMoneyMessage(Number(inputValue));
-    inputTag.current.value = '';
-  };
-
   const changeValue = () => {
-    const onlyNumber = inputTag.current.value.replace(/[^0-9]/g, '');
-    setInputValue(onlyNumber);
+    const onlyNumber = +inputTag.current.value.replace(/[^0-9]/g, '');
     inputTag.current.value = changeKoreanLocalMoney(onlyNumber);
   };
 
+  const changeTotalMoney = (e) => {
+    if (e.key !== 'Enter') return;
+    const inputValue = +changeStrMoneyToNumMoney(inputTag.current.value);
+    setTotalMoney(+totalMoney + inputValue);
+    addMoneyMessage(inputValue);
+    inputTag.current.value = '';
+  };
+
   return (
-    <StyledForm onSubmit={changeTotalMoney}>
-      <StyledInput
-        type="text"
-        placeholder="0"
-        ref={inputTag}
-        onChange={changeValue}
-      />
-      <StyledSpan>원</StyledSpan>
-    </StyledForm>
+    <>
+      <FormContainer>
+        <StyledInput
+          type="text"
+          placeholder="0"
+          ref={inputTag}
+          onKeyPress={changeTotalMoney}
+          onChange={changeValue}
+        />
+        <StyledSpan>원</StyledSpan>
+      </FormContainer>
+    </>
   );
 };
 
-const StyledForm = styled.form`
+const FormContainer = styled.div`
   margin: 0 auto;
   width: 270px;
   height: 60px;
   margin-top: 20px;
-  border: 2px solid ${color.grey};
+  border: 2px solid ${color.gray};
 `;
 
 const StyledInput = styled.input`

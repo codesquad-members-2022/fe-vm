@@ -1,5 +1,5 @@
 {
-  "drink": [
+  "data": [
     {
       "id": 1,
       "name": "콜라",
@@ -63,7 +63,7 @@
     {
       "id": 11,
       "name": "초코애몽",
-      "quantity": 7,
+      "quantity": 0,
       "price": 1500
     },
     {

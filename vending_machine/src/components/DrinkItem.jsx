@@ -3,25 +3,17 @@ import styled from 'styled-components';
 
 import { color } from '../style/variables';
 import { changeKoreanLocalMoney } from '../utility/util';
+import Button from './Button';
 
 const DrinkItem = ({
-  id,
-  price,
-  name,
-  quantity,
-  totalMoney,
-  soldOut,
-  onClick,
+  drinkInfo: { id, price, name, quantity, totalMoney, soldOut, onClick },
 }) => {
   return (
-    <DrinkMenuItem
-      key={id}
-      price={price}
-      totalMoney={totalMoney}
-      soldOut={soldOut}
-    >
-      <DrinkNameBtn onClick={() => onClick(id)}>{name}</DrinkNameBtn>
-      <DrinkInfo>{changeKoreanLocalMoney(price)}</DrinkInfo>
+    <DrinkMenuItem price={price} totalMoney={totalMoney} soldOut={soldOut}>
+      <DrinkNameBtn content={name} disabled={false} onClick={onClick(id)} />
+      <DrinkInfo>
+        {+quantity ? changeKoreanLocalMoney(price) : '품절'}
+      </DrinkInfo>
       <DrinkInfo>{quantity}</DrinkInfo>
     </DrinkMenuItem>
   );
@@ -37,7 +29,7 @@ const DrinkMenuItem = styled.li`
   margin: 15px;
 `;
 
-const DrinkNameBtn = styled.button`
+const DrinkNameBtn = styled(Button)`
   width: 100%;
   padding: 10px;
   font-weight: bold;

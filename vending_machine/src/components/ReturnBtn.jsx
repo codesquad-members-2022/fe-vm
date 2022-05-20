@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { ProgressContext } from '../App';
 import { color, fontSize } from '../style/variables';
+import Button from './Button';
 
 const ReturnBtn = ({ totalMoney, setTotalMoney }) => {
   const { returnMoneyMessage } = useContext(ProgressContext);
@@ -13,15 +14,17 @@ const ReturnBtn = ({ totalMoney, setTotalMoney }) => {
     setTotalMoney(0);
   };
 
-  return <StyledBtn onClick={returnTotalMoney}>반환</StyledBtn>;
+  return (
+    <StyledBtn content={'반환'} disabled={false} onClick={returnTotalMoney} />
+  );
 };
 
-const StyledBtn = styled.button`
+const StyledBtn = styled(Button)`
   margin-top: 20px;
   font-size: ${fontSize.xl};
   width: 270px;
   height: 60px;
-  border: 2px solid ${color.grey};
+  border: 2px solid ${color.gray};
 `;
 
 export default ReturnBtn;
