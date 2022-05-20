@@ -1,5 +1,6 @@
 import { SlotContainer, Slot } from "./MoneySlot.style";
 import { useVendingMachineDispatchContext } from "../../context/VendingMachineContext";
+import { PAGE } from "../../constants";
 
 function MoneySlot() {
     const { putMoneyIntoVendingMachine } = useVendingMachineDispatchContext();
@@ -11,7 +12,7 @@ function MoneySlot() {
 
         event.preventDefault();
         const moneyInput = event.target.value;
-        putMoneyIntoVendingMachine(moneyInput);
+        putMoneyIntoVendingMachine(moneyInput, PAGE.VM);
         event.target.value = "";
     };
 

@@ -1,7 +1,7 @@
 import React, { useContext, useReducer } from "react";
 import recordReducer from "./recordReducer";
 import { moneyReducer, initialStateOfMoney } from "./moneyReducer";
-import ACTION_TYPE from "./actionType";
+import { ACTION_TYPE, PAGE } from "../constants";
 
 const VendingMachineStateContext = React.createContext();
 const VendingMachineDispatchContext = React.createContext();
@@ -33,8 +33,11 @@ function VendingMachineProvider({ children }) {
         return minDifference.length ? minDifference[0].unit : null;
     };
 
-    const putMoneyIntoVendingMachine = (amountOfMoney) => {
-        const moneyUnit = getMoneyUnitFromWallet(amountOfMoney);
+    const putMoneyIntoVendingMachine = (amountOfMoney, fromWhere) => {
+        const moneyUnit =
+            fromWhere === PAGE.VM
+                ? getMoneyUnitFromWallet(amountOfMoney)
+                : amountOfMoney;
         if (!moneyUnit) {
             return;
         }

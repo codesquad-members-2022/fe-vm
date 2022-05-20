@@ -1,4 +1,4 @@
-import ACTION_TYPE from "./actionType";
+import { ACTION_TYPE } from "../constants";
 
 const recordReducer = (state, action) => {
     switch (action.type) {

@@ -9,13 +9,14 @@ import {
     MoneyUnit,
     TotalAmount,
 } from "./Wallet.Style";
+import { PAGE } from "../../constants";
 
 function Wallet() {
     const { money } = useVendingMachineStateContext();
     const { putMoneyIntoVendingMachine } = useVendingMachineDispatchContext();
 
     const takeMoneyFromWallet = (moneyUnit) => {
-        putMoneyIntoVendingMachine(moneyUnit);
+        putMoneyIntoVendingMachine(moneyUnit, PAGE.WALLET);
     };
 
     return (

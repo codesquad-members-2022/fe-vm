@@ -1,5 +1,5 @@
 import dataOfwallet from "../data/wallet";
-import ACTION_TYPE from "./actionType";
+import { ACTION_TYPE } from "../constants";
 
 const getChanges = (totalMoney) => {
     const money = [10000, 5000, 1000, 500, 100, 50, 10];
