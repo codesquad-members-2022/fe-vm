@@ -7,6 +7,10 @@ const StyledHistoryBox = styled.ul`
   background-color: #f2f2f2;
   overflow-y: scroll;
   margin-top: 10px;
+
+  li {
+    padding: 5px;
+  }
 `;
 
 function History({ comment }) {
@@ -14,7 +18,8 @@ function History({ comment }) {
 }
 
 function HistoryBox() {
-  const { histories } = useContext(HistoryContext);
+  const histories = useContext(HistoryContext);
+
   return (
     <StyledHistoryBox>
       {histories.history.map(({ id, comment }) => (

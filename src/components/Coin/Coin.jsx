@@ -1,11 +1,11 @@
 import { useContext, memo } from "react";
-import { SetInsertCoinContext, SetCoinContext, HistoryContext } from "context";
+import { SetInsertCoinContext, SelectCoinContext, AddHistoryContext } from "context";
 import { Button } from "components";
 
 function Coin({ unit, count }) {
-  const selectCoin = useContext(SetCoinContext);
+  const selectCoin = useContext(SelectCoinContext);
   const setInsertCoin = useContext(SetInsertCoinContext);
-  const { addHistory } = useContext(HistoryContext);
+  const addHistory = useContext(AddHistoryContext);
 
   const handleCoinClick = () => {
     if (!count) return;

@@ -9,6 +9,7 @@ export * from "./coin/Coin";
 export * from "./Balance/Balance";
 export * from "./vend-product/VendProductContainer";
 export * from "./vend-product/VendProduct";
+export * from "./vend-product/SelectButton";
 export * from "./vend-controller/VendController";
 export * from "./vend-controller/InsertCoin";
 export * from "./vend-controller/ChangeOutlet";

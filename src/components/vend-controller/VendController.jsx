@@ -5,10 +5,11 @@ const StyledVendController = styled.div`
   width: 300px;
   margin-left: 10px;
 
-  div {
+  div,
+  p {
     display: grid;
     place-items: center;
-    margin: 0px 0px 10px 10px;
+    margin: 10px 0px;
     font-size: 1.5em;
   }
 

@@ -14,7 +14,46 @@ function useCoin(init) {
     );
   }, []);
 
-  return { coin, selectCoin };
+  const correctCoin = useCallback(
+    (inputCoin) => {
+      let acc = 0;
+
+      const coinArr = coin.map((obj) => {
+        return { ...obj, total: obj.unit * obj.count };
+      });
+
+      const totalCoin = coinArr.reduce((acc, { total }) => acc + total, 0);
+      if (inputCoin > totalCoin) {
+        setCoin((prevCoin) =>
+          prevCoin.map((current) => {
+            return { ...current, count: 0 };
+          })
+        );
+        return totalCoin;
+      }
+
+      function recursive(remainCoin) {
+        for (let i = 0; i < coinArr.length; i++) {
+          const { unit, count, total } = coinArr[i];
+
+          if (inputCoin <= acc) return acc;
+          else if (Math.floor(total / remainCoin) > 0) {
+            if (count) {
+              selectCoin(unit);
+              acc += unit;
+              const result = recursive(remainCoin - unit);
+              return result;
+            }
+          }
+        }
+      }
+
+      return recursive(inputCoin);
+    },
+    [coin, selectCoin]
+  );
+
+  return { coin, selectCoin, correctCoin };
 }
 
 export { useCoin };
