@@ -1,61 +1,36 @@
-import React, { useReducer } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+
+import { delay } from 'common/utils';
+
+import { MoneyContext } from './MoneyProvider';
 
 export const CountContext = React.createContext();
 
-const initState = {
-  isCounting: false,
-  lastCountingTime: '',
-};
+let globalLastCountTime = '';
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'NEW_COUNTING':
-      return {
-        isCounting: true,
-        lastCountingTime: new Date(),
-      };
-    case 'END_COUNTING':
-      return {
-        isCount: false,
-        lastCountingTime: '',
-      };
-    default:
-      return state;
-  }
+const setGlobalLastCountTime = (lastCountTime) => {
+  globalLastCountTime = lastCountTime;
 };
-
-const RETURN_MS = 5000;
-const CHECK_DIFF_MS = 100;
 
 export const CountProvider = (props) => {
-  const [countState, countDispatch] = useReducer(reducer, initState);
+  const [lastCountTime, setLastCountTime] = useState('');
+  const { returnInputMoney } = useContext(MoneyContext);
 
-  const checkLastCounting = () => {
-    if (countState.lastCountingTime === '') return false;
-    const curDate = new Date();
-    const isLastCounting =
-      curDate - countState.lastCountingTime < RETURN_MS + CHECK_DIFF_MS &&
-      curDate - countState.lastCountingTime > RETURN_MS - CHECK_DIFF_MS;
-    return isLastCounting;
-  };
-
-  const createNewCounting = () => {
-    countDispatch({ type: 'NEW_COUNTING' });
-  };
-
-  const closeCounting = () => {
-    countDispatch({ type: 'END_COUNTING' });
-  };
-
-  const countInfo = {
-    countState,
-    checkLastCounting,
-    createNewCounting,
-    closeCounting,
-  };
+  setGlobalLastCountTime(lastCountTime);
+  useEffect(() => {
+    if (lastCountTime !== '') {
+      const resetLastCountTime = async () => {
+        await delay(5000);
+        if (lastCountTime === globalLastCountTime) {
+          returnInputMoney();
+        }
+      };
+      resetLastCountTime();
+    }
+  }, [lastCountTime]);
 
   return (
-    <CountContext.Provider value={countInfo}>
+    <CountContext.Provider value={[lastCountTime, setLastCountTime]}>
       {props.children}
     </CountContext.Provider>
   );

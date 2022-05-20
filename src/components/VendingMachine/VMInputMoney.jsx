@@ -5,11 +5,13 @@ import { parseMoneyFormat } from 'common/utils';
 import { calcWalletMoney } from 'common/vmServices';
 import VMInputBox from 'components/VendingMachine/VMInputBox';
 import COLORS from 'constants/colors';
+import { CountContext } from 'context/CountProvider';
 import { MoneyContext } from 'context/MoneyProvider';
 import createHoverCss from 'styles/createHoverCss';
 
 const VMInputMoney = () => {
   const { moneyState, insertInputMoney } = useContext(MoneyContext);
+  const [, setLastCountTime] = useContext(CountContext);
   const { inputMoney } = moneyState;
 
   const [isInputSelected, setIsInputSelected] = useState(false);
@@ -33,6 +35,7 @@ const VMInputMoney = () => {
       ...moneyState,
     });
     insertInputMoney(newState);
+    setLastCountTime(new Date());
     setIsInputSelected(false);
   };
 

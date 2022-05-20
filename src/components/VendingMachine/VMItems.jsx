@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { delay } from 'common/utils';
 import Loading from 'components/Loading';
 import VMItem from 'components/VendingMachine/VMItem';
+import { CountContext } from 'context/CountProvider';
 import { MoneyContext } from 'context/MoneyProvider';
 import useLoading from 'hooks/useLoading';
 import vmItems from 'mocks/vmItems';
@@ -16,10 +17,13 @@ const VMItems = () => {
     moneyState: { inputMoney },
     buyVMItem,
   } = useContext(MoneyContext);
+  const [, setLastCountTime] = useContext(CountContext);
 
   const handleClickItem = useCallback(
     async ({ id, amount, name }) => {
+      setLastCountTime(new Date());
       await delay(2000);
+      setLastCountTime(new Date());
       const newItems = items.map((item) => {
         if (item.id === id) {
           return {
