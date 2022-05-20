@@ -1,7 +1,7 @@
 import Layout from "Pages/Layout/Layout";
 import VendingMachine from "Pages/VendingMachine/VendingMachine";
 import Wallet from "Pages/Wallet/Wallet";
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AlertMessageProvider from "Context/AlertMessageProvider";
 import InvestMentProvider from "Context/InvestmentProvider";
@@ -29,7 +29,7 @@ const Provider = composeProvider(providerList);
 
 export default function App() {
   return (
-    <div className="App" onKeyPress={handleManager}>
+    <div className="App" onKeyDown={handleManager}>
       <GlobalStyle />
       <Provider>
         <BrowserRouter>

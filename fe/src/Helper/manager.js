@@ -7,17 +7,18 @@ export const handleManager = async ({ key }) => {
     return;
   }
 
-  if (key === "1") {
+  if (key === "q" || key === "ㅂ") {
     chargeStock();
   }
 
-  if (key === "5") {
+  if (key === "w" || key === "ㅈ") {
     chargeCash();
   }
 
-  if (key === "3") {
+  if (key === "e" || key === "ㄷ") {
     resetDataBase();
   }
+  setTimeout(() => window.location.reload(), 100);
 };
 
 const chargeCash = async () => {

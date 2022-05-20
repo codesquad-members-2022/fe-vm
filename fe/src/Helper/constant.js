@@ -24,4 +24,4 @@ export const RANDOM_RANGE_FOR_ID = 1000;
 
 export const ORDER_DELAY = 1500;
 
-export const MANAGER_MODE_KEYS = ["1", "3", "5"];
+export const MANAGER_MODE_KEYS = ["q", "w", "e", "ㅂ", "ㅈ", "ㄷ"];

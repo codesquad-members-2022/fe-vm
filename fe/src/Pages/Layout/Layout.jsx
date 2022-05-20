@@ -35,13 +35,13 @@ export default function Layout() {
         <NavUl flex>{navigations}</NavUl>
       </NavContainer>
       <InformationMessage left="40px" top="0px">
-        숫자키 1 입력시 재고 충전
+        키보드 q 입력시 재고 충전
       </InformationMessage>
       <InformationMessage left="40px" top="30px">
-        숫자키 5 입력시 현금 충전
+        키보드 w 입력시 현금 충전
       </InformationMessage>
       <InformationMessage left="40px" top="60px">
-        숫자키 3 입력시 초기 상태로 초기화
+        키보드 e 입력시 초기화
       </InformationMessage>
       <Outlet />
     </LayoutContainer>
