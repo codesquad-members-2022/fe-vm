@@ -1,6 +1,14 @@
+import PannelSection from 'components/organisms/PannelSection/PannelSecction';
+import ProductSection from 'components/molecules/ProductSection/ProductSection';
+import StyledVendingMachine from './VendingMachine.style';
+
 function VendingMachine() {
-  // VendingMachine 컴포넌트는 아직 만들지 못해서 임시로 div를 넣어두었습니다.
-  return <div>VendingMachine</div>;
+  return (
+    <StyledVendingMachine>
+      <ProductSection />
+      <PannelSection />
+    </StyledVendingMachine>
+  );
 }
 
 export default VendingMachine;
