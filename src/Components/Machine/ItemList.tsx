@@ -50,11 +50,6 @@ export default function ItemList({ timerId }: TimerType): JSX.Element {
       return;
     }
 
-    if (disposeTimerId.current) {
-      alert('상품이 배출중입니다....');
-      return;
-    }
-
     // 5초 카운트 종료
     clearTimeout(timerId.current);
 
