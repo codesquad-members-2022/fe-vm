@@ -21,7 +21,7 @@ export function UserWindow() {
   const { setLogList } = useContext(LogContext);
   const { inProgress } = useContext(ProgressContext);
   const { paybackTimer, setPaybackTimer } = useContext(PaybackTimerContext);
-  const { walletInfo, decrementCoin } = useContext(WalletContext);
+  const { walletInfo, decrementCoin, incrementCoin } = useContext(WalletContext);
 
   useEffect(() => {
     if (inputMoney === 0) return;
@@ -33,13 +33,24 @@ export function UserWindow() {
     if (inProgress) return;
     if (e.key !== 'Enter') return;
     const inputValue = e.target.value.replace(',', '');
-    const currentPossibleCoinObj = getPossibleCoin(Number(inputValue));
+    doMoneyInputProcess(Number(inputValue));
+
+    e.target.value = null;
+  }
+
+  function handleInputChange(e) {
+    const changedValue = Number(e.target.value.replace(/[^0-9]/g, ''));
+    if (changedValue > 0) {
+      e.target.value = changedValue.toLocaleString();
+    }
+  }
+
+  function doMoneyInputProcess(keyboardInputMoney) {
+    const currentPossibleCoinObj = getPossibleCoin(keyboardInputMoney);
     const currentInputMoney = getCurrentInputMoney(currentPossibleCoinObj);
     takeMoneyOutOfWallet(currentPossibleCoinObj);
     setInputMoney(inputMoney => inputMoney + currentInputMoney);
     logInputMoney(currentInputMoney);
-
-    e.target.value = null;
   }
 
   function getPossibleCoin(inputMoney) {
@@ -59,6 +70,7 @@ export function UserWindow() {
     for (let i = walletInfo.length - 1; i >= 0; i--) {
       let curCoin = walletInfo[i].coin;
       if (curCoin > changedMoney) continue;
+
       let requiredNumOfCurCoin = Math.floor(changedMoney / curCoin);
       let possibleNumOfCurCoin =
         requiredNumOfCurCoin > walletInfo[i].quantity ? walletInfo[i].quantity : requiredNumOfCurCoin;
@@ -87,18 +99,6 @@ export function UserWindow() {
     return currentInputMoney;
   }
 
-  function handleInputChange(e) {
-    const changedValue = Number(e.target.value.replace(/[^0-9]/g, ''));
-    if (changedValue > 0) {
-      e.target.value = changedValue.toLocaleString();
-    }
-  }
-
-  function logInputMoney(currentInputMoney) {
-    const log = `${getWonTemplate(currentInputMoney)} 투입됨.`;
-    setLogList(logList => [...logList, log]);
-  }
-
   function handleClickRepaymentBtn() {
     if (paybackTimer === null) {
       startPaybackTimer();
@@ -107,11 +107,7 @@ export function UserWindow() {
 
   function startPaybackTimer() {
     const getPaybackTimer = () => {
-      let timer = setTimeout(() => {
-        logPaybackMoney();
-        setInputMoney(0);
-        setPaybackTimer(null);
-      }, PAYBACK_TIME);
+      let timer = setTimeout(doPaybackProcess, PAYBACK_TIME);
       return timer;
     };
     setPaybackTimer(getPaybackTimer());
@@ -121,6 +117,33 @@ export function UserWindow() {
     if (paybackTimer !== null) {
       setPaybackTimer(timer => clearTimeout(timer));
     }
+  }
+
+  function doPaybackProcess() {
+    putMoneyInWallet(inputMoney);
+    logPaybackMoney();
+    setInputMoney(0);
+    setPaybackTimer(null);
+  }
+
+  function putMoneyInWallet(currentInputMoney) {
+    let changedMoney = currentInputMoney;
+
+    for (let i = walletInfo.length - 1; i >= 0; i--) {
+      let curCoin = walletInfo[i].coin;
+      if (curCoin > changedMoney) continue;
+
+      let possibleNumOfCurCoin = Math.floor(changedMoney / curCoin);
+      for (let i = 0; i < possibleNumOfCurCoin; i++) {
+        incrementCoin(curCoin);
+      }
+      changedMoney -= curCoin * possibleNumOfCurCoin;
+    }
+  }
+
+  function logInputMoney(currentInputMoney) {
+    const log = `${getWonTemplate(currentInputMoney)} 투입됨.`;
+    setLogList(logList => [...logList, log]);
   }
 
   function logPaybackMoney() {
