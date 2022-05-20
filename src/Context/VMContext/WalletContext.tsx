@@ -22,18 +22,12 @@ interface IWallet {
 
 type WalletAction =
   | { type: WALLET_ACTION.INSERT_COIN; payload: { amount: number; count: number; index: number } }
-  | {
-      type: WALLET_ACTION.INSERT_COINS;
-      payload: { coinCountInfo: Omit<ICoin, 'id'>[] };
-    }
+  | { type: WALLET_ACTION.INSERT_COINS; payload: { coinCountInfo: Omit<ICoin, 'id'>[] } }
   | {
       type: WALLET_ACTION.INCREMENT_COIN;
       payload: { amount: number; count: number; index: number };
     }
-  | {
-      type: WALLET_ACTION.RETURN_COINS;
-      payload: { coinCountInfo: Omit<ICoin, 'id'>[] };
-    };
+  | { type: WALLET_ACTION.RETURN_COINS; payload: { coinCountInfo: Omit<ICoin, 'id'>[] } };
 type WalletDispatch = Dispatch<WalletAction>;
 
 const WalletContext = createContext<{ state: IWallet; dispatch: WalletDispatch } | null>(null);

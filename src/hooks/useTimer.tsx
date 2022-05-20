@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useMemo } from 'react';
 
 interface Props {
-  children: string;
+  children: React.ReactNode;
 }
 
 interface IUseTimer {
@@ -17,10 +17,12 @@ interface IClearTimer {
 }
 
 interface ITimerState {
-  [key: string]: NodeJS.Timeout;
+  id: {
+    [key: string]: NodeJS.Timeout;
+  };
 }
 
-const timer: ITimerState = {};
+const timer: ITimerState = { id: {} };
 
 const TimerContext = createContext(timer);
 
@@ -35,14 +37,14 @@ export const useTimer: IUseTimer = (key) => {
 
   const setTimer: ISetTimer = (callback, seconds) => {
     if (Object.hasOwn(timer, key)) {
-      clearTimeout(timer[key]);
+      clearTimeout(timer.id[key]);
     }
 
-    timer[key] = setTimeout(callback, seconds * 1000);
+    timer.id[key] = setTimeout(callback, seconds * 1000);
   };
 
   const clearTimer: IClearTimer = () => {
-    clearTimeout(timer[key]);
+    clearTimeout(timer.id[key]);
   };
 
   return [setTimer, clearTimer];
