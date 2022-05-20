@@ -14,15 +14,22 @@ const reducer = (state, action) => {
 };
 
 function decreaseWalletMoney({ state, price }) {
-  const targetMoney = state.find(({ type }) => type === price);
-  const filteredMoney = state.filter(({ type }) => type !== price);
+  // const targetMoney = state.find(({ type }) => type === price);
+  // const filteredMoney = state.filter(({ type }) => type !== price);
 
-  const { type } = targetMoney;
-  const num = targetMoney.num - 1;
+  // const { type } = targetMoney;
+  // const num = targetMoney.num - 1;
 
-  const newMoneyInfos = [...filteredMoney, { type, num }].sort(
-    (aMoney, bMoney) => aMoney.type - bMoney.type
-  );
+  // const newMoneyInfos = [...filteredMoney, { type, num }].sort(
+  //   (aMoney, bMoney) => aMoney.type - bMoney.type
+  // );
+  const newMoneyInfos = state.map((money) => {
+    const { type, num } = money;
+    if (type === price) {
+      return { ...money, num: num - 1 };
+    }
+    return money;
+  });
 
   return newMoneyInfos;
 }

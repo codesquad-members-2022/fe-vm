@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
+import uuid from 'react-uuid';
 
 import items from '../consts/consts';
 import Button from '../components/Button';
@@ -62,7 +63,7 @@ export default function VendingMachine() {
       inputPrice.reduce(
         (previousValue, currentValue) =>
           Number(previousValue) + Number(currentValue),
-        []
+        0
       ) - accumulatedItemPrice;
     setInputPrice([]);
     setProgressMsg([
@@ -77,7 +78,7 @@ export default function VendingMachine() {
     <StyledContainer>
       <StyledItems>
         {items.map(({ title, price }) => (
-          <StyledItem key={`vm-item-${title}`}>
+          <StyledItem key={uuid()}>
             <AvailableButton
               icon={title}
               isAvailabe={
