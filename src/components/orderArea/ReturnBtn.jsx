@@ -5,7 +5,7 @@ import useVMState from 'hooks/useVMState';
 
 export default function PutBtn() {
   const finalPay = useContext(FinalPayContext);
-  const { returnPay } = useVMState();
+  const { startTimerToReset } = useVMState();
 
-  return <Button onClick={() => returnPay(finalPay)}>반환</Button>;
+  return <Button onClick={() => startTimerToReset(finalPay)}>반환</Button>;
 }

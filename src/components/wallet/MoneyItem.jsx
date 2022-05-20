@@ -10,14 +10,14 @@ import { HistoryDispatchContext } from 'contexts/HistoryProvider';
 export default function QuantityBtnWrap({ info, coin, decreaseQuantity }) {
   const [finalPay, setFinalPay] = [useContext(FinalPayContext), useContext(FinalPaySetContext)];
   const { addInputHistory } = useContext(HistoryDispatchContext);
-  const { returnPay } = useVMState();
+  const { startTimerToReset } = useVMState();
 
   const handleClickQuantityBtn = () => {
     const totalPay = finalPay + info.unit;
     decreaseQuantity(info.id);
     setFinalPay(totalPay);
     addInputHistory(totalPay);
-    returnPay(totalPay, TIME_TO_SELCT_PRODUCT);
+    startTimerToReset(totalPay, TIME_TO_SELCT_PRODUCT);
   };
 
   return (

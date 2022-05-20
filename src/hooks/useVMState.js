@@ -17,7 +17,7 @@ export default function useVMState() {
     returnPayHistory(totalPay);
   };
 
-  const returnPay = (totalPay, time) => {
+  const startTimerToReset = (totalPay, time) => {
     stopVMTimer();
     startVMTimer([
       [() => resetVMState(totalPay), time],
@@ -25,5 +25,5 @@ export default function useVMState() {
     ]);
   };
 
-  return { resetVMState, returnPay };
+  return { startTimerToReset };
 }

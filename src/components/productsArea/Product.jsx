@@ -14,7 +14,7 @@ export default function Product({ productInfo, toggleSelectableStatus }) {
   const [finalPay, setFinalPay] = [useContext(FinalPayContext), useContext(FinalPaySetContext)];
   const { addSelectHistory } = useContext(HistoryDispatchContext);
   const { startVMTimer, stopVMTimer } = useContext(VMTimerSetContext);
-  const { returnPay } = useVMState();
+  const { startTimerToReset } = useVMState();
 
   const canBuyProduct = () => (finalPay ? finalPay >= productInfo.price : true);
   const isSoldout = () => productInfo.quantity <= 0;
@@ -27,6 +27,21 @@ export default function Product({ productInfo, toggleSelectableStatus }) {
     toggleSelectableStatus(true);
   };
 
+  const hasRestMoney = totalPay => totalPay > 0;
+
+  const startTimerToSelectProduct = totalPay => {
+    stopVMTimer();
+    startVMTimer([
+      [updateOrderState, TIME_TO_PUT_OUT_PRODUCT],
+      [() => startTimerToReset(totalPay), TIME_TO_SELCT_PRODUCT]
+    ]);
+  };
+
+  const returnResetPay = totalPay => {
+    updateOrderState();
+    startTimerToReset(totalPay);
+  };
+
   const handleProductClick = () => {
     if (!finalPay) return;
 
@@ -34,11 +49,8 @@ export default function Product({ productInfo, toggleSelectableStatus }) {
     setSelectedProduct({ detail: productInfo.detail, price: productInfo.price });
     addSelectHistory(productInfo, totalPay);
     toggleSelectableStatus(false);
-    stopVMTimer();
-    startVMTimer([
-      [updateOrderState, TIME_TO_PUT_OUT_PRODUCT],
-      [() => returnPay(totalPay), TIME_TO_SELCT_PRODUCT]
-    ]);
+    if (hasRestMoney(totalPay)) startTimerToSelectProduct(totalPay);
+    else returnResetPay(totalPay);
   };
 
   return (

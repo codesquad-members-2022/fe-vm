@@ -11,7 +11,7 @@ export default function PutBtn({ inputPay }) {
   const [finalPay, setFinalPay] = [useContext(FinalPayContext), useContext(FinalPaySetContext)];
   const { addInputHistory } = useContext(HistoryDispatchContext);
   const walletState = useContext(WalletContext);
-  const { returnPay } = useVMState();
+  const { startTimerToReset } = useVMState();
 
   const getSumOfUnitCloseToPayment = (sumOfUnit, unit, quantity) => {
     let newSumOfUnit = sumOfUnit;
@@ -43,7 +43,7 @@ export default function PutBtn({ inputPay }) {
     const totalPay = finalPay + modifiedPayment;
     setFinalPay(totalPay);
     addInputHistory(totalPay);
-    returnPay(totalPay, TIME_TO_SELCT_PRODUCT);
+    startTimerToReset(totalPay, TIME_TO_SELCT_PRODUCT);
   };
 
   return (
