@@ -1,9 +1,7 @@
 import styled, { css } from 'styled-components';
 
-import { Flexbox } from '@/styles/util';
-
 export const WalletLayout = styled.main`
-  ${Flexbox};
+  ${({ theme }) => theme.mixin.flexbox()};
 `;
 
 export const WalletLayer = styled.div``;
@@ -11,14 +9,14 @@ export const WalletLayer = styled.div``;
 export const CoinList = styled.ol``;
 
 export const Balance = styled.div`
-  ${Flexbox};
+  ${({ theme }) => theme.mixin.flexbox()};
   padding: 20px;
   border: 1px solid ${({ theme }) => theme.color.black};
   margin: 20px auto 0;
 `;
 
 export const CoinLayer = styled.li`
-  ${Flexbox};
+  ${({ theme }) => theme.mixin.flexbox()};
   min-width: 200px;
   & + & {
     margin-top: 20px;
@@ -30,7 +28,7 @@ export const Amount = styled.div`
 `;
 
 export const Count = styled.div`
-  ${Flexbox};
+  ${({ theme }) => theme.mixin.flexbox()};
   padding: 10px;
   min-width: 70px;
   height: 55px;
@@ -56,13 +54,13 @@ export const buttonCommonStyle = css`
 `;
 
 export const InsertButton = styled.button`
-  ${Flexbox};
+  ${({ theme }) => theme.mixin.flexbox()};
   ${buttonCommonStyle};
   width: 150px;
 `;
 
 export const IncrementButton = styled.button`
-  ${Flexbox};
+  ${({ theme }) => theme.mixin.flexbox()};
   ${buttonCommonStyle};
   font-size: 30px;
   font-weight: bold;

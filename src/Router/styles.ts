@@ -1,5 +1,4 @@
-import styled from "styled-components";
-import {Flexbox} from "@/styles/util";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 1080px;
@@ -9,7 +8,7 @@ export const Container = styled.div`
 export const NavBarLayer = styled.nav``;
 
 export const TabList = styled.ul`
-  ${Flexbox};
+  ${({ theme }) => theme.mixin.flexbox()};
   height: 50px;
   margin-bottom: 20px;
 `;
