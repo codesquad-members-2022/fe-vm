@@ -1,15 +1,12 @@
-import { walletData } from '../../db/data';
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { StyledWalletContainer } from './wallet.styled';
 import { CoinWindow } from './coinWindow/coinWindow';
 import { MyMoneyMonitor } from './myMoneyMonitor/myMoneyMonitor';
+import { WalletContext } from '../../context/walletProvider';
 
 export function Wallet() {
-  const [walletInfo, setWalletInfo] = useState([]);
+  const { walletInfo } = useContext(WalletContext);
 
-  useEffect(() => {
-    setWalletInfo(walletData);
-  });
   return (
     <StyledWalletContainer>
       <CoinWindow walletInfo={walletInfo} />
