@@ -1,48 +1,52 @@
-import { SetAlertMessage } from "Context/AlertMessageProvider";
+import { InvestmentContext } from "Context/InvestmentProvider";
 import { OrderInProgressContext, SetOrderInProgressContext } from "Context/OrderInProgressProvider";
-import { DRINK_API, INIT_ALERT_MESSAGE, INVESTMENT_API, INVESTMENT_COUNT_TIME } from "Helper/constant";
-import { delay, fetchData, getAPIById } from "Helper/utils";
-import useInvestment from "Hooks/useInvestment";
+import { INVESTMENT_COUNT_TIME, ORDER_DELAY } from "Helper/constant";
+import { delay } from "Helper/utils";
 import useInvestmentTimer from "Hooks/useInvestmentTimer";
+import useRunOrder from "Hooks/useRunOrder";
+import useSetAlertMessage from "Hooks/useSetAlertMessage";
 import { useContext, useEffect } from "react";
 import { BeverageContainer, Price, Title } from "./Beverage.styled";
 
 export default function Beverage(props) {
   const { title, price, id, stock, beverages, setBeverages } = props.props;
-  const [investment, setInvestment] = useInvestment();
-  const setAlertMessage = useContext(SetAlertMessage);
+  const investment = useContext(InvestmentContext);
   const resetInvestment = useInvestmentTimer();
   const investmentPrice = (investment && investment.amount) || 0;
   const [orderInProgress, setOrderInProgress] = [
     useContext(OrderInProgressContext),
     useContext(SetOrderInProgressContext),
   ];
+  const runOrder = useRunOrder();
+  const applyAlertMessage = useSetAlertMessage();
 
   const isBuyPossible = orderInProgress ? false : price <= investmentPrice;
-  const handleOrderProps = { orderInProgress, isBuyPossible, setAlertMessage, setOrderInProgress, id };
+  const handleOrderProps = {
+    orderInProgress,
+    isBuyPossible,
+    applyAlertMessage,
+    setOrderInProgress,
+    id,
+    resetInvestment,
+  };
 
   useEffect(() => {
-    const runOrder = async () => {
+    const startOrderProcess = async () => {
       if (!orderInProgress) {
         return;
       }
 
-      resetInvestment(INVESTMENT_COUNT_TIME);
-      // 주문 대기시간 1.5초
-      await delay(1500);
-      const orderProps = { setOrderInProgress, setInvestment, investment, setAlertMessage, price, title };
-      const stockProps = { beverages, setBeverages, id };
-
-      reflectOrder(orderProps);
-      reflectStockChange(stockProps);
+      await delay(ORDER_DELAY);
+      const runOrderProps = { price, title, beverages, setBeverages, id };
+      runOrder(runOrderProps);
     };
 
     if (id !== orderInProgress) {
       return;
     }
 
-    runOrder();
-  }, [orderInProgress]);
+    startOrderProcess();
+  }, [orderInProgress, investment]);
 
   return (
     <BeverageContainer
@@ -52,7 +56,7 @@ export default function Beverage(props) {
       stock={stock}
       onClick={() => {
         if (!stock) {
-          alertSoldOut(setAlertMessage);
+          applyAlertMessage("soldOut");
           return;
         }
         handleOrder(handleOrderProps);
@@ -68,59 +72,17 @@ export default function Beverage(props) {
   );
 }
 
-const reflectStockChange = (props) => {
-  const { beverages, setBeverages, id } = props;
-  const idx = id - 1;
-  beverages[idx].stock -= 1;
-  const api = getAPIById(DRINK_API, id);
-  const newBeverages = [...beverages];
-  setBeverages(newBeverages);
-  fetchData(api, { method: "PUT", bodyData: beverages[idx] });
-};
-
-const reflectOrder = (props) => {
-  const { setOrderInProgress, setInvestment, investment, setAlertMessage, price, title } = props;
-  setOrderInProgress(false);
-  investment.amount -= price;
-  const newInvestment = { ...investment };
-  setInvestment(newInvestment);
-  fetchData(INVESTMENT_API, { method: "PUT", bodyData: newInvestment });
-  alertOrderMessage({ title, setAlertMessage });
-};
-
 const handleOrder = (props) => {
-  const { orderInProgress, isBuyPossible, setAlertMessage, setOrderInProgress, id } = props;
+  const { orderInProgress, isBuyPossible, applyAlertMessage, setOrderInProgress, id, resetInvestment } =
+    props;
   if (orderInProgress) {
-    alertBuyingMessage(setAlertMessage);
+    applyAlertMessage("buying");
     return;
   }
   if (!isBuyPossible) {
-    alertWrongProduct(setAlertMessage);
+    applyAlertMessage("wrong");
     return;
   }
+  resetInvestment(INVESTMENT_COUNT_TIME);
   setOrderInProgress(id);
-};
-
-const alertOrderMessage = ({ title, setAlertMessage }) => {
-  const alertMessage = { ...INIT_ALERT_MESSAGE };
-  alertMessage.orderTitle = title;
-  setAlertMessage(alertMessage);
-};
-
-const alertWrongProduct = (setAlertMessage) => {
-  const alertMessage = { ...INIT_ALERT_MESSAGE };
-  alertMessage.wrong = true;
-  setAlertMessage(alertMessage);
-};
-
-const alertBuyingMessage = (setAlertMessage) => {
-  const alertMessage = { ...INIT_ALERT_MESSAGE };
-  alertMessage.buying = true;
-  setAlertMessage(alertMessage);
-};
-
-const alertSoldOut = (setAlertMessage) => {
-  const alertMessage = { ...INIT_ALERT_MESSAGE };
-  alertMessage.soldOut = true;
-  setAlertMessage(alertMessage);
 };
