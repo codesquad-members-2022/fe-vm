@@ -47,7 +47,7 @@ export function WalletMoneyProvider({ children }) {
         for (let i = newMoney.length - 1; i >= 0; i--) {
           const { unit, count } = newMoney[i];
           if (calcPayTotal >= unit) {
-            const calcCount = Math.min(Math.floor(calcPayTotal / unit), count);
+            const calcCount = Math.floor(calcPayTotal / unit);
             calcPayTotal -= calcCount * unit;
             newMoney[i] = {
               ...newMoney[i],
