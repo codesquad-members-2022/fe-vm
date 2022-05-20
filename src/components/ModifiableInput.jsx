@@ -1,25 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { ErrorContext, CoinContext, MoneyContext, EventLogContext } from 'components/App';
 import { copyObject } from 'utils';
 import { MESSAGES } from 'constants/messages';
 
-function ModifiableInput({ moneyDisplayed, handler, setInputMode }) {
+function ModifiableInput({ setInputMode }) {
+  const { curMoney } = useContext(MoneyContext);
   const { showErrorMsg } = useContext(ErrorContext);
   const { coins, setCoins } = useContext(CoinContext);
   const { eventLog, setEventLog } = useContext(EventLogContext);
   const { setMoney } = useContext(MoneyContext);
+  const [inputValue, setInputValue] = useState(curMoney);
+
   return (
     <>
-      <Input type="number" onChange={handler} value={moneyDisplayed} />
+      <Input type="number" onChange={handleModifiableInput} value={inputValue} />
       <span>원</span>
       <button onClick={handleClickedInputBtn} type="button">
         투입
       </button>
     </>
   );
+
   function handleClickedInputBtn() {
-    const moneyRequestedToBeCharged = Number(moneyDisplayed);
+    const moneyRequestedToBeCharged = Number(inputValue);
     const [newMoney, newCoins] = chargeMoney(moneyRequestedToBeCharged);
 
     // TODO: 금액을 충전하고 반환되기 전에 추가로 충전하는 경우 분기 처리
@@ -57,6 +61,11 @@ function ModifiableInput({ moneyDisplayed, handler, setInputMode }) {
         return { ...coin, CNT: 0 };
       }
     }
+  }
+
+  function handleModifiableInput(e) {
+    const { value } = e.target;
+    setInputValue(value);
   }
 }
 

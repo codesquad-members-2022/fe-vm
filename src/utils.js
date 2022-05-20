@@ -13,4 +13,8 @@ function copyObject(obj) {
   return { ...obj };
 }
 
-export { getRandomNumber, delay, copyObject };
+function getQuotient(parent, child) {
+  return Math.floor(parent, child);
+}
+
+export { getRandomNumber, delay, copyObject, getQuotient };

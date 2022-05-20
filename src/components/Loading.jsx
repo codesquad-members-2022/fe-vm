@@ -5,7 +5,7 @@ import DELAY_MS from 'constants/delay';
 
 function Loading() {
   const { setLoading } = useContext(LoadingContext);
-  useEffect(handleLoading);
+  useEffect(handleLoading, []);
 
   return (
     <Wrap>

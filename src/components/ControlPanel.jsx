@@ -1,12 +1,17 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-const */
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { MoneyContext } from 'components/App';
+import { MoneyContext, CoinContext, EventLogContext } from 'components/App';
 import ModifiableInput from 'components/ModifiableInput';
 import EventLog from 'components/EventLog';
+import { copyObject } from 'utils';
 
 function ControlPanel() {
-  const { curMoney } = useContext(MoneyContext);
-  const [inputValue, setInputValue] = useState(curMoney);
+  const { curMoney, setMoney } = useContext(MoneyContext);
+  const { coins, setCoins } = useContext(CoinContext);
+  const { eventLog, setEventLog } = useContext(EventLogContext);
   const [isInputMode, setInputMode] = useState(false);
   const UnmodifiableInput = React.useCallback(
     () => getUnmodifiableInput({ value: curMoney, handler: handleInputMode }),
@@ -16,20 +21,36 @@ function ControlPanel() {
   return (
     <Wrap>
       <Row>
-        {isInputMode ? (
-          <ModifiableInput moneyDisplayed={inputValue} handler={handleModifiableInput} setInputMode={setInputMode} />
-        ) : (
-          <UnmodifiableInput />
-        )}
+        {isInputMode ? <ModifiableInput setInputMode={setInputMode} /> : <UnmodifiableInput />}
       </Row>
-      <button type="button">반환하기</button>
+      <button type="button" onClick={handleReturnBtn}>
+        반환하기
+      </button>
       <EventLog />
     </Wrap>
   );
 
-  function handleModifiableInput(e) {
-    const { value } = e.target;
-    setInputValue(value);
+  function handleReturnBtn() {
+    const newCoins = updateCoins();
+
+    setCoins(newCoins);
+    setEventLog([...eventLog, { type: 'RETURN', value: curMoney }]);
+    setMoney(0);
+
+    function updateCoins() {
+      let leftMoney = curMoney;
+      const copiedCoins = coins.map(copyObject);
+      const updatedCoins = copiedCoins.map((coin) => {
+        const quotient = Math.floor(leftMoney / coin.AMOUNT);
+        if (quotient) {
+          leftMoney -= coin.AMOUNT * quotient;
+          return { ...coin, CNT: coin.CNT + quotient };
+        }
+        return coin;
+      });
+
+      return updatedCoins;
+    }
   }
 
   function handleInputMode() {

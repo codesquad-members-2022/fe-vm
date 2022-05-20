@@ -1,20 +1,39 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { EventLogContext } from 'components/App';
+import { EventLogContext, ErrorContext } from 'components/App';
+import { MESSAGES } from 'constants/messages';
 
 function EventLog() {
   const { eventLog } = useContext(EventLogContext);
+  const { showErrorMsg } = useContext(ErrorContext);
 
-  return (
-    <Wrap>
-      {eventLog.map(({ type, value }) => (
-        <Row>
-          <div>{type}</div>
-          <div>{value}</div>
+  return <Wrap>{eventLog.map(createEventLog)}</Wrap>;
+
+  function createEventLog({ type, value }, idx) {
+    if (type === 'CHARGE') {
+      return (
+        <Row key={`${type}-${idx}`}>
+          <div>{value}원을 충전했습니다.</div>
         </Row>
-      ))}
-    </Wrap>
-  );
+      );
+    }
+    if (type === 'PURCHASE') {
+      return (
+        <Row key={`${type}-${idx}`}>
+          <div>{value}을(를) 구매했습니다.</div>
+        </Row>
+      );
+    }
+    if (type === 'RETURN') {
+      return (
+        <Row key={`${type}-${idx}`}>
+          <div>{value}원을 반환했습니다.</div>
+        </Row>
+      );
+    }
+    showErrorMsg(MESSAGES.ERROR.NOT_DEFIEND_EVENT_LOG_TYPE);
+    return new Error(MESSAGES.ERROR.NOT_DEFIEND_EVENT_LOG_TYPE);
+  }
 }
 
 export default EventLog;
