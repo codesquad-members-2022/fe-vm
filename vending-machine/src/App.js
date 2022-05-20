@@ -10,12 +10,12 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/" element={<Home />}>
             <Route index element={<VendingMachine />} />
-            <Route path="/vendingMachine" element={<VendingMachine />} />
-            <Route path="/myWallet" element={<Wallet />} />
+            <Route path="vendingMachine" element={<VendingMachine />} />
+            <Route path="myWallet" element={<Wallet />} />
           </Route>
         </Routes>
       </BrowserRouter>
