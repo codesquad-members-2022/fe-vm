@@ -5,7 +5,6 @@ const StyledMoneyBox = styled.ul`
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  margin-top: 10px;
 
   button {
     width: 50px;

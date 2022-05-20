@@ -1,29 +1,25 @@
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { MoneyContext } from 'context/MoneyContext';
 
-function MoneyUnit({ coin, insertMoney, setInsertMoney }) {
+function MoneyUnit({ coin }) {
+  const { updateInsertedMoney, updateWalletMoney } = useContext(MoneyContext);
+
   function handleMoneyUnit(event) {
     event.preventDefault();
     if (coin.count === 0) {
       return;
     }
-
-    const updatedInsertMoney = insertMoney.map(money => {
-      if (money.id === coin.id) {
-        const updatedMoney = {
-          id: coin.id,
-          unit: coin.unit,
-          count: coin.count - 1,
-        };
-        return updatedMoney;
-      }
-      return money;
-    });
-    setInsertMoney(updatedInsertMoney);
+    const coinId = event.target.id;
+    updateWalletMoney(coinId, 'decrement', 1);
+    updateInsertedMoney(coinId, 'increment', 1);
   }
+
   return (
     <li key={coin.id}>
       <button
         type="button"
+        id={coin.id}
         onClick={handleMoneyUnit}
         onKeyDown={handleMoneyUnit}
       >
@@ -40,8 +36,6 @@ MoneyUnit.propTypes = {
     unit: PropTypes.number,
     count: PropTypes.number,
   }),
-  insertMoney: PropTypes.arrayOf(PropTypes.objectOf),
-  setInsertMoney: PropTypes.func,
 };
 
 export default MoneyUnit;
