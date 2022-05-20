@@ -1,7 +1,9 @@
-import React, { useReducer } from 'react';
+import React, { useContext, useReducer } from 'react';
 
 import { getCoinsByAmount, getDiffInsertedMoney } from 'common/vmServices';
 import moneyData from 'mocks/moneyData';
+
+import { LogContext } from './LogProvider';
 
 const moneyAmount = [10000, 5000, 1000, 500, 100, 50, 10];
 
@@ -87,9 +89,14 @@ const moneyReducer = (
 
 export const MoneyProvider = (props) => {
   const [moneyState, dispatchMoney] = useReducer(moneyReducer, initMoneyState);
+  const [, insertLog] = useContext(LogContext);
 
   const insertInputMoney = (newState) => {
     dispatchMoney({ type: 'INSERT_INPUT_MONEY', ...newState });
+    insertLog({
+      type: 'insert',
+      data: newState.inputMoney - moneyState.inputMoney,
+    });
   };
 
   const insertMoneyByClick = (count, amount) => {
@@ -99,14 +106,26 @@ export const MoneyProvider = (props) => {
       count,
       amount,
     });
+    insertLog({
+      type: 'insert',
+      data: amount,
+    });
   };
 
   const returnInputMoney = () => {
     dispatchMoney({ type: 'RETURN_INPUT_MONEY' });
+    insertLog({
+      type: 'return',
+      data: moneyState.inputMoney,
+    });
   };
 
-  const buyVMItem = (amount) => {
+  const buyVMItem = (amount, name) => {
     dispatchMoney({ type: 'BUY_VM_ITEM', amount });
+    insertLog({
+      type: 'select',
+      data: name,
+    });
   };
 
   const moneyInfo = {

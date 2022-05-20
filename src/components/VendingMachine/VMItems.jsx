@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { delay } from 'common/utils';
 import Loading from 'components/Loading';
 import VMItem from 'components/VendingMachine/VMItem';
-import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
 import useLoading from 'hooks/useLoading';
 import vmItems from 'mocks/vmItems';
@@ -17,7 +16,6 @@ const VMItems = () => {
     moneyState: { inputMoney },
     buyVMItem,
   } = useContext(MoneyContext);
-  const [, insertLog] = useContext(LogContext);
 
   const handleClickItem = useCallback(
     async ({ id, amount, name }) => {
@@ -33,10 +31,6 @@ const VMItems = () => {
       });
       setItems(newItems);
       buyVMItem(amount, name);
-      insertLog({
-        type: 'select',
-        data: name,
-      });
     },
     [items]
   );

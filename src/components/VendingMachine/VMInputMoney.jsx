@@ -5,12 +5,10 @@ import { parseMoneyFormat } from 'common/utils';
 import { calcWalletMoney } from 'common/vmServices';
 import VMInputBox from 'components/VendingMachine/VMInputBox';
 import COLORS from 'constants/colors';
-import { LogContext } from 'context/LogProvider';
 import { MoneyContext } from 'context/MoneyProvider';
 import createHoverCss from 'styles/createHoverCss';
 
 const VMInputMoney = () => {
-  const [, insertLog] = useContext(LogContext);
   const { moneyState, insertInputMoney } = useContext(MoneyContext);
   const { inputMoney } = moneyState;
 
@@ -35,10 +33,6 @@ const VMInputMoney = () => {
       ...moneyState,
     });
     insertInputMoney(newState);
-    insertLog({
-      type: 'insert',
-      data: newState.inputMoney - moneyState.inputMoney,
-    });
     setIsInputSelected(false);
   };
 
