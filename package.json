@@ -2,6 +2,7 @@
   "name": "fe-vm",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@craco/craco": "^6.4.3",
     "@testing-library/jest-dom": "^5.16.4",
@@ -10,6 +11,8 @@
     "axios": "^0.27.2",
     "babel-eslint": "^10.1.0",
     "json-server": "^0.17.0",
+    "lodash": "^4.17.21",
+    "nodemon": "^2.0.16",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
@@ -22,7 +25,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-    "server": "npx json-server ./db.json --port 4000",
+    "server": "nodemon server.js",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
