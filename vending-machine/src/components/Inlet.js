@@ -22,17 +22,41 @@ function Inlet() {
   }
   function decreaseWallet(inputMoneyArr, value, input) {
     let newInput = input;
-    const newArr = [...value];
+    const newArr = value.map((el) => {
+      return { ...el };
+    });
     inputMoneyArr.map((currency) => {
       const valueIdx = newArr.findIndex((el) => el.title === currency.title);
       if (currency.amount <= value[valueIdx].amount) {
         newArr[valueIdx].amount -= currency.amount;
       } else {
-        newInput =
-          input - (currency.amount - newArr[valueIdx].amount) * currency.title;
+        const biggerCurrencyIdx = newArr.findIndex(
+          (el, idx) => idx > valueIdx && el.amount !== 0
+        );
+        console.log(newArr[biggerCurrencyIdx]);
+        if (biggerCurrencyIdx === -1) {
+          const moneyinHandArr = value
+            .map((el) => {
+              return { ...el };
+            })
+            .filter((currency) => currency.amount !== 0)
+            .reverse();
+          let [sum, i] = [0, 0];
+          while (sum < newInput) {
+            sum += moneyinHandArr[i].amount * moneyinHandArr[i].title;
+            newArr[
+              newArr.findIndex((el) => el.title === moneyinHandArr[i].title)
+            ].amount = 0;
+            i++;
+          }
+          newInput = sum;
+        } else {
+          newInput =
+            input -
+            currency.amount * currency.title +
+            newArr[biggerCurrencyIdx].amount * newArr[biggerCurrencyIdx].title;
+        }
       }
-      newArr[valueIdx].amount = 0;
-      newArr[valueIdx + 1].amount -= 1;
     });
     setSum(budget - input);
     setInputMoneySum(newInput);
@@ -42,20 +66,19 @@ function Inlet() {
 
   function submitValue(e) {
     if (e.key === "Enter") {
-      if (!checkInput(e.target.value)) {
+      if (checkInput(e.target.value)) {
+      }
+      const roundedInput = Math.round(Number(e.target.value) / 10) * 10;
+      e.target.value = roundedInput;
+      const isPayable = isSmaller(roundedInput, budget);
+      if (isPayable) {
+        const inputMoney = devideInputMoney(roundedInput).reverse();
+        decreaseWallet(inputMoney, walletMoney, roundedInput);
         e.target.value = null;
       } else {
-        const roundedInput = Math.round(Number(e.target.value) / 10) * 10;
-        e.target.value = roundedInput;
-        const isPayable = isSmaller(roundedInput, budget);
-        if (isPayable) {
-          const inputMoney = devideInputMoney(roundedInput).reverse();
-          decreaseWallet(inputMoney, walletMoney, roundedInput);
-          e.target.value = null;
-        } else {
-          alert("한도초과!");
-        }
+        alert("한도초과!");
       }
+      e.target.value = null;
     }
   }
 
