@@ -1,28 +1,32 @@
-import React from "react";
-import { convert2MoneyUnit } from "utils";
+import { MachineDispatchContext } from "contexts/MachineProvider";
+import { WalletDispatchContext } from "contexts/WalletProvider";
+import React, { useContext } from "react";
+import { convertMoneyUnit } from "utils";
+import { styledIsEmptyMoney, styledIsMoneyType } from "helpers/styleTemplate";
 
 const MoneyUnitItem = ({ id, money, count, type }) => {
-  const krMoney = convert2MoneyUnit(money, "kr");
+  const { onPushCoin } = useContext(WalletDispatchContext);
+  const { onComeInCoin } = useContext(MachineDispatchContext);
+
+  const handleInsertMoney = () => {
+    if (count <= 0) return;
+
+    onPushCoin(id);
+    onComeInCoin(money);
+  };
+
   return (
-    <div key={id} className="flex justify-end items-center w-[90%]">
-      <button className={`${styledMoneyType(type)} btn btn--starbucks mr-10 `}>{krMoney}원</button>
-      <div>X</div>
-      <span className="w-[30%] text-right">{count}개</span>
+    <div className="flex justify-end items-center w-[90%]">
+      <button
+        className={`${styledIsMoneyType(type)} btn btn--starbucks leading-8 `}
+        onClick={handleInsertMoney}
+      >
+        {convertMoneyUnit(money, "kr")}원
+      </button>
+      <div className="">X</div>
+      <span className={`${styledIsEmptyMoney(count)} w-[30%] text-right`}>{count}개</span>
     </div>
   );
 };
 
-const styledMoneyType = (type) => {
-  switch (type) {
-    case "coin":
-      return "rounded-full py-4 w-[30%]";
-
-    case "bill":
-      return "rounded-none px-2 py-3 w-[50%]";
-
-    default:
-      return;
-  }
-};
-
-export default MoneyUnitItem;
+export default React.memo(MoneyUnitItem);

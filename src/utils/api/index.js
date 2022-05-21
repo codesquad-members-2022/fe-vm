@@ -1,16 +1,25 @@
 import instance from "./instance";
 
 export const API = {
-  getBeverage() {
+  getBeverage(config) {
     return instance({
-      url: "beverage",
+      url: "beverageData.json",
       method: "get",
+      ...config,
     });
   },
-  getMyWallet() {
+  getMyWallet(config) {
     return instance({
-      url: "myWallet",
+      url: "moneyData.json",
       method: "get",
+      ...config,
+    });
+  },
+  getVMInfo(config) {
+    return instance({
+      url: "vendingMachineInfo.json",
+      method: "get",
+      ...config,
     });
   },
 };

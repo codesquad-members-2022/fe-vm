@@ -1,19 +1,14 @@
-import React, { useState } from "react";
-import ProductItem from "./ProductItem";
-import ProductTab from "./ProductTab";
-import beverage from "mocks/beverage";
+import ProductList from "./ProductList";
+import ProductCategoryTab from "./ProductCategoryTab";
+import { useState } from "react";
 
-const ProductStand = () => {
-  const [beverageState, setBeverageState] = useState(beverage);
+const ProductStand = ({ products }) => {
+  const [tabIndex, setTabIndex] = useState(1);
 
   return (
-    <div className="flex flex-col">
-      <ProductTab />
-      <div className="grid grid-flow-row grid-cols-4 gap-5 p-4 border-black">
-        {beverageState.map(({ id, ...state }) => (
-          <ProductItem key={id} {...state} />
-        ))}
-      </div>
+    <div className="flex flex-col w-[70%]">
+      <ProductCategoryTab tabIndex={tabIndex} setTabIndex={setTabIndex} />
+      <ProductList products={products} tabIndex={tabIndex} />
     </div>
   );
 };

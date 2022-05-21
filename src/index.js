@@ -1,23 +1,20 @@
-import NotFound from "pages/NotFound";
-import VendingMachine from "pages/VendingMachine";
-import Wallet from "pages/Wallet";
+import ComposedProivider from "contexts/core/ComposedProivider";
+import MachineProvider from "contexts/MachineProvider";
+import ProductProvider from "contexts/ProductProvider";
+import WalletProvider from "contexts/WalletProvider";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import App from "./App";
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "routers/AppRouter";
 import "./main.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const providers = [React.StrictMode, WalletProvider, MachineProvider, ProductProvider];
+
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index exact path="/" element={<VendingMachine />} />
-          <Route path="/wallet" element={<Wallet />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+  <ComposedProivider components={providers}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <AppRouter />
     </BrowserRouter>
-  </React.StrictMode>
+  </ComposedProivider>
 );

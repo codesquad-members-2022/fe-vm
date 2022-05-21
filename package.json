@@ -16,9 +16,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "cp build/index.html build/404.html",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
+  "homepage": "https://jwu-ice.github.io/fe-vm/",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -39,10 +43,17 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",
+    "eslint": "^8.15.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-tailwindcss": "^3.5.0",
+    "framer-motion": "^6.3.3",
+    "gh-pages": "^4.0.0",
     "postcss": "^8.4.13",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^6.2.1",
     "postcss-preset-env": "^7.5.0",
+    "prettier": "^2.6.2",
+    "stream-http": "^3.2.0",
     "tailwindcss": "^3.0.24"
   }
 }

@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[110563]_20210426095937808.jpg",
+    "name": "카페 아메리카노",
+    "price": 4500,
+    "count": 2
+  },
+  {
+    "id": 2,
+    "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[110582]_20210415142706078.jpg",
+    "name": "카라멜 마키아또",
+    "price": 5000,
+    "count": 2
+  },
+  {
+    "id": 3,
+    "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[46]_20210415134438165.jpg",
+    "name": "카페 모카",
+    "price": 5500,
+    "count": 2
+  },
+  {
+    "id": 4,
+    "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[9200000000038]_20210430113202458.jpg",
+    "name": "콜드 브루",
+    "price": 5000,
+    "count": 2
+  },
+  {
+    "id": 5,
+    "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[9200000002081]_20210415133656839.jpg",
+    "name": "돌체 콜드 브루",
+    "price": 7000,
+    "count": 2
+  },
+  {
+    "id": 6,
+    "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[9200000002406]_20210415135507733.jpg",
+    "name": "바닐라 플랫 화이트",
+    "price": 6000,
+    "count": 0
+  },
+  {
+    "id": 7,
+    "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[20]_20210415144112678.jpg",
+    "name": "에스프레소",
+    "price": 5000,
+    "count": 2
+  },
+  {
+    "id": 8,
+    "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[9200000002487]_20210426091745467.jpg",
+    "name": "나이트로 바닐라 크림",
+    "price": 6000,
+    "count": 2
+  },
+  {
+    "id": 9,
+    "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2022/03/[9200000002672]_20220311105511600.jpg",
+    "name": "제주 비자림 콜드 브루",
+    "price": 6600,
+    "count": 2
+  },
+  {
+    "id": 10,
+    "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[30]_20210415144252244.jpg",
+    "name": "에스프레소 콘 파나",
+    "price": 7900,
+    "count": 12
+  },
+  {
+    "id": 11,
+    "image": "https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[110614]_20210415132333109.jpg",
+    "name": "헤이즐넛 스타벅스 더블 샷",
+    "price": 6500,
+    "count": 2
+  }
+]

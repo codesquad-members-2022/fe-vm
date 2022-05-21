@@ -15,17 +15,40 @@
 
 @layer components {
   .btn {
-    @apply text-center border-2 rounded-lg shadow-md shadow-gray;
+    @apply text-center transition-all border-4 rounded-lg shadow-md shadow-gray;
   }
 
   .btn--starbucks {
-    @apply font-medium text-black border-starbucks-dark hover:bg-starbucks hover:text-white active:bg-starbucks-dark active:text-white focus:ring;
+    @apply font-medium text-black transition-all border-starbucks hover:bg-starbucks hover:text-white active:bg-starbucks-dark active:text-white focus:ring;
   }
 
-  .tab--starbucks {
+  .headerTab--starbucks {
     @apply btn btn--starbucks w-[100px] py-2;
   }
 }
 
 @layer utilities {
+  .type-coin {
+    @apply rounded-full w-[70px] h-[70px] mr-12 tracking-tight;
+  }
+
+  .type-bill {
+    @apply rounded-none w-[140px] h-[70px] mr-6;
+  }
+
+  .empty-money {
+    @apply line-through decoration-4;
+  }
+
+  .empty-product {
+    @apply pointer-events-none opacity-50;
+  }
+
+  .possible-purchase-product {
+    @apply border-2 hover:ring-2 hover:ring-starbucks shadow-gray hover:scale-105 active:scale-110 cursor-pointer;
+  }
+
+  .select-tab {
+    @apply font-semibold underline underline-offset-4;
+  }
 }
