@@ -4,7 +4,7 @@ export const activityType = {
   LACK_OF_INPUTSUM: "lackOfInputsum",
   LACK_OF_BALANCE: "lackOfBalance",
   INPUT_MONEY: "inputMoney",
-  RETURN_MONEY: "returnMoney"
+  RETURN_MONEY: "returnMoney",
 };
 
 export const moneyOrder = [

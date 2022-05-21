@@ -22,7 +22,8 @@ const MoneyWrapper = styled.div`
 const MoneyButton = styled.div`
   width: 140px;
   height: 70px;
-  background: ${({ moneyType }) => `url(${icons.MONEY_IMG[moneyType]})`} no-repeat center;
+  background: ${({ moneyType }) => `url(${icons.MONEY_IMG[moneyType]})`}
+    no-repeat center;
   background-size: contain;
 `;
 

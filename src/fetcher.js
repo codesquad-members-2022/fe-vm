@@ -13,7 +13,7 @@ export const request = {
     const URL = makeURL(target, id);
     const requestMessage = makeRequestMessage("PATCH", requestBody);
     fetch(URL, requestMessage);
-  }
+  },
 };
 
 const makeURL = (target, id = "") => {
@@ -24,6 +24,6 @@ const makeRequestMessage = (method, requestBody) => {
   return {
     method: method,
     body: JSON.stringify(requestBody),
-    headers: { "Content-type": "application/json; charset=UTF-8" }
+    headers: { "Content-type": "application/json; charset=UTF-8" },
   };
 };
