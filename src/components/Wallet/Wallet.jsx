@@ -7,16 +7,8 @@ import { activityType, moneyOrder } from "convention";
 import { v4 as uuidv4 } from "uuid";
 
 const Wallet = () => {
-  const { wallet, inputSum, updateBalance } = useContext(Balance);
+  const { wallet, inputSum, updateBalance, calTotalBalance } = useContext(Balance);
   const { updateRecord } = useContext(Records);
-
-  const calTotalBalance = () => {
-    const totalBalance = moneyOrder.reduce(
-      (balance, moneyType) => balance + moneyType * wallet[moneyType],
-      0
-    );
-    return totalBalance;
-  };
 
   const putMoneyIntoVendingMachine = (targetMoneyType) => {
     const targetMoneyAmount = wallet[targetMoneyType];

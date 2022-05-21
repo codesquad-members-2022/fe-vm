@@ -12,21 +12,21 @@
       "name": "코카콜라",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/168968579-609b8507-4145-4330-9813-1ac87201012e.png",
       "price": 1300,
-      "stock": 7
+      "stock": 4
     },
     {
       "id": 3,
       "name": "코카콜라(제로)",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/168968589-8b351153-3bdc-4e17-9a28-b1f8fad6c50a.png",
       "price": 1300,
-      "stock": 8
+      "stock": 5
     },
     {
       "id": 4,
       "name": "코카콜라(제로)",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/168968589-8b351153-3bdc-4e17-9a28-b1f8fad6c50a.png",
       "price": 1300,
-      "stock": 0
+      "stock": 2
     },
     {
       "id": 5,
@@ -47,14 +47,14 @@
       "name": "환타",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/168968574-2c68f343-6d66-4b15-a72c-1914f0df3c13.png",
       "price": 1600,
-      "stock": 3
+      "stock": 2
     },
     {
       "id": 8,
       "name": "스프라이트",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/168968575-cccff4f6-765d-4eee-8d49-7289656b2ee8.png",
       "price": 1700,
-      "stock": 3
+      "stock": 1
     },
     {
       "id": 9,
@@ -75,7 +75,7 @@
       "name": "파워에이드",
       "imgSrc": "https://user-images.githubusercontent.com/95538993/168968584-900df574-7fda-4ff2-b7fe-4a6801e16939.png",
       "price": 2000,
-      "stock": 1
+      "stock": 0
     },
     {
       "id": 12,
@@ -86,13 +86,13 @@
     }
   ],
   "wallet": {
-    "10": 10,
+    "10": 0,
     "50": 1,
-    "100": 14,
-    "500": 6,
-    "1000": 8,
+    "100": 11,
+    "500": 3,
+    "1000": 11,
     "5000": 4,
-    "10000": 1,
-    "50000": 2
+    "10000": 3,
+    "50000": 1
   }
 }

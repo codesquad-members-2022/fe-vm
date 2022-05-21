@@ -1,9 +1,10 @@
 export const activityType = {
   PURCHASE: "purchase",
   OUT_OF_STOCK: "outOfStock",
-  LACK_OF_MONEY: "lackOfMoney",
+  LACK_OF_INPUTSUM: "lackOfInputsum",
+  LACK_OF_BALANCE: "lackOfBalance",
   INPUT_MONEY: "inputMoney",
-  RETURN_MONEY: "returnMoney",
+  RETURN_MONEY: "returnMoney"
 };
 
 export const moneyOrder = [

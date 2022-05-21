@@ -2,24 +2,42 @@ import { useContext, useState } from "react";
 import { Balance } from "contextProviders/BalanceProvider";
 import { Records } from "contextProviders/RecordsProvider";
 import styled from "styled-components";
-import { activityType } from "convention";
+import { activityType, moneyOrder } from "convention";
 
 const InputSumDisplay = () => {
-  const { inputSum, setInputSum } = useContext(Balance);
+  const { wallet, inputSum, updateBalance, calTotalBalance } = useContext(Balance);
   const { updateRecord } = useContext(Records);
   const [tempInputSum, setTempInputSum] = useState("");
 
   const updateInputSum = (e) => {
     e.preventDefault();
-    if (checkInputMoneyValidity(tempInputSum)) {
-      setInputSum(tempInputSum);
+    if (!checkInputMoneyValidity(tempInputSum)) return;
+
+    const totalBalance = calTotalBalance();
+    if (tempInputSum > totalBalance) {
+      updateRecord(activityType.LACK_OF_BALANCE);
+    } else {
+      const { remainMoneyWallet, finalAmount } = filterSurplusMoney(tempInputSum, totalBalance);
+      updateBalance(remainMoneyWallet, finalAmount);
+      updateRecord(activityType.INPUT_MONEY, finalAmount);
     }
-    updateRecord(activityType.INPUT_MONEY, tempInputSum);
     setTempInputSum("");
   };
 
   const checkInputMoneyValidity = (money) => {
     return Number.isInteger(money) && money >= 0;
+  };
+
+  const filterSurplusMoney = (targetAmount, totalBalance) => {
+    const remainMoneyWallet = {};
+
+    const finalAmount = moneyOrder.reduce((currTotalAmount, moneyType) => {
+      const idealSurplusAmount = parseInt((currTotalAmount - targetAmount) / Number(moneyType));
+      const surplusAmount = Math.min(idealSurplusAmount, wallet[moneyType]);
+      remainMoneyWallet[moneyType] = surplusAmount;
+      return currTotalAmount - surplusAmount * Number(moneyType);
+    }, totalBalance);
+    return { remainMoneyWallet, finalAmount };
   };
 
   const updateTempInputSum = ({ target: { value } }) => {

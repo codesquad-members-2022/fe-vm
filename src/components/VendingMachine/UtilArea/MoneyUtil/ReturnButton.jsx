@@ -1,33 +1,12 @@
 import { useContext } from "react";
 import { css } from "styled-components";
 import { Balance } from "contextProviders/BalanceProvider";
-import { Records } from "contextProviders/RecordsProvider";
 import Button from "components/common/Button";
-import { activityType, moneyOrder } from "convention";
 
 const ReturnButton = () => {
-  const { inputSum, wallet, updateBalance } = useContext(Balance);
-  const { updateRecord } = useContext(Records);
+  const { putMoneyBackInWallet } = useContext(Balance);
 
-  const handleReturnButtonClick = () => {
-    if (!inputSum) return;
-    const newWallet = packChange();
-    updateBalance(newWallet, 0);
-    updateRecord(activityType.RETURN_MONEY, inputSum);
-  };
-
-  const packChange = () => {
-    const newWallet = {};
-    moneyOrder.reduce((remainInputSum, moneyType) => {
-      const currMoneyAmount = parseInt(remainInputSum / Number(moneyType));
-      newWallet[moneyType] = wallet[moneyType] + currMoneyAmount;
-      return remainInputSum % Number(moneyType);
-    }, inputSum);
-
-    return newWallet;
-  };
-
-  return <Button styles={returnButtonStyles} content={"return"} onClick={handleReturnButtonClick} />;
+  return <Button styles={returnButtonStyles} content={"return"} onClick={putMoneyBackInWallet} />;
 };
 
 const returnButtonStyles = css`
