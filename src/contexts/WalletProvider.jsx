@@ -14,6 +14,38 @@ export function WalletProvider({ children }) {
     return addCommasToNumber(amount);
   }, [walletState]);
 
+  const getSumOfUnitCloseToPayment = (sumOfUnit, unit, quantity, payment) => {
+    const newSumOfUnit = sumOfUnit;
+    let usedAmount = 1;
+
+    while (usedAmount <= quantity) {
+      newSumOfUnit.total += unit;
+      newSumOfUnit.unitsToBeUsed = [...newSumOfUnit.unitsToBeUsed, unit];
+      if (newSumOfUnit.total + unit > payment) break;
+      usedAmount += 1;
+    }
+
+    return newSumOfUnit;
+  };
+
+  const calcPaymentToBeUsed = useCallback(
+    payment => {
+      const paymentToBeUsed = walletState.reduceRight(
+        (sumOfUnit, { unit, quantity }) => {
+          if (sumOfUnit.total + unit > payment || !quantity) return sumOfUnit;
+
+          const newSumOfUnit = getSumOfUnitCloseToPayment(sumOfUnit, unit, quantity, payment);
+
+          return newSumOfUnit;
+        },
+        { total: 0, unitsToBeUsed: [] }
+      );
+
+      return paymentToBeUsed;
+    },
+    [walletState]
+  );
+
   const decreaseQuantity = useCallback(
     moneyID => {
       const newWalletState = walletState.map(item =>
@@ -42,8 +74,8 @@ export function WalletProvider({ children }) {
   );
 
   const updateWalletState = useMemo(
-    () => ({ getAmount, decreaseQuantity, decreaseUnitsToBeUsed }),
-    [getAmount, decreaseQuantity, decreaseUnitsToBeUsed]
+    () => ({ getAmount, calcPaymentToBeUsed, decreaseQuantity, decreaseUnitsToBeUsed }),
+    [getAmount, calcPaymentToBeUsed, decreaseQuantity, decreaseUnitsToBeUsed]
   );
 
   return (
