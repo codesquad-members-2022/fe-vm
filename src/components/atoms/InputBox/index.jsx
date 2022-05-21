@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react';
 
+import PropTypes from 'prop-types';
+
 import * as S from '@components/atoms/InputBox/InputBox.style';
 
 export const NO_BALANCE = '0';
 const SUFFIX = '원';
 
-const InputBox = ({ inputValue, setInputValue }) => {
+const InputBox = ({ inputValue, saveInputValue }) => {
   const [isEditable, setIsEditable] = useState(false);
 
   const inputRef = useRef(null);
@@ -37,10 +39,10 @@ const InputBox = ({ inputValue, setInputValue }) => {
     focusContentEditableTextToEnd(inputRef.current);
   };
 
-  const saveInputValue = event => {
+  const submitInputValue = event => {
     event.preventDefault();
     setIsEditable(false);
-    setInputValue(inputRef.current.innerText);
+    saveInputValue(inputRef.current.innerText);
   };
 
   // Handlers
@@ -59,7 +61,7 @@ const InputBox = ({ inputValue, setInputValue }) => {
       return;
     }
 
-    if (key === 'Enter') saveInputValue(event);
+    if (key === 'Enter') submitInputValue(event);
     else if (key === 'Backspace') inputValue.length === 1 && changeInputValue(event, NO_BALANCE);
     else event.preventDefault();
   };
@@ -72,6 +74,11 @@ const InputBox = ({ inputValue, setInputValue }) => {
       <span>{SUFFIX}</span>
     </S.Container>
   );
+};
+
+InputBox.propTypes = {
+  inputValue: PropTypes.string,
+  saveInputValue: PropTypes.func,
 };
 
 export default InputBox;

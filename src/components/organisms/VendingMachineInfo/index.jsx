@@ -8,11 +8,19 @@ import SelectForm from '@components/molecules/SelectForm';
 import * as S from '@components/organisms/VendingMachineInfo/VendingMachineInfo.style';
 import { MoneyContext } from '@context/money/provider';
 import logs from '@data/logs';
+import { calculateMoney } from '@lib/utils';
 
 const VendingMachineInfo = () => {
-  const { state, options, changeMoneyQuantity } = useContext(MoneyContext);
+  const { state, options, insertMoney, insertMoneyWithInput } = useContext(MoneyContext);
 
   const [inputValue, setInputValue] = useState(NO_BALANCE);
+
+  const saveInputValue = async value => {
+    setInputValue(value);
+    const toBeInserted = calculateMoney(value);
+    await insertMoneyWithInput(toBeInserted);
+    setInputValue(NO_BALANCE);
+  };
 
   return (
     state && (
@@ -22,8 +30,8 @@ const VendingMachineInfo = () => {
           title='총 투입 금액'
           content={`${state.insertedMoney}원`}
         />
-        <InputBox inputValue={inputValue} setInputValue={setInputValue} />
-        <SelectForm options={options} onClick={changeMoneyQuantity} />
+        <InputBox inputValue={inputValue} saveInputValue={saveInputValue} />
+        <SelectForm options={options} onClick={insertMoney} />
         <Button size={BUTTON_SIZE.X_LARGE}>반환</Button>
         <LogBox logs={logs} />
       </S.Container>

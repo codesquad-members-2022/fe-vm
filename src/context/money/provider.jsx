@@ -21,7 +21,7 @@ const MoneyProvider = ({ initialState, children }) => {
     dispatch({ type: 'INIT_MONEY', payload: { wallet, insertedMoney: 0 } });
   };
 
-  const changeMoneyQuantity = id => async () => {
+  const insertMoney = id => async () => {
     const money = state.wallet.find(money => money.id === id);
     if (!money.quantity) return;
     const updatedMoney = await walletApi.reduceMoneyQuantity({
@@ -29,6 +29,41 @@ const MoneyProvider = ({ initialState, children }) => {
       data: { quantity: money.quantity - 1 },
     });
     dispatch({ type: 'INSERT_MONEY', payload: { updatedMoney: [updatedMoney] } });
+  };
+
+  const insertMoneyWithInput = async toBeInserted => {
+    toBeInserted = Object.entries(toBeInserted);
+    const updatedMoney = await walletApi.reduceMoneyQuantity({
+      data: getUpdatedMoney(toBeInserted),
+    });
+    dispatch({ type: 'INSERT_MONEY', payload: { updatedMoney: updatedMoney } });
+  };
+
+  const getUpdatedMoney = toBeInserted => {
+    let data = [];
+    toBeInserted.sort((a, b) => b[0] - a[0]);
+
+    for (const [unit, quantity] of toBeInserted) {
+      const money = state.wallet.find(money => money.unit === Number(unit));
+
+      if (money.quantity - quantity >= 0) {
+        data.push({ id: money.id, quantity: money.quantity - quantity });
+      } else {
+        let id = money.id + 1;
+        while (id <= state.wallet.length) {
+          const currentQuantity =
+            data.find(item => item.id === id)?.quantity || state.wallet[id - 1].quantity;
+          if (currentQuantity > 0) {
+            data = data.filter(item => item.id > id);
+            data.push({ id, quantity: currentQuantity - 1 });
+            return data;
+          }
+          id++;
+        }
+        return data;
+      }
+    }
+    return data;
   };
 
   const spendMoney = productPrice => {
@@ -39,7 +74,15 @@ const MoneyProvider = ({ initialState, children }) => {
     getAllMoney();
   }, []);
 
-  const value = { state, options, getAllMoney, changeMoneyQuantity, spendMoney };
+  const value = {
+    state,
+    options,
+    getAllMoney,
+    insertMoney,
+    spendMoney,
+    insertMoneyWithInput,
+  };
+
   return <MoneyContext.Provider value={value}>{children}</MoneyContext.Provider>;
 };
 
