@@ -1,15 +1,9 @@
-import { useRef, useEffect, memo } from 'react';
+import { memo } from 'react';
 import styled from 'styled-components';
 import setLocalString from 'utils/setLocalString';
 import logMessage from 'utils/logmessage';
 
 const OrderLog = ({ log }) => {
-  const scrollRef = useRef();
-
-  useEffect(() => {
-    scrollRef.current.scrollIntoView({ behavior: 'smooth' });
-  });
-
   return (
     <Order>
       {typeof log.value === 'object' ? (
@@ -24,7 +18,6 @@ const OrderLog = ({ log }) => {
           {logMessage(log.type)}
         </>
       )}
-      <div ref={scrollRef}></div>
     </Order>
   );
 };

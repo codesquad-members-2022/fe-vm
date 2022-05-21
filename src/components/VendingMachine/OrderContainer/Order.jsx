@@ -1,4 +1,5 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
+
 import { useMoneyState } from 'context/MoneyContext';
 import { useLogState } from 'context/LogContext';
 import { TimerContext } from 'context/TimerContext';
@@ -10,17 +11,23 @@ import OrderLog from './OrderLog';
 export default function UserOrder() {
   const { insertMoneyData } = useMoneyState();
   const { machineLog } = useLogState();
+  const { countdown } = useContext(TimerContext);
   const totalInsertMoney = insertMoneyData;
 
   const orderLog = machineLog.map(log => {
     return <OrderLog key={log.id} log={log} />;
   });
 
-  const { countdown } = useContext(TimerContext);
+  const scrollRef = useRef();
+
+  useEffect(() => {
+    const { scrollHeight, clientHeight } = scrollRef.current;
+    scrollRef.current.scrollTop = scrollHeight - clientHeight;
+  });
 
   return (
     <OrderInfo>
-      <OrderList>{orderLog}</OrderList>
+      <OrderList ref={scrollRef}>{orderLog}</OrderList>
       <InputCostInfo>
         <InfoWrapper>
           <span>투입 금액: </span>
@@ -63,6 +70,7 @@ const InfoWrapper = styled.div`
 const OrderList = styled.ul`
   overflow-y: auto;
   margin-bottom: 6px;
+  scroll-behavior: smooth;
 
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
