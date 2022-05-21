@@ -43,8 +43,8 @@ function Product({ title, price, amount }) {
   );
 }
 const ProductWrap = styled.div`
-  border: ${(props) =>
-    props.isSoldOut ? `1px solid #000000` : `6px solid #f00`};
+  border: ${({ isSoldOut }) =>
+    isSoldOut ? `1px solid #000000` : `6px solid #f00`};
   flex-direction: column;
   ${HeightSort}
 `;
