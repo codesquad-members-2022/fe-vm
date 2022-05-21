@@ -4,17 +4,16 @@ import { Button } from 'components/orderArea/PutBtn.style';
 import { TIME_TO_SELCT_PRODUCT } from 'constant/constant';
 import { calcPaymentToBeUsed } from 'utils/util';
 import useVMState from 'hooks/useVMState';
-import useWalletState from 'hooks/useWalletState';
 import { FinalPayContext, FinalPaySetContext } from 'contexts/FinalPayProvider';
 import { HistoryDispatchContext } from 'contexts/HistoryProvider';
-import { WalletContext } from 'contexts/WalletProvider';
+import { WalletContext, WalletSetContext } from 'contexts/WalletProvider';
 
 export default function PutBtn({ inputPay }) {
   const [finalPay, setFinalPay] = [useContext(FinalPayContext), useContext(FinalPaySetContext)];
   const { addInputHistory } = useContext(HistoryDispatchContext);
   const walletState = useContext(WalletContext);
   const { startTimerToReset } = useVMState();
-  const { decreaseUnitsToBeUsed } = useWalletState();
+  const { decreaseUnitsToBeUsed } = useContext(WalletSetContext);
 
   const handlePutBtnClick = () => {
     const paymentToBeUsed = calcPaymentToBeUsed(walletState, inputPay);

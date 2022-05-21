@@ -4,7 +4,7 @@ import { Container, MoneyBtn, MoneyQuantity } from 'components/wallet/MoneyItem.
 import { addCommasToNumber } from 'utils/util';
 import { TIME_TO_SELCT_PRODUCT } from 'constant/constant';
 import useVMState from 'hooks/useVMState';
-import useWalletState from 'hooks/useWalletState';
+import { WalletSetContext } from 'contexts/WalletProvider';
 import { FinalPayContext, FinalPaySetContext } from 'contexts/FinalPayProvider';
 import { HistoryDispatchContext } from 'contexts/HistoryProvider';
 
@@ -12,7 +12,7 @@ export default function QuantityBtnWrap({ info, coin }) {
   const [finalPay, setFinalPay] = [useContext(FinalPayContext), useContext(FinalPaySetContext)];
   const { addInputHistory } = useContext(HistoryDispatchContext);
   const { startTimerToReset } = useVMState();
-  const { decreaseQuantity } = useWalletState();
+  const { decreaseQuantity } = useContext(WalletSetContext);
 
   const handleClickQuantityBtn = () => {
     const totalPay = finalPay + info.unit;
