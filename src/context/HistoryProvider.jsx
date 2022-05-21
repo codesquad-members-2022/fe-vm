@@ -1,28 +1,20 @@
-import { useCallback } from "react";
-
-const { createContext, useReducer } = require("react");
+import { useCallback, createContext, useReducer } from "react";
 
 function historyReducer(histories, { type, history }) {
-  switch (type) {
-    case "INSERT_COIN":
-      histories.history = histories.history.concat({
-        ...history,
-        id: histories.history.length + 1,
-        comment: `${history.coin}원이 투입되었습니다.`,
-      });
-      return histories;
-    case "CHANGE_COIN":
-      histories.history = histories.concat({
-        ...history,
-        commet: `${history.change}이 반환되었습니다.`,
-      });
-      return histories;
-    case "PURCHASE_PRODUCT":
-      histories.history = histories.concat({ ...history, commet: `${history.product}를 구매했습니다.` });
-      return histories;
-    default:
-      return;
-  }
+  const comment = {
+    INSERT_COIN: `${history.coin}원이 투입되었습니다.`,
+    PURCHASE_PRODUCT: `${history.product}를(을) 구매합니다.`,
+    RETURN_COIN: `잔돈 ${history.change}를(을) 반환합니다.`,
+  };
+
+  const historyTemplate = {
+    history: histories.history.concat({
+      id: histories.history.length + 1,
+      comment: comment[type],
+    }),
+  };
+
+  return historyTemplate;
 }
 
 const initialHistory = {
@@ -30,6 +22,7 @@ const initialHistory = {
 };
 
 const HistoryContext = createContext();
+const AddHistoryContext = createContext();
 
 function HistoryProvider({ children }) {
   const [histories, dispatch] = useReducer(historyReducer, initialHistory);
@@ -41,7 +34,11 @@ function HistoryProvider({ children }) {
     });
   }, []);
 
-  return <HistoryContext.Provider value={{ histories, addHistory }}>{children}</HistoryContext.Provider>;
+  return (
+    <HistoryContext.Provider value={histories}>
+      <AddHistoryContext.Provider value={addHistory}>{children}</AddHistoryContext.Provider>
+    </HistoryContext.Provider>
+  );
 }
 
-export { HistoryContext, HistoryProvider };
+export { HistoryContext, AddHistoryContext, HistoryProvider };

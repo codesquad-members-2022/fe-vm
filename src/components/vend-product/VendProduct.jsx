@@ -1,18 +1,10 @@
-import styled from "styled-components";
-import { Button } from "components";
-
-const PriceLabel = styled.span`
-  display: grid;
-  place-items: center;
-  margin-top: 20px;
-`;
+import { SelectButton } from "components";
+import { PriceLabel } from "./VendProduct.styled";
 
 function VendProduct({ name, price, stocked }) {
   return (
     <>
-      <Button color={stocked ? "green" : "white"} size="small">
-        <strong>{name}</strong>
-      </Button>
+      <SelectButton name={name} price={price} stocked={stocked} />
       <PriceLabel>{price + "원"}</PriceLabel>
     </>
   );
