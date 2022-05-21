@@ -3,7 +3,7 @@ export const init = initialState => initialState;
 const getNewInsertedMoney = (wallet, newMoney, insertedMoney) => {
   return newMoney.reduce((total, { id, unit, quantity }) => {
     const prevQuantity = wallet.find(money => money.id === id).quantity;
-    return (total += unit * (prevQuantity - quantity));
+    return total + unit * (prevQuantity - quantity);
   }, insertedMoney);
 };
 
@@ -29,6 +29,15 @@ const MoneyReducer = (state, action) => {
       const { insertedMoney } = state;
       const newInsertedMoney = insertedMoney - payload.productPrice;
       return { ...state, insertedMoney: newInsertedMoney };
+    }
+    case 'REFUND_MONEY': {
+      const { wallet } = state;
+      const { toBeRefunded } = payload;
+      const newWallet = wallet.map(money => {
+        const toBeAdded = toBeRefunded[money.unit] || 0;
+        return { ...money, quantity: money.quantity + toBeAdded };
+      });
+      return { wallet: newWallet, insertedMoney: 0 };
     }
   }
 };

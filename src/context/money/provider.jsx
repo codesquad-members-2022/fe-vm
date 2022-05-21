@@ -24,7 +24,7 @@ const MoneyProvider = ({ initialState, children }) => {
   const insertMoney = id => async () => {
     const money = state.wallet.find(money => money.id === id);
     if (!money.quantity) return;
-    const updatedMoney = await walletApi.reduceMoneyQuantity({
+    const updatedMoney = await walletApi.changeMoneyQuantity({
       id,
       data: { quantity: money.quantity - 1 },
     });
@@ -33,7 +33,7 @@ const MoneyProvider = ({ initialState, children }) => {
 
   const insertMoneyWithInput = async toBeInserted => {
     toBeInserted = Object.entries(toBeInserted);
-    const updatedMoney = await walletApi.reduceMoneyQuantity({
+    const updatedMoney = await walletApi.changeMoneyQuantity({
       data: getUpdatedMoney(toBeInserted),
     });
     dispatch({ type: 'INSERT_MONEY', payload: { updatedMoney: updatedMoney } });
@@ -70,6 +70,16 @@ const MoneyProvider = ({ initialState, children }) => {
     dispatch({ type: 'SPEND_MONEY', payload: { productPrice } });
   };
 
+  const refundMoney = async toBeRefunded => {
+    const data = state.wallet
+      .filter(money => toBeRefunded[money.unit])
+      .map(money => {
+        return { ...money, quantity: money.quantity + toBeRefunded[money.unit] };
+      });
+    await walletApi.changeMoneyQuantity({ data });
+    dispatch({ type: 'REFUND_MONEY', payload: { toBeRefunded } });
+  };
+
   useEffect(() => {
     getAllMoney();
   }, []);
@@ -81,6 +91,7 @@ const MoneyProvider = ({ initialState, children }) => {
     insertMoney,
     spendMoney,
     insertMoneyWithInput,
+    refundMoney,
   };
 
   return <MoneyContext.Provider value={value}>{children}</MoneyContext.Provider>;
