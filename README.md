@@ -5,7 +5,7 @@
 실제 자판기의 작동 원리와 비슷하게 작동하도록 구현하는 것이 목표였다.  
 <br>
 2022.05.09 ~ 05.20 까지 약 2주간 진행되었다.  
-자세한 내용은 [Wiki](https://github.com/jindonyy/fe-vm/wiki)에서도 확일할 수 있다.  
+자세한 내용은 [Wiki](https://github.com/jindonyy/fe-vm/wiki)에서도 확인할 수 있다.  
 <br>
 <br>
 
@@ -38,7 +38,11 @@
 
 ### video
 
-https://user-images.githubusercontent.com/17706346/169586825-c8c57756-0cb7-4995-8070-e6a009d7bb70.mov  
+
+https://user-images.githubusercontent.com/17706346/169633859-8b734cac-8a2a-4a0a-985c-a28dfdcd3c32.mov
+
+
+ 
 <br>
 <br>
 
