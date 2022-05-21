@@ -1,21 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ProductStand from "components/VendingMachine/ProductStand";
 import VMSideInfo from "components/VendingMachine/VMSideInfo";
 import { API } from "utils";
 import MotionPageContainer from "components/Motion/MotionPageContainer";
+import { ProductStateContext } from "contexts/ProductProvider";
 
 const VendingMachine = () => {
-  const [beverage, setBeverage] = useState([]);
-
-  // TODO 임시
-  const getTemp = async () => {
-    const { data: beverageData } = await API.getBeverage();
-    setBeverage(beverageData);
-  };
-
-  useEffect(() => {
-    getTemp();
-  }, []);
+  const products = useContext(ProductStateContext);
 
   return (
     <MotionPageContainer
@@ -26,7 +17,7 @@ const VendingMachine = () => {
         쥬의 음료 자판기
       </div>
       <div className="flex">
-        <ProductStand beverage={beverage} />
+        <ProductStand products={products} />
         <VMSideInfo />
       </div>
     </MotionPageContainer>

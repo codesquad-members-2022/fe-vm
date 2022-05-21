@@ -1,17 +1,8 @@
-import { useState } from "react";
-const BEVERAGE_CATEGORY = [
-  { id: 1, name: "커피" },
-  { id: 2, name: "주스" },
-  { id: 3, name: "차" },
-  { id: 4, name: "디저트" },
-];
+import { BEVERAGE_CATEGORY } from "constants/product";
 
-const ProductCategoryTab = () => {
-  const [isSelected, setIsSelected] = useState(1);
-
+const ProductCategoryTab = ({ tabIndex, setTabIndex }) => {
   const handleTab = (id) => {
-    setIsSelected(id);
-    // TODO 하위 메뉴 이동
+    setTabIndex(id);
   };
 
   return (
@@ -20,7 +11,7 @@ const ProductCategoryTab = () => {
         <button
           key={id}
           onClick={() => handleTab(id)}
-          className={isSelected === id && "select-tab"}
+          className={`${tabIndex === id && "select-tab"}`}
         >
           {name}
         </button>

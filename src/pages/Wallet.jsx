@@ -19,16 +19,10 @@ const Wallet = () => {
       {wallet.map((moneyInfo) => (
         <MoneyUnitItem key={moneyInfo.id} {...moneyInfo} />
       ))}
-      <TotalMoney totalMoney={totalMoney} />
+      <span className="py-3 mt-5 w-[95%] text-3xl text-center rounded-md border-4 border-starbucks">
+        {totalMoney}원
+      </span>
     </MotionPageContainer>
-  );
-};
-
-const TotalMoney = ({ totalMoney }) => {
-  return (
-    <span className="py-3 mt-5 w-[95%] text-3xl text-center rounded-md border-4 border-starbucks">
-      {totalMoney}원
-    </span>
   );
 };
 

@@ -31,6 +31,7 @@
   .type-coin {
     @apply rounded-full w-[70px] h-[70px] mr-12 tracking-tight;
   }
+
   .type-bill {
     @apply rounded-none w-[140px] h-[70px] mr-6;
   }
@@ -40,7 +41,7 @@
   }
 
   .empty-product {
-    @apply pointer-events-none;
+    @apply pointer-events-none opacity-50;
   }
 
   .possible-purchase-product {

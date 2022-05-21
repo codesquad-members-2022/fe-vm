@@ -2,7 +2,7 @@ import { MachineDispatchContext } from "contexts/MachineProvider";
 import { WalletDispatchContext } from "contexts/WalletProvider";
 import React, { useContext } from "react";
 import { convertMoneyUnit } from "utils";
-import { styledIsEmptyMoney, styledIsMoneyType, styledNoCountMoney } from "helpers/styleTemplate";
+import { styledIsEmptyMoney, styledIsMoneyType } from "helpers/styleTemplate";
 
 const MoneyUnitItem = ({ id, money, count, type }) => {
   const { onPushCoin } = useContext(WalletDispatchContext);
@@ -12,11 +12,11 @@ const MoneyUnitItem = ({ id, money, count, type }) => {
     if (count <= 0) return;
 
     onPushCoin(id);
-    onComeInCoin(id);
+    onComeInCoin(money);
   };
 
   return (
-    <div key={id} className="flex justify-end items-center w-[90%]">
+    <div className="flex justify-end items-center w-[90%]">
       <button
         className={`${styledIsMoneyType(type)} btn btn--starbucks leading-8 `}
         onClick={handleInsertMoney}

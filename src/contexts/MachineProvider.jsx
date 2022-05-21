@@ -1,27 +1,20 @@
-import VENDING_MACHINE_INFO from "constants/vendingMachineInfo";
-import { calcTotalMoney } from "helpers/calculateMoney";
 import { createContext, useCallback, useEffect, useMemo, useReducer } from "react";
+import { API } from "utils";
 
-const reducer = (state = {}, action) => {
-  const { storedMoney, totalMoney, history } = state;
-
+const reducer = (state, action) => {
+  const { totalMoney, history } = state;
   switch (action.type) {
     case "INIT":
       return action.data;
 
-    case "INCREASE":
-      const increasedCoins = storedMoney.map((coin) => {
-        return coin.id === action.targetId ? { ...coin, count: coin.count + 1 } : coin;
-      });
-      return { ...state, storedMoney: increasedCoins, totalMoney: calcTotalMoney(increasedCoins) };
+    case "MONEY_INCREASE":
+      return { ...state, totalMoney: totalMoney + action.inputMoney };
 
-    case "DECREASE":
-      const decreasedCoins = storedMoney.map((coin) => {
-        return coin.id === action.targetId ? { ...coin, count: coin.count - 1 } : coin;
-      });
-      return { ...state, storedMoney: decreasedCoins, totalMoney: calcTotalMoney(increasedCoins) };
+    case "MONEY_DECREASE":
+      return { ...state, totalMoney: totalMoney - action.price };
 
-    // TODO 자판기 반환 로직
+    case "RETURN":
+      return;
 
     case "HISTORY_ADD":
       const addedHistory = history;
@@ -35,29 +28,38 @@ const reducer = (state = {}, action) => {
   }
 };
 
-const MachineProvider = ({ children }) => {
-  const [machineInfo, dispatch] = useReducer(reducer, {});
+export const MachineStateContext = createContext();
+export const MachineDispatchContext = createContext();
 
-  const fetchMachineInfo = () => {
-    const initData = VENDING_MACHINE_INFO;
-    dispatch({ type: "INIT", data: initData });
+const initialState = { totalMoney: 0, history: [] };
+
+const MachineProvider = ({ children }) => {
+  const [machineInfo, dispatch] = useReducer(reducer, initialState);
+
+  const fetchMachineInfo = async () => {
+    const { data: initMachineInfo } = await API.getVMInfo();
+
+    dispatch({ type: "INIT", data: initMachineInfo });
   };
 
-  const onComeInCoin = useCallback((targetId) => {
-    dispatch({ type: "INCREASE", targetId });
+  const onComeInCoin = useCallback((inputMoney) => {
+    dispatch({ type: "MONEY_INCREASE", inputMoney });
+  }, []);
+
+  const onDecreaseMoneyInMachine = useCallback((price) => {
+    dispatch({ type: "MONEY_DECREASE", price });
   }, []);
 
   const dispatches = useMemo(() => {
     return {
       onComeInCoin,
+      onDecreaseMoneyInMachine,
     };
-  }, [onComeInCoin]);
+  }, [onComeInCoin, onDecreaseMoneyInMachine]);
 
   useEffect(() => {
     fetchMachineInfo();
   }, []);
-
-  console.log("machineInfo :>> ", machineInfo);
 
   return (
     <MachineStateContext.Provider value={machineInfo}>
@@ -68,6 +70,4 @@ const MachineProvider = ({ children }) => {
   );
 };
 
-export const MachineStateContext = createContext();
-export const MachineDispatchContext = createContext();
 export default MachineProvider;

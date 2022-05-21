@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useEffect, useMemo, useReducer } from "react";
 import { API } from "utils";
 
-const reducer = (state = {}, action) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case "INIT":
       return action.data;
@@ -23,8 +23,13 @@ const reducer = (state = {}, action) => {
   }
 };
 
+export const ProductStateContext = createContext();
+export const ProductDispatchContext = createContext();
+
+const initialState = [];
+
 const ProductProvider = ({ children }) => {
-  const [products, dispatch] = useReducer(reducer, []);
+  const [products, dispatch] = useReducer(reducer, initialState);
 
   const fetchProductData = async () => {
     const { data: berverageData } = await API.getBeverage();
@@ -59,6 +64,4 @@ const ProductProvider = ({ children }) => {
   );
 };
 
-export const ProductStateContext = createContext();
-export const ProductDispatchContext = createContext();
 export default ProductProvider;

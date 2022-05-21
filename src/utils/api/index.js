@@ -15,4 +15,11 @@ export const API = {
       ...config,
     });
   },
+  getVMInfo(config) {
+    return instance({
+      url: "vendingMachineInfo.json",
+      method: "get",
+      ...config,
+    });
+  },
 };

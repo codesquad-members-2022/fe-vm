@@ -18,14 +18,19 @@ const reducer = (state, action) => {
       throw Error("WalletProvider Invalid Type");
   }
 };
+export const WalletStateContext = createContext();
+export const WalletDispatchContext = createContext();
+
+const initialState = [];
 
 const WalletProvider = ({ children }) => {
-  const [wallet, dispatch] = useReducer(reducer, []);
+  const [wallet, dispatch] = useReducer(reducer, initialState);
 
   const fetchMyWallet = async () => {
     const { data: moneyData } = await API.getMyWallet();
 
     const initMoney = moneyData.map((moneyItem, index) => {
+      // MY_WALLET에 있는 돈 개수 만큼 내 지갑에 돈이 들어옴.
       return { ...moneyItem, count: MY_WALLET[index].count };
     });
 
@@ -53,6 +58,4 @@ const WalletProvider = ({ children }) => {
   );
 };
 
-export const WalletStateContext = createContext();
-export const WalletDispatchContext = createContext();
 export default WalletProvider;
