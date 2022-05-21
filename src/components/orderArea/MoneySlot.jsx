@@ -2,7 +2,7 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Container, MoneyInput, Unit } from 'components/orderArea/MoneySlot.style';
-import { addCommasToNumber } from 'utils/util';
+import { addCommasToNumber } from 'helpers/helper';
 import { FinalPayContext } from 'contexts/FinalPayProvider';
 
 export default function MoneySlot({ inputPay, updateInputPay, resetInputPay }) {

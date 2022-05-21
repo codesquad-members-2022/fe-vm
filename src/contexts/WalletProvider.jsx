@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useMemo, useCallback, createContext } from 'react';
-import { addCommasToNumber } from 'utils/util';
+import { addCommasToNumber } from 'helpers/helper';
 import walletData from 'data/wallet';
 
 export const WalletContext = createContext([]);

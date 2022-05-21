@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ProductBtn, Detail, Price } from 'components/productsArea/Product.style';
-import { addCommasToNumber } from 'utils/util';
+import { addCommasToNumber } from 'helpers/helper';
 import { TIME_TO_SELCT_PRODUCT, TIME_TO_PUT_OUT_PRODUCT } from 'constant/constant';
 import useVMState from 'hooks/useVMState';
 import { FinalPayContext, FinalPaySetContext } from 'contexts/FinalPayProvider';

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Container, MoneyBtn, MoneyQuantity } from 'components/wallet/MoneyItem.style';
-import { addCommasToNumber } from 'utils/util';
+import { addCommasToNumber } from 'helpers/helper';
 import { TIME_TO_SELCT_PRODUCT } from 'constant/constant';
 import useVMState from 'hooks/useVMState';
 import { WalletSetContext } from 'contexts/WalletProvider';

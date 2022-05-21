@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { createContext, useCallback, useMemo, useReducer } from 'react';
-import { addCommasToNumber } from 'utils/util';
+import { addCommasToNumber } from 'helpers/helper';
 
 export const HistoryContext = createContext([]);
 export const HistoryDispatchContext = createContext(null);
