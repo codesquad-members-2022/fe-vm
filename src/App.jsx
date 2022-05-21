@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { compose } from 'helpers/helper';
 import GNB from 'layout/GNB/GNB';
 import VendingMachine from 'pages/VendingMachine';
 import Wallet from 'pages/Wallet';
@@ -11,25 +12,25 @@ import { HistoryProvider } from 'contexts/HistoryProvider';
 import { VMTimerProvider } from 'contexts/VMTimerProvider';
 
 export default function App() {
+  const Provider = compose([
+    WalletProvider,
+    FinalPayProvider,
+    SelectedProductProvider,
+    HistoryProvider,
+    VMTimerProvider
+  ]);
+
   return (
-    <WalletProvider>
-      <FinalPayProvider>
-        <SelectedProductProvider>
-          <HistoryProvider>
-            <VMTimerProvider>
-              <Container>
-                <BrowserRouter basename={process.env.PUBLIC_URL}>
-                  <GNB />
-                  <Routes>
-                    <Route path="/" element={<VendingMachine />} />
-                    <Route path="/wallet" element={<Wallet />} />
-                  </Routes>
-                </BrowserRouter>
-              </Container>
-            </VMTimerProvider>
-          </HistoryProvider>
-        </SelectedProductProvider>
-      </FinalPayProvider>
-    </WalletProvider>
+    <Provider>
+      <Container>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <GNB />
+          <Routes>
+            <Route path="/" element={<VendingMachine />} />
+            <Route path="/wallet" element={<Wallet />} />
+          </Routes>
+        </BrowserRouter>
+      </Container>
+    </Provider>
   );
 }
