@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import PropTypes from 'prop-types';
+
 import Button, { BUTTON_SIZE, BUTTON_THEME } from '@components/atoms/Button';
 import Select from '@components/atoms/Select';
 import * as S from '@components/molecules/SelectForm/SelectForm.style';
@@ -28,6 +30,11 @@ const SelectForm = ({ options, onClick }) => {
       </Button>
     </S.Form>
   );
+};
+
+SelectForm.propTypes = {
+  options: PropTypes.array,
+  onClick: PropTypes.func,
 };
 
 export default SelectForm;

@@ -7,4 +7,4 @@ export default {
   component: ProductList,
 };
 
-export const Default = args => <ProductList {...args} />;
+export const Default = () => <ProductList />;

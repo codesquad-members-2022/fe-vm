@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import * as S from '@components/atoms/DisplayBox/DisplayBox.style';
 
 export const DISPLAY_BOX_SIZE = {
@@ -14,6 +16,12 @@ const DisplayBox = ({ size, title, content }) => {
       <S.Content>{content}</S.Content>
     </S.Container>
   );
+};
+
+DisplayBox.propTypes = {
+  size: PropTypes.string,
+  title: PropTypes.string,
+  content: PropTypes.string,
 };
 
 export default DisplayBox;

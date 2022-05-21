@@ -6,7 +6,7 @@ export default {
   component: MoneyCounters,
   args: {
     wallet: money,
-    changeMoneyQuantity: () => {},
+    insertMoney: () => {},
   },
 };
 

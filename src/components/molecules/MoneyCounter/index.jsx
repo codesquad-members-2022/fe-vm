@@ -6,12 +6,12 @@ import Button, { BUTTON_SIZE } from '@components/atoms/Button';
 import TextBox from '@components/atoms/TextBox';
 import * as S from '@components/molecules/MoneyCounter/MoneyCounter.style';
 
-const MoneyCounter = ({ money, changeMoneyQuantity }) => {
+const MoneyCounter = ({ money, insertMoney }) => {
   const isButtonDisabled = !money.quantity;
 
   return (
     <S.Container>
-      <Button size={BUTTON_SIZE.LARGE} disabled={isButtonDisabled} onClick={changeMoneyQuantity}>
+      <Button size={BUTTON_SIZE.LARGE} disabled={isButtonDisabled} onClick={insertMoney}>
         {`${money.unit}원`}
       </Button>
       <TextBox text={`${money.quantity}개`} />
@@ -21,7 +21,7 @@ const MoneyCounter = ({ money, changeMoneyQuantity }) => {
 
 MoneyCounter.propTypes = {
   money: PropTypes.object,
-  changeMoneyQuantity: PropTypes.func,
+  insertMoney: PropTypes.func,
 };
 
 export default MoneyCounter;
