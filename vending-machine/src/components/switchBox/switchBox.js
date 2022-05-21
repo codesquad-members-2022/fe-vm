@@ -15,12 +15,12 @@ export function SwitchBox() {
 
   return (
     <StyledContainer>
-      <Link to="/">
+      <Link to="vendingMachine">
         <StyledBtn onClick={clickVendingMachine} clickedTab={clickedTab} curTab="자판기">
           자판기
         </StyledBtn>
       </Link>
-      <Link to="my_wallet">
+      <Link to="myWallet">
         <StyledBtn onClick={clickWallet} clickedTab={clickedTab} curTab="지갑">
           지갑
         </StyledBtn>

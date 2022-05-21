@@ -1,8 +1,11 @@
 import { StyledItemContainer, StyledItemName, StyledItemPrice } from './itemBox.styled';
 import { getWonTemplate, delay } from '../../../helper/utils';
 import { useContext, useState, useEffect } from 'react';
-import { InputMoneyContext, LogContext, PaybackTimerContext, ProgressContext } from '../vendingMachine';
-import { PAYBACK_TIME } from '../../../common/constants';
+import { ITEM_DROP_TIME } from '../../../common/constants';
+import { InputMoneyContext } from '../../../context/inputMoneyProvider';
+import { LogContext } from '../../../context/logProvider';
+import { ProgressContext } from '../../../context/progressProvider';
+import { PaybackTimerContext } from '../../../context/paybackTimerProvider';
 
 export function ItemBox({ item }) {
   const { inputMoney, setInputMoney } = useContext(InputMoneyContext);
@@ -12,7 +15,6 @@ export function ItemBox({ item }) {
 
   const [boxColor, setBoxColor] = useState('gray');
   const [itemStock, setItemStock] = useState(item.stock);
-  const ITEM_DROP_TIME = 2000;
 
   useEffect(() => {
     if (!itemStock) {
@@ -31,37 +33,20 @@ export function ItemBox({ item }) {
     setInProgress(true);
     setBoxColor('red');
     logChooseItem();
+    stopPaybackTimer();
 
-    // 2초 뒤 아이템 드랍
     delay(ITEM_DROP_TIME).then(() => {
       dropItem();
       printInputMoney();
-      setItemStock(itemStock - 1);
+      setItemStock(itemStock => itemStock - 1);
       setInProgress(false);
     });
-  }
-
-  function startPaybackTimer() {
-    const payback = () => {
-      setTimeout(() => {
-        logPaybackMoney();
-        setInputMoney(0);
-        setPaybackTimer(null);
-      }, PAYBACK_TIME);
-    };
-    setPaybackTimer(payback());
   }
 
   function stopPaybackTimer() {
     if (paybackTimer !== null) {
       setPaybackTimer(timer => clearTimeout(timer));
     }
-  }
-
-  function logPaybackMoney() {
-    if (inputMoney === 0) return;
-    const log = `잔돈 ${getWonTemplate(inputMoney)} 반환됨.`;
-    setLogList(logList => [...logList, log]);
   }
 
   function logChooseItem() {
@@ -75,12 +60,13 @@ export function ItemBox({ item }) {
   }
 
   function printInputMoney() {
-    const setValue = inputMoney - item.price;
-    setInputMoney(setValue);
+    setInputMoney(inputMoney => inputMoney - item.price);
   }
 
   function dropItem() {
     setBoxColor('gray');
+    const log = `${item.name} 덜커덩!`;
+    setLogList(logList => [...logList, log]);
   }
 
   return (

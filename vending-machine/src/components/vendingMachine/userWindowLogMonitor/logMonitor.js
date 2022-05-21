@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { LogContext } from '../vendingMachine';
 import { StyledLogMonitorContainer, StyledLog } from './logMonitor.styled';
+import { LogContext } from '../../../context/logProvider';
 
 export function LogMonitor() {
   const { logList } = useContext(LogContext);
