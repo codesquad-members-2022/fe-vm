@@ -17,6 +17,7 @@ const {
   DELAY: { DEFAULT_DELAY_MS },
 } = constants;
 const { getTotalInsertedMoney, computeTotalMoney } = moneyHelper;
+
 const ProductItem = ({ productData, currentMoney }) => {
   const [isInPurchaseProgress, setIsInPurchaseProgress] = useState(false);
 

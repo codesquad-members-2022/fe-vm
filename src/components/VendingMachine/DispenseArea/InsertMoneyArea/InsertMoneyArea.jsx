@@ -152,7 +152,7 @@ const InsertMoneyArea = () => {
         return;
       }
 
-      while (inputMoney > money && moneyCount > 0) {
+      while (inputMoney >= money && moneyCount > 0) {
         insertMoney(money);
         inputMoney -= money;
         moneyCount -= DECREASE_COUNT;
@@ -167,15 +167,17 @@ const InsertMoneyArea = () => {
     for (let i = 0; i < cashData.length; i += 1) {
       const { money, count } = cashData[i];
 
-      if (count) {
-        insertMoney(money);
-        inputMoney -= money;
-        updateProgress("insert", money);
-      }
-
-      if (inputMoney < 0) {
+      if (inputMoney <= 0) {
         break;
       }
+
+      if (count <= 0) {
+        continue;
+      }
+
+      insertMoney(money);
+      inputMoney -= money;
+      updateProgress("insert", money);
     }
   };
 
