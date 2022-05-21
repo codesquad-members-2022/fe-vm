@@ -54,7 +54,7 @@ https://user-images.githubusercontent.com/17706346/169633859-8b734cac-8a2a-4a0a-
        <br>
       <br>
 
-## 📂 Directory
+## 📂 Directory Tree
 
 ```
 ├── 📂 src
@@ -97,10 +97,8 @@ https://user-images.githubusercontent.com/17706346/169633859-8b734cac-8a2a-4a0a-
 │   │   ├── products.js
 │   │   └── wallet.js
 │   ├── 📂 hooks
-│   │   ├── useHistory.jsx
 │   │   ├── useInputPay.jsx
-│   │   ├── useVMState.js
-│   │   └── useWalletState.js
+│   │   └── useVMState.jsx
 │   ├── index.jsx
 │   ├── 📂 layout
 │   │   └── GNB
@@ -111,8 +109,8 @@ https://user-images.githubusercontent.com/17706346/169633859-8b734cac-8a2a-4a0a-
 │   │   ├── VendingMachine.style.js
 │   │   ├── Wallet.jsx
 │   │   └── Wallet.style.js
-│   └── 📂 utils
-│       └── util.js
+│   └── 📂 helpers
+│       └── helper.js
 ├── .gitignore
 ├── .prettierrc
 ├── jsconfig.json
