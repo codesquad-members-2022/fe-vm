@@ -5,7 +5,7 @@ export default {
   component: InputBox,
   args: {
     inputValue: 0,
-    setInputValue: () => {},
+    saveInputValue: () => {},
   },
   argTypes: {
     inputValue: {

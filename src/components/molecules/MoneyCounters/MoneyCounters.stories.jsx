@@ -5,7 +5,8 @@ export default {
   title: 'Molecule/MoneyCounters',
   component: MoneyCounters,
   args: {
-    money: money,
+    wallet: money,
+    insertMoney: () => {},
   },
 };
 

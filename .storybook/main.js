@@ -22,6 +22,7 @@ module.exports = {
       '@data': path.resolve(__dirname, '../src/data'),
       '@lib': path.resolve(__dirname, '../src/lib'),
       '@assets': path.resolve(__dirname, '../src/assets'),
+      '@context': path.resolve(__dirname, '../src/context'),
     };
     return config;
   },

@@ -5,4 +5,4 @@ export default {
   component: VendingMachineInfo,
 };
 
-export const Default = args => <VendingMachineInfo {...args} />;
+export const Default = () => <VendingMachineInfo />;

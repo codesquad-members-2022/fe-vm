@@ -5,4 +5,4 @@ export default {
   component: WalletInfo,
 };
 
-export const Default = args => <WalletInfo {...args} />;
+export const Default = () => <WalletInfo />;

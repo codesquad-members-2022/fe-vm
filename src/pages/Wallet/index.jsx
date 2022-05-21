@@ -1,3 +1,5 @@
+import React from 'react';
+
 import VendingMachineInfo from '@components/organisms/VendingMachineInfo';
 import WalletInfo from '@components/organisms/WalletInfo';
 import * as S from '@pages/Wallet/Wallet.style';

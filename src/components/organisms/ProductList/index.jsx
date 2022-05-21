@@ -1,17 +1,37 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import ProductBox from '@components/molecules/ProductBox';
 import * as S from '@components/organisms/ProductList/ProductList.style';
-import products from '@data/products';
+import { MoneyContext } from '@context/money/provider';
+import { productsApi } from '@lib/api';
+import useAsync from '@lib/hooks/useAsync';
 
-// TODO: 상품 데이터 상태 관리
 const ProductList = () => {
+  const [{ data: products }, refetch] = useAsync(productsApi.getAllProducts);
+  const { state, spendMoney } = useContext(MoneyContext);
+
+  // TODO: loading, error 처리
+
+  const buyProduct = id => () => {
+    const { price, quantity } = products.find(product => product.id === id);
+    spendMoney(price);
+    productsApi.reduceProductQuantity({ id, data: { quantity: quantity - 1 } }).then(refetch);
+  };
+
   return (
-    <S.Container>
-      {products.map(product => (
-        <ProductBox key={product.id} {...product} />
-      ))}
-    </S.Container>
+    products &&
+    state && (
+      <S.Container>
+        {products.map(product => (
+          <ProductBox
+            key={product.id}
+            product={product}
+            insertedMoney={state.insertedMoney}
+            buyProduct={buyProduct}
+          />
+        ))}
+      </S.Container>
+    )
   );
 };
 

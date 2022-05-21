@@ -7,26 +7,9 @@ export default {
   title: 'Molecule/ProductBox',
   component: ProductBox,
   args: {
-    emoji: products[0].emoji,
-    name: products[0].name,
-    price: products[0].price,
-  },
-  argTypes: {
-    emoji: {
-      control: {
-        type: 'text',
-      },
-    },
-    name: {
-      control: {
-        type: 'text',
-      },
-    },
-    price: {
-      control: {
-        type: 'number',
-      },
-    },
+    product: products[0],
+    insertedMoney: 0,
+    buyProduct: () => {},
   },
 };
 

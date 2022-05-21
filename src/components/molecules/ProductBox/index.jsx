@@ -8,17 +8,22 @@ import { formatPrice } from '@lib/utils';
 
 const SOLD_OUT = '품절';
 
-const ProductBox = ({ emoji, name, price, quantity }) => {
-  // TODO: 현재 투입된 금액이 상품 가격보다 적을 때 disabled 처리 추가;
-  const disabled = quantity === 0;
+const ProductBox = ({ product, insertedMoney, buyProduct }) => {
+  const { id, emoji, name, price, quantity } = product;
 
+  const disabled = quantity === 0 || price > insertedMoney;
   const isSoldOut = quantity === 0;
 
   return (
     <S.Container>
       <S.Emoji>{emoji}</S.Emoji>
       <S.Name>{name}</S.Name>
-      <Button theme={BUTTON_THEME.ROUNDED} size={BUTTON_SIZE.MEDIUM} disabled={disabled}>
+      <Button
+        theme={BUTTON_THEME.ROUNDED}
+        size={BUTTON_SIZE.MEDIUM}
+        disabled={disabled}
+        onClick={buyProduct(id)}
+      >
         {isSoldOut ? SOLD_OUT : formatPrice(price)}
       </Button>
     </S.Container>
@@ -26,10 +31,9 @@ const ProductBox = ({ emoji, name, price, quantity }) => {
 };
 
 ProductBox.propTypes = {
-  emoji: PropTypes.string,
-  name: PropTypes.string,
-  price: PropTypes.number,
-  quantity: PropTypes.number,
+  product: PropTypes.object,
+  insertedMoney: PropTypes.number,
+  buyProduct: PropTypes.func,
 };
 
 export default ProductBox;
