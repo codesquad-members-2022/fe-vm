@@ -1,13 +1,33 @@
-/* eslint-disable react/require-default-props */
-import React, { memo } from 'react';
-import PropTypes from 'prop-types';
+import React, { memo, useCallback } from 'react';
 import { changeNumberToKoreanLocaleMoney } from 'utils/global';
 import { Button } from '@mui/material';
+import { addTargetProduct, substractTargetProduct } from 'context/Product/action';
+import { useProductContext } from 'context/Product';
+import { useErrorHandler } from 'react-error-boundary';
+import productApi from 'api/product';
 import * as S from './style';
 
-// TODO: 모달로 바꾸기
+function MangementForm() {
+  const { targetProduct, productDispatch } = useProductContext();
+  const handleError = useErrorHandler();
+  const fetchAddTargetProduct = useCallback(
+    id => {
+      productApi
+        .addTargetProduct(id)
+        .then(response => addTargetProduct(productDispatch, response.data), handleError);
+    },
+    [handleError, productDispatch],
+  );
 
-function MangementForm({ targetProduct, fetchAddTargetProduct, fetchSubstractTargetProduct }) {
+  const fetchSubstractTargetProduct = useCallback(
+    id => {
+      productApi
+        .substractTargetProduct(id)
+        .then(response => substractTargetProduct(productDispatch, response.data), handleError);
+    },
+    [handleError, productDispatch],
+  );
+
   if (!targetProduct) {
     return <S.MangementForm>선택된 상품이 없어요. </S.MangementForm>;
   }
@@ -26,17 +46,5 @@ function MangementForm({ targetProduct, fetchAddTargetProduct, fetchSubstractTar
     </S.MangementForm>
   );
 }
-
-MangementForm.propTypes = {
-  targetProduct: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    product_name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    ea: PropTypes.number.isRequired,
-  }),
-  fetchAddTargetProduct: PropTypes.func.isRequired,
-  fetchSubstractTargetProduct: PropTypes.func.isRequired,
-};
 
 export default memo(MangementForm);

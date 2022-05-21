@@ -14,14 +14,22 @@ const userApi = {
       method: 'get',
     });
   },
-  orderProduct(id, inputChanges) {
+  addTargetBalance(id) {
     return instance({
-      url: API.PATCH_ORDER_PRODUCT,
+      url: API.PATCH_ADD_BALANCE,
       method: 'patch',
       params: {
         id,
       },
-      data: { inputChanges },
+    });
+  },
+  substractTargetBalance(id) {
+    return instance({
+      url: API.PATCH_SUBSTRACT_BALANCE,
+      method: 'patch',
+      params: {
+        id,
+      },
     });
   },
 };

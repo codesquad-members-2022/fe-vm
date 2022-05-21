@@ -4,24 +4,24 @@ import { initState, reducer } from './reducer';
 
 const Context = createContext();
 
-export const useProductContext = () => {
+export const useNotification = () => {
   const context = useContext(Context);
 
   if (!context) {
-    throw new Error('useVMContext must be used within VMContext');
+    throw new Error('useNotification must be used within NotificationContext');
   }
 
   return context;
 };
 
-export default function ProductContext({ children }) {
-  const [state, productDispatch] = useReducer(reducer, initState);
+export default function NotificationContext({ children }) {
+  const [state, notifyDispatch] = useReducer(reducer, initState);
 
-  const providerValue = useMemo(() => ({ ...state, productDispatch }), [productDispatch, state]);
+  const providerValue = useMemo(() => ({ ...state, notifyDispatch }), [notifyDispatch, state]);
 
   return <Context.Provider value={providerValue}>{children}</Context.Provider>;
 }
 
-ProductContext.propTypes = {
+NotificationContext.propTypes = {
   children: PropTypes.element.isRequired,
 };

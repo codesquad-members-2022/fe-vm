@@ -33,10 +33,10 @@ instance.interceptors.response.use(
     // 응답 오류가 있는 작업 수행
     if (error.response) {
       // 요청이 이루어졌으며 서버가 2xx의 범위를 벗어나는 상태 코드로 응답했습니다.
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
-    } else if (error.request) {
+      // response: {data, status, headers}
+      return Promise.reject(error.response.data);
+    }
+    if (error.request) {
       // 요청이 이루어 졌으나 응답을 받지 못했습니다.
       // `error.request`는 브라우저의 XMLHttpRequest 인스턴스 또는
       // Node.js의 http.ClientRequest 인스턴스입니다.

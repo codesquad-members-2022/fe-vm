@@ -8,7 +8,7 @@ import {
   SUBSTRACT_TARGET_BALANCE,
 } from './type';
 
-const ACTIONS = {
+const MESSAGES = {
   [USER_LOGIN]: nickname => `${nickname}(이)가 로그인했습니다.`,
   [INSERT_CHANGES]: (unitId, submitOnlyNumber) =>
     submitOnlyNumber
@@ -44,7 +44,7 @@ export const reducer = (state, action) => {
     case USER_LOGIN: {
       const { actionLogs } = state;
       const { nickname, totalBalance, changesUnits, isManager } = payload;
-      const actionMessage = ACTIONS[type](nickname);
+      const actionMessage = MESSAGES[type](nickname);
       const newActionLogs = logAction(actionLogs, actionMessage);
       return {
         ...state,
@@ -66,7 +66,7 @@ export const reducer = (state, action) => {
         totalBalance,
         unitId,
       );
-      const actionMessage = ACTIONS[type](unitId, submitOnlyNumber);
+      const actionMessage = MESSAGES[type](unitId, submitOnlyNumber);
       const newActionLogs = logAction(actionLogs, actionMessage);
       return {
         ...state,
@@ -83,7 +83,7 @@ export const reducer = (state, action) => {
         prevInputChanges,
         totalBalance,
       );
-      const actionMessage = ACTIONS[type](prevInputChanges);
+      const actionMessage = MESSAGES[type](prevInputChanges);
       const newActionLogs = logAction(actionLogs, actionMessage);
       return {
         ...state,
@@ -100,7 +100,7 @@ export const reducer = (state, action) => {
         newChangesUnits,
         targetProduct: { product_name: productName },
       } = payload;
-      const actionMessage = ACTIONS[type](productName);
+      const actionMessage = MESSAGES[type](productName);
       const newActionLogs = logAction(actionLogs, actionMessage);
       return {
         ...state,
@@ -139,13 +139,12 @@ const logAction = (prevLogs, actionMessage) => {
 
 const returnChanges = (changesUnits, prevInputChanges, totalBalance) => {
   const newChangesUnits = [...changesUnits];
-  let newTotalBalance = totalBalance;
-  prevInputChanges.forEach(id => {
+  const newTotalBalance = prevInputChanges.reduce((balance, id) => {
     const targetIndex = newChangesUnits.findIndex(unit => unit.id === id);
     const targetUnit = newChangesUnits[targetIndex];
-    newTotalBalance += targetUnit.unit;
     newChangesUnits[targetIndex] = { ...targetUnit, count: targetUnit.count + 1 };
-  });
+    return balance + targetUnit.unit;
+  }, totalBalance);
   return [newChangesUnits, newTotalBalance];
 };
 

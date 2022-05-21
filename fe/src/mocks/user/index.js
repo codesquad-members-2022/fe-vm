@@ -16,7 +16,7 @@ export const userDefaultInfo = {
   nickname: '도리',
   totalBalance: 0,
   changesUnits: defaultChangeUnits,
-  isManager: true,
+  isManager: false,
 };
 
 export const defaultMangerUnits = [

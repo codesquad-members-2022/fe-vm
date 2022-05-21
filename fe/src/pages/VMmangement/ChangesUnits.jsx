@@ -1,15 +1,25 @@
-import React, { memo } from 'react';
-import PropTypes from 'prop-types';
-import { Button } from '@mui/material';
+import React from 'react';
+import { useErrorHandler } from 'react-error-boundary';
+import { useUserContext } from 'context/User';
+import { addTargetBalance, substractTargetBalance } from 'context/User/action';
+import userApi from 'api/user';
 import { changeNumberToKoreanLocaleMoney } from 'utils/global';
+import { Button } from '@mui/material';
 import * as S from './style';
 
-function ChangesUnits({
-  totalBalance,
-  changesUnits,
-  fetchAddTargetBalance,
-  fetchSubstractTargetBalance,
-}) {
+function ChangesUnits() {
+  const { totalBalance, changesUnits, userDispatch } = useUserContext();
+  const handleError = useErrorHandler();
+  const fetchAddTargetBalance = id =>
+    userApi
+      .addTargetBalance(id)
+      .then(response => addTargetBalance(userDispatch, response.data), handleError);
+
+  const fetchSubstractTargetBalance = id =>
+    userApi
+      .substractTargetBalance(id)
+      .then(response => substractTargetBalance(userDispatch, response.data), handleError);
+
   return (
     <S.ChangesUnitsContainer>
       <div>{changeNumberToKoreanLocaleMoney(totalBalance)}원</div>
@@ -29,17 +39,4 @@ function ChangesUnits({
   );
 }
 
-ChangesUnits.propTypes = {
-  totalBalance: PropTypes.number.isRequired,
-  changesUnits: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      unit: PropTypes.number.isRequired,
-      count: PropTypes.number.isRequired,
-    }),
-  ).isRequired,
-  fetchAddTargetBalance: PropTypes.func.isRequired,
-  fetchSubstractTargetBalance: PropTypes.func.isRequired,
-};
-
-export default memo(ChangesUnits);
+export default ChangesUnits;

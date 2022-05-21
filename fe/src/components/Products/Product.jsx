@@ -8,23 +8,23 @@ function Product({
   productInfo,
   isManger,
   isSelect,
-  isPriceUnderInputMoney,
+  canBuy,
   handleSelectProduct,
-  handleOrderProduct,
+  handleClickTriggerOrder,
 }) {
   const { product_name: productName, type, price, ea, id } = productInfo;
   return (
     <S.ProductCard
       type={type}
       isSelect={isSelect}
-      canBuy={isPriceUnderInputMoney(price)}
+      canBuy={canBuy}
       onClick={() => handleSelectProduct(productInfo)}
     >
       <h5>{productName}</h5>
       <span>{changeNumberToKoreanLocaleMoney(price)}원</span>
       <span>{ea}개</span>
-      {isSelect && !isManger && (
-        <Button variant="contained" onClick={() => handleOrderProduct(id)}>
+      {canBuy && isSelect && !isManger && (
+        <Button variant="contained" onClick={() => handleClickTriggerOrder(productInfo)}>
           주문하기
         </Button>
       )}
@@ -42,9 +42,9 @@ Product.propTypes = {
   }).isRequired,
   isManger: PropTypes.bool.isRequired,
   isSelect: PropTypes.bool.isRequired,
-  isPriceUnderInputMoney: PropTypes.func.isRequired,
+  canBuy: PropTypes.bool.isRequired,
   handleSelectProduct: PropTypes.func.isRequired,
-  handleOrderProduct: PropTypes.func.isRequired,
+  handleClickTriggerOrder: PropTypes.func.isRequired,
 };
 
 export default memo(Product);
