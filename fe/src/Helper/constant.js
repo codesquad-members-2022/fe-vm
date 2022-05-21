@@ -10,6 +10,7 @@ export const INIT_ALERT_MESSAGE = {
   orderTitle: "",
   wrong: false,
   buying: false,
+  soldOut: false,
 };
 
 export const NAV_MENUS = [
@@ -18,3 +19,9 @@ export const NAV_MENUS = [
 ];
 
 export const INVESTMENT_COUNT_TIME = 3000;
+
+export const RANDOM_RANGE_FOR_ID = 1000;
+
+export const ORDER_DELAY = 1500;
+
+export const MANAGER_MODE_KEYS = ["q", "w", "e", "ㅂ", "ㅈ", "ㄷ"];

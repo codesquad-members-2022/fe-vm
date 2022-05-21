@@ -29,6 +29,7 @@ const generateMessage = (alertName, alertAmount) => {
     orderTitle: generateOrderMessage,
     wrong: generateWrongMessage,
     buying: generateBuying,
+    soldOut: generateSoldOut,
   };
   return alerts[alertName](alertAmount);
 };
@@ -50,5 +51,9 @@ const generateWrongMessage = () => {
 };
 
 const generateBuying = () => {
-  return `현재 다른 상품 주문 중입니다.`;
+  return `현재 다른 상품 주문이 진행 중입니다.`;
+};
+
+const generateSoldOut = () => {
+  return `해당 상품은 품절되었습니다.`;
 };

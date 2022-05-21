@@ -2,6 +2,7 @@ import { applyFlex } from "Helper/utils";
 import styled from "styled-components";
 
 export const LayoutContainer = styled.div`
+  position: relative;
   width: 1060px;
   margin-left: 20px;
 `;
@@ -35,4 +36,13 @@ export const NavLi = styled.li`
     text-decoration: none;
     color: #000;
   }
+`;
+
+export const InformationMessage = styled.div`
+  position: absolute;
+  ${({ left, top }) => {
+    return `left:${left}; top:${top}`;
+  }};
+  font-weight: 500;
+  font-size: 1.25rem;
 `;

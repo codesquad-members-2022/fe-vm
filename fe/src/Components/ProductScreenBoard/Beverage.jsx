@@ -1,50 +1,64 @@
-import { SetAlertMessage } from "Context/AlertMessageProvider";
+import { InvestmentContext } from "Context/InvestmentProvider";
 import { OrderInProgressContext, SetOrderInProgressContext } from "Context/OrderInProgressProvider";
-import { INIT_ALERT_MESSAGE, INVESTMENT_COUNT_TIME } from "Helper/constant";
+import { INVESTMENT_COUNT_TIME, ORDER_DELAY } from "Helper/constant";
 import { delay } from "Helper/utils";
-import useInvestment from "Hooks/useInvestment";
 import useInvestmentTimer from "Hooks/useInvestmentTimer";
-import { useCallback, useContext, useEffect } from "react";
+import useRunOrder from "Hooks/useRunOrder";
+import useSetAlertMessage from "Hooks/useSetAlertMessage";
+import { useContext, useEffect } from "react";
 import { BeverageContainer, Price, Title } from "./Beverage.styled";
 
-export default function Beverage({ title, price, id }) {
-  const [investment, setInvestment] = useInvestment();
-  const setAlertMessage = useContext(SetAlertMessage);
+export default function Beverage(props) {
+  const { title, price, id, stock, beverages, setBeverages } = props.props;
+  const investment = useContext(InvestmentContext);
   const resetInvestment = useInvestmentTimer();
   const investmentPrice = (investment && investment.amount) || 0;
   const [orderInProgress, setOrderInProgress] = [
     useContext(OrderInProgressContext),
     useContext(SetOrderInProgressContext),
   ];
+  const runOrder = useRunOrder();
+  const applyAlertMessage = useSetAlertMessage();
 
   const isBuyPossible = orderInProgress ? false : price <= investmentPrice;
-  const handleOrderProps = { orderInProgress, isBuyPossible, setAlertMessage, setOrderInProgress, id };
+  const handleOrderProps = {
+    orderInProgress,
+    isBuyPossible,
+    applyAlertMessage,
+    setOrderInProgress,
+    id,
+    resetInvestment,
+  };
 
   useEffect(() => {
-    const runOrder = async () => {
+    const startOrderProcess = async () => {
       if (!orderInProgress) {
         return;
       }
 
-      resetInvestment(INVESTMENT_COUNT_TIME);
-      await delay(1500);
-      const orderProps = { setOrderInProgress, setInvestment, investment, setAlertMessage, price, title };
-      reflectOrder(orderProps);
+      await delay(ORDER_DELAY);
+      const runOrderProps = { price, title, beverages, setBeverages, id };
+      runOrder(runOrderProps);
     };
 
     if (id !== orderInProgress) {
       return;
     }
 
-    runOrder();
-  }, [orderInProgress]);
+    startOrderProcess();
+  }, [orderInProgress, investment]);
 
   return (
     <BeverageContainer
       id={id}
       orderInProgress={orderInProgress}
       isBuyPossible={isBuyPossible}
+      stock={stock}
       onClick={() => {
+        if (!stock) {
+          applyAlertMessage("soldOut");
+          return;
+        }
         handleOrder(handleOrderProps);
       }}
     >
@@ -52,48 +66,23 @@ export default function Beverage({ title, price, id }) {
         {title}
       </Title>
       <Price flex justify="center" align="center">
-        {price}
+        {stock ? price : "품절"}
       </Price>
     </BeverageContainer>
   );
 }
 
-const reflectOrder = (props) => {
-  const { setOrderInProgress, setInvestment, investment, setAlertMessage, price, title } = props;
-  setOrderInProgress(false);
-  investment.amount -= price;
-  const newInvestment = { ...investment };
-  setInvestment(newInvestment);
-  alertOrderMessage({ title, setAlertMessage });
-};
-
 const handleOrder = (props) => {
-  const { orderInProgress, isBuyPossible, setAlertMessage, setOrderInProgress, id } = props;
+  const { orderInProgress, isBuyPossible, applyAlertMessage, setOrderInProgress, id, resetInvestment } =
+    props;
   if (orderInProgress) {
-    alertBuyingMessage(setAlertMessage);
+    applyAlertMessage("buying");
     return;
   }
   if (!isBuyPossible) {
-    alertWrongProduct(setAlertMessage);
+    applyAlertMessage("wrong");
     return;
   }
+  resetInvestment(INVESTMENT_COUNT_TIME);
   setOrderInProgress(id);
-};
-
-const alertOrderMessage = ({ title, setAlertMessage }) => {
-  const alertMessage = { ...INIT_ALERT_MESSAGE };
-  alertMessage.orderTitle = title;
-  setAlertMessage(alertMessage);
-};
-
-const alertWrongProduct = (setAlertMessage) => {
-  const alertMessage = { ...INIT_ALERT_MESSAGE };
-  alertMessage.wrong = true;
-  setAlertMessage(alertMessage);
-};
-
-const alertBuyingMessage = (setAlertMessage) => {
-  const alertMessage = { ...INIT_ALERT_MESSAGE };
-  alertMessage.buying = true;
-  setAlertMessage(alertMessage);
 };
