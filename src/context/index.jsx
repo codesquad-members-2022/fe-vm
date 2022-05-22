@@ -1,11 +1,14 @@
 import { ProductProvider } from 'context/Product';
 import { WalletProvider } from 'context/Wallet';
+import { LogProvider } from 'context/Log';
 
 const ContextProvider = ({ children }) => {
   return (
     <>
       <ProductProvider>
-        <WalletProvider>{children}</WalletProvider>
+        <WalletProvider>
+          <LogProvider>{children}</LogProvider>
+        </WalletProvider>
       </ProductProvider>
     </>
   );

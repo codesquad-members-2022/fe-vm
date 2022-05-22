@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import mockData from './LogListMockData';
 import ListItem from 'components/atoms/ListItem';
 import * as Styled from 'components/molecules/LogList/LogList.style';
+import { LogContext } from 'context/Log';
 
 const LogList = () => {
+  const { state } = useContext(LogContext);
   const logListRef = useRef(null);
 
   useEffect(() => {
@@ -13,8 +15,8 @@ const LogList = () => {
   return (
     <Styled.LogListWrapper>
       <Styled.LogList ref={logListRef}>
-        {mockData.map((v, i) => {
-          return <ListItem key={v.id}>{getParsedLog(v.action, v.contents)}</ListItem>;
+        {state?.logList.map(({ id, message }, i) => {
+          return <ListItem key={id}>{message}</ListItem>;
         })}
       </Styled.LogList>
     </Styled.LogListWrapper>
