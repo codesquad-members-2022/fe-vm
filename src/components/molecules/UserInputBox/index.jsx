@@ -29,7 +29,7 @@ const UserInputBox = ({ title, ...props }) => {
     target.value = parseInt(value);
 
     if (value <= 0 || !state.sumOfMoney) {
-      target.value = 0;
+      target.value = '';
       return;
     }
 
