@@ -6,9 +6,17 @@ import { moneyReducer, logReducer } from './reducer';
 const AmountProvider = (props) => {
   const [money, dispatchMoney] = useReducer(moneyReducer, INITAIL_MONEY);
   const [log, dispatchLog] = useReducer(logReducer, []);
+
   useEffect(() => {
-    console.log(money, 'effect');
-    console.log(log);
+    if (!money.TOTAL_AMOUNT) return;
+    const dispatchTimer = setTimeout(() => {
+      dispatchMoney({ type: 'WITHDRAW' });
+      dispatchLog({ type: 'WITHDRAW', payload: money.TOTAL_AMOUNT });
+    }, 4000);
+
+    return () => {
+      clearTimeout(dispatchTimer);
+    };
   }, [money, log]);
 
   const amountContext = {

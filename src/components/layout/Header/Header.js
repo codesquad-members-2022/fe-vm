@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { _ } from '../../../constant/constant';
 
-const Header = (props) => {
+const Header = () => {
   return (
     <StyledHeader>
       <Title>VENDING MACHINE</Title>
@@ -11,7 +11,7 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+export default React.memo(Header);
 
 const StyledHeader = styled.header`
   ${({ theme }) => theme.mixin.flexMixin(_, _, 'space-between')};

@@ -2,13 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../UI/Button';
-import Container from '../../UI/container';
 import { _ } from '../../../constant/constant';
 
-const Nav = (props) => {
+const Nav = () => {
   return (
     <StyledNav>
-      {/* <Button width="100%">STOCK</Button> */}
       <div>
         <Link to="/">
           <Button width="100%">VENDING</Button>
@@ -23,7 +21,7 @@ const Nav = (props) => {
   );
 };
 
-export default Nav;
+export default React.memo(Nav);
 
 const StyledNav = styled.nav`
   ${({ theme }) => theme.mixin.flexMixin(_, _, 'space-around')};

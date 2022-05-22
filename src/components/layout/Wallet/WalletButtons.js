@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import AmountContext from '../../../store/AmountContext';
 import Button from '../../UI/Button';
 import Container from '../../UI/container';
 import { _ } from '../../../constant/constant';
-import AmountContext from '../../../store/AmountContext';
 
 const WalletButton = ({ unit, onClick, isDisabled }) => {
   return (
@@ -18,10 +18,10 @@ const WalletButtons = () => {
 
   const onClickHandler = (e) => {
     const newAmount = e.target.textContent.trim();
-    const newState = {};
-    newState[`${newAmount}`] = 1;
-    dispatchMoney({ type: 'INSERT', newState });
-    dispatchLog({ type: 'INSERT', newAmount });
+    const newInsert = {};
+    newInsert[`${newAmount}`] = 1;
+    dispatchMoney({ type: 'INSERT', payload: newInsert });
+    dispatchLog({ type: 'INSERT', payload: newAmount });
   };
 
   return (

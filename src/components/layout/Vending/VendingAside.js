@@ -16,4 +16,4 @@ const VendingAside = () => {
   );
 };
 
-export default VendingAside;
+export default React.memo(VendingAside);

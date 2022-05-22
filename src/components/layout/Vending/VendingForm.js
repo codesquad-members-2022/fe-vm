@@ -12,17 +12,17 @@ import AmountContext from '../../../store/AmountContext';
 
 const checkValid = (wallet, money) => {
   const newInsertedMoney = {};
-  const walletObj = Object.entries(wallet);
-  for (let i = walletObj.length - 1; i >= 0; i--) {
-    const [unit, count] = walletObj[i];
-    if (Number(unit) > money) continue;
-    if (Number(unit) * Number(count) < money) continue;
-    else {
-      let use = Math.floor(money / Number(unit));
-      money -= Number(unit) * use;
+  const walletObj = Object.entries(wallet).reverse();
+
+  walletObj.forEach((v) => {
+    const [unit, count] = v.map(Number);
+    const currentUnitAmount = unit * count;
+    if (currentUnitAmount >= money) {
+      const use = Math.floor(money / unit);
+      money -= unit * use;
       newInsertedMoney[unit] = use;
     }
-  }
+  });
 
   const moneyisValid = !money ? true : false;
   return [moneyisValid, newInsertedMoney];
@@ -35,25 +35,25 @@ const VendingForm = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const insertedMoney = amountInputRef.current.value;
+    const insertedMoney = Number(amountInputRef.current.value);
+    if (!insertedMoney) return;
+    
     const [isValid, newInsertedMoneyObj] = checkValid(
       money.WALLET,
       insertedMoney
     );
+    setIsInputValid(isValid);
 
     if (isValid) {
-      setIsInputValid(true);
       dispatchMoney({
         type: 'INSERT',
-        newState: newInsertedMoneyObj,
+        payload: newInsertedMoneyObj,
       });
 
       dispatchLog({
         type: 'INSERT',
-        newAmount: insertedMoney,
+        payload: insertedMoney,
       });
-    } else {
-      setIsInputValid(false);
     }
   };
 
@@ -71,7 +71,7 @@ const VendingForm = () => {
     dispatchMoney({ type: 'WITHDRAW' });
     dispatchLog({
       type: 'WITHDRAW',
-      newAmount: totalAmount,
+      payload: totalAmount,
     });
   };
 

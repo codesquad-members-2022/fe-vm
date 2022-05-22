@@ -1,30 +1,51 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 import styled from 'styled-components';
-import VendingCard from './VendingCard';
-import { DUMMY_DATA, _ } from '../../../constant/constant';
 import AmountContext from '../../../store/AmountContext';
+import VendingCard from './VendingCard';
+import Modal from '../Modal/Modal';
+import { DUMMY_DATA, _ } from '../../../constant/constant';
 
 const VendingCards = () => {
   const { money, dispatchMoney, dispatchLog } = useContext(AmountContext);
+  const [clickedProduct, setClickedProduce] = useState({
+    price: null,
+    name: null,
+  });
+  const [modal, setModal] = useState(false);
   const onSaveInfo = (price, name) => {
     if (money.TOTAL_AMOUNT < price) return alert('금액이 부족합니다');
-    console.log(money.INSERTED);
-    dispatchLog({ type: 'BUY', item: { price, name } });
+    setClickedProduce({ price, name });
   };
 
+  useEffect(() => {
+    if (!clickedProduct.price) return;
+    setModal(true);
+    dispatchLog({ type: 'SELECT', payload: clickedProduct.name });
+    setTimeout(() => {
+      dispatchMoney({ type: 'BUY', payload: clickedProduct.price });
+      dispatchLog({ type: 'BUY', payload: clickedProduct });
+      setModal(false);
+    }, 2000);
+  }, [clickedProduct]);
+
   return (
-    <VendingCardLists>
-      {DUMMY_DATA.map(({ id, name, price }) => (
-        <VendingCard
-          id={id}
-          key={id}
-          name={name}
-          price={price}
-          isAffordable={money.TOTAL_AMOUNT >= price}
-          onSave={onSaveInfo}
-        />
-      ))}
-    </VendingCardLists>
+    <>
+      {modal &&
+        ReactDOM.createPortal(<Modal />, document.getElementById('overlay'))}
+      <VendingCardLists>
+        {DUMMY_DATA.map(({ id, name, price }) => (
+          <VendingCard
+            id={id}
+            key={id}
+            name={name}
+            price={price}
+            isAffordable={money.TOTAL_AMOUNT >= price}
+            onSave={onSaveInfo}
+          />
+        ))}
+      </VendingCardLists>
+    </>
   );
 };
 

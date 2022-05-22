@@ -12,4 +12,4 @@ const Vending = () => {
   );
 };
 
-export default Vending;
+export default React.memo(Vending);
