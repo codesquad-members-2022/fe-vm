@@ -22,9 +22,10 @@ const WalletProvider = ({ children }) => {
 
   const value = {
     state,
+    walletDispatch,
     insertMoney,
     returnMoney,
-    walletDispatch,
+    spendMoney,
   };
 
   return <WalletContext.Provider value={value}>{children}</WalletContext.Provider>;
@@ -34,6 +35,7 @@ const WalletProvider = ({ children }) => {
 const INIT_WALLET = 'initWallet';
 const INSERT_MONEY = 'insertMoney';
 const RETURN_MONEY = 'returnMoney';
+const SPEND_MONEY = 'spendMoney';
 
 /* Dispatch Function */
 const initWallet = async dispatch => {
@@ -55,6 +57,10 @@ const returnMoney = dispatch => {
   dispatch({ type: RETURN_MONEY });
 };
 
+const spendMoney = (dispatch, cost) => {
+  dispatch({ type: SPEND_MONEY, payload: { cost } });
+};
+
 /* action function */
 const initWalletData = (state, payload) => {
   const { walletData } = payload;
@@ -66,7 +72,7 @@ const calcSumOfMoney = walletData => {
 };
 
 const setInsertMoneyData = (state, payload) => {
-  const { walletData, sumOfMoney, insertedMoney, sumOfInsertedMoney } = state;
+  const { walletData, sumOfMoney, sumOfInsertedMoney } = state;
   const { insertedValue } = payload;
   const { usedMoneyData, usedSumOfMoney } = calcInsertedMoney(walletData, insertedValue);
 
@@ -75,14 +81,9 @@ const setInsertMoneyData = (state, payload) => {
     return { ...data, count: count - (usedMoneyData[value] || 0) };
   });
 
-  const newInsertedMoney = Object.keys(usedMoneyData).reduce((acc, key) => {
-    return { ...acc, [key]: usedMoneyData[key] + (insertedMoney[key] || 0) };
-  }, {});
-
   return {
     walletData: newWalletData,
     sumOfMoney: sumOfMoney - usedSumOfMoney,
-    insertedMoney: newInsertedMoney,
     sumOfInsertedMoney: sumOfInsertedMoney + usedSumOfMoney,
   };
 };
@@ -114,17 +115,26 @@ const calcInsertedMoney = (walletData, insertedMoney) =>
   );
 
 const setReturnMoney = state => {
-  const { walletData, sumOfMoney, insertedMoney, sumOfInsertedMoney } = state;
-  const newWalletData = walletData.map(data => {
-    const { value, count } = data;
-    return { ...data, count: count + (insertedMoney[value] || 0) };
-  });
+  const { walletData, sumOfMoney, sumOfInsertedMoney } = state;
+  let insertedMoney = sumOfInsertedMoney;
+
+  const newWalletData = walletData.reduceRight((acc, cur) => {
+    const { value, count } = cur;
+    const returnCount = parseInt(insertedMoney / value);
+    insertedMoney -= value * returnCount;
+    acc.push({ ...cur, count: count + returnCount });
+    return acc;
+  }, []);
+
   return {
-    walletData: newWalletData,
+    walletData: newWalletData.reverse(),
     sumOfMoney: sumOfMoney + sumOfInsertedMoney,
-    insertedMoney: {},
     sumOfInsertedMoney: 0,
   };
+};
+
+const setSpendMoney = (state, payload) => {
+  const { insertedMoney, sumOfInsertedMoney } = state;
 };
 
 /* Reducer */
@@ -134,6 +144,7 @@ const actionFunc = {
   [INIT_WALLET]: initWalletData,
   [INSERT_MONEY]: setInsertMoneyData,
   [RETURN_MONEY]: setReturnMoney,
+  [SPEND_MONEY]: setSpendMoney,
 };
 
 export { WalletContext, WalletProvider };
