@@ -27,10 +27,7 @@ const VMController = () => {
 
   const handleOnClick = () => {
     const { sumOfInsertedMoney } = state;
-    console.log(sumOfInsertedMoney);
-    if (sumOfInsertedMoney > 0) {
-      returnMoney(walletDispatch);
-    }
+    sumOfInsertedMoney > 0 && returnMoney(walletDispatch);
   };
 
   return (
