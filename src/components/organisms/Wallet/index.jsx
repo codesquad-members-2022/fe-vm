@@ -3,8 +3,13 @@ import Logo from 'components/molecules/Logo';
 import MoneyBox from 'components/molecules/MoneyBox';
 import mockData from 'components/organisms/Wallet/WalletMockData';
 import * as Styled from 'components/organisms/Wallet/Wallet.style';
+import { useContext } from 'react';
+import { WalletContext } from 'context/Wallet';
+import { CURRENCY_STR } from 'constants';
 
 const Wallet = () => {
+  const { state } = useContext(WalletContext);
+
   const labelStyle = {
     flexType: 'centerRight',
     sizeType: 'xLarge',
@@ -14,10 +19,12 @@ const Wallet = () => {
 
   return (
     <Styled.Wallet>
-      <Label {...labelStyle}>16,280원</Label>
+      <Label {...labelStyle}>
+        {state?.sumOfMoney} {CURRENCY_STR}
+      </Label>
       <Styled.MoneyList>
-        {mockData.map((data, index) => (
-          <MoneyBox key={index} unit={data.unit} count={data.count} />
+        {state?.walletData.map(({ id, unit, count, value }, index) => (
+          <MoneyBox key={id} unit={unit} count={count} value={value} />
         ))}
       </Styled.MoneyList>
       <Logo type="pocket" />

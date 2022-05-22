@@ -4,7 +4,7 @@ import * as Styled from 'components/molecules/MoneyBox/MoneyBox.style';
 import Button from 'components/atoms/Button';
 import Label from 'components/atoms/Label';
 
-const MoneyBox = ({ unit, count, ...props }) => {
+const MoneyBox = ({ unit, count, value, ...props }) => {
   return (
     <Styled.MoneyBox flexType={'centerBetween'}>
       <Button sizeType="xLarge" borderType="rounded" fontType="large">
