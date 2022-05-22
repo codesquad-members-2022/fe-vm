@@ -1,26 +1,42 @@
-import { useContext } from 'react';
-import { LogContext } from 'context/LogContext';
-import { MoneyContext } from 'context/MoneyContext';
+import { useContext, useEffect, useRef } from 'react';
+
+import { useMoneyState } from 'context/MoneyContext';
+import { useLogState } from 'context/LogContext';
+import { TimerContext } from 'context/TimerContext';
 
 import styled from 'styled-components';
 import setLocalString from 'utils/setLocalString';
 import OrderLog from './OrderLog';
 
 export default function UserOrder() {
-  const { machineLog } = useContext(LogContext);
-  const { insertMoneyData } = useContext(MoneyContext);
+  const { insertMoneyData } = useMoneyState();
+  const { machineLog } = useLogState();
+  const { countdown } = useContext(TimerContext);
   const totalInsertMoney = insertMoneyData;
 
   const orderLog = machineLog.map(log => {
-    return <OrderLog key={log.id} log={log}></OrderLog>;
+    return <OrderLog key={log.id} log={log} />;
+  });
+
+  const scrollRef = useRef();
+
+  useEffect(() => {
+    const { scrollHeight, clientHeight } = scrollRef.current;
+    scrollRef.current.scrollTop = scrollHeight - clientHeight;
   });
 
   return (
     <OrderInfo>
-      <OrderList>{orderLog}</OrderList>
+      <OrderList ref={scrollRef}>{orderLog}</OrderList>
       <InputCostInfo>
-        <span>투입금액: </span>
-        <span>{setLocalString(totalInsertMoney)} 원</span>
+        <InfoWrapper>
+          <span>투입 금액: </span>
+          <span>{setLocalString(totalInsertMoney)} 원</span>
+        </InfoWrapper>
+        <InfoWrapper>
+          <span>남은 시간: </span>
+          <span>{countdown} 초</span>
+        </InfoWrapper>
       </InputCostInfo>
     </OrderInfo>
   );
@@ -30,7 +46,7 @@ const OrderInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 100%;
+  width: 240px;
   height: 400px;
   margin-bottom: 12px;
   padding: 20px;
@@ -41,16 +57,20 @@ const OrderInfo = styled.div`
 `;
 
 const InputCostInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-top: 6px;
   border-top: 2px solid black;
   ${({ theme }) => theme.fontStyles.mediumBold};
 `;
 
+const InfoWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-top: 6px;
+`;
+
 const OrderList = styled.ul`
   overflow-y: auto;
-  margin: 12px 0;
+  margin-bottom: 6px;
+  scroll-behavior: smooth;
 
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */

@@ -1,18 +1,12 @@
-import { useContext } from 'react';
-import { LogContext } from 'context/LogContext';
-import { MoneyContext } from 'context/MoneyContext';
+import React, { memo } from 'react';
 
 import styled, { css } from 'styled-components';
 import setLocalString from 'utils/setLocalString';
 
-const Money = ({ info }) => {
-  const { insertMoneyLog } = useContext(LogContext);
-  const { buttonInsertMoney } = useContext(MoneyContext);
-
+const Money = ({ info, buttonInsertMoney }) => {
   const decrease = () => {
     if (info.amount === 0) return;
-    buttonInsertMoney(info.unit);
-    insertMoneyLog([{ ...info, amount: 1 }]);
+    buttonInsertMoney(info);
   };
 
   return (
@@ -24,6 +18,8 @@ const Money = ({ info }) => {
     </MoneyWrapper>
   );
 };
+
+export default memo(Money);
 
 const MoneyWrapper = styled.div`
   display: flex;
@@ -53,5 +49,3 @@ const PushBtn = styled.button`
           cursor: default;
         `};
 `;
-
-export default Money;

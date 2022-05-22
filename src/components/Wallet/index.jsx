@@ -1,18 +1,17 @@
-import { useContext } from 'react';
-import { MoneyContext } from 'context/MoneyContext';
-
 import styled from 'styled-components';
 import setLocalString from 'utils/setLocalString';
 import calculateTotalMoney from 'utils/calculateTotalMoney';
 
 import Money from './Money';
+import { useMoneyState } from 'context/MoneyContext';
 
 export default function Wallet() {
-  const { walletMoneyData } = useContext(MoneyContext);
+  const { walletMoneyData, buttonInsertMoney } = useMoneyState();
 
   const moneyComponents = walletMoneyData.map((money, index) => {
-    return <Money key={index} info={money} />;
+    return <Money key={index} info={money} buttonInsertMoney={buttonInsertMoney} />;
   });
+
   const totalMoney = calculateTotalMoney(walletMoneyData);
 
   return (

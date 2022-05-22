@@ -1,4 +1,4 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 
 const initState = [];
 
@@ -6,6 +6,50 @@ export const LogContext = createContext(initState);
 
 export const LogProvider = ({ children }) => {
   const [state, dispatch] = useReducer(logReducer, initState);
+
+  return <LogContext.Provider value={{ state, dispatch }}>{children}</LogContext.Provider>;
+};
+
+const logReducer = (state, action) => {
+  const newState = [...state];
+
+  switch (action.type) {
+    case 'INSERT':
+    case 'RETURN':
+      action.payload.forEach(money => {
+        const newLog = {
+          id: newState.length + 1,
+          type: action.type,
+          value: {
+            unit: money.unit,
+            amount: money.amount,
+          },
+        };
+
+        newState.push(newLog);
+      });
+
+      return newState;
+    case 'BUY':
+    case 'DROP':
+      const newLog = {
+        id: state.length + 1,
+        type: action.type,
+        value: action.payload,
+      };
+
+      newState.push(newLog);
+
+      return newState;
+    default:
+      throw new Error();
+  }
+};
+
+export function useLogState() {
+  const { state, dispatch } = useContext(LogContext);
+
+  if (!state) throw new Error();
 
   const insertMoneyLog = money => {
     dispatch({
@@ -28,46 +72,18 @@ export const LogProvider = ({ children }) => {
     });
   };
 
-  return (
-    <LogContext.Provider
-      value={{
-        machineLog: state,
-        insertMoneyLog,
-        buyProductLog,
-        dropProductLog,
-      }}
-    >
-      {children}
-    </LogContext.Provider>
-  );
-};
+  const returnMoneyLog = money => {
+    dispatch({
+      type: 'RETURN',
+      payload: money,
+    });
+  };
 
-const logReducer = (state, action) => {
-  switch (action.type) {
-    case 'INSERT':
-      action.payload.forEach(money => {
-        state.push({
-          id: state.length + 1,
-          type: action.type,
-          value: {
-            unit: money.unit,
-            amount: money.amount,
-          },
-        });
-      });
-
-      return state;
-    case 'BUY':
-    case 'DROP':
-      state.push({
-        id: state.length + 1,
-        type: action.type,
-        value: action.payload,
-      });
-      return [...state];
-    case 'RETURN':
-      return;
-    default:
-      return;
-  }
-};
+  return {
+    machineLog: state,
+    insertMoneyLog,
+    buyProductLog,
+    dropProductLog,
+    returnMoneyLog,
+  };
+}
