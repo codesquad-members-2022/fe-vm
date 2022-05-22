@@ -10,8 +10,7 @@ const LogListWrapper = styled.div`
 
 const LogList = styled.ul`
   height: 295px;
-  overflow: hidden;
-  overflow-y: scroll;
+  overflow: hidden scroll;
 `;
 
 export { LogListWrapper, LogList };
