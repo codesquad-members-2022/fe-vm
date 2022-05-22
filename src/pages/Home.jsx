@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { LoadingContext } from 'components/App';
 import ControlPanel from 'components/ControlPanel';
-import Product from 'components/Product';
-import PRODUCTS from 'mocks/products';
+import Products from 'components/Products';
+import Loading from 'components/Loading';
 
 function Home() {
+  const { isLoading } = useContext(LoadingContext);
   return (
     <Wrap>
+      {isLoading ? <Loading /> : null}
       <Products />
       <ControlPanel />
     </Wrap>
@@ -15,22 +18,6 @@ function Home() {
 
 export default Home;
 
-function Products() {
-  return (
-    <ProductWrap>
-      {PRODUCTS.map(({ id, name, price }) => (
-        <Product key={id} name={name} price={price} />
-      ))}
-    </ProductWrap>
-  );
-}
-
 const Wrap = styled.div({
   display: 'flex',
-});
-const ProductWrap = styled.div({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(4, 100px)',
-  gap: '20px',
-  marginTop: '20px',
 });
