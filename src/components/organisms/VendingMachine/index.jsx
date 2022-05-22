@@ -9,8 +9,9 @@ const VendingMachine = ({ title, ...props }) => {
   const { state: productState } = useContext(ProductContext);
   const { state: walletState } = useContext(WalletContext);
 
-  const getProductBoxProps = ({ name, icon, cost, stock }) => {
+  const getProductBoxProps = ({ id, name, icon, cost, stock }) => {
     return {
+      id: id,
       key: name,
       icon: icon,
       cost: cost,

@@ -134,7 +134,9 @@ const setReturnMoney = state => {
 };
 
 const setSpendMoney = (state, payload) => {
-  const { insertedMoney, sumOfInsertedMoney } = state;
+  const { sumOfInsertedMoney } = state;
+  const { cost } = payload;
+  return { ...state, sumOfInsertedMoney: sumOfInsertedMoney - cost };
 };
 
 /* Reducer */
