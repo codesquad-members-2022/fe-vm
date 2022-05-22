@@ -23,6 +23,7 @@ const WalletProvider = ({ children }) => {
   const value = {
     state,
     insertMoney,
+    returnMoney,
     walletDispatch,
   };
 
@@ -32,6 +33,7 @@ const WalletProvider = ({ children }) => {
 /* Type */
 const INIT_WALLET = 'initWallet';
 const INSERT_MONEY = 'insertMoney';
+const RETURN_MONEY = 'returnMoney';
 
 /* Dispatch Function */
 const initWallet = async dispatch => {
@@ -47,6 +49,10 @@ const initWallet = async dispatch => {
 
 const insertMoney = (dispatch, insertedValue) => {
   dispatch({ type: INSERT_MONEY, payload: { insertedValue } });
+};
+
+const returnMoney = dispatch => {
+  dispatch({ type: RETURN_MONEY });
 };
 
 /* action function */
@@ -107,12 +113,27 @@ const calcInsertedMoney = (walletData, insertedMoney) =>
     { usedMoneyData: {}, usedSumOfMoney: 0 }
   );
 
+const setReturnMoney = state => {
+  const { walletData, sumOfMoney, insertedMoney, sumOfInsertedMoney } = state;
+  const newWalletData = walletData.map(data => {
+    const { value, count } = data;
+    return { ...data, count: count + (insertedMoney[value] || 0) };
+  });
+  return {
+    walletData: newWalletData,
+    sumOfMoney: sumOfMoney + sumOfInsertedMoney,
+    insertedMoney: {},
+    sumOfInsertedMoney: 0,
+  };
+};
+
 /* Reducer */
-const reducer = (state, { type, payload }) => actionFunc[type](state, payload);
+const reducer = (state, { type, payload }) => actionFunc[type](state, payload) || state;
 
 const actionFunc = {
   [INIT_WALLET]: initWalletData,
   [INSERT_MONEY]: setInsertMoneyData,
+  [RETURN_MONEY]: setReturnMoney,
 };
 
 export { WalletContext, WalletProvider };

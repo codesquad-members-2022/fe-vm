@@ -9,7 +9,7 @@ import { WalletContext } from 'context/Wallet';
 import { useContext } from 'react';
 
 const VMController = () => {
-  const { state } = useContext(WalletContext);
+  const { state, returnMoney, walletDispatch } = useContext(WalletContext);
 
   const labelStyle = {
     flexType: 'centerRight',
@@ -25,6 +25,14 @@ const VMController = () => {
     fontType: 'medium',
   };
 
+  const handleOnClick = () => {
+    const { sumOfInsertedMoney } = state;
+    console.log(sumOfInsertedMoney);
+    if (sumOfInsertedMoney > 0) {
+      returnMoney(walletDispatch);
+    }
+  };
+
   return (
     <Styled.VMController>
       <NavButton />
@@ -33,7 +41,9 @@ const VMController = () => {
           {state?.sumOfInsertedMoney || 0} {CURRENCY_STR}
         </Label>
         <UserInputBox />
-        <Button {...buttonStyle}>반환하기</Button>
+        <Button onClick={handleOnClick} {...buttonStyle}>
+          반환하기
+        </Button>
         <LogList />
       </Styled.ControllerWrapper>
     </Styled.VMController>
