@@ -1,6 +1,12 @@
 import { css } from 'styled-components';
 
-export const Flexbox = css`
+interface IFlexbox {
+  dir: string;
+  jc: string;
+  ai: string;
+}
+
+export const Flexbox = css<IFlexbox>`
   display: flex;
   flex-direction: ${({ dir = 'row' }) => dir};
   justify-content: ${({ jc = 'center' }) => jc};

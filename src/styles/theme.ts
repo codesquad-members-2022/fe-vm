@@ -5,7 +5,7 @@ const fontSize = {
   xl: '20px',
 };
 
-const colors = {
+const color = {
   white: '#fff',
   black: '#000',
   lightBlack: '#0002',
@@ -19,11 +19,27 @@ const colors = {
   lightRed: '#fdb6b677',
   primaryRed: '#fdb6b6',
   darkRed: '#fdb6b699',
+  disabled: '#ff233d',
+  purchasable: '#93ff3c',
+};
+
+const mixin = {
+  flexbox: (dir = 'row', jc = 'center', ai = 'center') => `
+    display: flex;
+    flex-direction: ${dir};
+    justify-content: ${jc};
+    align-items: ${ai};
+  `,
 };
 
 const theme = {
+  color,
   fontSize,
-  colors,
+  mixin,
 };
+
+export type Color = typeof color;
+export type FontSize = typeof fontSize;
+export type Mixin = typeof mixin;
 
 export default theme;
