@@ -1,10 +1,14 @@
-import { useState } from 'react';
-import initialMoney from 'constants/money';
 import MoneyBox from 'components/molecules/MoneyBox/MoneyBox';
+import TotalMoney from 'components/atoms/TotalMoney/TotalMoney';
+import StyledWallet from './Wallet.style';
 
 function Wallet() {
-  const [insertMoney, setInsertMoney] = useState(initialMoney);
-  return <MoneyBox insertMoney={insertMoney} setInsertMoney={setInsertMoney} />;
+  return (
+    <StyledWallet>
+      <MoneyBox />
+      <TotalMoney />
+    </StyledWallet>
+  );
 }
 
 export default Wallet;
