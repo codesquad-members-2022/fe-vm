@@ -1,37 +1,20 @@
-import {
-    useVendingMachineStateContext,
-    useVendingMachineDispatchContext,
-} from "../../context/VendingMachineContext";
+import { useVendingMachineStateContext } from "../../context/VendingMachineContext";
 import {
     WalletContainer,
     WalletItemContainer,
     WalletItem,
-    MoneyUnit,
     TotalAmount,
 } from "./Wallet.Style";
-import { PAGE } from "../../constants";
+import MoneyUnitItem from "../../components/moneyUnit/MoneyUnitItem";
 
 function Wallet() {
     const { money } = useVendingMachineStateContext();
-    const { putMoneyIntoVendingMachine } = useVendingMachineDispatchContext();
-
-    const takeMoneyFromWallet = (moneyUnit) => {
-        putMoneyIntoVendingMachine(moneyUnit, PAGE.WALLET);
-    };
 
     return (
         <WalletContainer>
             {money.wallet.moneyArray.map((moneyUnit) => (
                 <WalletItemContainer key={moneyUnit.id}>
-                    <MoneyUnit
-                        disabled={!moneyUnit.count}
-                        onClick={() =>
-                            moneyUnit.count &&
-                            takeMoneyFromWallet(moneyUnit.unit)
-                        }
-                    >
-                        {moneyUnit.unit}원
-                    </MoneyUnit>
+                    <MoneyUnitItem money={moneyUnit} />
                     <WalletItem>{moneyUnit.count}개</WalletItem>
                 </WalletItemContainer>
             ))}
