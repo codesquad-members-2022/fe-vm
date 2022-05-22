@@ -10,10 +10,4 @@ const UserInputBox = styled.div`
   background: ${({ theme: { colors } }) => colors.white};
 `;
 
-const SelectorWrapper = styled.div`
-  ${Flex.centerLeft}
-  width: 270px;
-  border-top: 1px solid black;
-`;
-
-export { UserInputBox, SelectorWrapper };
+export { UserInputBox };
