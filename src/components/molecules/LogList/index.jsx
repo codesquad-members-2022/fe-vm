@@ -10,7 +10,7 @@ const LogList = () => {
 
   useEffect(() => {
     logListRef.current.scrollTop = logListRef.current.scrollHeight;
-  }, []);
+  }, [state]);
 
   return (
     <Styled.LogListWrapper>
