@@ -1,13 +1,14 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { BASE_URL, RouteURL } from 'constants/RouteUrl';
 import Main from 'pages/Main';
+import ContextProvider from 'context';
+import { BASE_URL, RouteURL } from 'constants/RouteUrl';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const [vmPage, walletPage] = RouteURL;
 
 function App() {
   return (
-    <>
+    <ContextProvider>
       <BrowserRouter basename={BASE_URL}>
         <Routes>
           <Route path="/" element={<Main />}>
@@ -16,7 +17,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </ContextProvider>
   );
 }
 
