@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Label from 'components/atoms/Label';
 import Button from 'components/atoms/Button';
 import * as Styled from 'components/molecules/ProductBox/ProductBox.style';
+import { WalletContext } from 'context/Wallet';
 
 const SOLD_OUT_TEXT = 'SOLD OUT';
 
-const ProductBox = ({ icon, cost, isSoldOut, ...props }) => {
+const ProductBox = ({ icon, cost, isSoldOut, isActive, ...props }) => {
+  const { state: walletState } = useContext(WalletContext);
+
   const buttonStyle = {
     sizeType: 'thin',
     borderType: 'rounded',
-    colorType: isSoldOut ? 'soldOut' : 'active',
+    colorType: isSoldOut ? 'soldOut' : isActive ? 'active' : 'disabled',
     disabled: isSoldOut,
   };
 
