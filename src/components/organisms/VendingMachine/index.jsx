@@ -15,7 +15,7 @@ const VendingMachine = ({ title, ...props }) => {
       icon: icon,
       cost: cost,
       isSoldOut: stock === 0,
-      isActive: walletState.sumOfMoney >= cost,
+      isActive: walletState.sumOfInsertedMoney >= cost,
     };
   };
 

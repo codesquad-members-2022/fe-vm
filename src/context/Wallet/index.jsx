@@ -7,7 +7,7 @@ import React, { createContext, useEffect, useReducer } from 'react';
 const initState = {
   walletData: [],
   sumOfMoney: 0,
-  insertedMoney: [],
+  insertedMoney: {},
   sumOfInsertedMoney: 0,
 };
 
@@ -45,8 +45,8 @@ const initWallet = async dispatch => {
   dispatch({ type: INIT_WALLET, payload: { walletData } });
 };
 
-const insertMoney = (dispatch, insertedMoney) => {
-  dispatch({ type: INSERT_MONEY, payload: { insertedMoney } });
+const insertMoney = (dispatch, insertedValue) => {
+  dispatch({ type: INSERT_MONEY, payload: { insertedValue } });
 };
 
 /* action function */
@@ -60,21 +60,24 @@ const calcSumOfMoney = walletData => {
 };
 
 const setInsertMoneyData = (state, payload) => {
-  const { walletData, sumOfMoney } = state;
-  const { insertedMoney } = payload;
-  const { usedMoneyData, usedSumOfMoney } = calcInsertedMoney(walletData, insertedMoney);
+  const { walletData, sumOfMoney, insertedMoney, sumOfInsertedMoney } = state;
+  const { insertedValue } = payload;
+  const { usedMoneyData, usedSumOfMoney } = calcInsertedMoney(walletData, insertedValue);
 
-  const newWalletData = walletData.map((data, index) => {
+  const newWalletData = walletData.map(data => {
     const { value, count } = data;
-    const usedCount = usedMoneyData[value]?.count || 0;
-    return { ...data, count: count - usedCount };
+    return { ...data, count: count - (usedMoneyData[value] || 0) };
   });
+
+  const newInsertedMoney = Object.keys(usedMoneyData).reduce((acc, key) => {
+    return { ...acc, [key]: usedMoneyData[key] + (insertedMoney[key] || 0) };
+  }, {});
 
   return {
     walletData: newWalletData,
     sumOfMoney: sumOfMoney - usedSumOfMoney,
-    insertedMoney: usedMoneyData,
-    sumOfInsertedMoney: usedSumOfMoney,
+    insertedMoney: newInsertedMoney,
+    sumOfInsertedMoney: sumOfInsertedMoney + usedSumOfMoney,
   };
 };
 
@@ -92,8 +95,12 @@ const calcInsertedMoney = (walletData, insertedMoney) =>
       usedCount = usedCount > count ? count : usedCount;
       insertedMoney -= usedCount * value;
 
+      if (usedCount === 0) {
+        return acc;
+      }
+
       return {
-        usedMoneyData: { ...usedMoneyData, [value]: { count: usedCount } },
+        usedMoneyData: { ...usedMoneyData, [value]: usedCount },
         usedSumOfMoney: usedSumOfMoney + usedCount * value,
       };
     },

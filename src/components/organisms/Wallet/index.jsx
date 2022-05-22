@@ -1,7 +1,6 @@
 import Label from 'components/atoms/Label';
 import Logo from 'components/molecules/Logo';
 import MoneyBox from 'components/molecules/MoneyBox';
-import mockData from 'components/organisms/Wallet/WalletMockData';
 import * as Styled from 'components/organisms/Wallet/Wallet.style';
 import { useContext } from 'react';
 import { WalletContext } from 'context/Wallet';
