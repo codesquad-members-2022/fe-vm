@@ -30,7 +30,7 @@ const VMController = () => {
       <NavButton />
       <Styled.ControllerWrapper>
         <Label {...labelStyle}>
-          {state?.insertedMoney} {CURRENCY_STR}
+          {state?.sumOfInsertedMoney || 0} {CURRENCY_STR}
         </Label>
         <UserInputBox />
         <Button {...buttonStyle}>반환하기</Button>
