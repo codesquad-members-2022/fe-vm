@@ -11,7 +11,7 @@ const Product = ({ productInfo, handlePurchaseBtnClick }) => {
       return outOfStockButtonStyle;
     }
     if (productInfo.price > inputSum) {
-      return lackOfMoneyButtonStyle;
+      return lackOfInputsumButtonStyle;
     }
     return normalButtonStyle;
   };
@@ -81,7 +81,7 @@ const outOfStockButtonStyle = css`
   background: ${({ theme }) => theme.colors.red};
 `;
 
-const lackOfMoneyButtonStyle = css`
+const lackOfInputsumButtonStyle = css`
   ${normalButtonStyle};
   opacity: 0.3;
 `;

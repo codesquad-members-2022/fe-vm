@@ -4,6 +4,7 @@ import { alertMessage } from "convention";
 
 const Nav = () => {
   const navigate = useNavigate();
+
   const handleClickStockManager = () => {
     if (window.confirm(alertMessage.moveToStockManager)) {
       navigate("/stock-manager");

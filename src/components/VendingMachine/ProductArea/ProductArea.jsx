@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { ProductsInfo } from "contextProviders/ProductsInfoProvider";
 import { Balance } from "contextProviders/BalanceProvider";
@@ -9,7 +9,7 @@ import { activityType } from "convention";
 
 const ProductArea = () => {
   const { updateProductInfo } = useContext(ProductsInfo);
-  const { inputSum, setInputSum } = useContext(Balance);
+  const { inputSum, setInputSum, putMoneyBackInWallet } = useContext(Balance);
   const { updateRecord } = useContext(Records);
   const [purchaseTarget, setPurchaseTarget] = useState(null);
 
@@ -18,11 +18,17 @@ const ProductArea = () => {
     if (!productInfo.stock) {
       updateRecord(activityType.OUT_OF_STOCK, productInfo.name);
     } else if (inputSum < productInfo.price) {
-      updateRecord(activityType.LACK_OF_MONEY);
+      updateRecord(activityType.LACK_OF_INPUTSUM);
     } else {
       purchaseProduct(productInfo);
     }
   };
+
+  useEffect(() => {
+    if (!purchaseTarget) {
+      putMoneyBackInWallet();
+    }
+  }, [purchaseTarget]);
 
   const purchaseProduct = (productInfo) => {
     setPurchaseTarget(productInfo);
