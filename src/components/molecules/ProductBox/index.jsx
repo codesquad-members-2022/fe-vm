@@ -6,12 +6,14 @@ import * as Styled from 'components/molecules/ProductBox/ProductBox.style';
 import { CURRENCY_STR } from 'constants';
 import { ProductContext } from 'context/Product';
 import { WalletContext } from 'context/Wallet';
+import { LogContext } from 'context/Log';
 
 const SOLD_OUT_TEXT = 'SOLD OUT';
 
-const ProductBox = ({ id, icon, cost, isSoldOut, isActive, ...props }) => {
+const ProductBox = ({ id, name, icon, cost, isSoldOut, isActive, ...props }) => {
   const { productDispatch, buyProduct } = useContext(ProductContext);
   const { walletDispatch, spendMoney } = useContext(WalletContext);
+  const { addLog, LOG_TYPE, logDispatch } = useContext(LogContext);
 
   const buttonStyle = {
     sizeType: 'thin',
@@ -23,6 +25,7 @@ const ProductBox = ({ id, icon, cost, isSoldOut, isActive, ...props }) => {
   const handleOnClick = () => {
     buyProduct(productDispatch, id);
     spendMoney(walletDispatch, cost);
+    addLog(logDispatch, LOG_TYPE.SELECT, name);
   };
 
   return (

@@ -9,11 +9,9 @@ const VendingMachine = ({ title, ...props }) => {
   const { state: productState } = useContext(ProductContext);
   const { state: walletState } = useContext(WalletContext);
 
-  const getProductBoxProps = ({ id, name, icon, cost, stock }) => {
+  const getProductBoxProps = ({ cost, stock, ...props }) => {
     return {
-      id: id,
-      key: name,
-      icon: icon,
+      ...props,
       cost: cost,
       isSoldOut: stock === 0,
       isActive: walletState.sumOfInsertedMoney >= cost,
@@ -24,7 +22,7 @@ const VendingMachine = ({ title, ...props }) => {
     <StyledVM flexType="center">
       <ProductWrapper flexType="center">
         {productState?.productData.map((value, i) => (
-          <ProductBox {...getProductBoxProps(value)} />
+          <ProductBox key={value.id} {...getProductBoxProps(value)} />
         ))}
       </ProductWrapper>
       <Logo />
