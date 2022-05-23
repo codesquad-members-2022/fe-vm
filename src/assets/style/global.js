@@ -52,6 +52,12 @@ menu {
   list-style: none;
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 @font-face {
   font-family: 'CherryBomb';
   src: url(${CherryBombTTF});

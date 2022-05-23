@@ -63,10 +63,6 @@ const ColorStyle = css`
   &:active {
     background-color: ${({ colorType }) => darken(0.2, BackgroundColors[colorType] || BackgroundColors.default)};
   }
-  &:disabled {
-    color: ${fontColors.disabled};
-    background-color: ${BackgroundColors.disabled};
-  }
 `;
 
 /* FontType */

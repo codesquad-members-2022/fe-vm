@@ -29,4 +29,10 @@ const SelectList = styled.ul`
   border-radius: 0px 0px 5px 5px;
 `;
 
-export { Selector, SelectTitle, SelectBox, SelectList };
+const SelectorWrapper = styled.div`
+  ${Flex.centerLeft}
+  width: 270px;
+  border-top: 1px solid black;
+`;
+
+export { Selector, SelectTitle, SelectBox, SelectList, SelectorWrapper };
