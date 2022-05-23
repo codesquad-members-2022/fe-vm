@@ -9,6 +9,16 @@ const Container = styled.div`
     url('https://user-images.githubusercontent.com/17706346/168209589-972f35ce-8b65-4144-88d9-9a2d2ba9a144.png')
     repeat-x bottom left / 55% auto;
   border-radius: 8px;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: ${({ selectalbeStatus }) => (selectalbeStatus ? 0 : '100%')};
+  }
 `;
 
 export { Container };

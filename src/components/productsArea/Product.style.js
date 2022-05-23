@@ -9,12 +9,11 @@ const ProductBtn = styled.button`
   background: linear-gradient(to bottom left, #d6f1fc, #ffffff, #daf2fc);
   border-radius: 5px;
   &:disabled {
-    cursor: default;
     & span:first-child {
       transform: scale(1);
     }
     & span {
-      opacity: ${({ disabled }) => (disabled ? 0.3 : 1)};
+      opacity: 0.3;
     }
   }
 `;
@@ -25,7 +24,7 @@ const Detail = styled.span`
   letter-spacing: -20px;
   text-indent: -20px;
   &:hover {
-    transform: scale(1.15);
+    transform: scale(1.12);
     transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 `;

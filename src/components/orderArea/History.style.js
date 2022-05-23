@@ -7,6 +7,7 @@ const HistoryList = styled.ol`
   background: #fff;
   border-radius: 4px;
   overflow-y: auto;
+  scroll-behavior: smooth;
 `;
 
 const HistoryItem = styled.li`

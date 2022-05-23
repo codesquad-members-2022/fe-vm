@@ -1,20 +1,20 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ProductBtn, Detail, Price } from 'components/productsArea/Product.style';
-import { addCommasToNumber } from 'utils/util';
-import { TIME_TO_SELCT_PRODUCT, TIME_TO_RESET_HISTORY, TIME_TO_PUT_OUT_PRODUCT } from 'constant/constant';
+import { addCommasToNumber } from 'helpers/helper';
+import { TIME_TO_SELCT_PRODUCT, TIME_TO_PUT_OUT_PRODUCT } from 'constant/constant';
 import useVMState from 'hooks/useVMState';
-import { FinalPayContext, FinalPaySetContext } from 'Context/FinalPayProvider';
-import { SelectedProductSetContext } from 'Context/SelectedProductProvider';
-import { VMTimerSetContext } from 'Context/VMTimerProvider';
-import { HistoryDispatchContext } from 'Context/HistoryProvider';
+import { FinalPayContext, FinalPaySetContext } from 'contexts/FinalPayProvider';
+import { SelectedProductSetContext } from 'contexts/SelectedProductProvider';
+import { VMTimerSetContext } from 'contexts/VMTimerProvider';
+import { HistoryDispatchContext } from 'contexts/HistoryProvider';
 
 export default function Product({ productInfo, toggleSelectableStatus }) {
   const setSelectedProduct = useContext(SelectedProductSetContext);
   const [finalPay, setFinalPay] = [useContext(FinalPayContext), useContext(FinalPaySetContext)];
-  const { addSelectHistory, resetHistory } = useContext(HistoryDispatchContext);
+  const { addSelectHistory } = useContext(HistoryDispatchContext);
   const { startVMTimer, stopVMTimer } = useContext(VMTimerSetContext);
-  const { resetVMState } = useVMState();
+  const { startTimerToReset } = useVMState();
 
   const canBuyProduct = () => (finalPay ? finalPay >= productInfo.price : true);
   const isSoldout = () => productInfo.quantity <= 0;
@@ -27,6 +27,21 @@ export default function Product({ productInfo, toggleSelectableStatus }) {
     toggleSelectableStatus(true);
   };
 
+  const hasRestMoney = totalPay => totalPay > 0;
+
+  const startTimerToSelectProduct = totalPay => {
+    stopVMTimer();
+    startVMTimer([
+      [updateOrderState, TIME_TO_PUT_OUT_PRODUCT],
+      [() => startTimerToReset(totalPay), TIME_TO_SELCT_PRODUCT]
+    ]);
+  };
+
+  const returnResetPay = totalPay => {
+    updateOrderState();
+    startTimerToReset(totalPay);
+  };
+
   const handleProductClick = () => {
     if (!finalPay) return;
 
@@ -34,12 +49,8 @@ export default function Product({ productInfo, toggleSelectableStatus }) {
     setSelectedProduct({ detail: productInfo.detail, price: productInfo.price });
     addSelectHistory(productInfo, totalPay);
     toggleSelectableStatus(false);
-    stopVMTimer();
-    startVMTimer([
-      [updateOrderState, TIME_TO_PUT_OUT_PRODUCT],
-      [() => resetVMState(totalPay), TIME_TO_SELCT_PRODUCT],
-      [resetHistory, TIME_TO_RESET_HISTORY]
-    ]);
+    if (hasRestMoney(totalPay)) startTimerToSelectProduct(totalPay);
+    else returnResetPay(totalPay);
   };
 
   return (
@@ -51,12 +62,15 @@ export default function Product({ productInfo, toggleSelectableStatus }) {
 }
 
 Product.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  productInfo: PropTypes.object,
+  productInfo: PropTypes.shape({
+    detail: PropTypes.string,
+    price: PropTypes.number,
+    quantity: PropTypes.number
+  }),
   toggleSelectableStatus: PropTypes.func
 };
 
 Product.defaultProps = {
-  productInfo: {},
+  productInfo: { detail: null, price: null, quantity: null },
   toggleSelectableStatus: () => {}
 };

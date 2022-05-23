@@ -13,12 +13,4 @@ const BtnWrap = styled.div`
   margin: 30px 0 50px;
 `;
 
-const ReturnBtn = styled.button`
-  width: 65px;
-  line-height: 65px;
-  border-radius: 50%;
-  background: #c7366d;
-  color: #fff;
-`;
-
-export { Container, BtnWrap, ReturnBtn };
+export { Container, BtnWrap };
