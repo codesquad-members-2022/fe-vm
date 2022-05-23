@@ -9,3 +9,5 @@ export const composeProvider = (providers) =>
       <Curr>{props.children}</Curr>
     </Prev>
   ));
+
+export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

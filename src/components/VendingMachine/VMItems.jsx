@@ -1,18 +1,29 @@
 import { useCallback, useContext, useState } from 'react';
 import styled from 'styled-components';
 
+import { delay } from 'common/utils';
+import Loading from 'components/Loading';
 import VMItem from 'components/VendingMachine/VMItem';
+import { CountContext } from 'context/CountProvider';
 import { MoneyContext } from 'context/MoneyProvider';
+import useLoading from 'hooks/useLoading';
 import vmItems from 'mocks/vmItems';
 
 const initItems = vmItems;
 
 const VMItems = () => {
   const [items, setItems] = useState(initItems);
-  const { inputMoney, buyVMItem } = useContext(MoneyContext);
+  const {
+    moneyState: { inputMoney },
+    buyVMItem,
+  } = useContext(MoneyContext);
+  const [, setLastCountTime] = useContext(CountContext);
 
   const handleClickItem = useCallback(
-    ({ id, amount, name }) => {
+    async ({ id, amount, name }) => {
+      setLastCountTime(new Date());
+      await delay(2000);
+      setLastCountTime(new Date());
       const newItems = items.map((item) => {
         if (item.id === id) {
           return {
@@ -28,18 +39,23 @@ const VMItems = () => {
     [items]
   );
 
+  const { isLoading, toggleHandler } = useLoading(handleClickItem);
+
   return (
-    <VMItemsWrapper>
-      {items.map((item) => (
-        <VMItem
-          key={item.id}
-          item={item}
-          isSoldOut={item.count === 0}
-          isActive={inputMoney >= item.amount && item.count !== 0}
-          onClickActiveItem={handleClickItem}
-        />
-      ))}
-    </VMItemsWrapper>
+    <>
+      <VMItemsWrapper>
+        {items.map((item) => (
+          <VMItem
+            key={item.id}
+            item={item}
+            isSoldOut={item.count === 0}
+            isActive={inputMoney >= item.amount && item.count !== 0}
+            onClickActiveItem={toggleHandler}
+          />
+        ))}
+      </VMItemsWrapper>
+      {isLoading && <Loading />}
+    </>
   );
 };
 

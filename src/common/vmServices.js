@@ -1,4 +1,4 @@
-const moneyAmount = [10000, 5000, 1000, 500, 100, 50, 10];
+export const moneyAmount = [10000, 5000, 1000, 500, 100, 50, 10];
 
 export const sortByAmountWallet = (wallet) =>
   [...wallet].sort(
@@ -15,10 +15,10 @@ export const calcWalletMoney = ({
   const sortedWallet = sortByAmountWallet(walletMoney);
   const newInsertedMoney = { ...insertedMoney };
 
-  const newWallet = sortedWallet.map((moneyInfo, idx) => {
-    const amount = moneyAmount[idx];
-    let newCount = moneyInfo.count;
-    for (let i = 0; i < moneyInfo.count; i++) {
+  const newWallet = sortedWallet.map((moneyInfo) => {
+    const { amount, count } = moneyInfo;
+    let newCount = count;
+    for (let i = 0; i < count; i++) {
       const nextInputMoney = myInputMoney + amount;
       const curDiff = Math.abs(targetMoney - myInputMoney);
       const nextDiff = Math.abs(targetMoney - nextInputMoney);
