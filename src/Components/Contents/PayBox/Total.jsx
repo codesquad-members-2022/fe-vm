@@ -1,12 +1,10 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { changeNumToLocalMoney } from '../../../Utils/utils';
-import { contentsContext } from '../../MainContents';
+import { PayTotalContext } from '../../../Context/PayProvider';
 
 export default function PayTotal() {
-  const { payTotal } = useContext(contentsContext);
-  const formatValue = changeNumToLocalMoney(payTotal);
-  return <Total>{formatValue}</Total>;
+  const { convertPayTotal } = useContext(PayTotalContext);
+  return <Total>{convertPayTotal}</Total>;
 }
 
 const Total = styled.div`

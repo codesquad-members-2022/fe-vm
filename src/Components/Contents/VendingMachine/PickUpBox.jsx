@@ -31,7 +31,7 @@ export default function PickUpBox() {
       />
       <ProductPickUp className={isAnimation ? 'active' : ''}>
         <TargetProduct>
-          {pickProductImg ? <img src={pickProductImg} alt="구매상품" /> : null}
+          {pickProductImg && <img src={pickProductImg} alt="구매상품" />}
         </TargetProduct>
       </ProductPickUp>
     </PickUpContents>

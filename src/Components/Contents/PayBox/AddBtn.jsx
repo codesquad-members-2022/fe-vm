@@ -1,31 +1,49 @@
 import { useContext } from 'react';
-import { FontSize } from '../../../Assets/Common.style';
-import { contentsContext } from '../../MainContents';
-import { payContext } from '../VendingMachine';
+import { MessageContext } from '../../../Context/MessageProvider';
+import { PayMoneyContext, PayTotalContext } from '../../../Context/PayProvider';
+import { WalletMoneyContext } from '../../../Context/WalletMoneyProvider';
+import { MatchType, MessageType, RESET_NUM } from '../../../Utils/constants';
 import {
   changeNumToLocalMoney,
   getMessage,
   replaceNotNumToSpace,
 } from '../../../Utils/utils';
+import { FontSize } from '../../../Assets/Common.style';
 import Btn from '../../Btn';
 
-const notPayMoney = 0;
-
-export default function AddBtn() {
-  const { payTotal, setPayTotal, printMessages, setPrintMessages } =
-    useContext(contentsContext);
-  const { payMoney, setPayMoney } = useContext(payContext);
+export default function AddBtn({ matchBalance }) {
+  const { printMessages, setPrintMessages } = useContext(MessageContext);
+  const { payTotal, setPayTotal } = useContext(PayTotalContext);
+  const { payMoney, setPayMoney } = useContext(PayMoneyContext);
+  const { walletMoneyTotal } = useContext(WalletMoneyContext);
 
   const addBtnClickHandler = (e) => {
     e.preventDefault();
-    if (payMoney === notPayMoney)
-      return setPrintMessages([...printMessages, getMessage('notPayMoney')]);
-    const formatNum = replaceNotNumToSpace(payMoney);
-    const updateTotal = payTotal + Number(formatNum);
-    const addMessage = getMessage('투입', changeNumToLocalMoney(formatNum));
+    setPayMoney(RESET_NUM);
 
-    setPayMoney(0);
-    setPayTotal(updateTotal);
+    if (payMoney === RESET_NUM) {
+      setPrintMessages([
+        ...printMessages,
+        getMessage(MessageType.NOT_PAY_MONEY),
+      ]);
+      return;
+    }
+    if (walletMoneyTotal === RESET_NUM) {
+      setPrintMessages([...printMessages, getMessage(MessageType.NO_MONEY)]);
+      return;
+    }
+
+    const { FinalPayMoney, FinalPayTotal } = matchBalance({
+      matchType: MatchType.ADD,
+      payMoney: Number(replaceNotNumToSpace(payMoney)),
+      payTotal,
+    });
+
+    const addMessage = getMessage(
+      MessageType.ADD,
+      changeNumToLocalMoney(FinalPayMoney),
+    );
+    setPayTotal(FinalPayTotal);
     setPrintMessages([...printMessages, addMessage]);
   };
 

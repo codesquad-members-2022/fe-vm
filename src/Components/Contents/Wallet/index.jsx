@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import MessageBox from '../MessageBox';
 import { ContentBox } from '../style';
-import MoneyDtails from './MoneyDtails';
 import MoneyTotal from './MoneyTotal';
+import MoneyUnitInfo from './MoneyUnitInfo';
 import PayInfo from './PayInfo';
+import MessageBox from '../MessageBox';
 
 export default function Wallet() {
   return (
     <ContentBox>
       <Inner>
         <MoneyTotal />
-        <MoneyDtails />
+        <MoneyUnitInfo />
         <PayInfo />
         <MessageBox page="wallet" />
       </Inner>

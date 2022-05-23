@@ -1,7 +1,10 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
+import { MessageContext } from '../../../Context/MessageProvider';
+import { PayTotalContext } from '../../../Context/PayProvider';
+import { productImgContext } from '.';
 import { getMessage } from '../../../Utils/utils';
-import { contentsContext } from '../../MainContents';
+import { MessageType } from '../../../Utils/constants';
 import {
   Absolute,
   Color,
@@ -14,7 +17,6 @@ import {
   F_ColumnBetweenCenter,
 } from '../../../Assets/Common.style';
 import soldOutIcon from '../../../Assets/Images/sold-out.svg';
-import { productImgContext } from '.';
 
 export default function Product({ products }) {
   const items = products.map((product) => (
@@ -24,14 +26,14 @@ export default function Product({ products }) {
 }
 
 function Item({ product }) {
+  const { printMessages, setPrintMessages } = useContext(MessageContext);
   const { setPickProductImg } = useContext(productImgContext);
-  const { payTotal, setPayTotal, printMessages, setPrintMessages } =
-    useContext(contentsContext);
+  const { payTotal, setPayTotal } = useContext(PayTotalContext);
   const isSoldOut = !product.stock;
   const isActive = payTotal >= product.price;
 
   const buyProductHandler = () => {
-    const addMessage = getMessage('구입', product.title);
+    const addMessage = getMessage(MessageType.BUY, product.title);
     const updateTotal = payTotal - product.price;
 
     setPayTotal(updateTotal);

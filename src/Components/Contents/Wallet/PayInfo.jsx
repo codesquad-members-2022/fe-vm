@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
+import { WalletMoneyContext } from '../../../Context/WalletMoneyProvider';
 import {
   Color,
   FontSize,
@@ -10,6 +12,7 @@ import ReturnBtn from '../PayBox/ReturnBtn';
 import PayTotal from '../PayBox/Total';
 
 export default function PayInfo() {
+  const { matchPayMoneyToWalletBalnace } = useContext(WalletMoneyContext);
   return (
     <InfoBox>
       <Pay>
@@ -19,7 +22,7 @@ export default function PayInfo() {
           <span>원</span>
         </div>
       </Pay>
-      <ReturnBtn />
+      <ReturnBtn matchBalance={matchPayMoneyToWalletBalnace} />
     </InfoBox>
   );
 }

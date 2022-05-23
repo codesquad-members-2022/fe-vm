@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { changeNumToLocalMoney } from '../../../Utils/utils';
-import { myMoneyContext } from '../../MainContents';
+import { WalletMoneyContext } from '../../../Context/WalletMoneyProvider';
 import {
   Color,
   FontSize,
@@ -11,14 +10,12 @@ import {
 } from '../../../Assets/Common.style';
 
 export default function MoneyTotal() {
-  const { myMoneyTotal } = useContext(myMoneyContext);
-  const formatMyMoneyTotal = changeNumToLocalMoney(myMoneyTotal);
-
+  const { convertMoneyTotal } = useContext(WalletMoneyContext);
   return (
     <MoneyContainer>
       <span>총액</span>
       <Flex>
-        <Money>{formatMyMoneyTotal}</Money>
+        <Money>{convertMoneyTotal}</Money>
         <span>원</span>
       </Flex>
     </MoneyContainer>
