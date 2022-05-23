@@ -4,11 +4,13 @@ import ReturnBtn from "./ReturnBtn";
 import Status from "./Status";
 import styled from "styled-components";
 import { HeightSort } from "../style/Globalstyles";
+import Inlet from "./Inlet";
 
 function Info() {
   return (
     <InfoWrap>
       <Budget></Budget>
+      <Inlet></Inlet>
       <ReturnBtn></ReturnBtn>
       <Status></Status>
     </InfoWrap>

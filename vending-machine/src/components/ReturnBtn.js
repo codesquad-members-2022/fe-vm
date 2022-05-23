@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { messageContext } from "../contexts/messageContext";
 import { WalletContext } from "../contexts/walletContext";
+import { devideInputMoney } from "../util/util";
 
 function ReturnBtn() {
   const setInputMoneySum = useContext(WalletContext).value.setInputMoneySum;
@@ -11,24 +12,6 @@ function ReturnBtn() {
   const { message, setMessage } = useContext(messageContext);
   const value = useContext(WalletContext).value;
   const setWalletMoney = useContext(WalletContext).value.setWalletMoney;
-
-  function devideInputMoney(money) {
-    const currencies = [10000, 5000, 1000, 500, 100, 50, 10];
-    const inputMoneyArr = [];
-    let i = 0;
-    while (i < currencies.length) {
-      const currency = currencies[i];
-      if (money >= currency) {
-        inputMoneyArr.push({
-          title: currency,
-          amount: parseInt(money / currency, 10),
-        });
-        money = money - currency * parseInt(money / currency, 10);
-      }
-      i++;
-    }
-    return inputMoneyArr;
-  }
 
   function returnInputMoney(inputMoneyArr, value) {
     setSum(sum + inputMoneySum);
