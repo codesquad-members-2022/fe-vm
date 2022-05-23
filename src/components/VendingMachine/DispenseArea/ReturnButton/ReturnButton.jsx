@@ -3,7 +3,7 @@ import { useContext } from "react";
 import Button from "components/common/form/Button/Button";
 import {
   InsertedMoneyContext,
-  ResetInsertedMoneyContext,
+  MoneyActionsContext,
 } from "contexts/moneyContext";
 import { SetProgressContext } from "contexts/progressContext";
 import moneyHelper from "helper/moneyHelper";
@@ -17,7 +17,7 @@ const { computeTotalMoney, getTotalInsertedMoney } = moneyHelper;
 const ReturnButton = () => {
   const { insertedMoney } = useContext(InsertedMoneyContext);
   const updateProgress = useContext(SetProgressContext);
-  const resetInsertedMoney = useContext(ResetInsertedMoneyContext);
+  const { resetInsertedMoney } = useContext(MoneyActionsContext);
 
   const totalMoney = computeTotalMoney(insertedMoney);
 
@@ -34,7 +34,7 @@ const ReturnButton = () => {
       }}
       styles={returnButtonStyle}
       onClick={handleClickReturnButton}
-      isDisabled={!insertedMoney.length && !totalMoney}
+      isClickable={insertedMoney.length && totalMoney}
     />
   );
 };

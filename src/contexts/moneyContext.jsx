@@ -1,33 +1,97 @@
-import { createContext, useCallback, useMemo, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 
+import moneyHelper from "helper/moneyHelper";
 import cash from "mockData/money";
 import constants from "utils/constants";
 
-const { DECREASE_COUNT } = constants;
+const { INCREASE_COUNT, DECREASE_COUNT, MONEY_ARR_DESC_ORDER, INITIAL_COUNT } =
+  constants;
+const { computeTotalMoney } = moneyHelper;
 
-// 지갑 금액 Context
-export const MoneyContext = createContext({});
-export const SetMoneyContext = createContext(() => {});
-
-// 자판기 금액 Context
-export const InsertedMoneyContext = createContext({});
-export const SetInsertedMoneyContext = createContext(() => {});
-export const ResetInsertedMoneyContext = createContext(() => {});
+export const MoneyContext = createContext(() => {});
+export const MoneyActionsContext = createContext({});
+export const InsertedMoneyContext = createContext(() => {});
 
 const MoneyProvider = ({ children }) => {
   const [cashData, setCashData] = useState(cash);
   const [insertedMoney, setInsertedMoney] = useState([]);
 
-  const decreaseCashCount = useCallback((money) => {
-    setCashData((prevCashData) => {
-      return prevCashData.map((current) => {
+  const decreaseCashCount = (money, decreaseCount = DECREASE_COUNT) => {
+    setCashData((prevCashData) =>
+      prevCashData.map((current) => {
         if (current.money === money) {
-          return { ...current, count: current.count - DECREASE_COUNT };
+          return { ...current, count: current.count - decreaseCount };
         }
         return current;
+      })
+    );
+  };
+
+  const insertMoney = (currentMoney) => {
+    setInsertedMoney((prevInsertedMoney) => [
+      ...prevInsertedMoney,
+      { money: currentMoney, count: DECREASE_COUNT },
+    ]);
+
+    decreaseCashCount(currentMoney);
+  };
+
+  const insertTotalMoney = (currentCashData) => {
+    const restCashDatas = currentCashData.reduce((prev, { money, count }) => {
+      decreaseCashCount(money, count);
+      return [...prev, { money, count }];
+    }, []);
+
+    setInsertedMoney((prevInsertedMoney) => [
+      ...prevInsertedMoney,
+      ...restCashDatas,
+    ]);
+  };
+
+  const resetInsertedMoney = (moneyCount) => {
+    setCashData((prevCashData) =>
+      prevCashData.map((currentData) =>
+        moneyCount
+          .filter(({ money }) => money === currentData.money)
+          .reduce(
+            (prev, { count }) => ({ ...prev, count: prev.count + count }),
+            currentData
+          )
+      )
+    );
+    setInsertedMoney([]);
+  };
+
+  const spendInsertedMoney = (productPrice) => {
+    setInsertedMoney((prevInsertedMoney) => {
+      const totalMoney = computeTotalMoney(prevInsertedMoney);
+      let restInsertedMoney = totalMoney - productPrice;
+
+      const newInsertedMoney = MONEY_ARR_DESC_ORDER.map((currentMoney) => {
+        let moneyCount = INITIAL_COUNT;
+
+        if (!restInsertedMoney || restInsertedMoney < currentMoney) {
+          return { money: currentMoney, count: moneyCount };
+        }
+
+        if (!(restInsertedMoney % currentMoney)) {
+          while (restInsertedMoney) {
+            moneyCount += INCREASE_COUNT;
+            restInsertedMoney -= currentMoney;
+          }
+          return { money: currentMoney, count: moneyCount };
+        }
+
+        while (restInsertedMoney >= currentMoney) {
+          moneyCount += INCREASE_COUNT;
+          restInsertedMoney -= currentMoney;
+        }
+        return { money: currentMoney, count: moneyCount };
       });
+
+      return newInsertedMoney;
     });
-  }, []);
+  };
 
   const moneyData = useMemo(
     () => ({
@@ -36,27 +100,16 @@ const MoneyProvider = ({ children }) => {
     [cashData]
   );
 
-  const insertMoney = useCallback((currentMoney) => {
-    return setInsertedMoney((prevInsertedMoney) => [
-      ...prevInsertedMoney,
-      { money: currentMoney, count: DECREASE_COUNT },
-    ]);
-  }, []);
-
-  const resetInsertedMoney = useCallback((moneyCount) => {
-    // 아무것도 구매하지 않고 반환버튼을 누른경우 그대로 돌려주는 함수
-    setCashData((prevCashData) => {
-      return prevCashData.map((currentData) => {
-        return moneyCount
-          .filter(({ money }) => money === currentData.money)
-          .reduce((prev, { count }) => {
-            return { ...prev, count: prev.count + count };
-          }, currentData);
-      });
-    });
-
-    setInsertedMoney([]);
-  }, []);
+  const moneyActions = useMemo(
+    () => ({
+      insertMoney,
+      insertTotalMoney,
+      resetInsertedMoney,
+      spendInsertedMoney,
+      decreaseCashCount,
+    }),
+    []
+  );
 
   const totalInsertedMoney = useMemo(
     () => ({ insertedMoney }),
@@ -64,17 +117,13 @@ const MoneyProvider = ({ children }) => {
   );
 
   return (
-    <SetMoneyContext.Provider value={decreaseCashCount}>
-      <SetInsertedMoneyContext.Provider value={insertMoney}>
-        <ResetInsertedMoneyContext.Provider value={resetInsertedMoney}>
-          <MoneyContext.Provider value={moneyData}>
-            <InsertedMoneyContext.Provider value={totalInsertedMoney}>
-              {children}
-            </InsertedMoneyContext.Provider>
-          </MoneyContext.Provider>
-        </ResetInsertedMoneyContext.Provider>
-      </SetInsertedMoneyContext.Provider>
-    </SetMoneyContext.Provider>
+    <MoneyActionsContext.Provider value={moneyActions}>
+      <InsertedMoneyContext.Provider value={totalInsertedMoney}>
+        <MoneyContext.Provider value={moneyData}>
+          {children}
+        </MoneyContext.Provider>
+      </InsertedMoneyContext.Provider>
+    </MoneyActionsContext.Provider>
   );
 };
 

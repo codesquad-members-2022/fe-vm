@@ -1,10 +1,7 @@
 import { memo, useCallback, useContext } from "react";
 
 import Button from "components/common/form/Button/Button";
-import {
-  SetInsertedMoneyContext,
-  SetMoneyContext,
-} from "contexts/moneyContext";
+import { MoneyActionsContext } from "contexts/moneyContext";
 import { SetProgressContext } from "contexts/progressContext";
 
 import { MoneyLi, moneyButtonStyle } from "./MoneyItem.styled";
@@ -14,15 +11,13 @@ const Count = ({ data }) => {
 };
 
 const MoneyItem = ({ money, count }) => {
-  const decreaseCashCount = useContext(SetMoneyContext);
-  const insertMoney = useContext(SetInsertedMoneyContext);
+  const { insertMoney } = useContext(MoneyActionsContext);
   const updateProgress = useContext(SetProgressContext);
 
   const handleClickMoney = useCallback(() => {
-    decreaseCashCount(money);
-    updateProgress("insert", money);
     insertMoney(money);
-  }, [decreaseCashCount, updateProgress, insertMoney, money]);
+    updateProgress("insert", money);
+  }, [updateProgress, insertMoney, money]);
 
   return (
     <MoneyLi>
@@ -30,7 +25,7 @@ const MoneyItem = ({ money, count }) => {
         className="money"
         data={{ name: money }}
         styles={moneyButtonStyle}
-        isDisabled={!count}
+        isClickable={count}
         onClick={handleClickMoney}
       />
       <Count data={count} />

@@ -1,4 +1,6 @@
-const INITIAL_MONEY = 0;
+import constants from "utils/constants";
+
+const { INITIAL_MONEY } = constants;
 
 const moneyDataTemplate = [
   { money: 10, count: 0 },
@@ -25,6 +27,9 @@ const moneyHelper = {
           return { ...prev, count: prev.count + count };
         }, currentData);
     });
+  },
+  isWithinBaseMoney(insertedMoney, baseMoney) {
+    return insertedMoney <= baseMoney;
   },
 };
 

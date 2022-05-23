@@ -1,22 +1,27 @@
-import { useState } from "react";
+import { forwardRef } from "react";
 
 import StyledInput from "./Input.styled";
 
-const Input = ({ type, value, style }) => {
-  const [inputValue, setInputValue] = useState(value);
+const Input = forwardRef(
+  ({ type, styles, placeholder = "", stateData }, ref) => {
+    // const [inputValue, setInputValue] = useState(value);
+    const { inputValue, setInputValue } = stateData;
 
-  const handleInputChange = ({ target }) => {
-    setInputValue(target.value);
-  };
+    const handleInputChange = ({ target }) => {
+      setInputValue(target.value);
+    };
 
-  return (
-    <StyledInput
-      type={type}
-      value={inputValue}
-      onChange={handleInputChange}
-      style={style}
-    />
-  );
-};
+    return (
+      <StyledInput
+        type={type}
+        value={inputValue}
+        placeholder={placeholder}
+        onChange={handleInputChange}
+        styles={styles}
+        ref={ref}
+      />
+    );
+  }
+);
 
 export default Input;

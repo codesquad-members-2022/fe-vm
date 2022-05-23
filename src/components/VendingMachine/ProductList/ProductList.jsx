@@ -8,10 +8,9 @@ import ProductItem from "./ProductItem/ProductItem";
 import ProductUl from "./ProductList.styled";
 
 const { computeTotalMoney } = moneyHelper;
+const productsData = products.productsList;
 
 const ProductList = () => {
-  const productsData = products.productsList;
-
   const { insertedMoney } = useContext(InsertedMoneyContext);
   const totalMoney = computeTotalMoney(insertedMoney);
 

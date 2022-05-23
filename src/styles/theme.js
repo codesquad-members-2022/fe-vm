@@ -26,6 +26,7 @@ const borders = {
 const fontSizes = {
   normal: "1.1rem",
   large: "1.3rem",
+  extraLarge: "2rem",
 };
 
 const fontWeights = {
