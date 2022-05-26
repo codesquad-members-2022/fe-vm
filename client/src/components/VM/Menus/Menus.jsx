@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Menu from "./Menu";
-import menuDB from "menuDB.json";
+import { MenuContext } from "store/MenuStore";
 
 export default function Menus() {
-  const menuList = menuDB.menus.map((menu, index) => (
+  const menuContext = useContext(MenuContext);
+  const { menu } = menuContext;
+
+  const menuList = menu.map((menu, index) => (
     <Menu
       key={index}
       name={menu.name}
       price={menu.price}
       imageURL={menu.imageURL}
+      stock={menu.stock}
     />
   ));
   return <StyledMenus>{menuList}</StyledMenus>;

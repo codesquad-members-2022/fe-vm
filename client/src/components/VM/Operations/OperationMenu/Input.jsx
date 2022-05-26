@@ -5,14 +5,17 @@ import { MessageContext } from "store/MessageStore";
 import { WalletContext } from "store/WalletStore";
 import { getNeededMoney } from "utils/util";
 import { moneyUnitArr, reversedMoneyUnitArr } from "constants/constants";
+import { TimerContext } from "store/TimerStore";
 
 export default function Input() {
   const inputContext = useContext(InputContext);
   const { input, setInput } = inputContext;
   const messageContext = useContext(MessageContext);
-  const { message, setMessage } = messageContext;
+  const { setMessage } = messageContext;
   const walletContext = useContext(WalletContext);
   const { wallet, setWallet } = walletContext;
+  const timerContext = useContext(TimerContext);
+  const { setTimer } = timerContext;
 
   const [text, setText] = useState(input);
   const [cursor, setCursor] = useState(true);
@@ -25,68 +28,60 @@ export default function Input() {
   }
 
   function onClickHandler() {
-    if (input !== "") setTemp(input);
+    setTemp(input);
     setText("");
     setIsClicked(true);
   }
 
   function onSubmitHandler(e) {
     e.preventDefault();
-    // if (validateInput(input, moneyUnitArr, wallet)) {
-    //   setInput(temp + input);
-    //   setWallet(validateInput(input, moneyUnitArr, wallet));
-    // }
-    setInput(Number(e.target[0].value));
-    setTemp(Number(e.target[0].value));
+    setIsClicked(false);
+    const value = Number(e.target[0].value);
+
+    if (value % 10 > 0) {
+      setInput(temp);
+      setText(temp);
+      setMessage((prev) => [...prev, `1원 단위는 입력할 수 없습니다`]);
+      setCursor(false);
+      return;
+    }
+
+    //가지고 있는 돈을 넘는 값을 입력했을 경우
+    if (!validateInput(value, moneyUnitArr, wallet)) {
+      setInput(temp);
+      setText(temp);
+      setMessage((prev) => [...prev, `충전에 실패하였습니다`]);
+      setCursor(false);
+      return;
+    }
+    const [newWallet, balanced] = validateInput(value, moneyUnitArr, wallet);
+
+    if (newWallet) {
+      if (balanced) {
+        //보정이 된 경우
+        setInput(temp + balanced);
+        setMessage((prev) => [
+          ...prev,
+          `보정된 금액 ${balanced}원이 투입되었습니다`,
+        ]);
+      } else {
+        //지갑에 알맞게 있어 보정되지 않은 경우
+        setInput(temp + value);
+        setMessage((prev) => [...prev, `${value}원이 투입되었습니다`]);
+      }
+      setWallet(newWallet);
+      setTemp(value);
+    }
     setCursor(false);
   }
 
   function outsideClickHandler(e) {
     if (!inputRef.current.contains(e.target) && isClicked) {
       setIsClicked(false);
-      setInput(temp);
+      if (input !== 0) setInput(temp);
       setText(temp);
     }
   }
-
-  //TODO: 돈 투입 알고리즘 완성
-  // function validateInput(input, moneyUnitArr, wallet) {
-  //   //1. input을 [unit, amout]로 만들기
-  //   //2. 산출된 배열을 돌며 wallet과 비교하여 wallet[unit] - amout > 0 이라면 빼주고 아니라면 일단 보류
-  //   //3. unit이 없어 처리되지 못한 값들을 reduce로 합쳐줌
-  //   //4. wallet을 돌며 unit > acc인 최소 경우부터 올라가며 amount가 있는지 판별 후, 있으면 그 값으로 보정하여 입력
-  //   //?? 하지만 이 경우 3700원이 남을 경우 5000원을 투입하면 되지만, 5000, 10000원이 없다면 50000원을 넣는건데 이게 맞나?
-  //   //앞 뒤로 한 단위만 탐색을 하는게 나을 것 같음
-  //   const neededMoney = getNeededMoney(input, moneyUnitArr);
-  //   const newWallet = { ...wallet };
-  //   const left = [];
-  //   let validation = true;
-
-  //   neededMoney.forEach(([unit, amount]) => {
-  //     if (newWallet[unit] >= amount) {
-  //       newWallet[unit] -= amount;
-  //       amount = 0;
-  //     } else {
-  //       left.push([unit, amount]);
-  //     }
-  //   });
-
-  //   const leftTotal = left.reduce((acc, [unit, amount]) => {
-  //     return acc + unit * amount;
-  //   }, 0);
-  //   console.log(leftTotal, moneyUnitArr);
-  //   if (!leftTotal) return newWallet;
-
-  //   moneyUnitArr.reverse().forEach((unit) => {
-  //     if (unit > leftTotal && newWallet[unit] > 0) {
-  //       newWallet[unit] -= 1;
-  //     } else {
-  //       validation = false;
-  //     }
-  //   });
-
-  //   return validation ? newWallet : false;
-  // }
 
   useEffect(() => {
     setCursor(true);
@@ -94,6 +89,7 @@ export default function Input() {
 
   useEffect(() => {
     setText(input);
+    setTimer(true);
   }, [input]);
 
   useEffect(() => {
@@ -119,6 +115,45 @@ export default function Input() {
       원
     </StyledForm>
   );
+}
+
+function validateInput(input, moneyUnitArr, wallet) {
+  const neededMoney = getNeededMoney(input, moneyUnitArr);
+  const newWallet = { ...wallet };
+  const left = [];
+  let validation = true;
+  let balanced = null;
+
+  neededMoney.forEach(([unit, amount]) => {
+    if (newWallet[unit] >= amount) {
+      newWallet[unit] -= amount;
+      amount = 0;
+    } else {
+      left.push([unit, amount]);
+    }
+  });
+
+  if (!left.length) return [newWallet, balanced];
+
+  const leftTotal = left.reduce((acc, [unit, amount]) => {
+    return acc + unit * amount;
+  }, 0);
+
+  for (let i = 0; i < reversedMoneyUnitArr.length; i++) {
+    if (
+      reversedMoneyUnitArr[i] > leftTotal &&
+      newWallet[reversedMoneyUnitArr[i]] > 0
+    ) {
+      newWallet[reversedMoneyUnitArr[i]] -= 1;
+      balanced = reversedMoneyUnitArr[i];
+      validation = true;
+      break;
+    } else {
+      validation = false;
+    }
+  }
+
+  return validation ? [newWallet, balanced] : false;
 }
 
 const StyledForm = styled.form`
