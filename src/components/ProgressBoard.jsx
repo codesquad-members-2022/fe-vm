@@ -1,12 +1,13 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
+import uuid from 'react-uuid';
 
 export default function ProgressBoard({ progressMsg }) {
   return (
     <ul>
-      {progressMsg.map((msg, index) => (
-        <li key={`msg-${msg + index}`}>{msg}</li>
+      {progressMsg.map((msg) => (
+        <li key={uuid()}>{msg}</li>
       ))}
     </ul>
   );
