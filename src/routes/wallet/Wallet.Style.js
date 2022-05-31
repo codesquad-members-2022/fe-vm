@@ -25,13 +25,6 @@ const WalletItem = styled(RoundBorder)`
     cursor: default;
 `;
 
-const MoneyUnit = styled(WalletItem)`
-    &:hover {
-        ${({ disabled }) =>
-            disabled ? "" : "background-color: rgba(1, 1, 1, 0.07)"};
-    }
-`;
-
 const TotalAmount = styled(RoundBorder)`
     width: 100%;
     line-height: 50px;
@@ -40,10 +33,4 @@ const TotalAmount = styled(RoundBorder)`
     cursor: default;
 `;
 
-export {
-    WalletContainer,
-    WalletItemContainer,
-    WalletItem,
-    MoneyUnit,
-    TotalAmount,
-};
+export { WalletContainer, WalletItemContainer, WalletItem, TotalAmount };

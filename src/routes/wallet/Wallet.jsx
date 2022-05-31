@@ -1,29 +1,20 @@
-import { useVendingMachineContext } from "../../context/VendingMachineContext";
+import { useVendingMachineStateContext } from "../../context/VendingMachineContext";
 import {
     WalletContainer,
     WalletItemContainer,
     WalletItem,
-    MoneyUnit,
     TotalAmount,
 } from "./Wallet.Style";
+import MoneyUnitItem from "../../components/moneyUnit/MoneyUnitItem";
 
 function Wallet() {
-    const { money, putMoneyIntoVendingMachine } = useVendingMachineContext();
-
-    const takeMoneyFromWallet = (moneyUnit) => {
-        putMoneyIntoVendingMachine(moneyUnit);
-    };
+    const { money } = useVendingMachineStateContext();
 
     return (
         <WalletContainer>
-            {money.wallet.money.map((moneyUnit) => (
+            {money.wallet.moneyArray.map((moneyUnit) => (
                 <WalletItemContainer key={moneyUnit.id}>
-                    <MoneyUnit
-                        disabled={!moneyUnit.count}
-                        onClick={() => takeMoneyFromWallet(moneyUnit.unit)}
-                    >
-                        {moneyUnit.unit}원
-                    </MoneyUnit>
+                    <MoneyUnitItem money={moneyUnit} />
                     <WalletItem>{moneyUnit.count}개</WalletItem>
                 </WalletItemContainer>
             ))}

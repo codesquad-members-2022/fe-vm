@@ -1,6 +1,9 @@
 import { ProductsContainer } from "./Products.style";
 import dataOfProducts from "../../data/products";
-import { useVendingMachineContext } from "../../context/VendingMachineContext";
+import {
+    useVendingMachineDispatchContext,
+    useVendingMachineStateContext,
+} from "../../context/VendingMachineContext";
 import {
     ProductContainer,
     ProductNameWrapper,
@@ -8,17 +11,29 @@ import {
 } from "./Products.style";
 
 function Products() {
-    const { money } = useVendingMachineContext();
+    const { money } = useVendingMachineStateContext();
+    const { selectProduct } = useVendingMachineDispatchContext();
+
+    const isChoosable = (price) => {
+        return money.vendingMachine.amount >= Number(price);
+    };
+
+    const clickProduct = (product) => {
+        if (!isChoosable(product.price)) {
+            return;
+        }
+
+        selectProduct(product);
+    };
 
     return (
         <ProductsContainer>
             {dataOfProducts.map((product) => (
-                <ProductContainer key={product.id}>
-                    <ProductNameWrapper
-                        choosable={
-                            money.vendingMachine.amount >= Number(product.price)
-                        }
-                    >
+                <ProductContainer
+                    key={product.id}
+                    onClick={() => clickProduct(product)}
+                >
+                    <ProductNameWrapper choosable={isChoosable(product.price)}>
                         <ProductName>{product.name}</ProductName>
                     </ProductNameWrapper>
                     <p>{product.price}</p>

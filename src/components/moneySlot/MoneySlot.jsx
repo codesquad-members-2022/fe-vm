@@ -1,8 +1,9 @@
 import { SlotContainer, Slot } from "./MoneySlot.style";
-import { useVendingMachineContext } from "../../context/VendingMachineContext";
+import { useVendingMachineDispatchContext } from "../../context/VendingMachineContext";
+import { PAGE } from "../../constants";
 
 function MoneySlot() {
-    const { putMoneyIntoVendingMachine } = useVendingMachineContext();
+    const { putMoneyIntoVendingMachine } = useVendingMachineDispatchContext();
 
     const inputMoney = (event) => {
         if (event.key !== "Enter") {
@@ -11,7 +12,7 @@ function MoneySlot() {
 
         event.preventDefault();
         const moneyInput = event.target.value;
-        putMoneyIntoVendingMachine(moneyInput);
+        putMoneyIntoVendingMachine(moneyInput, PAGE.VM);
         event.target.value = "";
     };
 
@@ -23,6 +24,7 @@ function MoneySlot() {
                 max="10000"
                 onKeyDown={inputMoney}
                 placeholder="0"
+                step="10"
             ></Slot>
             <span>원</span>
         </SlotContainer>

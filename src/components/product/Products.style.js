@@ -19,9 +19,13 @@ const ProductNameWrapper = styled(RoundBorder)`
     width: 100%;
     height: 100%;
     padding: 10px;
-    border: ${(props) =>
-        props.choosable ? "2px solid red" : "1px solid black"};
+    border: ${({ choosable }) =>
+        choosable ? "2px solid red" : "1px solid black"};
     ${({ theme }) => theme.flexLayoutMixin("row", "center", "center")};
+    &:hover {
+        ${({ choosable }) =>
+            choosable ? "background-color: rgba(255, 0, 0, 0.07)" : ""}
+    }
 `;
 
 const ProductName = styled.p`

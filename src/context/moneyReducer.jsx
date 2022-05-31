@@ -1,18 +1,5 @@
 import dataOfwallet from "../data/wallet";
-
-const getMoneyUnitFromWallet = (input, wallet) => {
-    const differenceBetweenInputAndWalletMoney = wallet.map((money) => {
-        return {
-            difference: Math.abs(input - money.unit),
-            ...money,
-        };
-    });
-    const minDifference = differenceBetweenInputAndWalletMoney
-        .sort((a, b) => a.difference - b.difference)
-        .filter(({ count }) => count > 0);
-
-    return minDifference.length ? minDifference[0].unit : null;
-};
+import { ACTION_TYPE } from "../constants";
 
 const getChanges = (totalMoney) => {
     const money = [10000, 5000, 1000, 500, 100, 50, 10];
@@ -38,37 +25,31 @@ const getChanges = (totalMoney) => {
     return changes;
 };
 
-const reducer = (state, action) => {
+const moneyReducer = (state, action) => {
     switch (action.type) {
-        case "put": {
-            const moneyUnit = getMoneyUnitFromWallet(
-                action.money,
-                state.wallet.money
-            );
-
+        case ACTION_TYPE.PUT: {
             return {
                 wallet: {
-                    amount: state.wallet.amount - moneyUnit,
-                    money: state.wallet.money.map((m) => {
-                        if (m.unit === moneyUnit) {
+                    amount: state.wallet.amount - action.payload.money,
+                    moneyArray: state.wallet.moneyArray.map((m) => {
+                        if (m.unit === action.payload.money) {
                             m.count -= 1;
                         }
                         return m;
                     }),
                 },
                 vendingMachine: {
-                    amount: state.vendingMachine.amount + moneyUnit,
+                    amount: state.vendingMachine.amount + action.payload.money,
                 },
-                record: [...state.record, `${moneyUnit}원이 투입됨`],
             };
         }
-        case "return": {
-            const changes = getChanges(action.money);
+        case ACTION_TYPE.RETURN: {
+            const changes = getChanges(action.payload.money);
 
             return {
                 wallet: {
-                    amount: state.wallet.amount + action.money,
-                    money: state.wallet.money.map((m) => {
+                    amount: state.wallet.amount + action.payload.money,
+                    moneyArray: state.wallet.moneyArray.map((m) => {
                         m.count += changes[m.unit];
                         return m;
                     }),
@@ -76,7 +57,6 @@ const reducer = (state, action) => {
                 vendingMachine: {
                     amount: 0,
                 },
-                record: [...state.record, `잔돈 ${action.money}원 반환`],
             };
         }
         default: {
@@ -85,18 +65,17 @@ const reducer = (state, action) => {
     }
 };
 
-const initialState = {
+const initialStateOfMoney = {
     wallet: {
         amount: dataOfwallet.reduce(
             (acc, money) => acc + money.unit * money.count,
             0
         ),
-        money: dataOfwallet,
+        moneyArray: dataOfwallet,
     },
     vendingMachine: {
         amount: 0,
     },
-    record: [],
 };
 
-export { reducer, initialState };
+export { moneyReducer, initialStateOfMoney };

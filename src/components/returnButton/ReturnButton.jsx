@@ -1,8 +1,13 @@
-import { useVendingMachineContext } from "../../context/VendingMachineContext";
+import {
+    useVendingMachineStateContext,
+    useVendingMachineDispatchContext,
+} from "../../context/VendingMachineContext";
 import { ChangesButton } from "./ReturnButton.style";
 
 function ReturnButton() {
-    const { money, returnMoneyFromVendingMachine } = useVendingMachineContext();
+    const { money } = useVendingMachineStateContext();
+    const { returnMoneyFromVendingMachine } =
+        useVendingMachineDispatchContext();
 
     const returnMoney = () => {
         if (!money.vendingMachine.amount) {
